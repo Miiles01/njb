@@ -282,21 +282,21 @@ const ConnectingFooter = () => {
           <div className="flex flex-wrap gap-4 justify-center">
             <ContactLink
               label={t('footer.linkedin')}
-              value="https://www.linkedin.com/in/manuel-herrera-perfil"
-              href="https://www.linkedin.com/in/manuel-herrera-perfil"
+              value=""
+              href={undefined}
               icon={LinkedinModern}
               showTooltip={false}
             />
             <ContactLink
-              label="contmanuel77@gmail.com"
-              value="contmanuel77@gmail.com"
-              href="mailto:contmanuel77@gmail.com"
+              label="njb@gmail.com"
+              value="njb@gmail.com"
+              href="mailto:njb@gmail.com"
               icon={Mail}
             />
             <ContactLink
-              label="+52 5610168992"
-              value="+52 5610168992"
-              href="tel:+525610168992"
+              label="+1 (514) 718-0228"
+              value="+1 (514) 718-0228"
+              href="tel:+15147180228"
               icon={Phone}
             />
           </div>
