@@ -40,7 +40,7 @@ const Hero = () => {
         transition={{ duration: 1 }}
         className="relative z-10 text-center px-6 max-w-5xl"
       >
-        <h1 className="text-[12vw] md:text-[15vw] font-heading font-medium mb-12 leading-[0.85] tracking-tighter dynamic-text flex justify-center flex-wrap select-none cursor-default">
+        <h1 className="text-[20vw] md:text-[25vw] font-heading font-medium mb-12 leading-[0.85] tracking-tighter dynamic-text flex justify-center flex-wrap select-none cursor-default">
           {letters.map((letter, i) => (
             <motion.div
               key={i}
@@ -50,7 +50,7 @@ const Hero = () => {
               className="inline-block"
             >
               <motion.span
-                whileHover={{ y: -30, color: "rgba(255, 255, 255, 0.5)" }}
+                whileHover={{ y: -30, color: "rgba(0, 0, 0, 0.3)" }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 className="inline-block whitespace-pre"
               >
@@ -60,9 +60,9 @@ const Hero = () => {
           ))}
         </h1>
         <div className="flex flex-col sm:flex-row gap-8 justify-center mt-12">
-          <a href="https://drive.google.com/file/d/1XWFlFbLIRJ1owjJNw_22BAzidh3WNJbc/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 justify-center px-12 py-5 bg-white text-black font-heading font-medium rounded-full hover:scale-[1.05] transition-all text-sm shadow-xl group">
+          <a href="https://drive.google.com/file/d/1XWFlFbLIRJ1owjJNw_22BAzidh3WNJbc/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 justify-center px-12 py-5 bg-black text-white font-heading font-medium rounded-full hover:scale-[1.05] transition-all text-sm shadow-xl group">
             {t('hero.cv')}
-            <FileText size={18} className="text-black/50 group-hover:text-black transition-colors" />
+            <FileText size={18} className="text-white/50 group-hover:text-white transition-colors" />
           </a>
         </div>
       </motion.div>
@@ -343,8 +343,8 @@ const ConnectingFooter = () => {
 const Index = () => {
   useLayoutEffect(() => {
     // 1. Initial State
-    gsap.set(document.documentElement, { "--color": "#154FD1" });
-    gsap.set(".dynamic-text", { color: "#ffffff" });
+    gsap.set(document.documentElement, { "--color": "#ffffff" });
+    gsap.set(".dynamic-text", { color: "#000000" });
 
     const doc = document.documentElement;
 
@@ -359,38 +359,14 @@ const Index = () => {
         gsap.to(".dynamic-text", { color: "#000000", duration: 1 });
       },
       onLeaveBack: () => {
-        gsap.to(doc, { "--color": "#154FD1", duration: 1 });
-        gsap.to(".dynamic-text", { color: "#ffffff", duration: 1 });
-      }
-    });
-
-    // WHITE -> BLACK (Experience)
-    ScrollTrigger.create({
-      trigger: "#experience",
-      start: "top 60%",
-      onEnter: () => {
-        gsap.to(doc, { "--color": "#000000", duration: 1 });
-        gsap.to(".dynamic-text", { color: "#ffffff", duration: 1 });
-      },
-      onLeaveBack: () => {
         gsap.to(doc, { "--color": "#ffffff", duration: 1 });
         gsap.to(".dynamic-text", { color: "#000000", duration: 1 });
       }
     });
 
-    // BLACK -> WHITE (Footer)
-    ScrollTrigger.create({
-      trigger: "#connect",
-      start: "top 60%",
-      onEnter: () => {
-        gsap.to(doc, { "--color": "#ffffff", duration: 1 });
-        gsap.to(".dynamic-text", { color: "#000000", duration: 1 });
-      },
-      onLeaveBack: () => {
-        gsap.to(doc, { "--color": "#000000", duration: 1 });
-        gsap.to(".dynamic-text", { color: "#ffffff", duration: 1 });
-      }
-    });
+
+
+
 
     // FINAL FALLBACK: Ensure white at the end of scroll
     ScrollTrigger.create({

@@ -48,8 +48,8 @@ const AccordionNavbar = () => {
     const borderOpacityBase = useTransform(scrollY, [0, 50], [0, 0.2]);
 
     // Dynamic text colors (only for home)
-    const textColorBase = useTransform(scrollY, [20, 80], ["#ffffff", "#000000"]);
-    const navLinkColorBase = useTransform(scrollY, [20, 80], ["rgba(255, 255, 255, 0.7)", "rgba(0, 0, 0, 0.6)"]);
+    const textColorBase = useTransform(scrollY, [20, 80], ["#000000", "#000000"]);
+    const navLinkColorBase = useTransform(scrollY, [20, 80], ["rgba(0, 0, 0, 0.6)", "rgba(0, 0, 0, 0.6)"]);
 
     const [isMobile, setIsMobile] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
