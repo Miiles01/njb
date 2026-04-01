@@ -146,6 +146,13 @@ const AccordionNavbar = () => {
                                         English
                                         {language === 'en' && <div className="w-1.5 h-1.5 bg-black rounded-full" />}
                                     </button>
+                                    <button
+                                        onClick={() => { setLanguage('fr'); setLangOpen(false); }}
+                                        className={`w-full px-5 py-3 text-left text-sm hover:bg-black/5 transition-colors flex items-center justify-between ${language === 'fr' ? 'text-black font-semibold' : 'text-black/40 font-normal'}`}
+                                    >
+                                        Français
+                                        {language === 'fr' && <div className="w-1.5 h-1.5 bg-black rounded-full" />}
+                                    </button>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -252,6 +259,12 @@ const AccordionNavbar = () => {
                                     className={`text-xl font-heading font-medium transition-opacity ${language === 'en' ? 'text-black opacity-100' : 'text-black opacity-30'}`}
                                 >
                                     EN
+                                </button>
+                                <button
+                                    onClick={() => { setLanguage('fr'); setMobileMenuOpen(false); }}
+                                    className={`text-xl font-heading font-medium transition-opacity ${language === 'fr' ? 'text-black opacity-100' : 'text-black opacity-30'}`}
+                                >
+                                    FR
                                 </button>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 
-type Language = 'es' | 'en';
+type Language = 'es' | 'en' | 'fr';
 
 interface LanguageContextType {
     language: Language;
@@ -21,7 +21,7 @@ const translations = {
         'common.copy': 'Copiar',
         'common.copied': 'Copiado',
         'common.industry': 'Industria',
-        'common.role': 'Qué hice',
+        'common.role': 'Qué hicimos',
         'common.description': 'Sobre el proyecto',
         'common.next': 'Siguiente proyecto',
         'common.viewProject': 'Ver proyecto',
@@ -38,21 +38,19 @@ const translations = {
         'proj.tularosa.subtitle': 'Estrategia visual y comunicación para hospitality y gastronomía.',
         'proj.original.subtitle': 'Dirección de arte y diseño web para agencia creativa digital.',
 
+        // Project Details
+        'proj.details.strategy': 'Planificación Funcional',
+        'proj.details.backToWork': 'Volver a proyectos',
 
-        // Tularosa Project Details
+        // Tularosa Project Details (Legacy - kept for safety but using newer dynamic fields in Proyecto.tsx)
         'proj.tularosa.details.industry': 'Hospitalidad y Gastronomía',
         'proj.tularosa.details.role': 'Estrategia Visual y Diseño de Identidad',
         'proj.tularosa.details.description': 'Trabajamos con Tularosa en la creación de una experiencia visual sofisticada y acogedora. El enfoque principal fue capturar la esencia de su propuesta gastronómica a través de una paleta de colores terrosos y una tipografía elegante, aplicada en todos los puntos de contacto, desde menús físicos hasta su presencia digital.',
 
-
-
-        // Original Project Details
+        // Original Project Details (Legacy)
         'proj.original.details.industry': 'Agencia Creativa Digital',
         'proj.original.details.role': 'Dirección de Arte y Diseño Web',
         'proj.original.details.description': 'Como parte de Original, lideramos la dirección de arte y el diseño de su plataforma digital. El proyecto se centró en mostrar el portafolio creativo de la agencia mediante una experiencia web inmersiva, utilizando animaciones fluidas y una disposición tipográfica audaz que destaca su capacidad de innovación.',
-
-
-
 
         // Hero
         'hero.title': 'NJB',
@@ -120,7 +118,7 @@ const translations = {
         'common.copy': 'Copy',
         'common.copied': 'Copied',
         'common.industry': 'Industry',
-        'common.role': 'What I did',
+        'common.role': 'What we did',
         'common.description': 'About the project',
         'common.next': 'Next project',
         'common.viewProject': 'View project',
@@ -137,21 +135,19 @@ const translations = {
         'proj.tularosa.subtitle': 'Visual strategy and communication for hospitality and gastronomy.',
         'proj.original.subtitle': 'Art direction and web design for digital creative agency.',
 
+        // Project Details
+        'proj.details.strategy': 'Action Plan',
+        'proj.details.backToWork': 'Back to projects',
 
         // Tularosa Project Details
         'proj.tularosa.details.industry': 'Hospitality and Gastronomy',
         'proj.tularosa.details.role': 'Visual Strategy and Identity Design',
         'proj.tularosa.details.description': 'We worked with Tularosa to create a sophisticated and welcoming visual experience. The core focus was to capture the essence of their culinary offerings through an earthy color palette and elegant typography, applied across all touchpoints, from physical menus to their digital presence.',
 
-
-
         // Original Project Details
         'proj.original.details.industry': 'Digital Creative Agency',
         'proj.original.details.role': 'Art Direction and Web Design',
         'proj.original.details.description': "As part of Original, we led the art direction and design of their digital platform. The project focused on showcasing the agency's creative portfolio through an immersive web experience, using smooth animations and a bold typographic layout that highlights their innovation capacity.",
-
-
-
 
         // Hero
         'hero.title': 'NJB',
@@ -206,6 +202,103 @@ const translations = {
         'proj.part.funnels': 'Sales Funnels',
         'proj.part.strategy': 'Brand Identity Strategy',
         'proj.part.ai': 'AI Automation',
+    },
+    fr: {
+        // Navbar
+        'nav.work': 'Travail',
+        'nav.contact': 'Contact',
+        'nav.language': 'Langue',
+        'nav.home': 'Accueil',
+        'nav.about': 'À propos',
+        'nav.menu': 'Menu',
+        'nav.close': 'Fermer',
+        'common.copy': 'Copier',
+        'common.copied': 'Copié',
+        'common.industry': 'Industrie',
+        'common.role': 'Ce que nous avons fait',
+        'common.description': 'À propos du projet',
+        'common.next': 'Projet suivant',
+        'common.viewProject': 'Voir le projet',
+
+        // Contact
+        'contact.title': 'Contact',
+        'contact.subtitle': 'Parlons de votre prochain projet.',
+
+        // Work
+        'work.title': 'Projets',
+        'work.subtitle': 'Nous réfléchissons avec un but précis pour les marques qui recherchent l\'authenticité et l\'évolutivité.',
+
+        // Projects
+        'proj.tularosa.subtitle': 'Stratégie visuelle et communication pour l\'hôtellerie et la gastronomie.',
+        'proj.original.subtitle': 'Direction artistique et design web pour une agence créative numérique.',
+
+        // Project Details
+        'proj.details.strategy': 'Plan d\'action',
+        'proj.details.backToWork': 'Retour aux projets',
+
+        // Tularosa Project Details
+        'proj.tularosa.details.industry': 'Hôtellerie et Gastronomie',
+        'proj.tularosa.details.role': 'Stratégie visuelle et conception d\'identité',
+        'proj.tularosa.details.description': 'Nous avons travaillé avec Tularosa pour créer une expérience visuelle sophistiquée et accueillante. L\'objectif principal était de capturer l\'essence de leur offre culinaire à travers une palette de couleurs terreuses et une typographie élégante, appliquée sur tous les points de contact.',
+
+        // Original Project Details
+        'proj.original.details.industry': 'Agence Créative Numérique',
+        'proj.original.details.role': 'Direction artistique et design web',
+        'proj.original.details.description': 'Dans le cadre d\'Original, nous avons dirigé la direction artistique et la conception de leur plateforme numérique. Le projet s\'est concentré sur la présentation du portefeuille créatif de l\'agence à travers une expérience web immersive.',
+
+        // Hero
+        'hero.title': 'NJB',
+
+        // Mission
+        'mission.title': 'Notre Vision',
+        'mission.text': 'Notre mission est d\'aider les gens à développer leur authenticité et à améliorer leur productivité',
+
+        // Focuses
+        'focuses.title': 'Nos principaux axes',
+        'focuses.item1': 'Ventes',
+        'focuses.item2': 'Réseaux sociaux',
+        'focuses.item3': 'Expérience client',
+        'focuses.item4': 'Funnels',
+        'focuses.item5': 'Design web',
+        'focuses.item6': 'Ads',
+        'focuses.item7': 'Branding',
+        'focuses.item8': 'Emailmarketing',
+
+        // Sticky Grid
+        'grid.title': 'Nos Projets',
+        'grid.subtitle': 'Voici les projets auxquels nous avons participé.',
+        'grid.button': 'Voir tout notre travail',
+
+        // Testimonials
+        'test.title': 'Que disent-ils de nous ?',
+        'test.subtitle': 'Témoignages',
+        'test.button': 'Voir tous les avis',
+
+        // Experience
+        'exp.title': 'Expérience',
+        'exp.subtitle': 'Parcours professionnel et formation académique.',
+        'edu.title': 'Éducation',
+        'edu.unam': 'Université nationale autonome du Mexique',
+        'edu.admin': 'Administration, Marketing',
+        'edu.grade': 'Niveau : Deuxième année',
+        'edu.skills': 'Plans de projet, réseautage et +2 compétences',
+
+        // Footer
+        'footer.headline': 'Faisons-le',
+        'footer.subline': 'À bientôt',
+        'footer.linkedin': 'LinkedIn',
+        'footer.copyright': '© 2026 NJB',
+
+        // NotFound
+        'notfound.title': '404',
+        'notfound.text': 'Oups ! Page non trouvée',
+        'notfound.button': 'Retour à l\'accueil',
+
+        // Participation
+        'projects.participation.title': 'Notre participation',
+        'proj.part.funnels': 'Tunnels de vente',
+        'proj.part.strategy': 'Stratégie d\'identité de marque',
+        'proj.part.ai': 'Automatisation avec IA',
     }
 };
 
@@ -422,8 +515,33 @@ export const experienceEn = [
     }
 ];
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+export const experienceFr = [
+    {
+        company: "Miiles Creative Studio",
+        duration: "Contrat · 2 ans 8 mois",
+        roles: [
+            {
+                title: "Brand Manager",
+                period: "Avril 2025 - Février 2026 · 11 mois",
+                location: "Mexique · Hybride",
+                details: [
+                    "Stratégie de marketing IA et optimisation des tunnels : planification et exécution de tunnels de marketing basés sur l'IA, stratégies de positionnement et systèmes de conversion.",
+                    "Positionnement de produit IA et Storytelling : développement de stratégies de positionnement et de cadres narratifs pour les produits d'IA."
+                ]
+            }
+        ]
+    },
+    {
+        company: "Idiomes",
+        roles: [
+            { title: "Espagnol", period: "Natif" },
+            { title: "Anglais", period: "Professionnel" },
+            { title: "Français", period: "Courant" }
+        ]
+    }
+];
 
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [language, setLanguageState] = useState<Language>(() => {
