@@ -5,7 +5,7 @@ import gsap from "gsap";
 import SplitType from "split-type";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AccordionNavbar from "@/components/AccordionNavbar";
-import { useLanguage, experienceEs, experienceEn } from "@/context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { testimonials, Testimonial } from "@/data/testimonials";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -235,91 +235,7 @@ const Testimonials = () => {
 };
 
 
-const Experience = () => {
-  const { t, language } = useLanguage();
-  const experienceData = language === 'es' ? experienceEs : experienceEn;
-  const h2Ref = useRef<HTMLHeadingElement>(null);
 
-  useLayoutEffect(() => {
-    if (!h2Ref.current) return;
-    const split = new SplitType(h2Ref.current, { types: "chars" });
-    gsap.from(split.chars, {
-      rotationY: -90,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.03,
-      ease: "back.out(1.4)",
-      transformOrigin: "50% 50% -20px",
-      scrollTrigger: {
-        trigger: h2Ref.current,
-        start: "top 85%",
-      }
-    });
-    return () => split.revert();
-  }, []);
-
-  return (
-    <section id="experience" className="py-32 md:py-64 px-6 bg-transparent relative">
-      <div id="experience-trigger" className="absolute top-0 left-0 w-full h-1" />
-      <div className="container mx-auto max-w-5xl">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-24">
-          <h2 ref={h2Ref} className="text-4xl md:text-5xl font-heading font-medium mb-4 tracking-tight dynamic-text text-left md:text-center">{t('exp.title')}</h2>
-          <p className="dynamic-text opacity-60 font-light text-lg text-left md:text-center">{t('exp.subtitle')}</p>
-        </motion.div>
-
-        <div className="space-y-32">
-          {experienceData.map((exp, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="relative"
-            >
-              <div className="flex flex-col md:flex-row gap-8 md:gap-16 border-t border-white/10 pt-12">
-                <div className="md:w-1/3">
-                  <h3 className="text-2xl md:text-3xl font-heading font-medium dynamic-text mb-2">{exp.company}</h3>
-                  {exp.duration && <p className="dynamic-text opacity-40 text-sm font-light mb-1">{exp.duration}</p>}
-                  {exp.location && <p className="dynamic-text opacity-40 text-sm font-light">{exp.location}</p>}
-                </div>
-
-                <div className="md:w-2/3 space-y-16">
-                  {exp.roles.map((role, ri) => (
-                    <div key={ri} className="space-y-6">
-                      <div>
-                        <h4 className="text-xl font-heading font-medium dynamic-text mb-1">{role.title}</h4>
-                        <div className="flex flex-wrap gap-x-4 text-xs opacity-50 dynamic-text font-light">
-                          <span>{role.period}</span>
-                          {role.location && <span>· {role.location}</span>}
-                        </div>
-                      </div>
-
-                      {role.details && role.details.length > 0 && <div className="space-y-4">
-                        {role.details.map((detail, di) => (
-                          <p key={di} className="dynamic-text opacity-70 text-sm leading-relaxed font-light">
-                            {detail}
-                          </p>
-                        ))}
-                      </div>}
-
-                      {role.skills && (
-                        <p className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-medium dynamic-text opacity-60">
-                          {role.skills}
-                        </p>
-                      )}
-
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const ContactLink = ({ label, value, href, icon: Icon, showTooltip = true }: any) => {
   const { t } = useLanguage();
@@ -506,7 +422,6 @@ const Index = () => {
       <Mission />
       <Focuses />
       <Testimonials />
-      <Experience />
       <ConnectingFooter />
     </div>
   );
