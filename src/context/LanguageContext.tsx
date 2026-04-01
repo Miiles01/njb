@@ -85,7 +85,7 @@ const translations = {
         'proj.miiles.details.description': 'Lideré la creación de esta marca en la frontera de la tecnología, enfocándome en el desarrollo de soluciones de venta escalables mediante Vibecoding y prospección en frío (Cold Outreach). Diseñé una arquitectura de embudos de alta conversión apoyada por agentes de IA conversacional que gestionan la interacción inicial con el prospecto.\n\nMi rol fue integral: desde el branding completo y las relaciones públicas hasta la implementación de una red de afiliados para expansión en marketplaces. Apliqué estrategias de crecimiento orgánico y pagado mediante CTAs estratégicos, eventos de activación y campañas con influencers, logrando posicionar a Miiles como una solución innovadora en el mercado de la automatización comercial.',
 
         // Hero
-        'hero.title': 'Soy Manu',
+        'hero.title': 'NJB',
         'hero.cv': 'Descargar CV tradicional',
 
         // Mission
@@ -126,7 +126,7 @@ const translations = {
         'footer.headline': 'Hagámoslo',
         'footer.subline': 'Hablemos pronto',
         'footer.linkedin': 'LinkedIn',
-        'footer.copyright': '© 2026 Manuel Herrera',
+        'footer.copyright': '© 2026 NJB',
 
         // NotFound
         'notfound.title': '404',
@@ -215,7 +215,7 @@ const translations = {
         'proj.miiles.details.description': 'I led the creation of this brand at the edge of technology, focusing on the development of scalable sales solutions through Vibecoding and Cold Outreach. I designed a high-conversion funnel architecture supported by conversational AI agents that manage the initial interaction with the prospect.\n\nMy role was integral: from full branding and PR to the implementation of an affiliate network for marketplace expansion. I applied organic and paid growth strategies through strategic CTAs, activation events, and influencer campaigns, positioning Miiles as an innovative solution in the commercial automation market.',
 
         // Hero
-        'hero.title': 'I\'m Manu',
+        'hero.title': 'NJB',
         'hero.cv': 'Download traditional CV',
 
         // Mission
@@ -256,7 +256,7 @@ const translations = {
         'footer.headline': 'Let\'s do it',
         'footer.subline': 'Talk soon',
         'footer.linkedin': 'LinkedIn',
-        'footer.copyright': '© 2026 Manuel Herrera',
+        'footer.copyright': '© 2026 NJB',
 
         // NotFound
         'notfound.title': '404',
@@ -490,7 +490,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [language, setLanguageState] = useState<Language>(() => {
         const saved = localStorage.getItem('language');
-        return (saved as Language) || 'es';
+        return (saved as Language) || 'en';
     });
 
     const setLanguage = (lang: Language) => {
