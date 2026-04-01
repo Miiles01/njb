@@ -35,54 +35,24 @@ const translations = {
         'work.subtitle': 'Pensamos con propósito para marcas que buscan autenticidad y escalabilidad.',
 
         // Projects
-        'proj.miiles.subtitle': 'Plataforma de gestión de talento y reclutamiento inteligente.',
-        'proj.colorfit.subtitle': 'Identidad visual y branding para marca de moda contemporánea.',
-        'proj.naabi.subtitle': 'Diseño de experiencia y branding para productos de bienestar natural.',
-        'proj.jambu.subtitle': 'Rediseño de identidad y packaging inspirado en la selva amazónica.',
         'proj.tularosa.subtitle': 'Estrategia visual y comunicación para hospitality y gastronomía.',
-        'proj.erp.subtitle': 'Consultoría de marca y diseño de interfaz para ERP de alto rendimiento.',
-        'proj.marvic.subtitle': 'Branding sofisticado para servicios de consultoría estratégica.',
         'proj.original.subtitle': 'Dirección de arte y diseño web para agencia creativa digital.',
 
-        // Naabi Kanabi Project Details
-        'proj.naabi.details.industry': 'Bienestar y Productos Naturales',
-        'proj.naabi.details.role': 'Branding, Diseño de Packaging y Estrategia UX',
-        'proj.naabi.details.description': 'Para Naabi Kanabi, desarrollamos una identidad visual que comunica pureza y conexión con la naturaleza. El proyecto incluyó el diseño detallado de empaques para sus líneas de productos de bienestar, así como una arquitectura web optimizada para educar al consumidor sobre los beneficios de sus extractos naturales.',
 
         // Tularosa Project Details
         'proj.tularosa.details.industry': 'Hospitalidad y Gastronomía',
         'proj.tularosa.details.role': 'Estrategia Visual y Diseño de Identidad',
         'proj.tularosa.details.description': 'Trabajamos con Tularosa en la creación de una experiencia visual sofisticada y acogedora. El enfoque principal fue capturar la esencia de su propuesta gastronómica a través de una paleta de colores terrosos y una tipografía elegante, aplicada en todos los puntos de contacto, desde menús físicos hasta su presencia digital.',
 
-        // Erpxtender Project Details
-        'proj.erp.details.industry': 'Software y Consultoría IT',
-        'proj.erp.details.role': 'Diseño de Interfaz (UI) y Consultoría de Marca',
-        'proj.erp.details.description': 'Rediseñamos la interfaz del ERP de Erpxtender para mejorar la usabilidad y la eficiencia operativa. El desafío fue simplificar flujos de trabajo complejos y presentar grandes volúmenes de datos de una manera visualmente clara y moderna, fortaleciendo la imagen de la marca como líder en tecnología empresarial.',
 
-        // Mar & Vic Project Details
-        'proj.marvic.details.industry': 'Consultoría Estratégica',
-        'proj.marvic.details.role': 'Identidad de Marca y Diseño Corporativo',
-        'proj.marvic.details.description': 'Creamos una identidad corporativa que refleja profesionalismo y visión estratégica para Mar & Vic. El branding fue diseñado para transmitir confianza y solidez a sus clientes de alto nivel, utilizando una estética minimalista y elementos visuales que sugieren crecimiento y claridad organizacional.',
 
         // Original Project Details
         'proj.original.details.industry': 'Agencia Creativa Digital',
         'proj.original.details.role': 'Dirección de Arte y Diseño Web',
         'proj.original.details.description': 'Como parte de Original, lideramos la dirección de arte y el diseño de su plataforma digital. El proyecto se centró en mostrar el portafolio creativo de la agencia mediante una experiencia web inmersiva, utilizando animaciones fluidas y una disposición tipográfica audaz que destaca su capacidad de innovación.',
 
-        // Colorfit Project Details
-        'proj.colorfit.details.industry': 'Moda y Retail',
-        'proj.colorfit.details.role': 'Branding y Diseño de Experiencia de Marca',
-        'proj.colorfit.details.description': 'Para Colorfit, desarrollamos una marca vibrante y moderna que resuena con un público joven. El proyecto abarcó desde el diseño del logotipo hasta la creación de un sistema visual coherente para sus campañas de redes sociales y su tienda en línea, enfocándose en la versatilidad y la expresión personal.',
 
-        // Jambú Project Details
-        'proj.jambu.details.industry': 'Cuidado Personal y Cosmética',
-        'proj.jambu.details.role': 'Rediseño de Identidad y Packaging',
-        'proj.jambu.details.description': 'Inspirados en la riqueza de la selva amazónica, rediseñamos la identidad de Jambú. El nuevo sistema visual y el packaging utilizan texturas orgánicas e ilustraciones botánicas para resaltar el origen natural de sus ingredientes, logrando un posicionamiento premium en el mercado de la cosmética natural.',
 
-        // Miiles Project Details
-        'proj.miiles.details.industry': 'Inteligencia Artificial y Consultoría de Ventas',
-        'proj.miiles.details.role': 'Embudos de Ventas, Estrategia de Identidad de Marca y Automatización con IA',
-        'proj.miiles.details.description': 'Lideramos la creación de esta marca en la frontera de la tecnología, enfocándonos en el desarrollo de soluciones de venta escalables mediante Vibecoding y prospección en frío (Cold Outreach). Diseñamos una arquitectura de embudos de alta conversión apoyada por agentes de IA conversacional que gestionan la interacción inicial con el prospecto.\n\nNuestro rol fue integral: desde el branding completo y las relaciones públicas hasta la implementación de una red de afiliados para expansión en marketplaces. Aplicamos estrategias de crecimiento orgánico y pagado mediante CTAs estratégicos, eventos de activación y campañas con influencers, logrando posicionar a Miiles como una solución innovadora en el mercado de la automatización comercial.',
 
         // Hero
         'hero.title': 'NJB',
@@ -165,54 +135,24 @@ const translations = {
         'work.subtitle': 'We think with purpose for brands seeking authenticity and scalability.',
 
         // Projects
-        'proj.miiles.subtitle': 'Intelligent talent management and recruitment platform.',
-        'proj.colorfit.subtitle': 'Visual identity and branding for a contemporary fashion brand.',
-        'proj.naabi.subtitle': 'Experience design and branding for natural wellness products.',
-        'proj.jambu.subtitle': 'Identity and packaging redesign inspired by the Amazon jungle.',
         'proj.tularosa.subtitle': 'Visual strategy and communication for hospitality and gastronomy.',
-        'proj.erp.subtitle': 'Brand consultancy and interface design for high-performance ERP.',
-        'proj.marvic.subtitle': 'Sophisticated branding for strategic consulting services.',
         'proj.original.subtitle': 'Art direction and web design for digital creative agency.',
 
-        // Naabi Kanabi Project Details
-        'proj.naabi.details.industry': 'Wellness and Natural Products',
-        'proj.naabi.details.role': 'Branding, Packaging Design, and UX Strategy',
-        'proj.naabi.details.description': 'For Naabi Kanabi, we developed a visual identity that communicates purity and connection with nature. The project included the detailed design of packaging for their wellness product lines, as well as an optimized web architecture to educate consumers on the benefits of their natural extracts.',
 
         // Tularosa Project Details
         'proj.tularosa.details.industry': 'Hospitality and Gastronomy',
         'proj.tularosa.details.role': 'Visual Strategy and Identity Design',
         'proj.tularosa.details.description': 'We worked with Tularosa to create a sophisticated and welcoming visual experience. The core focus was to capture the essence of their culinary offerings through an earthy color palette and elegant typography, applied across all touchpoints, from physical menus to their digital presence.',
 
-        // Erpxtender Project Details
-        'proj.erp.details.industry': 'Software and IT Consulting',
-        'proj.erp.details.role': 'Interface Design (UI) and Brand Consulting',
-        'proj.erp.details.description': "We redesigned Erpxtender's ERP interface to improve usability and operational efficiency. The challenge was to simplify complex workflows and present large volumes of data in a visually clear and modern way, strengthening the brand's image as a leader in business technology.",
 
-        // Mar & Vic Project Details
-        'proj.marvic.details.industry': 'Strategic Consulting',
-        'proj.marvic.details.role': 'Brand Identity and Corporate Design',
-        'proj.marvic.details.description': 'We created a corporate identity that reflects professionalism and strategic vision for Mar & Vic. The branding was designed to convey trust and solidity to their high-level clients, using a minimalist aesthetic and visual elements that suggest organizational growth and clarity.',
 
         // Original Project Details
         'proj.original.details.industry': 'Digital Creative Agency',
         'proj.original.details.role': 'Art Direction and Web Design',
         'proj.original.details.description': "As part of Original, we led the art direction and design of their digital platform. The project focused on showcasing the agency's creative portfolio through an immersive web experience, using smooth animations and a bold typographic layout that highlights their innovation capacity.",
 
-        // Colorfit Project Details
-        'proj.colorfit.details.industry': 'Fashion and Retail',
-        'proj.colorfit.details.role': 'Branding and Brand Experience Design',
-        'proj.colorfit.details.description': 'For Colorfit, we developed a vibrant and modern brand that resonates with a young audience. The project spanned from logo design to the creation of a consistent visual system for their social media campaigns and online store, focusing on versatility and personal expression.',
 
-        // Jambú Project Details
-        'proj.jambu.details.industry': 'Personal Care and Cosmetics',
-        'proj.jambu.details.role': 'Identity and Packaging Redesign',
-        'proj.jambu.details.description': 'Inspired by the richness of the Amazon jungle, we redesigned Jambú’s identity. The new visual system and packaging use organic textures and botanical illustrations to highlight the natural origin of their ingredients, achieving premium positioning in the natural cosmetics market.',
 
-        // Miiles Project Details
-        'proj.miiles.details.industry': 'Artificial Intelligence and Sales Consulting',
-        'proj.miiles.details.role': 'Sales Funnels, Brand Identity Strategy, and AI Automation',
-        'proj.miiles.details.description': 'We led the creation of this brand at the edge of technology, focusing on the development of scalable sales solutions through Vibecoding and Cold Outreach. We designed a high-conversion funnel architecture supported by conversational AI agents that manage the initial interaction with the prospect.\n\nOur role was integral: from full branding and PR to the implementation of an affiliate network for marketplace expansion. We applied organic and paid growth strategies through strategic CTAs, activation events, and influencer campaigns, positioning Miiles as an innovative solution in the commercial automation market.',
 
         // Hero
         'hero.title': 'NJB',
