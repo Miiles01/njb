@@ -56,7 +56,6 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
-        'hero.cv': 'Descargar CV tradicional',
 
         // Mission
         'mission.title': 'Nuestra Visión',
@@ -156,7 +155,6 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
-        'hero.cv': 'Download traditional CV',
 
         // Mission
         'mission.title': 'Our Vision',
