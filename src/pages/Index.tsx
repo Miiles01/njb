@@ -303,13 +303,13 @@ const ConnectingFooter = () => {
         </div>
 
         <div className="relative flex justify-center w-full">
-          <h2 className="text-[12vw] md:text-[15vw] font-heading font-medium tracking-tighter leading-none dynamic-text select-none flex cursor-default justify-center w-full">
+          <h2 className="text-[12vw] md:text-[15vw] font-heading font-medium tracking-normal md:tracking-tighter leading-none dynamic-text select-none flex cursor-default justify-center w-full">
             {letters.map((letter, i) => (
               <motion.span
                 key={i}
                 whileHover={{ y: -30, color: "#154FD1" }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className="inline-block"
+                className="inline-block whitespace-pre"
               >
                 {letter}
               </motion.span>
