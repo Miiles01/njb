@@ -5,7 +5,6 @@ import gsap from "gsap";
 import SplitType from "split-type";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AccordionNavbar from "@/components/AccordionNavbar";
-import StickyProjectGrid from "@/components/StickyProjectGrid";
 import { useLanguage, experienceEs, experienceEn } from "@/context/LanguageContext";
 import { testimonials, Testimonial } from "@/data/testimonials";
 
@@ -506,7 +505,6 @@ const Index = () => {
       <Hero />
       <Mission />
       <Focuses />
-      <StickyProjectGrid />
       <Testimonials />
       <Experience />
       <ConnectingFooter />
