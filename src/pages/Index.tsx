@@ -25,76 +25,80 @@ const LinkedinModern = ({ size = 20, className = "" }: { size?: number, classNam
 );
 
 const Hero = () => {
-  const { t } = useLanguage();
-  const titleText = t('hero.title');
-  const letters = titleText.split("");
+  const { t, language } = useLanguage();
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+  const tagline = t('hero.tagline');
+
+  useLayoutEffect(() => {
+    if (!taglineRef.current) return;
+    const split = new SplitType(taglineRef.current, { types: "words" });
+    gsap.from(split.words, {
+      opacity: 0,
+      y: 15,
+      stagger: 0.06,
+      duration: 0.5,
+      ease: "power2.out",
+      delay: 0.8
+    });
+    return () => split.revert();
+  }, [tagline, language]);
 
   return (
-    <section className="relative min-h-[110vh] flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:32px_32px]" />
-      </div>
+    <section key={language} className="relative min-h-[100vh] flex flex-col justify-between py-12 md:py-32 px-12 md:px-24 overflow-hidden bg-white">
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="relative z-10 text-center px-6 max-w-5xl"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "circOut" }}
+        className="relative z-10 w-full flex md:justify-start justify-center pt-8 md:pt-0"
       >
-        <h1 className="text-[20vw] md:text-[25vw] font-heading font-medium mb-12 leading-[0.85] tracking-tighter dynamic-text flex justify-center flex-wrap select-none cursor-default">
-          {letters.map((letter, i) => (
-            <motion.div
-              key={i}
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, ease: "backOut", delay: 0.5 + i * 0.03 }}
-              className="inline-block"
-            >
-              <motion.span
-                whileHover={{ y: -30, color: "rgba(0, 0, 0, 0.3)" }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className="inline-block whitespace-pre"
-              >
-                {letter}
-              </motion.span>
-            </motion.div>
-          ))}
+        <h1 className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default">
+          {t('hero.title')}
         </h1>
       </motion.div>
+
+      <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0">
+        <p
+          ref={taglineRef}
+          className="hero-tagline max-w-sm md:max-w-md text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none"
+        >
+          {tagline}
+        </p>
+      </div>
       <div id="vision-trigger" className="absolute bottom-0 w-full h-1" />
     </section>
   );
 };
 
 const Mission = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const textRef = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
     if (!textRef.current) return;
 
-    const split = new SplitType(textRef.current, { types: "words" });
-    gsap.set(split.words, { color: "rgba(0,0,0,0.15)" });
+    const split = new SplitType(textRef.current, { types: "chars" });
+    gsap.set(split.chars, { opacity: 0.15 });
 
-    gsap.to(split.words, {
-      color: "#000000",
+    gsap.to(split.chars, {
+      opacity: 1,
       stagger: 0.1,
       scrollTrigger: {
         trigger: textRef.current,
-        start: "top center",
-        end: "bottom center",
+        start: "top 80%",
+        end: "bottom 40%",
         scrub: true,
       }
     });
 
     return () => split.revert();
-  }, [t]);
+  }, [t, language]);
 
   return (
-    <section id="vision" className="py-32 md:py-64 px-6 bg-transparent">
+    <section key={language} id="vision" className="py-64 md:py-[80vh] px-6 bg-transparent flex items-center">
       <div className="container mx-auto max-w-7xl">
         <p
           ref={textRef}
-          className="font-heading font-medium text-3xl md:text-7xl lg:text-8xl leading-[1.2] md:leading-[2] tracking-tight text-center dynamic-text"
+          className="font-heading font-medium text-4xl md:text-8xl lg:text-9xl leading-[1.1] tracking-tighter text-center"
         >
           {t('mission.text')}
         </p>

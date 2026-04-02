@@ -54,10 +54,11 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
+        'hero.tagline': 'Somos una agencia creativa que marca la diferencia',
 
         // Mission
         'mission.title': 'Nuestra Visión',
-        'mission.text': 'Nuestra misión es ayudar a las personas a desarrollar su autenticidad y mejorar su productividad',
+        'mission.text': 'Nuestra misión es hacerte diferente',
 
         // Focuses
         'focuses.title': 'Nuestros principales enfoques',
@@ -151,10 +152,11 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
+        'hero.tagline': 'We are a creative agency that makes difference',
 
         // Mission
         'mission.title': 'Our Vision',
-        'mission.text': 'Our mission is to help people develop their authenticity and improve their productivity',
+        'mission.text': 'Our mission is to make you different',
 
         // Focuses
         'focuses.title': 'Our main focuses',
@@ -248,10 +250,11 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
+        'hero.tagline': 'Nous sommes une agence créative qui fait la différence',
 
         // Mission
         'mission.title': 'Notre Vision',
-        'mission.text': 'Notre mission est d\'aider les gens à développer leur authenticité et à améliorer leur productivité',
+        'mission.text': 'Notre mission est de vous rendre différent',
 
         // Focuses
         'focuses.title': 'Nos principaux axes',
