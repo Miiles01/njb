@@ -410,9 +410,9 @@ const ProjectMagazine = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen bg-white flex flex-col items-center justify-center overflow-hidden perspective-1000"
+      className="relative h-screen bg-white flex flex-col items-center justify-center overflow-hidden perspective-1000 pt-32"
     >
-      <div className="absolute top-20 left-0 w-full text-center z-20">
+      <div className="absolute top-32 left-0 w-full text-center z-20">
         <h2 className="magazine-text opacity-0 text-5xl md:text-7xl font-heading font-medium tracking-tighter text-black mb-4">
           {t('grid.title')}
         </h2>
@@ -429,12 +429,12 @@ const ProjectMagazine = () => {
 
       <div 
         ref={cardsRef} 
-        className="relative w-full h-[60vh] flex items-center justify-center transform-style-3d preserve-3d mt-20"
+        className="relative w-full h-[60vh] flex items-center justify-center transform-style-3d preserve-3d mt-40"
       >
         {projectImages.map((img, i) => (
           <div 
             key={i}
-            className="magazine-card absolute w-[200px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-zinc-100 border border-black/5 preserve-3d will-change-transform"
+            className="magazine-card absolute w-[200px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-zinc-100 preserve-3d will-change-transform"
           >
             <img 
               src={img.src} 
