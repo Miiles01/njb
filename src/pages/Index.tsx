@@ -188,7 +188,7 @@ const Mission = () => {
 
   return (
     <section 
-      key={language} 
+      ref={sectionRef} 
       ref={sectionRef} 
       id="vision" 
       className="relative h-screen bg-white flex items-center overflow-hidden"
