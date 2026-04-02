@@ -34,13 +34,13 @@ const Hero = () => {
 
   // Motion Trail State & Refs
   const images = [
-    '/src/assets/user_uploads/1.png',
-    '/src/assets/user_uploads/2.png',
-    '/src/assets/user_uploads/3.png',
-    '/src/assets/user_uploads/4.png',
-    '/src/assets/user_uploads/5.png',
-    '/src/assets/user_uploads/6.png',
-    '/src/assets/user_uploads/7.png',
+    '/user_uploads/1.png',
+    '/user_uploads/2.png',
+    '/user_uploads/3.png',
+    '/user_uploads/4.png',
+    '/user_uploads/5.png',
+    '/user_uploads/6.png',
+    '/user_uploads/7.png',
   ];
   
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -162,7 +162,6 @@ const Hero = () => {
         ))}
       </div>
 
->>>>>>> 0dcb844 (feat: implementation of Motion Trail (Variation 1) in Hero section with 7 custom images)
       <div
         className="relative z-10 w-full flex md:justify-start justify-center pt-8 md:pt-0"
       >
