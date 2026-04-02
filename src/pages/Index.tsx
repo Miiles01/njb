@@ -51,14 +51,18 @@ const Hero = () => {
   const currentImg = useRef(0);
   const zIndexVal = useRef(1);
 
+  const heroTitle = t('hero.title');
+  const heroTagline = tagline;
+
   useLayoutEffect(() => {
     if (!taglineRef.current || !titleRef.current) return;
     
-    const splitTitle = new SplitType(titleRef.current, { types: "chars" });
-    const splitTagline = new SplitType(taglineRef.current, { types: "words" });
+    // We target the individual spans for the entry animation
+    const titleChars = titleRef.current.querySelectorAll('.hero-title-char');
+    const taglineWords = taglineRef.current.querySelectorAll('.hero-tagline-word');
 
     // NJB Title Animation
-    gsap.from(splitTitle.chars, {
+    gsap.from(titleChars, {
       y: 50,
       opacity: 0,
       stagger: 0.03,
@@ -68,7 +72,7 @@ const Hero = () => {
     });
 
     // Tagline Animation
-    gsap.from(splitTagline.words, {
+    gsap.from(taglineWords, {
       opacity: 0,
       y: 15,
       stagger: 0.06,
@@ -77,7 +81,7 @@ const Hero = () => {
       delay: 0.8
     });
 
-    // Mouse Move Logic for Trail
+    // Mouse Move Logic for Trail (kept as is)
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
     };
@@ -89,7 +93,6 @@ const Hero = () => {
     const render = () => {
       const distance = getDistance(mousePos.current, lastMousePos.current);
       
-      // Interpolation for smoother tracking
       cacheMousePos.current.x = gsap.utils.interpolate(cacheMousePos.current.x, mousePos.current.x, 0.1);
       cacheMousePos.current.y = gsap.utils.interpolate(cacheMousePos.current.y, mousePos.current.y, 0.1);
 
@@ -105,9 +108,7 @@ const Hero = () => {
       if (!img) return;
 
       zIndexVal.current++;
-      
       gsap.killTweensOf(img);
-
       const tl = gsap.timeline();
       
       tl.set(img, {
@@ -132,12 +133,10 @@ const Hero = () => {
     const animationId = requestAnimationFrame(render);
 
     return () => {
-      splitTitle.revert();
-      splitTagline.revert();
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationId);
     };
-  }, [tagline, language, images.length]);
+  }, [heroTagline, language, images.length]);
 
   return (
     <section 
@@ -167,18 +166,36 @@ const Hero = () => {
       >
         <h1 
           ref={titleRef}
-          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black mix-blend-difference"
+          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black mix-blend-difference flex overflow-hidden"
         >
-          {t('hero.title')}
+          {heroTitle.split("").map((char, i) => (
+            <motion.span
+              key={i}
+              className="hero-title-char inline-block whitespace-pre"
+              whileHover={{ y: -30 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              {char}
+            </motion.span>
+          ))}
         </h1>
       </div>
 
       <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0 relative z-10">
         <p
           ref={taglineRef}
-          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black mix-blend-difference"
+          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black mix-blend-difference flex flex-wrap justify-center md:justify-end gap-x-[0.3em]"
         >
-          {tagline}
+          {heroTagline.split(" ").map((word, i) => (
+            <motion.span
+              key={i}
+              className="hero-tagline-word inline-block whitespace-nowrap"
+              whileHover={{ y: -15 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              {word}
+            </motion.span>
+          ))}
         </p>
       </div>
       <div id="vision-trigger" className="absolute bottom-0 w-full h-1" />
