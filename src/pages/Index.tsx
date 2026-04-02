@@ -319,6 +319,135 @@ const Mission = () => {
   );
 };
 
+const ProjectMagazine = () => {
+  const { t, language } = useLanguage();
+  const containerRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const title1Ref = useRef<HTMLHeadingElement>(null);
+  const title2Ref = useRef<HTMLHeadingElement>(null);
+
+  const projectImages = [
+    { src: "/proyectos/Original/portada-1.webp", alt: "Original Cover" },
+    { src: "/proyectos/Tularosa/portada-1.webp", alt: "Tularosa Cover" },
+    { src: "/proyectos/Original/fotos-instagram.webp", alt: "Original Social" },
+    { src: "/proyectos/Tularosa/mockup-de-comida.webp", alt: "Tularosa Mockup" },
+    { src: "/proyectos/Original/landing-page-1.webp", alt: "Original Web" },
+    { src: "/proyectos/Tularosa/frase-publicitaria-1.webp", alt: "Tularosa Brand" },
+    { src: "/proyectos/Original/isotipo.webp", alt: "Original Logo" },
+    { src: "/proyectos/Tularosa/publicidad-de-exterior.webp", alt: "Tularosa Ads" },
+  ];
+
+  useLayoutEffect(() => {
+    if (!containerRef.current || !cardsRef.current) return;
+
+    const cards = cardsRef.current.querySelectorAll('.magazine-card');
+    const totalCards = cards.length;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "+=2500px",
+        pin: true,
+        scrub: 1,
+        onEnter: () => {
+          gsap.to(containerRef.current, { backgroundColor: "#000000", duration: 0.5 });
+          gsap.to(".magazine-text", { color: "#ffffff", opacity: 1, duration: 0.5 });
+        },
+        onLeaveBack: () => {
+          gsap.to(containerRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
+          gsap.to(".magazine-text", { color: "#000000", duration: 0.5 });
+        }
+      }
+    });
+
+    // Heading animation
+    tl.fromTo(".magazine-text", {
+      y: 50,
+      opacity: 0
+    }, {
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.2
+    }, 0);
+
+    // Cards fanning out
+    cards.forEach((card, i) => {
+      const angle = (i - (totalCards - 1) / 2) * 12; // Spread angle
+      const xOffset = (i - (totalCards - 1) / 2) * 80; // Horizontal spread
+      
+      tl.fromTo(card, {
+        x: 0,
+        z: -1000,
+        rotationY: 0,
+        rotationZ: 0,
+        opacity: 0,
+        scale: 0.5
+      }, {
+        x: xOffset,
+        z: 0,
+        rotationY: angle,
+        rotationZ: angle * 0.2,
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: "power2.out"
+      }, 0.2 + (i * 0.05));
+    });
+
+    // Push the whole set back slightly at the end of scroll for depth
+    tl.to(cardsRef.current, {
+      z: -200,
+      duration: 0.3
+    }, "-=0.2");
+
+    return () => {
+      tl.kill();
+    };
+  }, [language]);
+
+  return (
+    <section 
+      ref={containerRef}
+      className="relative h-screen bg-white flex flex-col items-center justify-center overflow-hidden perspective-1000"
+    >
+      <div className="absolute top-20 left-0 w-full text-center z-20">
+        <h2 className="magazine-text opacity-0 text-5xl md:text-7xl font-heading font-medium tracking-tighter text-black mb-4">
+          {t('grid.title')}
+        </h2>
+        <div className="magazine-text opacity-0 mt-8">
+          <a 
+            href="/trabajo" 
+            className="group inline-flex items-center gap-4 px-8 py-3 bg-white text-black border border-black/10 rounded-full font-heading font-medium hover:bg-black hover:text-white transition-all text-sm md:text-base overflow-hidden"
+          >
+            {t('grid.button')}
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+      </div>
+
+      <div 
+        ref={cardsRef} 
+        className="relative w-full h-[60vh] flex items-center justify-center transform-style-3d preserve-3d mt-20"
+      >
+        {projectImages.map((img, i) => (
+          <div 
+            key={i}
+            className="magazine-card absolute w-[200px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-zinc-900 border border-white/10 will-change-transform"
+          >
+            <img 
+              src={img.src} 
+              alt={img.alt} 
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 const Focuses = () => {
   const { t } = useLanguage();
   const focuses = [
@@ -553,23 +682,15 @@ const Index = () => {
 
     // DEFINITIVE COLOR TRIGGERS (Using state-based callbacks for 100% stability)
 
-    // BLUE -> WHITE
+    // BLACK -> WHITE (Transition out of Mission)
     ScrollTrigger.create({
       trigger: "#vision",
-      start: "top 80%",
+      start: "bottom 80%",
       onEnter: () => {
-        gsap.to(doc, { "--color": "#ffffff", duration: 1 });
-        gsap.to(".dynamic-text", { color: "#000000", duration: 1 });
-      },
-      onLeaveBack: () => {
-        gsap.to(doc, { "--color": "#ffffff", duration: 1 });
-        gsap.to(".dynamic-text", { color: "#000000", duration: 1 });
+        gsap.to(doc, { "--color": "#ffffff", duration: 0.5 });
+        gsap.to(".dynamic-text", { color: "#000000", duration: 0.5 });
       }
     });
-
-
-
-
 
     // FINAL FALLBACK: Ensure white at the end of scroll
     ScrollTrigger.create({
@@ -600,6 +721,7 @@ const Index = () => {
       <Hero />
       <ExpandingImage />
       <Mission />
+      <ProjectMagazine />
       <Focuses />
       <Testimonials />
       <ConnectingFooter />
