@@ -63,7 +63,7 @@ const Hero = () => {
   }, [tagline, language]);
 
   return (
-    <section key={language} className="relative min-h-[100vh] flex flex-col justify-between py-12 md:py-32 px-12 md:px-24 overflow-hidden bg-white">
+    <section className="relative min-h-[100vh] flex flex-col justify-between py-12 md:py-32 px-12 md:px-24 overflow-hidden bg-white">
       <div
         className="relative z-10 w-full flex md:justify-start justify-center pt-8 md:pt-0"
       >
@@ -188,8 +188,7 @@ const Mission = () => {
 
   return (
     <section 
-      key={language} 
-      ref={sectionRef} 
+      ref={sectionRef}
       id="vision" 
       className="relative h-screen bg-white flex items-center overflow-hidden"
     >
