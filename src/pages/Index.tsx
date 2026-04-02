@@ -166,7 +166,7 @@ const Hero = () => {
       >
         <h1 
           ref={titleRef}
-          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black mix-blend-difference flex overflow-hidden"
+          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black mix-blend-difference flex"
         >
           {heroTitle.split("").map((char, i) => (
             <motion.span
@@ -351,12 +351,12 @@ const ProjectMagazine = () => {
         pin: true,
         scrub: 1,
         onEnter: () => {
-          gsap.to(containerRef.current, { backgroundColor: "#000000", duration: 0.5 });
-          gsap.to(".magazine-text", { color: "#ffffff", opacity: 1, duration: 0.5 });
+          gsap.to(containerRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
+          gsap.to(".magazine-text", { color: "#000000", opacity: 1, duration: 0.5 });
         },
         onLeaveBack: () => {
-          gsap.to(containerRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
-          gsap.to(".magazine-text", { color: "#000000", duration: 0.5 });
+          gsap.to(containerRef.current, { backgroundColor: "#000000", duration: 0.5 });
+          gsap.to(".magazine-text", { color: "#ffffff", duration: 0.5 });
         }
       }
     });
@@ -434,7 +434,7 @@ const ProjectMagazine = () => {
         {projectImages.map((img, i) => (
           <div 
             key={i}
-            className="magazine-card absolute w-[200px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-zinc-900 border border-white/10 will-change-transform"
+            className="magazine-card absolute w-[200px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-zinc-100 border border-black/5 preserve-3d will-change-transform"
           >
             <img 
               src={img.src} 
