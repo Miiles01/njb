@@ -188,8 +188,7 @@ const Mission = () => {
 
   return (
     <section 
-      ref={sectionRef} 
-      ref={sectionRef} 
+      ref={sectionRef}
       id="vision" 
       className="relative h-screen bg-white flex items-center overflow-hidden"
     >
