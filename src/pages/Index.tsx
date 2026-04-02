@@ -26,9 +26,30 @@ const LinkedinModern = ({ size = 20, className = "" }: { size?: number, classNam
 
 const Hero = () => {
   const { t, language } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
+  const trailContainerRef = useRef<HTMLDivElement>(null);
   const tagline = t('hero.tagline');
+
+  // Motion Trail State & Refs
+  const images = [
+    '/src/assets/user_uploads/1.png',
+    '/src/assets/user_uploads/2.png',
+    '/src/assets/user_uploads/3.png',
+    '/src/assets/user_uploads/4.png',
+    '/src/assets/user_uploads/5.png',
+    '/src/assets/user_uploads/6.png',
+    '/src/assets/user_uploads/7.png',
+  ];
+  
+  const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mousePos = useRef({ x: 0, y: 0 });
+  const lastMousePos = useRef({ x: 0, y: 0 });
+  const cacheMousePos = useRef({ x: 0, y: 0 });
+  const threshold = 80;
+  const currentImg = useRef(0);
+  const zIndexVal = useRef(1);
 
   useLayoutEffect(() => {
     if (!taglineRef.current || !titleRef.current) return;
@@ -56,29 +77,107 @@ const Hero = () => {
       delay: 0.8
     });
 
+    // Mouse Move Logic for Trail
+    const handleMouseMove = (e: MouseEvent) => {
+      mousePos.current = { x: e.clientX, y: e.clientY };
+    };
+
+    const getDistance = (p1: {x:number, y:number}, p2: {x:number, y:number}) => {
+      return Math.hypot(p2.x - p1.x, p2.y - p1.y);
+    };
+
+    const render = () => {
+      const distance = getDistance(mousePos.current, lastMousePos.current);
+      
+      // Interpolation for smoother tracking
+      cacheMousePos.current.x = gsap.utils.interpolate(cacheMousePos.current.x, mousePos.current.x, 0.1);
+      cacheMousePos.current.y = gsap.utils.interpolate(cacheMousePos.current.y, mousePos.current.y, 0.1);
+
+      if (distance > threshold) {
+        showNextImage();
+        lastMousePos.current = { ...mousePos.current };
+      }
+      requestAnimationFrame(render);
+    };
+
+    const showNextImage = () => {
+      const img = imgRefs.current[currentImg.current];
+      if (!img) return;
+
+      zIndexVal.current++;
+      
+      gsap.killTweensOf(img);
+
+      const tl = gsap.timeline();
+      
+      tl.set(img, {
+        startAt: { opacity: 0, scale: 1 },
+        opacity: 1,
+        scale: 1,
+        zIndex: zIndexVal.current,
+        x: mousePos.current.x - img.offsetWidth / 2,
+        y: mousePos.current.y - img.offsetHeight / 2,
+      })
+      .to(img, {
+        duration: 1.2,
+        ease: "expo.out",
+        opacity: 0,
+        scale: 0.2,
+      });
+
+      currentImg.current = (currentImg.current + 1) % images.length;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    const animationId = requestAnimationFrame(render);
+
     return () => {
       splitTitle.revert();
       splitTagline.revert();
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationId);
     };
-  }, [tagline, language]);
+  }, [tagline, language, images.length]);
 
   return (
-    <section className="relative min-h-[100vh] flex flex-col justify-between py-12 md:py-32 px-12 md:px-24 overflow-hidden bg-white">
+    <section 
+      ref={sectionRef}
+      key={language} 
+      className="relative min-h-[100vh] flex flex-col justify-between py-12 md:py-32 px-12 md:px-24 overflow-hidden bg-white"
+    >
+      {/* Motion Trail Container */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {images.map((src, i) => (
+          <div
+            key={i}
+            ref={el => imgRefs.current[i] = el}
+            className="absolute opacity-0 w-32 md:w-48 h-auto will-change-transform"
+          >
+            <img 
+              src={src} 
+              alt="" 
+              className="w-full h-auto object-contain grayscale" 
+            />
+          </div>
+        ))}
+      </div>
+
+>>>>>>> 0dcb844 (feat: implementation of Motion Trail (Variation 1) in Hero section with 7 custom images)
       <div
         className="relative z-10 w-full flex md:justify-start justify-center pt-8 md:pt-0"
       >
         <h1 
           ref={titleRef}
-          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black"
+          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black mix-blend-difference"
         >
           {t('hero.title')}
         </h1>
       </div>
 
-      <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0">
+      <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0 relative z-10">
         <p
           ref={taglineRef}
-          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black"
+          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black mix-blend-difference"
         >
           {tagline}
         </p>
