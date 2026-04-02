@@ -26,13 +26,28 @@ const LinkedinModern = ({ size = 20, className = "" }: { size?: number, classNam
 
 const Hero = () => {
   const { t, language } = useLanguage();
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const tagline = t('hero.tagline');
 
   useLayoutEffect(() => {
-    if (!taglineRef.current) return;
-    const split = new SplitType(taglineRef.current, { types: "words" });
-    gsap.from(split.words, {
+    if (!taglineRef.current || !titleRef.current) return;
+    
+    const splitTitle = new SplitType(titleRef.current, { types: "chars" });
+    const splitTagline = new SplitType(taglineRef.current, { types: "words" });
+
+    // NJB Title Animation
+    gsap.from(splitTitle.chars, {
+      y: 50,
+      opacity: 0,
+      stagger: 0.03,
+      duration: 0.6,
+      ease: "back.out(1.7)",
+      delay: 0.2
+    });
+
+    // Tagline Animation
+    gsap.from(splitTagline.words, {
       opacity: 0,
       y: 15,
       stagger: 0.06,
@@ -40,26 +55,30 @@ const Hero = () => {
       ease: "power2.out",
       delay: 0.8
     });
-    return () => split.revert();
+
+    return () => {
+      splitTitle.revert();
+      splitTagline.revert();
+    };
   }, [tagline, language]);
 
   return (
     <section key={language} className="relative min-h-[100vh] flex flex-col justify-between py-12 md:py-32 px-12 md:px-24 overflow-hidden bg-white">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "circOut" }}
+      <div
         className="relative z-10 w-full flex md:justify-start justify-center pt-8 md:pt-0"
       >
-        <h1 className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default">
+        <h1 
+          ref={titleRef}
+          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black"
+        >
           {t('hero.title')}
         </h1>
-      </motion.div>
+      </div>
 
       <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0">
         <p
           ref={taglineRef}
-          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none"
+          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black"
         >
           {tagline}
         </p>
@@ -107,42 +126,80 @@ const ExpandingImage = () => {
 
 const Mission = () => {
   const { t, language } = useLanguage();
-  const textRef = useRef<HTMLParagraphElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const horizontalRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLHeadingElement>(null);
 
   useLayoutEffect(() => {
-    if (!textRef.current || !sectionRef.current) return;
+    if (!sectionRef.current || !horizontalRef.current || !textRef.current) return;
 
-    const split = new SplitType(textRef.current, { types: "chars" });
-    gsap.set(split.chars, { opacity: 0.15 });
-
+    // Split text into characters
+    const split = new SplitType(textRef.current, { types: "chars,words" });
+    
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
         start: "top top",
-        end: "+=200%",
+        end: "+=3000px",
         pin: true,
         scrub: 1,
+        onEnter: () => {
+          gsap.to(sectionRef.current, { backgroundColor: "#000000", duration: 0.5 });
+          gsap.to(textRef.current, { color: "#ffffff", duration: 0.5 });
+        },
+        onLeaveBack: () => {
+          gsap.to(sectionRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
+          gsap.to(textRef.current, { color: "#000000", duration: 0.5 });
+        },
       }
     });
 
-    tl.to(split.chars, {
-      opacity: 1,
-      stagger: 0.1,
+    // Horizontal movement tween
+    const scrollTween = gsap.to(horizontalRef.current, {
+      xPercent: -100,
+      x: () => window.innerWidth, // offset to keep text in view at start
+      ease: "none"
+    });
+    
+    tl.add(scrollTween);
+
+    // Individual character animations using containerAnimation
+    split.chars.forEach((char) => {
+      gsap.from(char, {
+        yPercent: gsap.utils.random(-200, 200),
+        rotation: gsap.utils.random(-20, 20),
+        opacity: 0,
+        ease: "back.out(1.2)",
+        scrollTrigger: {
+          trigger: char,
+          containerAnimation: scrollTween,
+          start: "left 100%",
+          end: "left 30%",
+          scrub: 1
+        }
+      });
     });
 
-    return () => split.revert();
+    return () => {
+      split.revert();
+      tl.kill();
+    };
   }, [t, language]);
 
   return (
-    <section key={language} ref={sectionRef} id="vision" className="relative h-screen bg-white flex items-center justify-center overflow-hidden px-6">
-      <div className="container mx-auto max-w-7xl">
-        <p
+    <section 
+      key={language} 
+      ref={sectionRef} 
+      id="vision" 
+      className="relative h-screen bg-white flex items-center overflow-hidden"
+    >
+      <div ref={horizontalRef} className="flex items-center min-w-max px-[100vw]">
+        <h3 
           ref={textRef}
-          className="font-heading font-medium text-4xl md:text-8xl lg:text-9xl leading-[1.1] tracking-tighter text-center"
+          className="font-heading font-medium text-[10vw] md:text-[8vw] whitespace-nowrap tracking-tighter text-black"
         >
           {t('mission.text')}
-        </p>
+        </h3>
       </div>
     </section>
   );
