@@ -54,7 +54,7 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
-        'hero.tagline': 'Somos una agencia creativa que marca la diferencia',
+        'hero.tagline': 'Somos una agencia creativa que cree en las grandes ideas',
 
         // Mission
         'mission.title': 'Nuestra Visión',
@@ -152,7 +152,7 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
-        'hero.tagline': 'We are a creative agency that makes difference',
+        'hero.tagline': 'We are a creative agency that believes in big ideas',
 
         // Mission
         'mission.title': 'Our Vision',
@@ -250,7 +250,7 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
-        'hero.tagline': 'Nous sommes une agence créative qui fait la différence',
+        'hero.tagline': 'Nous sommes une agence créative qui croit aux grandes idées',
 
         // Mission
         'mission.title': 'Notre Vision',

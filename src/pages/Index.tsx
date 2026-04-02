@@ -59,7 +59,7 @@ const Hero = () => {
       <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0">
         <p
           ref={taglineRef}
-          className="hero-tagline max-w-sm md:max-w-md text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none"
+          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none"
         >
           {tagline}
         </p>
@@ -69,32 +69,73 @@ const Hero = () => {
   );
 };
 
+const ExpandingImage = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!containerRef.current || !boxRef.current) return;
+
+    gsap.fromTo(boxRef.current, {
+      width: "50%",
+      height: "50vh",
+      borderRadius: "2rem",
+    }, {
+      width: "100%",
+      height: "100vh",
+      borderRadius: "0rem",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1,
+      }
+    });
+  }, []);
+
+  return (
+    <section ref={containerRef} className="relative h-[120vh] flex items-center justify-center bg-white overflow-hidden">
+      <div 
+        ref={boxRef}
+        className="bg-zinc-200 flex items-center justify-center overflow-hidden"
+      >
+        <span className="text-zinc-400 font-heading select-none uppercase tracking-widest text-sm">[ IMAGEN ]</span>
+      </div>
+    </section>
+  );
+};
+
 const Mission = () => {
   const { t, language } = useLanguage();
   const textRef = useRef<HTMLParagraphElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
-    if (!textRef.current) return;
+    if (!textRef.current || !sectionRef.current) return;
 
     const split = new SplitType(textRef.current, { types: "chars" });
     gsap.set(split.chars, { opacity: 0.15 });
 
-    gsap.to(split.chars, {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "+=200%",
+        pin: true,
+        scrub: 1,
+      }
+    });
+
+    tl.to(split.chars, {
       opacity: 1,
       stagger: 0.1,
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: "top 80%",
-        end: "bottom 40%",
-        scrub: true,
-      }
     });
 
     return () => split.revert();
   }, [t, language]);
 
   return (
-    <section key={language} id="vision" className="py-64 md:py-[80vh] px-6 bg-transparent flex items-center">
+    <section key={language} ref={sectionRef} id="vision" className="relative h-screen bg-white flex items-center justify-center overflow-hidden px-6">
       <div className="container mx-auto max-w-7xl">
         <p
           ref={textRef}
@@ -383,9 +424,10 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <AccordionNavbar />
       <Hero />
+      <ExpandingImage />
       <Mission />
       <Focuses />
       <Testimonials />
