@@ -156,7 +156,7 @@ const Hero = () => {
             <img 
               src={src} 
               alt="" 
-              className="w-full h-auto object-contain grayscale" 
+              className="w-full h-auto object-contain" 
             />
           </div>
         ))}

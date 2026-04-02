@@ -28,7 +28,11 @@ const translations = {
 
         // Contact
         'contact.title': 'Contacto',
-        'contact.subtitle': 'Hablemos sobre tu próximo proyecto.',
+        'contact.subtitle': 'Cuéntanos sobre tu próximo proyecto.',
+        'contact.form.email': 'Tu Correo Electrónico',
+        'contact.form.phone': 'Tu Número de Teléfono',
+        'contact.form.send': 'Enviar Mensaje',
+        'contact.form.success': '¡Gracias! Nos pondremos en contacto pronto.',
 
         // Work
         'work.title': 'Proyectos',
@@ -127,6 +131,10 @@ const translations = {
         // Contact
         'contact.title': 'Contact',
         'contact.subtitle': 'Let\'s talk about your next project.',
+        'contact.form.email': 'Your Email Address',
+        'contact.form.phone': 'Your Phone Number',
+        'contact.form.send': 'Send Message',
+        'contact.form.success': 'Thank you! We will get in touch soon.',
 
         // Work
         'work.title': 'Projects',
@@ -225,6 +233,10 @@ const translations = {
         // Contact
         'contact.title': 'Contact',
         'contact.subtitle': 'Parlons de votre prochain projet.',
+        'contact.form.email': 'Votre Adresse Email',
+        'contact.form.phone': 'Votre Numéro de Téléphone',
+        'contact.form.send': 'Envoyer le Message',
+        'contact.form.success': 'Merci ! Nous vous contacterons bientôt.',
 
         // Work
         'work.title': 'Projets',
