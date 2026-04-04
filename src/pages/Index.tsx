@@ -674,12 +674,12 @@ const StackedValue = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden">
+    <div ref={containerRef} className="relative overflow-hidden px-4 md:px-8 py-8">
       {/* 1. Clientes */}
-      <section className="stacked-panel h-screen flex items-center justify-center bg-white px-6 z-[1] overflow-hidden">
-        <div className="stacked-inner max-w-4xl w-full text-center py-24">
-          <div className="flex justify-center mb-8">
-            <Globe className="w-12 h-12 text-black/20" />
+      <section className="stacked-panel h-[calc(100vh-4rem)] flex items-start justify-center bg-white z-[1] overflow-hidden border border-zinc-200/50 rounded-[40px] shadow-sm">
+        <div className="stacked-inner max-w-4xl w-full text-center py-20 px-8">
+          <div className="flex justify-center mb-10 pt-4">
+            <Globe className="w-12 h-12 text-black/10" />
           </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 dynamic-text">{t('stacked.clientes.title')}</h2>
           <p className="text-xl md:text-2xl text-muted-foreground mb-12">{t('stacked.clientes.subtitle')}</p>
@@ -696,14 +696,14 @@ const StackedValue = () => {
       </section>
 
       {/* 2. Resultados */}
-      <section className="stacked-panel h-screen flex items-center justify-center bg-black text-white px-6 z-[2] overflow-hidden">
-        <div className="stacked-inner max-w-4xl w-full text-center py-24">
-          <div className="flex justify-center mb-8">
-            <BarChart3 className="w-12 h-12 text-white/20" />
+      <section className="stacked-panel h-[calc(100vh-4rem)] flex items-start justify-center bg-black text-white z-[2] overflow-hidden border border-white/10 rounded-[40px] shadow-2xl">
+        <div className="stacked-inner max-w-4xl w-full text-center py-20 px-8">
+          <div className="flex justify-center mb-10 pt-4">
+            <BarChart3 className="w-12 h-12 text-white/10" />
           </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 text-white">{t('stacked.resultados.title')}</h2>
           <p className="text-xl md:text-2xl text-white/70 mb-12">{t('stacked.resultados.subtitle')}</p>
-          <ul className="text-left max-w-2xl mx-auto space-y-6 mb-16 px-6">
+          <ul className="text-left max-w-2xl mx-auto space-y-6 mb-16">
             {[t('stacked.resultados.item1'), t('stacked.resultados.item2'), t('stacked.resultados.item3')].map((item, i) => (
               <li key={i} className="flex items-start gap-4 text-xl md:text-2xl border-l-2 border-white/20 pl-6">
                 <span>{item}</span>
@@ -725,14 +725,14 @@ const StackedValue = () => {
       </section>
 
       {/* 3. Contenido */}
-      <section className="stacked-panel h-screen flex items-center justify-center bg-white px-6 z-[3] overflow-hidden">
-        <div className="stacked-inner max-w-4xl w-full text-center py-24">
-          <div className="flex justify-center mb-8">
-            <Video className="w-12 h-12 text-black/20" />
+      <section className="stacked-panel h-[calc(100vh-4rem)] flex items-start justify-center bg-white z-[3] overflow-hidden border border-zinc-200/50 rounded-[40px] shadow-sm">
+        <div className="stacked-inner max-w-4xl w-full text-center py-20 px-8">
+          <div className="flex justify-center mb-10 pt-4">
+            <Video className="w-12 h-12 text-black/10" />
           </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 dynamic-text">{t('stacked.contenido.title')}</h2>
           <p className="text-xl md:text-2xl text-muted-foreground mb-12">{t('stacked.contenido.subtitle')}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto">
             {[t('stacked.contenido.item1'), t('stacked.contenido.item2'), t('stacked.contenido.item3'), t('stacked.contenido.item4')].map((item, i) => (
               <div key={i} className="p-8 rounded-[30px] bg-secondary/5 border border-border/10">
                 <span className="text-xl md:text-2xl font-heading font-medium">{item}</span>
@@ -743,13 +743,13 @@ const StackedValue = () => {
       </section>
 
       {/* 4. Proceso */}
-      <section className="stacked-panel h-screen flex items-center justify-center bg-zinc-50 px-6 z-[4] overflow-hidden">
-        <div className="stacked-inner max-w-4xl w-full py-24">
-          <div className="flex justify-center mb-8">
-            <Settings2 className="w-12 h-12 text-black/20" />
+      <section className="stacked-panel h-[calc(100vh-4rem)] flex items-start justify-center bg-zinc-50 z-[4] overflow-hidden border border-zinc-200/50 rounded-[40px] shadow-sm">
+        <div className="stacked-inner max-w-4xl w-full py-20 px-8">
+          <div className="flex justify-center mb-10 pt-4">
+            <Settings2 className="w-12 h-12 text-black/10" />
           </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-16 text-center dynamic-text">{t('stacked.proceso.title')}</h2>
-          <div className="space-y-12 max-w-2xl mx-auto px-6">
+          <div className="space-y-12 max-w-2xl mx-auto">
             {[t('stacked.proceso.item1'), t('stacked.proceso.item2'), t('stacked.proceso.item3'), t('stacked.proceso.item4')].map((item, i) => (
               <div key={i} className="flex gap-8 items-center border-b border-black/5 pb-8 last:border-0">
                 <span className="text-5xl md:text-7xl font-heading font-bold text-black/5">{i + 1}</span>
