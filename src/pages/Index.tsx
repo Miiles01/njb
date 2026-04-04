@@ -610,6 +610,101 @@ const ProjectMagazine = () => {
   );
 };
 
+const StackedValue = () => {
+  const { t } = useLanguage();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const panels = gsap.utils.toArray(".stacked-panel");
+    
+    panels.forEach((panel: any, i) => {
+      ScrollTrigger.create({
+        trigger: panel,
+        start: "top top",
+        pin: true,
+        pinSpacing: false,
+        scrub: true
+      });
+    });
+
+    return () => {
+      ScrollTrigger.getAll().filter(st => panels.includes(st.trigger)).forEach(st => st.kill());
+    };
+  }, []);
+
+  return (
+    <div ref={containerRef} className="relative">
+      {/* 1. Clientes */}
+      <section className="stacked-panel min-h-screen flex items-center justify-center bg-white px-6 py-24 z-[1]">
+        <div className="max-w-4xl w-full text-center">
+          <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 dynamic-text">{t('stacked.clientes.title')}</h2>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12">{t('stacked.clientes.subtitle')}</p>
+          <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-16 mb-16">
+            <div className="text-3xl md:text-4xl font-heading">{t('stacked.clientes.item1')}</div>
+            <div className="text-3xl md:text-4xl font-heading">{t('stacked.clientes.item2')}</div>
+            <div className="text-3xl md:text-4xl font-heading">{t('stacked.clientes.item3')}</div>
+          </div>
+          <p className="text-xl font-heading font-medium text-black/80">{t('stacked.clientes.footer')}</p>
+        </div>
+      </section>
+
+      {/* 2. Resultados */}
+      <section className="stacked-panel min-h-screen flex items-center justify-center bg-black text-white px-6 py-24 z-[2]">
+        <div className="max-w-4xl w-full text-center">
+          <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 text-white">{t('stacked.resultados.title')}</h2>
+          <p className="text-xl md:text-2xl text-white/70 mb-12">{t('stacked.resultados.subtitle')}</p>
+          <ul className="text-left max-w-2xl mx-auto space-y-6 mb-16">
+            {[t('stacked.resultados.item1'), t('stacked.resultados.item2'), t('stacked.resultados.item3')].map((item, i) => (
+              <li key={i} className="flex items-start gap-4 text-xl md:text-2xl border-l-2 border-white/20 pl-6">
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <div className="mt-12 p-12 border-2 border-dashed border-white/20 rounded-[40px] bg-white/5">
+            <p className="text-xl text-white/50">{t('stacked.resultados.footer')}</p>
+            {/* Placeholder for real screenshots */}
+            <div className="grid grid-cols-2 gap-4 mt-8 opacity-20">
+              <div className="aspect-video bg-white/10 rounded-2xl"></div>
+              <div className="aspect-video bg-white/10 rounded-2xl"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Contenido */}
+      <section className="stacked-panel min-h-screen flex items-center justify-center bg-white px-6 py-24 z-[3]">
+        <div className="max-w-4xl w-full text-center">
+          <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 dynamic-text">{t('stacked.contenido.title')}</h2>
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12">{t('stacked.contenido.subtitle')}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto">
+            {[t('stacked.contenido.item1'), t('stacked.contenido.item2'), t('stacked.contenido.item3'), t('stacked.contenido.item4')].map((item, i) => (
+              <div key={i} className="p-8 rounded-[30px] bg-secondary/5 border border-border/10">
+                <span className="text-xl md:text-2xl font-heading font-medium">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Proceso */}
+      <section className="stacked-panel min-h-screen flex items-center justify-center bg-zinc-50 px-6 py-24 z-[4]">
+        <div className="max-w-4xl w-full">
+          <h2 className="text-4xl md:text-6xl font-heading font-medium mb-16 text-center dynamic-text">{t('stacked.proceso.title')}</h2>
+          <div className="space-y-12 max-w-2xl mx-auto">
+            {[t('stacked.proceso.item1'), t('stacked.proceso.item2'), t('stacked.proceso.item3'), t('stacked.proceso.item4')].map((item, i) => (
+              <div key={i} className="flex gap-8 items-center border-b border-black/5 pb-8 last:border-0">
+                <span className="text-5xl md:text-7xl font-heading font-bold text-black/5">{i + 1}</span>
+                <span className="text-xl md:text-3xl font-heading font-medium text-black/80">{item.replace(`${i+1}. `, '')}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 const Focuses = () => {
   const { t } = useLanguage();
   const focuses = [
@@ -903,6 +998,7 @@ const Index = () => {
       <ProblemCards />
       <ProjectMagazine />
       <Focuses />
+      <StackedValue />
       <Testimonials />
       <ConnectingFooter />
     </div>
