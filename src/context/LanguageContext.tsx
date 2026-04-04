@@ -58,7 +58,8 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
-        'hero.tagline': 'Somos una agencia creativa que cree en las grandes ideas',
+        'hero.tagline': 'No hacemos marketing. Generamos ingresos.',
+        'intro.text': 'Ayudamos a empresas a aumentar sus ingresos con contenido, publicidad y estrategias que realmente convierten.',
 
         // Mission
         'mission.title': 'Nuestra Visión',
@@ -160,7 +161,8 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
-        'hero.tagline': 'We are a creative agency that believes in big ideas',
+        'hero.tagline': 'We don’t do marketing. We generate revenue.',
+        'intro.text': 'We help companies increase their revenue with content, advertising, and strategies that actually convert.',
 
         // Mission
         'mission.title': 'Our Vision',
@@ -262,7 +264,8 @@ const translations = {
 
         // Hero
         'hero.title': 'NJB',
-        'hero.tagline': 'Nous sommes une agence créative qui croit aux grandes idées',
+        'hero.tagline': 'Nous ne faisons pas de marketing. Nous générons des revenus.',
+        'intro.text': 'Nous aidons les entreprises à augmenter leurs revenus grâce au contenu, à la publicité et aux stratégies qui convertissent réellement.',
 
         // Mission
         'mission.title': 'Notre Vision',

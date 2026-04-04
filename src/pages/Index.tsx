@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Check, Download, User, ArrowRight } from "lucide-react";
+import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -231,9 +231,75 @@ const ExpandingImage = () => {
     <section ref={containerRef} className="relative h-[120vh] flex items-center justify-center bg-white overflow-hidden">
       <div 
         ref={boxRef}
-        className="bg-zinc-200 flex items-center justify-center overflow-hidden"
+        className="bg-zinc-100 flex items-center justify-center overflow-hidden rounded-[2rem]"
       >
-        <span className="text-zinc-400 font-heading select-none uppercase tracking-widest text-sm">[ IMAGEN ]</span>
+        <img 
+          src="/proyectos/Original/portada-1.webp" 
+          alt="Original Portfolio" 
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </section>
+  );
+};
+
+const CompanyValue = () => {
+  const { t } = useLanguage();
+  const textRef = useRef<HTMLParagraphElement>(null);
+
+  useLayoutEffect(() => {
+    if (!textRef.current) return;
+    
+    const split = new SplitType(textRef.current, { types: 'words' });
+    
+    gsap.from(split.words, {
+      opacity: 0,
+      y: 15,
+      stagger: 0.06,
+      duration: 0.5,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: textRef.current,
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      }
+    });
+
+    return () => split.revert();
+  }, []);
+
+  return (
+    <section className="py-24 md:py-32 bg-white flex items-center justify-center px-6">
+      <div className="container mx-auto max-w-4xl text-center space-y-12">
+        <p 
+          ref={textRef}
+          className="text-2xl md:text-3xl font-heading font-light leading-relaxed text-black"
+        >
+          {t('intro.text')}
+        </p>
+        
+        <div className="flex flex-col items-center gap-4">
+          <motion.a
+            href="#connect"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 bg-black text-white rounded-full font-heading font-medium text-lg hover:shadow-xl transition-all"
+          >
+            {t('intro.cta')}
+          </motion.a>
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.5 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="text-sm md:text-base font-heading font-light tracking-wide text-black"
+          >
+            {t('intro.subtext')}
+          </motion.span>
+        </div>
       </div>
     </section>
   );
@@ -248,72 +314,123 @@ const Mission = () => {
   useLayoutEffect(() => {
     if (!sectionRef.current || !horizontalRef.current || !textRef.current) return;
 
-    // Split text into characters
-    const split = new SplitType(textRef.current, { types: "chars,words" });
-    
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=3000px",
-        pin: true,
-        scrub: 1,
-        onEnter: () => {
-          gsap.to(sectionRef.current, { backgroundColor: "#000000", duration: 0.5 });
-          gsap.to(textRef.current, { color: "#ffffff", duration: 0.5 });
-        },
-        onLeaveBack: () => {
-          gsap.to(sectionRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
-          gsap.to(textRef.current, { color: "#000000", duration: 0.5 });
-        },
-      }
-    });
+    const mm = gsap.matchMedia();
 
-    // Horizontal movement tween
-    const scrollTween = gsap.to(horizontalRef.current, {
-      xPercent: -100,
-      x: () => window.innerWidth, // offset to keep text in view at start
-      ease: "none"
-    });
-    
-    tl.add(scrollTween);
-
-    // Individual character animations using containerAnimation
-    split.chars.forEach((char) => {
-      gsap.from(char, {
-        yPercent: gsap.utils.random(-200, 200),
-        rotation: gsap.utils.random(-20, 20),
-        opacity: 0,
-        ease: "back.out(1.2)",
+    mm.add({
+      isMobile: "(max-width: 768px)",
+      isDesktop: "(min-width: 769px)"
+    }, (context) => {
+      const { isMobile } = context.conditions as any;
+      
+      // Split text into characters
+      const split = new SplitType(textRef.current!, { types: "chars,words" });
+      
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: char,
-          containerAnimation: scrollTween,
-          start: "left 100%",
-          end: "left 30%",
-          scrub: 1
+          trigger: sectionRef.current,
+          start: "top top",
+          end: isMobile ? "+=1500px" : "+=3000px",
+          pin: true,
+          scrub: 1,
+          onEnter: () => {
+            gsap.to(sectionRef.current, { backgroundColor: "#000000", duration: 0.5 });
+            gsap.to(textRef.current, { color: "#ffffff", duration: 0.5 });
+          },
+          onLeaveBack: () => {
+            gsap.to(sectionRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
+            gsap.to(textRef.current, { color: "#000000", duration: 0.5 });
+          },
         }
       });
-    });
 
-    return () => {
-      split.revert();
-      tl.kill();
-    };
-  }, [t, language]);
+      // Horizontal movement tween
+      const scrollTween = gsap.to(horizontalRef.current, {
+        xPercent: -100,
+        x: () => window.innerWidth, // offset to keep text in view at start
+        ease: "none"
+      });
+      
+      tl.add(scrollTween);
+
+      // Stabilized character animations
+      split.chars.forEach((char) => {
+        gsap.from(char, {
+          y: isMobile ? 30 : 100,
+          opacity: 0,
+          rotateX: -90,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: char,
+            containerAnimation: scrollTween,
+            start: "left 95%",
+            end: "left 40%",
+            scrub: true
+          }
+        });
+      });
+
+      return () => {
+        split.revert();
+      };
+    }, { scope: sectionRef });
+  }, [language]);
 
   return (
-    <section 
-      ref={sectionRef}
-      id="vision" 
-      className="relative h-screen bg-white flex items-center overflow-hidden"
-    >
-      <div ref={horizontalRef} className="flex items-center min-w-max px-[100vw]">
-        <h3 
-          ref={textRef}
-          className="font-heading font-medium text-[10vw] md:text-[8vw] whitespace-nowrap tracking-tighter text-black"
+    <section ref={sectionRef} className="relative min-h-[100vh] bg-white transition-colors duration-500 overflow-hidden">
+      <div className="h-full flex items-center px-6 md:px-12">
+        <div ref={horizontalRef} className="flex min-w-full">
+          <h2 ref={textRef} className="text-[12vw] md:text-[10vw] font-heading font-medium leading-[0.9] tracking-tighter whitespace-nowrap text-black transition-colors duration-500 py-40">
+            {t('mission.text')}
+          </h2>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ProblemCards = () => {
+  const { t } = useLanguage();
+  const containerRef = useRef<HTMLElement>(null);
+
+  const cards = [
+    { title: t('problem.title1'), icon: Users },
+    { title: t('problem.title2'), icon: TrendingUp },
+    { title: t('problem.title3'), icon: Target }
+  ];
+
+  return (
+    <section ref={containerRef} className="bg-black text-white py-32 px-6">
+      <div className="container mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+          {cards.map((card, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2 }}
+              className="p-10 rounded-[40px] border border-white/10 bg-white/5 backdrop-blur-sm flex flex-col items-center text-center gap-6 group hover:bg-white/10 transition-all duration-500"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <card.icon size={32} className="text-white" />
+              </div>
+              <h3 className="text-xl md:text-2xl font-heading font-light tracking-tight opacity-90">
+                {card.title}
+              </h3>
+            </motion.div>
+          ))}
+        </div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 0.9, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
         >
-          {t('mission.text')}
-        </h3>
+          <p className="text-2xl md:text-3xl font-heading font-light leading-relaxed max-w-3xl mx-auto opacity-70 italic">
+            {t('problem.conclusion')}
+          </p>
+        </motion.div>
       </div>
     </section>
   );
@@ -340,77 +457,94 @@ const ProjectMagazine = () => {
   useLayoutEffect(() => {
     if (!containerRef.current || !cardsRef.current) return;
 
-    const cards = cardsRef.current.querySelectorAll('.magazine-card');
-    const totalCards = cards.length;
+    const mm = gsap.matchMedia();
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=2500px",
-        pin: true,
-        scrub: 1,
-        onEnter: () => {
-          gsap.to(containerRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
-          gsap.to(".magazine-text", { color: "#000000", opacity: 1, duration: 0.5 });
-        },
-        onLeaveBack: () => {
-          gsap.to(containerRef.current, { backgroundColor: "#000000", duration: 0.5 });
-          gsap.to(".magazine-text", { color: "#ffffff", duration: 0.5 });
+    mm.add({
+      isMobile: "(max-width: 768px)",
+      isDesktop: "(min-width: 769px)"
+    }, (context) => {
+      const { isMobile } = context.conditions as any;
+      const cards = cardsRef.current!.querySelectorAll('.magazine-card');
+      const totalCards = cards.length;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: isMobile ? "+=1500px" : "+=2500px",
+          pin: true,
+          scrub: 1,
+          onEnter: () => {
+            gsap.to(containerRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
+            gsap.to(".magazine-text", { color: "#000000", opacity: 1, duration: 0.5 });
+          },
+          onLeaveBack: () => {
+            gsap.to(containerRef.current, { backgroundColor: "#000000", duration: 0.5 });
+            gsap.to(".magazine-text", { color: "#ffffff", duration: 0.5 });
+          }
         }
-      }
-    });
+      });
 
-    // Heading animation
-    tl.fromTo(".magazine-text", {
-      y: 50,
-      opacity: 0
-    }, {
-      y: 0,
-      opacity: 1,
-      duration: 0.5,
-      stagger: 0.2
-    }, 0);
-
-    // Cards fanning out
-    cards.forEach((card, i) => {
-      const angle = (i - (totalCards - 1) / 2) * 12; // Spread angle
-      const xOffset = (i - (totalCards - 1) / 2) * 80; // Horizontal spread
-      
-      tl.fromTo(card, {
-        x: 0,
-        z: -1000,
-        rotationY: 0,
-        rotationZ: 0,
-        opacity: 0,
-        scale: 0.5
+      // Heading animation
+      tl.fromTo(".magazine-text", {
+        y: 50,
+        opacity: 0
       }, {
-        x: xOffset,
-        z: 0,
-        rotationY: angle,
-        rotationZ: angle * 0.2,
+        y: 0,
         opacity: 1,
-        scale: 1,
-        duration: 1,
-        ease: "power2.out"
-      }, 0.2 + (i * 0.05));
-    });
+        duration: 0.5,
+        stagger: 0.2
+      }, 0);
 
-    // Push the whole set back slightly at the end of scroll for depth
-    tl.to(cardsRef.current, {
-      z: -200,
-      duration: 0.3
-    }, "-=0.2");
+      // Cards fanning out
+      cards.forEach((card, i) => {
+        const spreadAngle = isMobile ? 8 : 12;
+        const spreadX = isMobile ? 40 : 80;
+        
+        const angle = (i - (totalCards - 1) / 2) * spreadAngle;
+        const xOffset = (i - (totalCards - 1) / 2) * spreadX;
+        
+        tl.fromTo(card, {
+          x: 0,
+          y: isMobile ? 50 : 0,
+          z: -1000,
+          rotationY: 0,
+          rotationZ: 0,
+          opacity: 1,
+          scale: 0.9
+        }, {
+          x: xOffset,
+          y: 0,
+          z: 0,
+          rotationY: angle,
+          rotationZ: angle * 0.2,
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out"
+        }, 0.2 + (i * 0.05));
+      });
+
+      // Push back for depth at the end
+      tl.to(cardsRef.current, {
+        z: isMobile ? -100 : -200,
+        duration: 0.3
+      }, "-=0.2");
+
+      return () => {
+        // cleanup split type if any (none here)
+      };
+    });
 
     return () => {
-      tl.kill();
+      mm.revert();
     };
   }, [language]);
 
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen bg-white flex flex-col items-center justify-center overflow-hidden perspective-1000 pt-32"
+      className="relative h-screen bg-white flex flex-col items-center justify-center overflow-hidden perspective-1000 pt-32 z-30 isolate"
     >
       <div className="absolute top-32 left-0 w-full text-center z-20">
         <h2 className="magazine-text opacity-0 text-5xl md:text-7xl font-heading font-medium tracking-tighter text-black mb-4">
@@ -429,17 +563,17 @@ const ProjectMagazine = () => {
 
       <div 
         ref={cardsRef} 
-        className="relative w-full h-[60vh] flex items-center justify-center transform-style-3d preserve-3d mt-40"
+        className="relative w-full h-[50vh] md:h-[60vh] flex items-center justify-center transform-style-3d preserve-3d mt-20 md:mt-40"
       >
         {projectImages.map((img, i) => (
           <div 
             key={i}
-            className="magazine-card absolute w-[200px] md:w-[320px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl bg-zinc-100 preserve-3d will-change-transform"
+            className="magazine-card absolute w-[160px] md:w-[320px] aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden shadow-2xl bg-white preserve-3d will-change-transform"
           >
             <img 
               src={img.src} 
               alt={img.alt} 
-              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+              className="w-full h-full object-cover transition-all duration-700" 
             />
           </div>
         ))}
@@ -720,7 +854,9 @@ const Index = () => {
       <AccordionNavbar />
       <Hero />
       <ExpandingImage />
+      <CompanyValue />
       <Mission />
+      <ProblemCards />
       <ProjectMagazine />
       <Focuses />
       <Testimonials />
