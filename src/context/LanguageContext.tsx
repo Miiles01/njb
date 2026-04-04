@@ -60,10 +60,16 @@ const translations = {
         'hero.title': 'NJB',
         'hero.tagline': 'No hacemos marketing. Generamos ingresos.',
         'intro.text': 'Ayudamos a empresas a aumentar sus ingresos con contenido, publicidad y estrategias que realmente convierten.',
+        'intro.cta': 'Obtén tu auditoría',
+        'intro.subtext': 'y una sesión de contenido gratis',
 
         // Mission
         'mission.title': 'Nuestra Visión',
-        'mission.text': 'Nuestra misión es hacerte diferente',
+        'mission.text': 'La mayoría de las empresas publican contenido… pero no generan resultados.',
+        'problem.title1': 'No hay leads constantes',
+        'problem.title2': 'No hay retorno real de inversión',
+        'problem.title3': 'No hay estrategia clara',
+        'problem.conclusion': 'Porque se enfocan en visibilidad en lugar de conversión.',
 
         // Focuses
         'focuses.title': 'Nuestros principales enfoques',
@@ -163,10 +169,16 @@ const translations = {
         'hero.title': 'NJB',
         'hero.tagline': 'We don’t do marketing. We generate revenue.',
         'intro.text': 'We help companies increase their revenue with content, advertising, and strategies that actually convert.',
+        'intro.cta': 'Get your audit',
+        'intro.subtext': 'and a free content session',
 
         // Mission
         'mission.title': 'Our Vision',
-        'mission.text': 'Our mission is to make you different',
+        'mission.text': 'Most companies post content… but don’t generate results.',
+        'problem.title1': 'No consistent leads',
+        'problem.title2': 'No real return on investment',
+        'problem.title3': 'No clear strategy',
+        'problem.conclusion': 'Because they focus on visibility instead of conversion.',
 
         // Focuses
         'focuses.title': 'Our main focuses',
@@ -266,10 +278,16 @@ const translations = {
         'hero.title': 'NJB',
         'hero.tagline': 'Nous ne faisons pas de marketing. Nous générons des revenus.',
         'intro.text': 'Nous aidons les entreprises à augmenter leurs revenus grâce au contenu, à la publicité et aux stratégies qui convertissent réellement.',
+        'intro.cta': 'Obtenez votre audit',
+        'intro.subtext': 'et une session de contenu gratuite',
 
         // Mission
         'mission.title': 'Notre Vision',
-        'mission.text': 'Notre mission est de vous rendre différent',
+        'mission.text': 'La plupart des entreprises publient du contenu… mais ne génèrent pas de résultats.',
+        'problem.title1': 'Pas de leads constants',
+        'problem.title2': 'Pas de véritable retour sur investissement',
+        'problem.title3': 'Pas de stratégie claire',
+        'problem.conclusion': 'Parce qu\'ils se concentrent sur la visibilité plutôt que sur la conversion.',
 
         // Focuses
         'focuses.title': 'Nos principaux axes',

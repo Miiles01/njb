@@ -568,7 +568,7 @@ const ProjectMagazine = () => {
         {projectImages.map((img, i) => (
           <div 
             key={i}
-            className="magazine-card absolute w-[160px] md:w-[320px] aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden shadow-2xl bg-white preserve-3d will-change-transform"
+            className="magazine-card absolute w-[160px] md:w-[320px] aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden bg-white preserve-3d will-change-transform"
           >
             <img 
               src={img.src} 
