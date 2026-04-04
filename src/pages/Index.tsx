@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target } from "lucide-react";
+import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2 } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -637,20 +637,29 @@ const StackedValue = () => {
       {/* 1. Clientes */}
       <section className="stacked-panel min-h-screen flex items-center justify-center bg-white px-6 py-24 z-[1]">
         <div className="max-w-4xl w-full text-center">
+          <div className="flex justify-center mb-8">
+            <Globe className="w-12 h-12 text-black/20" />
+          </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 dynamic-text">{t('stacked.clientes.title')}</h2>
           <p className="text-xl md:text-2xl text-muted-foreground mb-12">{t('stacked.clientes.subtitle')}</p>
           <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-16 mb-16">
-            <div className="text-3xl md:text-4xl font-heading">{t('stacked.clientes.item1')}</div>
-            <div className="text-3xl md:text-4xl font-heading">{t('stacked.clientes.item2')}</div>
-            <div className="text-3xl md:text-4xl font-heading">{t('stacked.clientes.item3')}</div>
+            <div className="text-3xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item1')}</div>
+            <div className="text-3xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item2')}</div>
+            <div className="text-3xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item3')}</div>
           </div>
-          <p className="text-xl font-heading font-medium text-black/80">{t('stacked.clientes.footer')}</p>
+          <div className="flex items-center justify-center gap-3 text-xl font-heading font-medium text-black/80">
+            <span>{t('stacked.clientes.footer')}</span>
+            <ArrowRight className="w-5 h-5" />
+          </div>
         </div>
       </section>
 
       {/* 2. Resultados */}
       <section className="stacked-panel min-h-screen flex items-center justify-center bg-black text-white px-6 py-24 z-[2]">
         <div className="max-w-4xl w-full text-center">
+          <div className="flex justify-center mb-8">
+            <BarChart3 className="w-12 h-12 text-white/20" />
+          </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 text-white">{t('stacked.resultados.title')}</h2>
           <p className="text-xl md:text-2xl text-white/70 mb-12">{t('stacked.resultados.subtitle')}</p>
           <ul className="text-left max-w-2xl mx-auto space-y-6 mb-16">
@@ -661,10 +670,12 @@ const StackedValue = () => {
             ))}
           </ul>
           
-          <div className="mt-12 p-12 border-2 border-dashed border-white/20 rounded-[40px] bg-white/5">
-            <p className="text-xl text-white/50">{t('stacked.resultados.footer')}</p>
-            {/* Placeholder for real screenshots */}
-            <div className="grid grid-cols-2 gap-4 mt-8 opacity-20">
+          <div className="mt-12 p-12 border-2 border-dashed border-white/10 rounded-[40px] bg-white/5">
+            <div className="flex items-center justify-center gap-3 text-xl text-white/50">
+              <span>{t('stacked.resultados.footer')}</span>
+              <ArrowRight className="w-5 h-5" />
+            </div>
+            <div className="grid grid-cols-2 gap-4 mt-8 opacity-10">
               <div className="aspect-video bg-white/10 rounded-2xl"></div>
               <div className="aspect-video bg-white/10 rounded-2xl"></div>
             </div>
@@ -675,6 +686,9 @@ const StackedValue = () => {
       {/* 3. Contenido */}
       <section className="stacked-panel min-h-screen flex items-center justify-center bg-white px-6 py-24 z-[3]">
         <div className="max-w-4xl w-full text-center">
+          <div className="flex justify-center mb-8">
+            <Video className="w-12 h-12 text-black/20" />
+          </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 dynamic-text">{t('stacked.contenido.title')}</h2>
           <p className="text-xl md:text-2xl text-muted-foreground mb-12">{t('stacked.contenido.subtitle')}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto">
@@ -690,6 +704,9 @@ const StackedValue = () => {
       {/* 4. Proceso */}
       <section className="stacked-panel min-h-screen flex items-center justify-center bg-zinc-50 px-6 py-24 z-[4]">
         <div className="max-w-4xl w-full">
+          <div className="flex justify-center mb-8">
+            <Settings2 className="w-12 h-12 text-black/20" />
+          </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-16 text-center dynamic-text">{t('stacked.proceso.title')}</h2>
           <div className="space-y-12 max-w-2xl mx-auto">
             {[t('stacked.proceso.item1'), t('stacked.proceso.item2'), t('stacked.proceso.item3'), t('stacked.proceso.item4')].map((item, i) => (
@@ -793,7 +810,7 @@ const Testimonials = () => {
   );
 
   return (
-    <section id="testimonials" className="pt-48 pb-32 md:pt-80 md:pb-64 bg-transparent overflow-hidden">
+    <section id="testimonials" className="bg-white py-48 md:py-80 px-6 relative z-[10] overflow-hidden">
       <div className="container mx-auto px-6 mb-16 md:mb-24 text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
           <h2 ref={h2Ref} className="text-4xl md:text-6xl font-heading font-medium mb-4 tracking-tight dynamic-text">
