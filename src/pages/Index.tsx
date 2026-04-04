@@ -250,28 +250,33 @@ const CompanyValue = () => {
   useLayoutEffect(() => {
     if (!textRef.current) return;
     
-    const split = new SplitType(textRef.current, { types: 'words' });
-    
-    gsap.from(split.words, {
-      opacity: 0,
-      y: 15,
-      stagger: 0.06,
-      duration: 0.5,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: "top 85%",
-        toggleActions: "play none none reverse",
-      }
-    });
+    // Using a scope context to avoid selector issues
+    const ctx = gsap.context(() => {
+      const split = new SplitType(textRef.current!, { types: 'words' });
+      
+      gsap.from(split.words, {
+        opacity: 0,
+        y: 15,
+        stagger: 0.06,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+          once: true
+        }
+      });
+    }, textRef); // Correctly scoped to the element
 
-    return () => split.revert();
-  }, []);
+    return () => ctx.revert();
+  }, [t]); // Depend on t to re-run when language changes
 
   return (
-    <section className="py-24 md:py-32 bg-white flex items-center justify-center px-6">
+    <section className="py-24 md:pt-64 md:pb-32 bg-white flex items-center justify-center px-6">
       <div className="container mx-auto max-w-4xl text-center space-y-12">
         <p 
+          key={t('intro.text')} // Force re-render on language change
           ref={textRef}
           className="text-2xl md:text-3xl font-heading font-light leading-relaxed text-black"
         >
@@ -325,11 +330,14 @@ const Mission = () => {
       // Split text into characters
       const split = new SplitType(textRef.current!, { types: "chars,words" });
       
+      // Calculate scroll distance exactly based on content width
+      const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
+      
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: isMobile ? "+=1500px" : "+=3000px",
+          end: `+=${scrollDistance + (isMobile ? 1000 : 2000)}`,
           pin: true,
           scrub: 1,
           onEnter: () => {
@@ -343,10 +351,9 @@ const Mission = () => {
         }
       });
 
-      // Horizontal movement tween
+      // Horizontal movement tween - using exact pixel calculation
       const scrollTween = gsap.to(horizontalRef.current, {
-        xPercent: -100,
-        x: () => window.innerWidth, // offset to keep text in view at start
+        x: -scrollDistance,
         ease: "none"
       });
       
@@ -372,14 +379,22 @@ const Mission = () => {
       return () => {
         split.revert();
       };
-    }, { scope: sectionRef });
+    }, sectionRef.current); // Use current of the ref for the scope
+
+    return () => {
+      mm.revert();
+    };
   }, [language]);
 
   return (
-    <section ref={sectionRef} className="relative min-h-[100vh] bg-white transition-colors duration-500 overflow-hidden">
-      <div className="h-full flex items-center px-6 md:px-12">
-        <div ref={horizontalRef} className="flex min-w-full">
-          <h2 ref={textRef} className="text-[12vw] md:text-[10vw] font-heading font-medium leading-[0.9] tracking-tighter whitespace-nowrap text-black transition-colors duration-500 py-40">
+    <section id="vision" ref={sectionRef} className="relative min-h-[100vh] bg-white transition-colors duration-500 overflow-hidden flex items-center">
+      <div className="flex h-full items-center px-10 md:px-20">
+        <div ref={horizontalRef} className="flex whitespace-nowrap">
+          <h2 
+            key={language}
+            ref={textRef} 
+            className="text-[15vw] md:text-[12vw] font-heading font-medium leading-none tracking-tighter text-black transition-colors duration-500"
+          >
             {t('mission.text')}
           </h2>
         </div>
