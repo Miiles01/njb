@@ -616,15 +616,56 @@ const StackedValue = () => {
 
   useLayoutEffect(() => {
     const panels = gsap.utils.toArray(".stacked-panel");
+    const lastPanel = panels[panels.length - 1];
     
     panels.forEach((panel: any, i) => {
-      ScrollTrigger.create({
-        trigger: panel,
-        start: "top top",
-        pin: true,
-        pinSpacing: false,
-        scrub: true
+      const inner = panel.querySelector(".stacked-inner");
+      if (!inner) return;
+
+      const panelHeight = inner.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const difference = panelHeight - windowHeight;
+      const fakeScrollRatio = difference > 0 ? (difference / (difference + windowHeight)) : 0;
+
+      // Only add margin if there is content to fake-scroll
+      if (fakeScrollRatio) {
+        panel.style.marginBottom = (panelHeight * fakeScrollRatio) + "px";
+      }
+
+      const isLast = panel === lastPanel;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: panel,
+          start: "bottom bottom",
+          end: () => fakeScrollRatio ? `+=${panelHeight}` : "bottom top",
+          pinSpacing: false,
+          pin: true,
+          scrub: true,
+          invalidateOnRefresh: true
+        }
       });
+
+      // Handle internal scrolling for tall panels
+      if (fakeScrollRatio) {
+        tl.to(inner, {
+          yPercent: -100, 
+          y: windowHeight, 
+          duration: 1 / (1 - fakeScrollRatio) - 1, 
+          ease: "none"
+        });
+      }
+
+      // Add "stacking/depth" effect: scale down and fade out
+      // We skip this for the last panel of the sequence to avoid sudden disappearance 
+      // when the next section (Testimonials) arrives.
+      if (!isLast) {
+        tl.fromTo(panel, 
+          { scale: 1, opacity: 1 }, 
+          { scale: 0.7, opacity: 0.5, duration: 0.9, ease: "none" }
+        )
+        .to(panel, { opacity: 0, duration: 0.1 });
+      }
     });
 
     return () => {
@@ -633,10 +674,10 @@ const StackedValue = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative overflow-hidden">
       {/* 1. Clientes */}
-      <section className="stacked-panel min-h-screen flex items-center justify-center bg-white px-6 py-24 z-[1]">
-        <div className="max-w-4xl w-full text-center">
+      <section className="stacked-panel h-screen flex items-center justify-center bg-white px-6 z-[1] overflow-hidden">
+        <div className="stacked-inner max-w-4xl w-full text-center py-24">
           <div className="flex justify-center mb-8">
             <Globe className="w-12 h-12 text-black/20" />
           </div>
@@ -655,14 +696,14 @@ const StackedValue = () => {
       </section>
 
       {/* 2. Resultados */}
-      <section className="stacked-panel min-h-screen flex items-center justify-center bg-black text-white px-6 py-24 z-[2]">
-        <div className="max-w-4xl w-full text-center">
+      <section className="stacked-panel h-screen flex items-center justify-center bg-black text-white px-6 z-[2] overflow-hidden">
+        <div className="stacked-inner max-w-4xl w-full text-center py-24">
           <div className="flex justify-center mb-8">
             <BarChart3 className="w-12 h-12 text-white/20" />
           </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 text-white">{t('stacked.resultados.title')}</h2>
           <p className="text-xl md:text-2xl text-white/70 mb-12">{t('stacked.resultados.subtitle')}</p>
-          <ul className="text-left max-w-2xl mx-auto space-y-6 mb-16">
+          <ul className="text-left max-w-2xl mx-auto space-y-6 mb-16 px-6">
             {[t('stacked.resultados.item1'), t('stacked.resultados.item2'), t('stacked.resultados.item3')].map((item, i) => (
               <li key={i} className="flex items-start gap-4 text-xl md:text-2xl border-l-2 border-white/20 pl-6">
                 <span>{item}</span>
@@ -670,7 +711,7 @@ const StackedValue = () => {
             ))}
           </ul>
           
-          <div className="mt-12 p-12 border-2 border-dashed border-white/10 rounded-[40px] bg-white/5">
+          <div className="mt-12 p-12 border-2 border-dashed border-white/10 rounded-[40px] bg-white/5 mx-auto max-w-2xl">
             <div className="flex items-center justify-center gap-3 text-xl text-white/50">
               <span>{t('stacked.resultados.footer')}</span>
               <ArrowRight className="w-5 h-5" />
@@ -684,14 +725,14 @@ const StackedValue = () => {
       </section>
 
       {/* 3. Contenido */}
-      <section className="stacked-panel min-h-screen flex items-center justify-center bg-white px-6 py-24 z-[3]">
-        <div className="max-w-4xl w-full text-center">
+      <section className="stacked-panel h-screen flex items-center justify-center bg-white px-6 z-[3] overflow-hidden">
+        <div className="stacked-inner max-w-4xl w-full text-center py-24">
           <div className="flex justify-center mb-8">
             <Video className="w-12 h-12 text-black/20" />
           </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 dynamic-text">{t('stacked.contenido.title')}</h2>
           <p className="text-xl md:text-2xl text-muted-foreground mb-12">{t('stacked.contenido.subtitle')}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto px-6">
             {[t('stacked.contenido.item1'), t('stacked.contenido.item2'), t('stacked.contenido.item3'), t('stacked.contenido.item4')].map((item, i) => (
               <div key={i} className="p-8 rounded-[30px] bg-secondary/5 border border-border/10">
                 <span className="text-xl md:text-2xl font-heading font-medium">{item}</span>
@@ -702,13 +743,13 @@ const StackedValue = () => {
       </section>
 
       {/* 4. Proceso */}
-      <section className="stacked-panel min-h-screen flex items-center justify-center bg-zinc-50 px-6 py-24 z-[4]">
-        <div className="max-w-4xl w-full">
+      <section className="stacked-panel h-screen flex items-center justify-center bg-zinc-50 px-6 z-[4] overflow-hidden">
+        <div className="stacked-inner max-w-4xl w-full py-24">
           <div className="flex justify-center mb-8">
             <Settings2 className="w-12 h-12 text-black/20" />
           </div>
           <h2 className="text-4xl md:text-6xl font-heading font-medium mb-16 text-center dynamic-text">{t('stacked.proceso.title')}</h2>
-          <div className="space-y-12 max-w-2xl mx-auto">
+          <div className="space-y-12 max-w-2xl mx-auto px-6">
             {[t('stacked.proceso.item1'), t('stacked.proceso.item2'), t('stacked.proceso.item3'), t('stacked.proceso.item4')].map((item, i) => (
               <div key={i} className="flex gap-8 items-center border-b border-black/5 pb-8 last:border-0">
                 <span className="text-5xl md:text-7xl font-heading font-bold text-black/5">{i + 1}</span>
@@ -730,7 +771,7 @@ const Focuses = () => {
   ];
 
   return (
-    <section className="py-32 px-6 bg-transparent">
+    <section className="pt-32 pb-32 md:pt-64 md:pb-32 px-6 bg-transparent">
       <div className="container mx-auto max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-medium mb-4 dynamic-text">{t('focuses.title')}</h2>
@@ -833,25 +874,6 @@ const Testimonials = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 mt-20 md:mt-32 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <a 
-            href="https://www.linkedin.com/in/manuel-herrera-perfil/details/recommendations/?detailScreenTabIndex=0" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="group inline-flex items-center gap-4 px-8 py-3.5 bg-white border border-black/10 text-black rounded-full font-heading font-medium hover:bg-black/5 transition-all text-sm md:text-base relative overflow-hidden"
-          >
-            {t('test.button')}
-            <span className="p-2 bg-secondary/10 rounded-full flex items-center justify-center group-hover:bg-secondary/20 transition-colors">
-              <ArrowRight size={16} className="text-black group-hover:translate-x-1 transition-transform duration-300" />
-            </span>
-          </a>
-        </motion.div>
-      </div>
     </section>
   );
 };
