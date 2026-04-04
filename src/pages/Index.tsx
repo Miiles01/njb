@@ -613,15 +613,21 @@ const ProjectMagazine = () => {
 const Focuses = () => {
   const { t } = useLanguage();
   const focuses = [
-    t('focuses.item1'), t('focuses.item2'), t('focuses.item3'), t('focuses.item4'),
-    t('focuses.item5'), t('focuses.item6'), t('focuses.item7'), t('focuses.item8')
+    t('focuses.item1'), t('focuses.item2'), t('focuses.item3'),
+    t('focuses.item4'), t('focuses.item5'), t('focuses.item6')
   ];
 
   return (
     <section className="py-32 px-6 bg-transparent">
       <div className="container mx-auto max-w-7xl">
-        <h2 className="text-4xl md:text-5xl font-heading font-medium mb-16 text-center dynamic-text">{t('focuses.title')}</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-heading font-medium mb-4 dynamic-text">{t('focuses.title')}</h2>
+          <p className="text-lg text-muted-foreground transition-colors max-w-2xl mx-auto">
+            {t('focuses.subtitle')}
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {focuses.map((focus, i) => (
             <motion.div
               key={i}
@@ -629,12 +635,22 @@ const Focuses = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-8 rounded-[30px] border border-border/10 bg-secondary/5 dynamic-text text-center hover:bg-secondary/10 transition-colors flex items-center justify-center font-heading font-medium"
+              className="p-8 rounded-[30px] border border-border/10 bg-secondary/5 dynamic-text text-center hover:bg-secondary/10 transition-colors flex items-center justify-center font-heading font-medium text-lg min-h-[120px]"
             >
               {focus}
             </motion.div>
           ))}
         </div>
+
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+          className="text-center mt-16 font-heading font-medium tracking-tight text-xl dynamic-text opacity-80"
+        >
+          {t('focuses.footer')}
+        </motion.p>
       </div>
     </section>
   );

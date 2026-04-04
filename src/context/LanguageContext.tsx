@@ -71,16 +71,16 @@ const translations = {
         'problem.title3': 'No hay estrategia clara',
         'problem.conclusion': 'Porque se enfocan en visibilidad en lugar de conversión.',
 
-        // Focuses
-        'focuses.title': 'Nuestros principales enfoques',
-        'focuses.item1': 'Ventas',
-        'focuses.item2': 'Redes Sociales',
-        'focuses.item3': 'Customer Experience',
-        'focuses.item4': 'Funnels',
-        'focuses.item5': 'Web design',
-        'focuses.item6': 'Ads',
-        'focuses.item7': 'Branding',
-        'focuses.item8': 'Emailmarketing',
+        // Focuses (now Industrias)
+        'focuses.title': 'Industrias',
+        'focuses.subtitle': 'Trabajamos con empresas de múltiples industrias que buscan crecer y escalar.',
+        'focuses.footer': 'Si tienes un negocio, podemos hacerlo crecer',
+        'focuses.item1': 'Negocios locales',
+        'focuses.item2': 'Empresas de servicios',
+        'focuses.item3': 'Restaurantes y hospitalidad',
+        'focuses.item4': 'Bienes raíces',
+        'focuses.item5': 'Marcas personales',
+        'focuses.item6': 'Startups y nuevos proyectos',
 
         // Sticky Grid
         'grid.title': 'Nuestros Proyectos',
@@ -180,16 +180,16 @@ const translations = {
         'problem.title3': 'No clear strategy',
         'problem.conclusion': 'Because they focus on visibility instead of conversion.',
 
-        // Focuses
-        'focuses.title': 'Our main focuses',
-        'focuses.item1': 'Sales',
-        'focuses.item2': 'Social Media',
-        'focuses.item3': 'Customer Experience',
-        'focuses.item4': 'Funnels',
-        'focuses.item5': 'Web design',
-        'focuses.item6': 'Ads',
-        'focuses.item7': 'Branding',
-        'focuses.item8': 'Emailmarketing',
+        // Focuses (now Industries)
+        'focuses.title': 'Industries',
+        'focuses.subtitle': 'We work with companies from multiple industries looking to grow and scale.',
+        'focuses.footer': 'If you have a business, we can make it grow',
+        'focuses.item1': 'Local businesses',
+        'focuses.item2': 'Service companies',
+        'focuses.item3': 'Restaurants & Hospitality',
+        'focuses.item4': 'Real Estate',
+        'focuses.item5': 'Personal brands',
+        'focuses.item6': 'Startups & new projects',
 
         // Sticky Grid
         'grid.title': 'Our Projects',
@@ -289,16 +289,16 @@ const translations = {
         'problem.title3': 'Pas de stratégie claire',
         'problem.conclusion': 'Parce qu\'ils se concentrent sur la visibilité plutôt que sur la conversion.',
 
-        // Focuses
-        'focuses.title': 'Nos principaux axes',
-        'focuses.item1': 'Ventes',
-        'focuses.item2': 'Réseaux sociaux',
-        'focuses.item3': 'Expérience client',
-        'focuses.item4': 'Funnels',
-        'focuses.item5': 'Design web',
-        'focuses.item6': 'Ads',
-        'focuses.item7': 'Branding',
-        'focuses.item8': 'Emailmarketing',
+        // Focuses (now Industries)
+        'focuses.title': 'Industries',
+        'focuses.subtitle': 'Nous travaillons avec des entreprises de multiples secteurs cherchant à croître et à se développer.',
+        'focuses.footer': 'Si vous avez une entreprise, nous pouvons la faire croître',
+        'focuses.item1': 'Entreprises locales',
+        'focuses.item2': 'Entreprises de services',
+        'focuses.item3': 'Restaurants et hôtellerie',
+        'focuses.item4': 'Immobilier',
+        'focuses.item5': 'Marques personnelles',
+        'focuses.item6': 'Startups et nouveaux projets',
 
         // Sticky Grid
         'grid.title': 'Nos Projets',
