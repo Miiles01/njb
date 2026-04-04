@@ -359,18 +359,21 @@ const Mission = () => {
       
       tl.add(scrollTween);
 
-      // Stabilized character animations
-      split.chars.forEach((char) => {
+      // Stabilized character animations - Pieces from above and below
+      split.chars.forEach((char, i) => {
         gsap.from(char, {
-          y: isMobile ? 30 : 100,
+          y: i % 2 === 0 ? -200 : 200, // More distance for assembly
           opacity: 0,
-          rotateX: -90,
-          ease: "power2.out",
+          rotateX: 80,
+          rotateY: i % 2 === 0 ? 15 : -15, // Subtle Y rotation for organic feel
+          scale: 0.8,
+          filter: "blur(4px)", // Sharp to clear effect
+          ease: "back.out(2.5)",
           scrollTrigger: {
             trigger: char,
             containerAnimation: scrollTween,
-            start: "left 95%",
-            end: "left 40%",
+            start: "left 98%",
+            end: "left 48%",
             scrub: true
           }
         });
@@ -387,17 +390,27 @@ const Mission = () => {
   }, [language]);
 
   return (
-    <section id="vision" ref={sectionRef} className="relative min-h-[100vh] bg-white transition-colors duration-500 overflow-hidden flex items-center">
-      <div className="flex h-full items-center px-10 md:px-20">
-        <div ref={horizontalRef} className="flex whitespace-nowrap">
-          <h2 
-            key={language}
-            ref={textRef} 
-            className="text-[15vw] md:text-[12vw] font-heading font-medium leading-none tracking-tighter text-black transition-colors duration-500"
-          >
-            {t('mission.text')}
-          </h2>
-        </div>
+    <section 
+      id="vision" 
+      ref={sectionRef} 
+      className="relative min-h-[100vh] bg-white transition-colors duration-500 overflow-hidden flex items-center perspective-1000"
+    >
+      <div 
+        ref={horizontalRef} 
+        className="flex h-full items-center whitespace-nowrap will-change-transform"
+        style={{ 
+          paddingLeft: '50vw', 
+          paddingRight: '50vw',
+          width: 'max-content'
+        }}
+      >
+        <h2 
+          key={language}
+          ref={textRef} 
+          className="text-[14vw] md:text-[11vw] font-heading font-medium leading-none tracking-tighter text-black transition-colors duration-500"
+        >
+          {t('mission.text')}
+        </h2>
       </div>
     </section>
   );
