@@ -34,11 +34,10 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}/admin` },
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: `${window.location.origin}/admin`,
     });
-    if (error) setError(error.message);
+    if (result.error) setError(String(result.error));
   };
 
   return (
