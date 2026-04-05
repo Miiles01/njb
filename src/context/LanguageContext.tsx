@@ -129,6 +129,8 @@ const translations = {
         // Footer
         'footer.headline': 'Hagámoslo',
         'footer.subline': 'Hablemos pronto',
+        'footer.cta': 'Agenda tu consulta gratuita ahora',
+        'footer.cta.button': 'Agendar ahora',
         'footer.linkedin': 'LinkedIn',
         'footer.copyright': '© 2026 NJB',
 
@@ -278,6 +280,8 @@ const translations = {
         // Footer
         'footer.headline': 'Let\'s do it',
         'footer.subline': 'Talk soon',
+        'footer.cta': 'Schedule your free consultation now',
+        'footer.cta.button': 'Schedule now',
         'footer.linkedin': 'LinkedIn',
         'footer.copyright': '© 2026 NJB',
 
@@ -427,6 +431,8 @@ const translations = {
         // Footer
         'footer.headline': 'Faisons-le',
         'footer.subline': 'À bientôt',
+        'footer.cta': 'Planifiez votre consultation gratuite maintenant',
+        'footer.cta.button': 'Planifier maintenant',
         'footer.linkedin': 'LinkedIn',
         'footer.copyright': '© 2026 NJB',
 

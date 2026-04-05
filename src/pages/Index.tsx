@@ -1167,52 +1167,75 @@ const ConnectingFooter = () => {
   const letters = title.split("");
 
   return (
-    <section id="connect" className="pt-32 md:pt-64 pb-16 px-6 relative bg-transparent overflow-hidden">
+    <section id="connect" className="pt-16 md:pt-32 pb-8 px-4 md:px-8 relative bg-white overflow-hidden">
       <div id="connect-trigger" className="absolute top-0 left-0 w-full h-1" />
-      <div className="container mx-auto max-w-7xl flex flex-col items-center">
+      
+      {/* Black container */}
+      <div className="bg-black rounded-[40px] border border-white/10 py-20 md:py-32 px-6 md:px-16 mx-auto max-w-7xl">
+        <div className="flex flex-col items-center">
 
-        <div className="flex flex-col gap-6 items-center text-center mb-16">
-          <h3 className="text-sm font-medium opacity-60 dynamic-text">{t('footer.subline')}</h3>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <ContactLink
-              label="info@njb.services"
-              value="info@njb.services"
-              href="mailto:info@njb.services"
-              icon={Mail}
-            />
-            <ContactLink
-              label="+1 (514) 718-0228"
-              value="+15147180228"
-              href="tel:+15147180228"
-              icon={Phone}
-            />
+          {/* CTA */}
+          <motion.div
+            className="flex flex-col items-center text-center mb-16 md:mb-24"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl md:text-3xl font-heading font-medium text-white mb-8 max-w-xl leading-snug">
+              {t('footer.cta')}
+            </h3>
+            <a
+              href="/contacto"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-heading font-medium hover:bg-zinc-100 transition-all text-base md:text-lg"
+            >
+              {t('footer.cta.button')}
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </motion.div>
+
+          {/* Subline + Contact */}
+          <div className="flex flex-col gap-6 items-center text-center mb-16">
+            <h3 className="text-sm font-medium text-white/40">{t('footer.subline')}</h3>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <a href="mailto:info@njb.services" className="inline-flex items-center gap-3 px-6 py-3 border border-white/10 rounded-full text-white/70 hover:text-white hover:border-white/30 transition-all text-sm font-heading">
+                <Mail className="w-4 h-4" />
+                info@njb.services
+              </a>
+              <a href="tel:+15147180228" className="inline-flex items-center gap-3 px-6 py-3 border border-white/10 rounded-full text-white/70 hover:text-white hover:border-white/30 transition-all text-sm font-heading">
+                <Phone className="w-4 h-4" />
+                +1 (514) 718-0228
+              </a>
+            </div>
           </div>
-        </div>
 
-        <div className="relative flex justify-center w-full">
-          <h2 className="text-[12vw] md:text-[15vw] font-heading font-medium tracking-normal md:tracking-tighter leading-none dynamic-text select-none flex cursor-default justify-center w-full">
-            {letters.map((letter, i) => (
-              <motion.span
-                key={i}
-                whileHover={{ y: -30, color: "#154FD1" }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className="inline-block whitespace-pre"
-              >
-                {letter}
-              </motion.span>
-            ))}
-          </h2>
-        </div>
+          {/* Big headline */}
+          <div className="relative flex justify-center w-full">
+            <h2 className="text-[12vw] md:text-[15vw] font-heading font-medium tracking-normal md:tracking-tighter leading-none text-white select-none flex cursor-default justify-center w-full">
+              {letters.map((letter, i) => (
+                <motion.span
+                  key={i}
+                  whileHover={{ y: -30, color: "#154FD1" }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  className="inline-block whitespace-pre"
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </h2>
+          </div>
 
-        <div className="mt-24 pt-12 flex flex-col items-center gap-6 w-full text-center">
-          <p className="text-xs opacity-40 font-light uppercase tracking-[0.2em] dynamic-text">
-            {t('footer.copyright')}
-          </p>
+          {/* Copyright */}
+          <div className="mt-16 md:mt-24 flex flex-col items-center gap-6 w-full text-center">
+            <p className="text-xs text-white/20 font-light uppercase tracking-[0.2em]">
+              {t('footer.copyright')}
+            </p>
+          </div>
         </div>
       </div>
     </section>
   );
 };
+
 
 const Index = () => {
   useLayoutEffect(() => {
