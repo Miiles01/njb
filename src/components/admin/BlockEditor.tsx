@@ -278,7 +278,18 @@ const BlockEditor = ({
     ?.filter((i) => i.image_type === "gallery")
     .sort((a, b) => a.sort_order - b.sort_order) ?? [];
 
+  // Preview images: 1 cover (big) + 2 small previews
+  const existingPreviewSmall = project?.project_images
+    ?.filter((i) => i.image_type === "preview_small")
+    .sort((a, b) => a.sort_order - b.sort_order) ?? [];
+
   const [coverPath, setCoverPath] = useState<string | undefined>(existingCover?.storage_path);
+  const [previewSmall1, setPreviewSmall1] = useState<{ id?: string; path?: string }>( 
+    existingPreviewSmall[0] ? { id: existingPreviewSmall[0].id, path: existingPreviewSmall[0].storage_path } : {}
+  );
+  const [previewSmall2, setPreviewSmall2] = useState<{ id?: string; path?: string }>(
+    existingPreviewSmall[1] ? { id: existingPreviewSmall[1].id, path: existingPreviewSmall[1].storage_path } : {}
+  );
   const [detailImages, setDetailImages] = useState<{ id?: string; path: string; alt?: string }[]>(
     existingDetailImages.map((img) => ({ id: img.id, path: img.storage_path, alt: img.alt_text ?? "" }))
   );
