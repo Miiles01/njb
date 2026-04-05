@@ -571,6 +571,64 @@ const BlockEditor = ({
           </details>
         </div>
 
+        {/* Project Images — Cover & Detail */}
+        <div className="mb-10 space-y-6">
+          {/* Cover / Preview Image */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Camera className="h-4 w-4 text-muted-foreground" />
+              <h3 className="text-sm font-medium">Imagen de preview</h3>
+              <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">Portada</span>
+            </div>
+            <ImageDropZone
+              currentUrl={coverPath ? getImageUrl(coverPath) : undefined}
+              onUpload={handleCoverUpload}
+              onRemove={coverPath ? () => setCoverPath(undefined) : undefined}
+              aspect="16/9"
+            />
+          </div>
+
+          {/* Detail / Gallery Images */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Layers className="h-4 w-4 text-muted-foreground" />
+              <h3 className="text-sm font-medium">Imágenes de detalle</h3>
+              <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{detailImages.length} imágenes</span>
+            </div>
+            {detailImages.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {detailImages.map((img, idx) => (
+                  <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden bg-muted/20 border border-border/40 group">
+                    <img src={getImageUrl(img.path)} alt={img.alt || ""} className="w-full h-full object-cover" />
+                    <button
+                      onClick={() => removeDetailImage(idx)}
+                      className="absolute top-2 right-2 bg-background/90 backdrop-blur rounded-full p-1.5 hover:bg-destructive hover:text-destructive-foreground transition-colors shadow-sm opacity-0 group-hover:opacity-100"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                    <div className="absolute bottom-2 left-2 bg-background/80 backdrop-blur rounded-full px-2 py-0.5">
+                      <span className="text-[10px] font-medium text-muted-foreground">{idx + 1}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <label className="flex items-center justify-center gap-2 py-6 border-2 border-dashed border-border/50 rounded-xl cursor-pointer hover:border-border hover:bg-muted/20 transition-colors">
+              <Upload className="h-4 w-4 text-muted-foreground/60" />
+              <span className="text-xs text-muted-foreground/60">Agregar imagen de detalle</span>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) handleDetailImageUpload(f);
+                }}
+              />
+            </label>
+          </div>
+        </div>
+
         {/* Divider */}
         <div className="border-t border-border/50 mb-8" />
 
