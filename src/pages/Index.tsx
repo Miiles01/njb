@@ -788,7 +788,7 @@ const Focuses = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-8 rounded-[30px] border border-border/10 bg-secondary/5 dynamic-text text-center hover:bg-secondary/10 transition-colors flex items-center justify-center font-heading font-medium text-lg min-h-[120px]"
+              className="p-5 md:p-8 rounded-[20px] md:rounded-[30px] border border-border/10 bg-secondary/5 dynamic-text text-center hover:bg-secondary/10 transition-colors flex items-center justify-center font-heading font-medium text-base md:text-lg min-h-[80px] md:min-h-[120px]"
             >
               {focus}
             </motion.div>
