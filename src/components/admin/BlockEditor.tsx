@@ -284,6 +284,9 @@ const BlockEditor = ({
   );
 
   const saveProject = useSaveProject();
+  const uploadImage = useUploadImage();
+
+  const [form, setForm] = useState({
     title: project?.title ?? "",
     slug: project?.slug ?? "",
     subtitle_en: project?.subtitle_en ?? "",
