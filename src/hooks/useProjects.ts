@@ -137,6 +137,10 @@ export const useDeleteProjectImage = () => {
 };
 
 export const getImageUrl = (storagePath: string) => {
+  // If the path starts with / or http, treat as a direct URL (public folder or external)
+  if (storagePath.startsWith("/") || storagePath.startsWith("http")) {
+    return storagePath;
+  }
   const { data } = supabase.storage.from("project-images").getPublicUrl(storagePath);
   return data.publicUrl;
 };
