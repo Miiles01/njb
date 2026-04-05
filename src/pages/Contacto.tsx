@@ -4,13 +4,16 @@ import { ArrowRight, Check } from "lucide-react";
 import AccordionNavbar from "@/components/AccordionNavbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 const Contacto = () => {
   const { t } = useLanguage();
+  const { track } = useAnalytics();
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    track("contact_form_submit", { pagePath: "/contacto" });
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 5000);
   };
