@@ -269,10 +269,21 @@ const BlockEditor = ({
   project?: ProjectWithImages;
   onClose: () => void;
 }) => {
-  const saveProject = useSaveProject();
-  const uploadImage = useUploadImage();
+  const saveProjectImage = useSaveProjectImage();
+  const deleteProjectImage = useDeleteProjectImage();
 
-  const [form, setForm] = useState({
+  // Separate cover and detail images from project_images
+  const existingCover = project?.project_images?.find((i) => i.image_type === "cover");
+  const existingDetailImages = project?.project_images
+    ?.filter((i) => i.image_type === "gallery")
+    .sort((a, b) => a.sort_order - b.sort_order) ?? [];
+
+  const [coverPath, setCoverPath] = useState<string | undefined>(existingCover?.storage_path);
+  const [detailImages, setDetailImages] = useState<{ id?: string; path: string; alt?: string }[]>(
+    existingDetailImages.map((img) => ({ id: img.id, path: img.storage_path, alt: img.alt_text ?? "" }))
+  );
+
+  const saveProject = useSaveProject();
     title: project?.title ?? "",
     slug: project?.slug ?? "",
     subtitle_en: project?.subtitle_en ?? "",
