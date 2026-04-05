@@ -114,6 +114,7 @@ const Trabajo = () => {
                             slug={slug}
                             t={t}
                             onHover={setHoveredParticipation}
+                            onProjectClick={handleProjectClick}
                         />
                     ))}
                 </section>
