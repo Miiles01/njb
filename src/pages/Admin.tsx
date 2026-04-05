@@ -258,20 +258,17 @@ const ProjectEditor = ({
           </div>
 
           {/* Subtitle */}
-          <div className="space-y-4">
-            <h3 className="font-medium">Subtítulo</h3>
-            <div className="grid grid-cols-3 gap-4">
-              {(["es", "en", "fr"] as const).map((lang) => (
-                <div key={lang} className="space-y-1">
-                  <label className="text-xs text-muted-foreground uppercase">{lang}</label>
-                  <Input
-                    value={(form as any)[`subtitle_${lang}`]}
-                    onChange={(e) => updateField(`subtitle_${lang}`, e.target.value)}
-                    placeholder={`Subtítulo (${lang})`}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Subtítulo</label>
+            <Input
+              value={form.subtitle_en}
+              onChange={(e) => {
+                updateField("subtitle_en", e.target.value);
+                updateField("subtitle_es", e.target.value);
+                updateField("subtitle_fr", e.target.value);
+              }}
+              placeholder="Project subtitle"
+            />
           </div>
         </div>
       )}
@@ -284,68 +281,60 @@ const ProjectEditor = ({
 
           {/* Industry */}
           <div className="space-y-4">
-            <h3 className="font-medium">Industria</h3>
-            <div className="grid grid-cols-3 gap-4">
-              {(["es", "en", "fr"] as const).map((lang) => (
-                <div key={lang} className="space-y-1">
-                  <label className="text-xs text-muted-foreground uppercase">{lang}</label>
-                  <Input
-                    value={(form as any)[`industry_${lang}`]}
-                    onChange={(e) => updateField(`industry_${lang}`, e.target.value)}
-                  />
-                </div>
-              ))}
-            </div>
+            <label className="text-sm font-medium">Industria</label>
+            <Input
+              value={form.industry_en}
+              onChange={(e) => {
+                updateField("industry_en", e.target.value);
+                updateField("industry_es", e.target.value);
+                updateField("industry_fr", e.target.value);
+              }}
+              placeholder="Industry"
+            />
           </div>
 
           {/* Role */}
-          <div className="space-y-4">
-            <h3 className="font-medium">Qué hicimos</h3>
-            <div className="grid grid-cols-3 gap-4">
-              {(["es", "en", "fr"] as const).map((lang) => (
-                <div key={lang} className="space-y-1">
-                  <label className="text-xs text-muted-foreground uppercase">{lang}</label>
-                  <Input
-                    value={(form as any)[`role_${lang}`]}
-                    onChange={(e) => updateField(`role_${lang}`, e.target.value)}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">What we did</label>
+            <Input
+              value={form.role_en}
+              onChange={(e) => {
+                updateField("role_en", e.target.value);
+                updateField("role_es", e.target.value);
+                updateField("role_fr", e.target.value);
+              }}
+              placeholder="Role / What we did"
+            />
           </div>
 
           {/* Description */}
-          <div className="space-y-4">
-            <h3 className="font-medium">Descripción</h3>
-            <div className="grid grid-cols-3 gap-4">
-              {(["es", "en", "fr"] as const).map((lang) => (
-                <div key={lang} className="space-y-1">
-                  <label className="text-xs text-muted-foreground uppercase">{lang}</label>
-                  <Textarea
-                    value={(form as any)[`description_${lang}`]}
-                    onChange={(e) => updateField(`description_${lang}`, e.target.value)}
-                    rows={4}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Description</label>
+            <Textarea
+              value={form.description_en}
+              onChange={(e) => {
+                updateField("description_en", e.target.value);
+                updateField("description_es", e.target.value);
+                updateField("description_fr", e.target.value);
+              }}
+              placeholder="Project description"
+              rows={5}
+            />
           </div>
 
           {/* Strategy */}
-          <div className="space-y-4">
-            <h3 className="font-medium">Planificación Funcional (opcional)</h3>
-            <div className="grid grid-cols-3 gap-4">
-              {(["es", "en", "fr"] as const).map((lang) => (
-                <div key={lang} className="space-y-1">
-                  <label className="text-xs text-muted-foreground uppercase">{lang}</label>
-                  <Textarea
-                    value={(form as any)[`strategy_${lang}`] ?? ""}
-                    onChange={(e) => updateField(`strategy_${lang}`, e.target.value)}
-                    rows={4}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Functional Planning (optional)</label>
+            <Textarea
+              value={form.strategy_en ?? ""}
+              onChange={(e) => {
+                updateField("strategy_en", e.target.value);
+                updateField("strategy_es", e.target.value);
+                updateField("strategy_fr", e.target.value);
+              }}
+              placeholder="Strategy / Functional planning"
+              rows={5}
+            />
           </div>
 
           {/* Gallery Images */}
