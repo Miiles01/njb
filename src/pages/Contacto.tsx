@@ -5,17 +5,37 @@ import AccordionNavbar from "@/components/AccordionNavbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Contacto = () => {
   const { t } = useLanguage();
   const { track } = useAnalytics();
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    track("contact_form_submit", { pagePath: "/contacto" });
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setLoading(true);
+
+    const form = e.target as HTMLFormElement;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value.trim();
+
+    try {
+      const { error } = await supabase.from("contact_submissions" as any).insert({
+        email,
+        phone,
+      });
+      if (error) throw error;
+
+      track("contact_form_submit", { pagePath: "/contacto" });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err: any) {
+      toast.error("Error al enviar. Intenta de nuevo.");
+    }
+    setLoading(false);
   };
 
   return (
