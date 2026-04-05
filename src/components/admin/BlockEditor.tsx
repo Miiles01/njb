@@ -18,10 +18,12 @@ import {
   ChevronUp,
   ChevronDown,
   Settings2,
+  Camera,
+  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useSaveProject, useUploadImage, getImageUrl } from "@/hooks/useProjects";
-import type { ProjectWithImages } from "@/hooks/useProjects";
+import { useSaveProject, useUploadImage, useSaveProjectImage, useDeleteProjectImage, getImageUrl } from "@/hooks/useProjects";
+import type { ProjectWithImages, ProjectImage } from "@/hooks/useProjects";
 
 /* ── Block Types ── */
 export type BlockType = "full-image" | "two-images" | "text" | "button";
@@ -267,6 +269,20 @@ const BlockEditor = ({
   project?: ProjectWithImages;
   onClose: () => void;
 }) => {
+  const saveProjectImage = useSaveProjectImage();
+  const deleteProjectImage = useDeleteProjectImage();
+
+  // Separate cover and detail images from project_images
+  const existingCover = project?.project_images?.find((i) => i.image_type === "cover");
+  const existingDetailImages = project?.project_images
+    ?.filter((i) => i.image_type === "gallery")
+    .sort((a, b) => a.sort_order - b.sort_order) ?? [];
+
+  const [coverPath, setCoverPath] = useState<string | undefined>(existingCover?.storage_path);
+  const [detailImages, setDetailImages] = useState<{ id?: string; path: string; alt?: string }[]>(
+    existingDetailImages.map((img) => ({ id: img.id, path: img.storage_path, alt: img.alt_text ?? "" }))
+  );
+
   const saveProject = useSaveProject();
   const uploadImage = useUploadImage();
 
@@ -359,6 +375,40 @@ const BlockEditor = ({
     }
   };
 
+  const handleCoverUpload = async (file: File) => {
+    const slug = form.slug || "draft";
+    const path = `${slug}/cover-${Date.now()}.${file.name.split(".").pop()}`;
+    try {
+      await uploadImage.mutateAsync({ file, path });
+      setCoverPath(path);
+      toast.success("Imagen de preview subida");
+    } catch (err: any) {
+      toast.error(err.message || "Error al subir imagen");
+    }
+  };
+
+  const handleDetailImageUpload = async (file: File) => {
+    const slug = form.slug || "draft";
+    const path = `${slug}/detail-${Date.now()}.${file.name.split(".").pop()}`;
+    try {
+      await uploadImage.mutateAsync({ file, path });
+      setDetailImages((prev) => [...prev, { path, alt: "" }]);
+      toast.success("Imagen de detalle subida");
+    } catch (err: any) {
+      toast.error(err.message || "Error al subir imagen");
+    }
+  };
+
+  const removeDetailImage = async (index: number) => {
+    const img = detailImages[index];
+    if (img.id) {
+      try {
+        await deleteProjectImage.mutateAsync(img.id);
+      } catch {}
+    }
+    setDetailImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSave = async () => {
     if (!form.title || !form.slug) {
       toast.error("Título y slug son requeridos");
@@ -366,11 +416,10 @@ const BlockEditor = ({
     }
     setSaving(true);
     try {
-      // Extract description from first text block for backward compatibility
       const firstTextBlock = blocks.find((b) => b.type === "text");
       const desc = firstTextBlock?.body ?? form.description_en;
 
-      await saveProject.mutateAsync({
+      const savedProject = await saveProject.mutateAsync({
         ...form,
         subtitle_es: form.subtitle_en,
         subtitle_fr: form.subtitle_en,
@@ -384,10 +433,48 @@ const BlockEditor = ({
         strategy_en: form.strategy_en,
         strategy_es: form.strategy_en,
         strategy_fr: form.strategy_en,
-        // content_blocks is JSONB — pass as-is; supabase-js handles it
         content_blocks: blocks as any,
         ...(project?.id ? { id: project.id } : {}),
       } as any);
+
+      const projectId = savedProject.id;
+
+      // Save cover image if changed
+      if (coverPath && coverPath !== existingCover?.storage_path) {
+        if (existingCover?.id) {
+          await deleteProjectImage.mutateAsync(existingCover.id);
+        }
+        await saveProjectImage.mutateAsync({
+          project_id: projectId,
+          storage_path: coverPath,
+          image_type: "cover",
+          sort_order: 0,
+        });
+      } else if (!coverPath && existingCover?.id) {
+        await deleteProjectImage.mutateAsync(existingCover.id);
+      }
+
+      // Save detail images — remove old ones not present, add new ones
+      const oldDetailIds = existingDetailImages.map((i) => i.id);
+      const currentIds = detailImages.filter((i) => i.id).map((i) => i.id!);
+      for (const oldId of oldDetailIds) {
+        if (!currentIds.includes(oldId)) {
+          await deleteProjectImage.mutateAsync(oldId);
+        }
+      }
+      for (let i = 0; i < detailImages.length; i++) {
+        const img = detailImages[i];
+        if (!img.id) {
+          await saveProjectImage.mutateAsync({
+            project_id: projectId,
+            storage_path: img.path,
+            image_type: "gallery",
+            sort_order: i + 1,
+            alt_text: img.alt || "",
+          });
+        }
+      }
+
       toast.success("Proyecto guardado");
       onClose();
     } catch (err: any) {
@@ -482,6 +569,64 @@ const BlockEditor = ({
               </div>
             </div>
           </details>
+        </div>
+
+        {/* Project Images — Cover & Detail */}
+        <div className="mb-10 space-y-6">
+          {/* Cover / Preview Image */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Camera className="h-4 w-4 text-muted-foreground" />
+              <h3 className="text-sm font-medium">Imagen de preview</h3>
+              <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">Portada</span>
+            </div>
+            <ImageDropZone
+              currentUrl={coverPath ? getImageUrl(coverPath) : undefined}
+              onUpload={handleCoverUpload}
+              onRemove={coverPath ? () => setCoverPath(undefined) : undefined}
+              aspect="16/9"
+            />
+          </div>
+
+          {/* Detail / Gallery Images */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Layers className="h-4 w-4 text-muted-foreground" />
+              <h3 className="text-sm font-medium">Imágenes de detalle</h3>
+              <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{detailImages.length} imágenes</span>
+            </div>
+            {detailImages.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {detailImages.map((img, idx) => (
+                  <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden bg-muted/20 border border-border/40 group">
+                    <img src={getImageUrl(img.path)} alt={img.alt || ""} className="w-full h-full object-cover" />
+                    <button
+                      onClick={() => removeDetailImage(idx)}
+                      className="absolute top-2 right-2 bg-background/90 backdrop-blur rounded-full p-1.5 hover:bg-destructive hover:text-destructive-foreground transition-colors shadow-sm opacity-0 group-hover:opacity-100"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                    <div className="absolute bottom-2 left-2 bg-background/80 backdrop-blur rounded-full px-2 py-0.5">
+                      <span className="text-[10px] font-medium text-muted-foreground">{idx + 1}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <label className="flex items-center justify-center gap-2 py-6 border-2 border-dashed border-border/50 rounded-xl cursor-pointer hover:border-border hover:bg-muted/20 transition-colors">
+              <Upload className="h-4 w-4 text-muted-foreground/60" />
+              <span className="text-xs text-muted-foreground/60">Agregar imagen de detalle</span>
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) handleDetailImageUpload(f);
+                }}
+              />
+            </label>
+          </div>
         </div>
 
         {/* Divider */}
