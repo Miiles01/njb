@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertTriangle } from "lucide-react";
+import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -1159,7 +1159,7 @@ const Offer = () => {
             <span>{t('offer.footer.commitment')}</span>
           </div>
           <div className="flex items-center gap-3 text-base md:text-lg font-heading font-medium text-amber-600">
-            <AlertTriangle className="w-5 h-5" />
+            <AlertCircle className="w-5 h-5" />
             <span>{t('offer.footer.limited')}</span>
           </div>
         </motion.div>
