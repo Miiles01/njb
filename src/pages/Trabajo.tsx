@@ -9,7 +9,7 @@ import { projectsData, Participation, ProjectData } from "@/data/projects";
 import FloatingProjectInfo from "@/components/FloatingProjectInfo";
 import { useState } from "react";
 
-const ProjectSection = ({ project, slug, t, onHover }: { project: ProjectData, slug: string, t: any, onHover: (participation: Participation[] | null) => void }) => {
+const ProjectSection = ({ project, slug, t, onHover, onProjectClick }: { project: ProjectData, slug: string, t: any, onHover: (participation: Participation[] | null) => void, onProjectClick: (slug: string) => void }) => {
     const getPath = (img: string) => `/proyectos/${project.folder}/${img}`;
     const cover = project.images[0];
     const secondary = project.images.slice(1, 3);
@@ -21,7 +21,7 @@ const ProjectSection = ({ project, slug, t, onHover }: { project: ProjectData, s
             onMouseLeave={() => onHover(null)}
         >
             {/* Main Cover */}
-            <Link to={`/proyecto/${slug}`} className="block w-full mb-8">
+            <Link to={`/proyecto/${slug}`} className="block w-full mb-8" onClick={() => onProjectClick(slug)}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
