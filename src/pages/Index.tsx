@@ -881,10 +881,11 @@ const Testimonials = () => {
 
 
 
-const ContactLink = ({ label, value, href, icon: Icon, showTooltip = true }: any) => {
+const ContactLink = ({ label, value, href, icon: Icon, showTooltip = true, variant = 'light' }: any) => {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
   const [hovered, setHovered] = useState(false);
+  const isDark = variant === 'dark';
 
   const handleCopy = () => {
     if (!showTooltip) return;
@@ -900,9 +901,13 @@ const ContactLink = ({ label, value, href, icon: Icon, showTooltip = true }: any
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onClick={showTooltip ? (e) => { e.preventDefault(); handleCopy(); } : undefined}
-        className="inline-flex items-center gap-4 px-8 py-5 rounded-2xl bg-secondary/10 hover:bg-secondary/20 transition-all border border-border/5 font-heading font-medium text-lg dynamic-text"
+        className={`inline-flex items-center gap-4 px-8 py-5 rounded-2xl transition-all border font-heading font-medium text-lg ${
+          isDark
+            ? 'bg-white/5 hover:bg-white/10 border-white/10 text-white/70 hover:text-white'
+            : 'bg-secondary/10 hover:bg-secondary/20 border-border/5 dynamic-text'
+        }`}
       >
-        <Icon size={20} className="dynamic-text" />
+        <Icon size={20} className={isDark ? 'text-white/70' : 'dynamic-text'} />
         {label}
         {copied && <Check size={16} className="text-green-500 ml-2" />}
       </motion.a>
@@ -913,9 +918,11 @@ const ContactLink = ({ label, value, href, icon: Icon, showTooltip = true }: any
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="absolute top-full mt-3 left-1/2 -translate-x-1/2 px-4 py-2 bg-black text-white text-xs rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl"
+            className={`absolute top-full mt-3 left-1/2 -translate-x-1/2 px-4 py-2 text-xs rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl ${
+              isDark ? 'bg-white text-black' : 'bg-black text-white'
+            }`}
           >
-            <div className="absolute top-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 bg-black rotate-45" />
+            <div className={`absolute top-[-4px] left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 ${isDark ? 'bg-white' : 'bg-black'}`} />
             {copied ? t('common.copied') : t('common.copy')}
           </motion.div>
         )}
@@ -1197,14 +1204,20 @@ const ConnectingFooter = () => {
           <div className="flex flex-col gap-6 items-center text-center mb-16">
             <h3 className="text-sm font-medium text-white/40">{t('footer.subline')}</h3>
             <div className="flex flex-wrap gap-4 justify-center">
-              <a href="mailto:info@njb.services" className="inline-flex items-center gap-3 px-6 py-3 border border-white/10 rounded-full text-white/70 hover:text-white hover:border-white/30 transition-all text-sm font-heading">
-                <Mail className="w-4 h-4" />
-                info@njb.services
-              </a>
-              <a href="tel:+15147180228" className="inline-flex items-center gap-3 px-6 py-3 border border-white/10 rounded-full text-white/70 hover:text-white hover:border-white/30 transition-all text-sm font-heading">
-                <Phone className="w-4 h-4" />
-                +1 (514) 718-0228
-              </a>
+              <ContactLink
+                label="info@njb.services"
+                value="info@njb.services"
+                href="mailto:info@njb.services"
+                icon={Mail}
+                variant="dark"
+              />
+              <ContactLink
+                label="+1 (514) 718-0228"
+                value="+15147180228"
+                href="tel:+15147180228"
+                icon={Phone}
+                variant="dark"
+              />
             </div>
           </div>
 
