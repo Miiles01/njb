@@ -8,6 +8,7 @@ import Trabajo from "./pages/Trabajo.tsx";
 import Contacto from "./pages/Contacto.tsx";
 import Proyecto from "./pages/Proyecto.tsx";
 import Login from "./pages/Login.tsx";
+import Register from "./pages/Register.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { SmoothScroll } from "./components/SmoothScroll";
@@ -34,6 +35,7 @@ const App = () => (
                 <Route path="/contacto" element={<Contacto />} />
                 <Route path="/proyecto/:slug" element={<Proyecto />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
                 <Route
                   path="/admin"
                   element={
