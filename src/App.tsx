@@ -25,6 +25,7 @@ const App = () => (
         <LanguageProvider>
           <BrowserRouter>
             <SmoothScroll>
+              <PageViewTracker />
               <Toaster />
               <Sonner />
               <Routes>
