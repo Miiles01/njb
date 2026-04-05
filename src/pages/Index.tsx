@@ -924,43 +924,65 @@ const ContactLink = ({ label, value, href, icon: Icon, showTooltip = true }: any
   );
 };
 // Animated SVG illustrations for the Offer cards
-const StrategyIllustration = () => (
-  <motion.svg
-    viewBox="0 0 280 200"
-    className="w-full h-auto"
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true }}
-  >
-    {/* Background grid */}
-    {[...Array(6)].map((_, i) => (
-      <motion.line key={`h${i}`} x1="20" y1={30 + i * 30} x2="260" y2={30 + i * 30}
-        stroke="#e4e4e7" strokeWidth="0.5" strokeDasharray="4,4"
-        initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
-        viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.6 }}
-      />
-    ))}
-    {/* Rising bar chart */}
-    {[40, 70, 55, 90, 80, 120, 110, 150].map((h, i) => (
-      <motion.rect key={i} x={35 + i * 28} y={200 - h} width="18" rx="4"
-        fill={i >= 6 ? "#000" : "#e4e4e7"}
-        initial={{ height: 0, y: 200 }} whileInView={{ height: h, y: 200 - h }}
-        viewport={{ once: true }} transition={{ delay: 0.3 + i * 0.08, duration: 0.5, ease: "easeOut" }}
-      />
-    ))}
-    {/* Trend line */}
-    <motion.path d="M44 165 L72 140 L100 150 L128 120 L156 130 L184 90 L212 100 L240 60"
-      fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"
-      initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
-      viewport={{ once: true }} transition={{ delay: 1, duration: 1, ease: "easeOut" }}
-    />
-    {/* Arrow tip */}
-    <motion.circle cx="240" cy="60" r="4" fill="#000"
-      initial={{ scale: 0 }} whileInView={{ scale: 1 }}
-      viewport={{ once: true }} transition={{ delay: 1.8, type: "spring" }}
-    />
-  </motion.svg>
-);
+const StrategyIllustration = () => {
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  useLayoutEffect(() => {
+    if (!svgRef.current) return;
+    const ctx = gsap.context(() => {
+      // Set initial states
+      gsap.set(".chart-line", { strokeDasharray: 600, strokeDashoffset: 600 });
+      gsap.set(".data-dot", { opacity: 0, scale: 0, transformOrigin: "center center" });
+      gsap.set(".chart-bar", { scaleY: 0, transformOrigin: "bottom center" });
+      gsap.set(".grid-line", { opacity: 0 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: svgRef.current,
+          start: "top 80%",
+          once: true,
+        }
+      });
+
+      tl.to(".grid-line", { opacity: 1, stagger: 0.05, duration: 0.3 })
+        .to(".chart-bar", { scaleY: 1, stagger: 0.06, duration: 0.4, ease: "power2.out" }, "-=0.1")
+        .to(".chart-line", { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut" }, "-=0.5")
+        .to(".data-dot", { opacity: 1, scale: 1, stagger: 0.1, duration: 0.3, ease: "back.out(2)" }, "-=0.8");
+    }, svgRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const bars = [40, 70, 55, 90, 80, 120, 110, 150];
+  const dots = [
+    { cx: 44, cy: 165 }, { cx: 72, cy: 140 }, { cx: 100, cy: 150 },
+    { cx: 128, cy: 120 }, { cx: 156, cy: 130 }, { cx: 184, cy: 90 },
+    { cx: 212, cy: 100 }, { cx: 240, cy: 60 }
+  ];
+
+  return (
+    <svg ref={svgRef} viewBox="0 0 280 200" className="w-full h-auto">
+      {/* Background grid */}
+      {[...Array(6)].map((_, i) => (
+        <line key={`g${i}`} className="grid-line" x1="20" y1={30 + i * 30} x2="260" y2={30 + i * 30}
+          stroke="#e4e4e7" strokeWidth="0.5" strokeDasharray="4,4" />
+      ))}
+      {/* Rising bar chart */}
+      {bars.map((h, i) => (
+        <rect key={i} className="chart-bar" x={35 + i * 28} y={200 - h} width="18" height={h} rx="4"
+          fill={i >= 6 ? "#000" : "#e4e4e7"} />
+      ))}
+      {/* Trend line */}
+      <path className="chart-line" d="M44 165 L72 140 L100 150 L128 120 L156 130 L184 90 L212 100 L240 60"
+        fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" />
+      {/* Data dots */}
+      {dots.map((d, i) => (
+        <circle key={i} className="data-dot" cx={d.cx} cy={d.cy} r="4" fill="#000" />
+      ))}
+    </svg>
+  );
+};
+
 
 const ScaleIllustration = () => (
   <motion.svg
@@ -1033,7 +1055,7 @@ const Offer = () => {
   ];
 
   return (
-    <section className="py-32 md:py-48 px-6 bg-zinc-50/50 relative z-[10]">
+    <section className="py-32 md:py-48 px-6 bg-white relative z-[10]">
       <div className="container mx-auto max-w-6xl">
         {/* Title */}
         <motion.div
@@ -1152,13 +1174,6 @@ const ConnectingFooter = () => {
         <div className="flex flex-col gap-6 items-center text-center mb-16">
           <h3 className="text-sm font-medium opacity-60 dynamic-text">{t('footer.subline')}</h3>
           <div className="flex flex-wrap gap-4 justify-center">
-            <ContactLink
-              label={t('footer.linkedin')}
-              value=""
-              href={undefined}
-              icon={LinkedinModern}
-              showTooltip={false}
-            />
             <ContactLink
               label="info@njb.services"
               value="info@njb.services"
