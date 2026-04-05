@@ -398,6 +398,19 @@ const BlockEditor = ({
     }
   };
 
+  const handlePreviewSmallUpload = async (file: File, slot: 1 | 2) => {
+    const slug = form.slug || "draft";
+    const path = `${slug}/preview-small-${slot}-${Date.now()}.${file.name.split(".").pop()}`;
+    try {
+      await uploadImage.mutateAsync({ file, path });
+      if (slot === 1) setPreviewSmall1({ path });
+      else setPreviewSmall2({ path });
+      toast.success("Imagen subida");
+    } catch (err: any) {
+      toast.error(err.message || "Error al subir imagen");
+    }
+  };
+
   const handleDetailImageUpload = async (file: File) => {
     const slug = form.slug || "draft";
     const path = `${slug}/detail-${Date.now()}.${file.name.split(".").pop()}`;
