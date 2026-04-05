@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
-import { useEffect } from "react";
+import { Lock } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -44,6 +44,9 @@ const Login = () => {
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
       <div className="w-full max-w-sm space-y-8">
         <div className="text-center">
+          <div className="mx-auto w-12 h-12 rounded-full bg-foreground/5 flex items-center justify-center mb-4">
+            <Lock className="h-5 w-5 text-foreground/70" />
+          </div>
           <h1 className="text-3xl font-heading font-medium tracking-tighter">
             Admin
           </h1>
@@ -52,14 +55,14 @@ const Login = () => {
           </p>
         </div>
 
-        <form onSubmit={handleEmailLogin} className="space-y-4">
+        <form onSubmit={handleEmailLogin} className="space-y-3">
           <Input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="h-12"
+            className="h-12 rounded-xl bg-secondary/50 border-0 focus-visible:ring-1"
           />
           <Input
             type="password"
@@ -67,12 +70,16 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="h-12"
+            className="h-12 rounded-xl bg-secondary/50 border-0 focus-visible:ring-1"
           />
           {error && (
-            <p className="text-sm text-destructive">{error}</p>
+            <p className="text-sm text-destructive px-1">{error}</p>
           )}
-          <Button type="submit" className="w-full h-12" disabled={loading}>
+          <Button
+            type="submit"
+            className="w-full h-12 rounded-xl text-sm font-medium"
+            disabled={loading}
+          >
             {loading ? "Ingresando..." : "Iniciar sesión"}
           </Button>
         </form>
@@ -82,13 +89,13 @@ const Login = () => {
             <span className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">o</span>
+            <span className="bg-background px-3 text-muted-foreground">o</span>
           </div>
         </div>
 
         <Button
           variant="outline"
-          className="w-full h-12"
+          className="w-full h-12 rounded-xl text-sm"
           onClick={handleGoogleLogin}
         >
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
@@ -99,6 +106,13 @@ const Login = () => {
           </svg>
           Continuar con Google
         </Button>
+
+        <p className="text-center text-sm text-muted-foreground">
+          ¿No tienes cuenta?{" "}
+          <Link to="/register" className="text-foreground font-medium hover:underline">
+            Solicita acceso
+          </Link>
+        </p>
       </div>
     </div>
   );
