@@ -612,15 +612,18 @@ const BlockEditor = ({
           </details>
         </div>
 
-        {/* Project Images — Cover & Detail */}
-        <div className="mb-10 space-y-6">
-          {/* Cover / Preview Image */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Camera className="h-4 w-4 text-muted-foreground" />
-              <h3 className="text-sm font-medium">Imagen de preview</h3>
-              <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">Portada</span>
-            </div>
+        {/* ═══ SECCIÓN 1: PREVIEW (1 grande + 2 pequeñas) ═══ */}
+        <div className="mb-10 space-y-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Camera className="h-4 w-4 text-muted-foreground" />
+            <h3 className="text-sm font-semibold uppercase tracking-wider">Imágenes de Preview</h3>
+            <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">Portada del proyecto</span>
+          </div>
+          <p className="text-xs text-muted-foreground">Se muestran en la grilla de proyectos: 1 imagen principal grande y 2 imágenes pequeñas.</p>
+
+          {/* Big cover */}
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Principal (grande)</label>
             <ImageDropZone
               currentUrl={coverPath ? getImageUrl(coverPath) : undefined}
               onUpload={handleCoverUpload}
@@ -629,45 +632,72 @@ const BlockEditor = ({
             />
           </div>
 
-          {/* Detail / Gallery Images */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Layers className="h-4 w-4 text-muted-foreground" />
-              <h3 className="text-sm font-medium">Imágenes de detalle</h3>
-              <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{detailImages.length} imágenes</span>
-            </div>
-            {detailImages.length > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {detailImages.map((img, idx) => (
-                  <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden bg-muted/20 border border-border/40 group">
-                    <img src={getImageUrl(img.path)} alt={img.alt || ""} className="w-full h-full object-cover" />
-                    <button
-                      onClick={() => removeDetailImage(idx)}
-                      className="absolute top-2 right-2 bg-background/90 backdrop-blur rounded-full p-1.5 hover:bg-destructive hover:text-destructive-foreground transition-colors shadow-sm opacity-0 group-hover:opacity-100"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                    <div className="absolute bottom-2 left-2 bg-background/80 backdrop-blur rounded-full px-2 py-0.5">
-                      <span className="text-[10px] font-medium text-muted-foreground">{idx + 1}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-            <label className="flex items-center justify-center gap-2 py-6 border-2 border-dashed border-border/50 rounded-xl cursor-pointer hover:border-border hover:bg-muted/20 transition-colors">
-              <Upload className="h-4 w-4 text-muted-foreground/60" />
-              <span className="text-xs text-muted-foreground/60">Agregar imagen de detalle</span>
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  if (f) handleDetailImageUpload(f);
-                }}
+          {/* Two small */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Pequeña 1</label>
+              <ImageDropZone
+                currentUrl={previewSmall1.path ? getImageUrl(previewSmall1.path) : undefined}
+                onUpload={(f) => handlePreviewSmallUpload(f, 1)}
+                onRemove={previewSmall1.path ? () => setPreviewSmall1({}) : undefined}
+                aspect="4/3"
               />
-            </label>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">Pequeña 2</label>
+              <ImageDropZone
+                currentUrl={previewSmall2.path ? getImageUrl(previewSmall2.path) : undefined}
+                onUpload={(f) => handlePreviewSmallUpload(f, 2)}
+                onRemove={previewSmall2.path ? () => setPreviewSmall2({}) : undefined}
+                aspect="4/3"
+              />
+            </div>
           </div>
+        </div>
+
+        {/* Divider */}
+        <div className="border-t border-border/50 mb-10" />
+
+        {/* ═══ SECCIÓN 2: DETALLE (galería) ═══ */}
+        <div className="mb-10 space-y-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Layers className="h-4 w-4 text-muted-foreground" />
+            <h3 className="text-sm font-semibold uppercase tracking-wider">Imágenes de Detalle</h3>
+            <span className="text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{detailImages.length} imágenes</span>
+          </div>
+          <p className="text-xs text-muted-foreground">Se muestran en la página individual del proyecto.</p>
+
+          {detailImages.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {detailImages.map((img, idx) => (
+                <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden bg-muted/20 border border-border/40 group">
+                  <img src={getImageUrl(img.path)} alt={img.alt || ""} className="w-full h-full object-cover" />
+                  <button
+                    onClick={() => removeDetailImage(idx)}
+                    className="absolute top-2 right-2 bg-background/90 backdrop-blur rounded-full p-1.5 hover:bg-destructive hover:text-destructive-foreground transition-colors shadow-sm opacity-0 group-hover:opacity-100"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                  <div className="absolute bottom-2 left-2 bg-background/80 backdrop-blur rounded-full px-2 py-0.5">
+                    <span className="text-[10px] font-medium text-muted-foreground">{idx + 1}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          <label className="flex items-center justify-center gap-2 py-6 border-2 border-dashed border-border/50 rounded-xl cursor-pointer hover:border-border hover:bg-muted/20 transition-colors">
+            <Upload className="h-4 w-4 text-muted-foreground/60" />
+            <span className="text-xs text-muted-foreground/60">Agregar imagen de detalle</span>
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) handleDetailImageUpload(f);
+              }}
+            />
+          </label>
         </div>
 
         {/* Divider */}
