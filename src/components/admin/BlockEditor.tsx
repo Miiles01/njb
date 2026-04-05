@@ -478,6 +478,23 @@ const BlockEditor = ({
         await deleteProjectImage.mutateAsync(existingCover.id);
       }
 
+      // Save preview small images
+      const savePreviewSmall = async (slot: { id?: string; path?: string }, existing: ProjectImage | undefined, sortOrder: number) => {
+        if (slot.path && slot.path !== existing?.storage_path) {
+          if (existing?.id) await deleteProjectImage.mutateAsync(existing.id);
+          await saveProjectImage.mutateAsync({
+            project_id: projectId,
+            storage_path: slot.path,
+            image_type: "preview_small",
+            sort_order: sortOrder,
+          });
+        } else if (!slot.path && existing?.id) {
+          await deleteProjectImage.mutateAsync(existing.id);
+        }
+      };
+      await savePreviewSmall(previewSmall1, existingPreviewSmall[0], 1);
+      await savePreviewSmall(previewSmall2, existingPreviewSmall[1], 2);
+
       // Save detail images — remove old ones not present, add new ones
       const oldDetailIds = existingDetailImages.map((i) => i.id);
       const currentIds = detailImages.filter((i) => i.id).map((i) => i.id!);
