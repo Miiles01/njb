@@ -45,8 +45,8 @@ const Contacto = () => {
                 </p>
                 
                 <div className="flex flex-col gap-4 text-xl md:text-2xl font-medium pt-8">
-                  <a href="mailto:njb@gmail.com" className="hover:text-zinc-500 transition-colors">
-                    njb@gmail.com
+                  <a href="mailto:info@njb.services" className="hover:text-zinc-500 transition-colors">
+                    info@njb.services
                   </a>
                   <a href="tel:+15147180228" className="hover:text-zinc-500 transition-colors">
                     +1 (514) 718-0228

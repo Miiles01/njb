@@ -70,9 +70,9 @@ const Footer = () => {
               showTooltip={false}
             />
             <ContactLink
-              label="njb@gmail.com"
-              value="njb@gmail.com"
-              href="mailto:njb@gmail.com"
+              label="info@njb.services"
+              value="info@njb.services"
+              href="mailto:info@njb.services"
               icon={Mail}
             />
             <ContactLink

@@ -142,6 +142,21 @@ const translations = {
         'proj.part.funnels': 'Embudos de Ventas',
         'proj.part.strategy': 'Estrategia de Identidad de Marca',
         'proj.part.ai': 'Automatización con IA',
+
+        // Offer Section
+        'offer.title': 'Empieza con una estrategia + sesión de contenido gratis',
+        'offer.card1.title': 'Vamos a:',
+        'offer.card1.item1': 'Analizar tu marketing actual',
+        'offer.card1.item2': 'Detectar oportunidades de crecimiento',
+        'offer.card1.item3': 'Crear contenido para tus redes sociales',
+        'offer.card1.item4': 'Mostrarte cómo aumentar tus ingresos',
+        'offer.card2.title': 'Y si decides escalar con nosotros, también ofrecemos:',
+        'offer.card2.item1': 'Sitios web y e-commerce',
+        'offer.card2.item2': 'Desarrollo de apps',
+        'offer.card2.item3': 'Email marketing',
+        'offer.card2.item4': 'SEO (posicionamiento)',
+        'offer.footer.commitment': 'Sin compromiso',
+        'offer.footer.limited': 'Cupos limitados por mes',
     },
     en: {
         // Navbar
@@ -276,6 +291,21 @@ const translations = {
         'proj.part.funnels': 'Sales Funnels',
         'proj.part.strategy': 'Brand Identity Strategy',
         'proj.part.ai': 'AI Automation',
+
+        // Offer Section
+        'offer.title': 'Start with a strategy + free content session',
+        'offer.card1.title': 'We will:',
+        'offer.card1.item1': 'Analyze your current marketing',
+        'offer.card1.item2': 'Identify growth opportunities',
+        'offer.card1.item3': 'Create content for your social networks',
+        'offer.card1.item4': 'Show you how to increase your income',
+        'offer.card2.title': 'And if you decide to scale with us, we also offer:',
+        'offer.card2.item1': 'Websites and e-commerce',
+        'offer.card2.item2': 'App development',
+        'offer.card2.item3': 'Email marketing',
+        'offer.card2.item4': 'SEO (positioning)',
+        'offer.footer.commitment': 'No commitment',
+        'offer.footer.limited': 'Limited slots per month',
     },
     fr: {
         // Navbar
@@ -410,6 +440,21 @@ const translations = {
         'proj.part.funnels': 'Tunnels de vente',
         'proj.part.strategy': 'Stratégie d\'identité de marque',
         'proj.part.ai': 'Automatisation avec IA',
+
+        // Offer Section
+        'offer.title': 'Commencez par une stratégie + session de contenu gratuite',
+        'offer.card1.title': 'Nous allons :',
+        'offer.card1.item1': 'Analyser votre marketing actuel',
+        'offer.card1.item2': 'Détecter les opportunités de croissance',
+        'offer.card1.item3': 'Créer du contenu pour vos réseaux sociaux',
+        'offer.card1.item4': 'Vous montrer comment augmenter vos revenus',
+        'offer.card2.title': 'Et si vous décidez de grandir avec nous, nous proposons également :',
+        'offer.card2.item1': 'Sites web et e-commerce',
+        'offer.card2.item2': 'Développement d\'applications',
+        'offer.card2.item3': 'Marketing par e-mail',
+        'offer.card2.item4': 'SEO (positionnement)',
+        'offer.footer.commitment': 'Sans engagement',
+        'offer.footer.limited': 'Places limitées par mois',
     }
 };
 

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2 } from "lucide-react";
+import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertTriangle } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -923,6 +923,221 @@ const ContactLink = ({ label, value, href, icon: Icon, showTooltip = true }: any
     </div>
   );
 };
+// Animated SVG illustrations for the Offer cards
+const StrategyIllustration = () => (
+  <motion.svg
+    viewBox="0 0 280 200"
+    className="w-full h-auto"
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+  >
+    {/* Background grid */}
+    {[...Array(6)].map((_, i) => (
+      <motion.line key={`h${i}`} x1="20" y1={30 + i * 30} x2="260" y2={30 + i * 30}
+        stroke="#e4e4e7" strokeWidth="0.5" strokeDasharray="4,4"
+        initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
+        viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.6 }}
+      />
+    ))}
+    {/* Rising bar chart */}
+    {[40, 70, 55, 90, 80, 120, 110, 150].map((h, i) => (
+      <motion.rect key={i} x={35 + i * 28} y={200 - h} width="18" rx="4"
+        fill={i >= 6 ? "#000" : "#e4e4e7"}
+        initial={{ height: 0, y: 200 }} whileInView={{ height: h, y: 200 - h }}
+        viewport={{ once: true }} transition={{ delay: 0.3 + i * 0.08, duration: 0.5, ease: "easeOut" }}
+      />
+    ))}
+    {/* Trend line */}
+    <motion.path d="M44 165 L72 140 L100 150 L128 120 L156 130 L184 90 L212 100 L240 60"
+      fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round"
+      initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
+      viewport={{ once: true }} transition={{ delay: 1, duration: 1, ease: "easeOut" }}
+    />
+    {/* Arrow tip */}
+    <motion.circle cx="240" cy="60" r="4" fill="#000"
+      initial={{ scale: 0 }} whileInView={{ scale: 1 }}
+      viewport={{ once: true }} transition={{ delay: 1.8, type: "spring" }}
+    />
+  </motion.svg>
+);
+
+const ScaleIllustration = () => (
+  <motion.svg
+    viewBox="0 0 280 200"
+    className="w-full h-auto"
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: true }}
+  >
+    {/* Browser window frame */}
+    <motion.rect x="30" y="20" width="220" height="160" rx="12" fill="none" stroke="#e4e4e7" strokeWidth="1.5"
+      initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
+      viewport={{ once: true }} transition={{ duration: 0.8 }}
+    />
+    <motion.rect x="30" y="20" width="220" height="30" rx="12" fill="#fafafa" stroke="#e4e4e7" strokeWidth="1.5"
+      initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+      viewport={{ once: true }} transition={{ delay: 0.3 }}
+    />
+    {/* Browser dots */}
+    {[52, 68, 84].map((cx, i) => (
+      <motion.circle key={i} cx={cx} cy="35" r="3.5"
+        fill={["#ef4444", "#eab308", "#22c55e"][i]}
+        initial={{ scale: 0 }} whileInView={{ scale: 1 }}
+        viewport={{ once: true }} transition={{ delay: 0.5 + i * 0.1, type: "spring" }}
+      />
+    ))}
+    {/* Content blocks */}
+    {[{y: 65, w: 140}, {y: 85, w: 100}, {y: 105, w: 180}, {y: 125, w: 120}].map((b, i) => (
+      <motion.rect key={i} x="50" y={b.y} width={b.w} height="10" rx="3" fill="#e4e4e7"
+        initial={{ width: 0 }} whileInView={{ width: b.w }}
+        viewport={{ once: true }} transition={{ delay: 0.7 + i * 0.12, duration: 0.4 }}
+      />
+    ))}
+    {/* Floating phone */}
+    <motion.g
+      initial={{ opacity: 0, x: 20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 1.2, duration: 0.5 }}
+    >
+      <rect x="190" y="90" width="50" height="80" rx="8" fill="white" stroke="#d4d4d8" strokeWidth="1" />
+      <rect x="197" y="102" width="36" height="4" rx="1.5" fill="#e4e4e7" />
+      <rect x="197" y="112" width="24" height="4" rx="1.5" fill="#e4e4e7" />
+      <rect x="197" y="122" width="30" height="4" rx="1.5" fill="#e4e4e7" />
+      <circle cx="215" cy="160" r="4" fill="#e4e4e7" />
+    </motion.g>
+    {/* Cursor */}
+    <motion.path d="M160 130 L160 148 L167 142 L175 155" stroke="#000" strokeWidth="2" fill="none" strokeLinecap="round"
+      initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+      viewport={{ once: true }} transition={{ delay: 1.6 }}
+    />
+  </motion.svg>
+);
+
+const Offer = () => {
+  const { t } = useLanguage();
+
+  const card1Items = [
+    t('offer.card1.item1'),
+    t('offer.card1.item2'),
+    t('offer.card1.item3'),
+    t('offer.card1.item4'),
+  ];
+
+  const card2Items = [
+    t('offer.card2.item1'),
+    t('offer.card2.item2'),
+    t('offer.card2.item3'),
+    t('offer.card2.item4'),
+  ];
+
+  return (
+    <section className="py-32 md:py-48 px-6 bg-zinc-50/50 relative z-[10]">
+      <div className="container mx-auto max-w-6xl">
+        {/* Title */}
+        <motion.div
+          className="text-center mb-16 md:mb-24"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-5xl font-heading font-medium tracking-tight dynamic-text max-w-3xl mx-auto leading-tight">
+            {t('offer.title')}
+          </h2>
+        </motion.div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Card 1 - Strategy */}
+          <motion.div
+            className="bg-white rounded-[32px] border border-zinc-200/60 p-8 md:p-10 flex flex-col shadow-[0_8px_40px_-12px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] transition-shadow duration-500"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <div className="bg-zinc-50 rounded-[24px] p-6 mb-8 overflow-hidden">
+              <StrategyIllustration />
+            </div>
+            <h3 className="text-xl md:text-2xl font-heading font-medium mb-6 dynamic-text">
+              {t('offer.card1.title')}
+            </h3>
+            <ul className="space-y-4 flex-1">
+              {card1Items.map((item, i) => (
+                <motion.li
+                  key={i}
+                  className="flex items-start gap-3"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 + i * 0.1 }}
+                >
+                  <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-black flex items-center justify-center">
+                    <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                  </span>
+                  <span className="text-base md:text-lg text-zinc-700 font-light">{item}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Card 2 - Scale */}
+          <motion.div
+            className="bg-white rounded-[32px] border border-zinc-200/60 p-8 md:p-10 flex flex-col shadow-[0_8px_40px_-12px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] transition-shadow duration-500"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+          >
+            <div className="bg-zinc-50 rounded-[24px] p-6 mb-8 overflow-hidden">
+              <ScaleIllustration />
+            </div>
+            <h3 className="text-xl md:text-2xl font-heading font-medium mb-6 dynamic-text">
+              {t('offer.card2.title')}
+            </h3>
+            <ul className="space-y-4 flex-1">
+              {card2Items.map((item, i) => (
+                <motion.li
+                  key={i}
+                  className="flex items-start gap-3"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4 + i * 0.1 }}
+                >
+                  <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-black flex items-center justify-center">
+                    <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                  </span>
+                  <span className="text-base md:text-lg text-zinc-700 font-light">{item}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+
+        {/* Footer notes */}
+        <motion.div
+          className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mt-12 md:mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="flex items-center gap-3 text-base md:text-lg font-heading font-medium text-black/80">
+            <ArrowRight className="w-5 h-5" />
+            <span>{t('offer.footer.commitment')}</span>
+          </div>
+          <div className="flex items-center gap-3 text-base md:text-lg font-heading font-medium text-amber-600">
+            <AlertTriangle className="w-5 h-5" />
+            <span>{t('offer.footer.limited')}</span>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
 
 const ConnectingFooter = () => {
   const { t } = useLanguage();
@@ -945,14 +1160,14 @@ const ConnectingFooter = () => {
               showTooltip={false}
             />
             <ContactLink
-              label="njb@gmail.com"
-              value="njb@gmail.com"
-              href="mailto:njb@gmail.com"
+              label="info@njb.services"
+              value="info@njb.services"
+              href="mailto:info@njb.services"
               icon={Mail}
             />
             <ContactLink
               label="+1 (514) 718-0228"
-              value="+1 (514) 718-0228"
+              value="+15147180228"
               href="tel:+15147180228"
               icon={Phone}
             />
@@ -1038,6 +1253,7 @@ const Index = () => {
       <ProjectMagazine />
       <Focuses />
       <StackedValue />
+      <Offer />
       <Testimonials />
       <ConnectingFooter />
     </div>
