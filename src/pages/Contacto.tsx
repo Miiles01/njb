@@ -122,9 +122,10 @@ const Contacto = () => {
 
                     <button 
                       type="submit"
-                      className="group relative flex items-center justify-between bg-white text-black py-5 px-8 rounded-full text-lg font-bold mt-8 hover:bg-zinc-200 transition-all overflow-hidden"
+                      disabled={loading}
+                      className="group relative flex items-center justify-between bg-white text-black py-5 px-8 rounded-full text-lg font-bold mt-8 hover:bg-zinc-200 transition-all overflow-hidden disabled:opacity-50"
                     >
-                      <span className="relative z-10">{t('contact.form.send')}</span>
+                      <span className="relative z-10">{loading ? "Enviando..." : t('contact.form.send')}</span>
                       <ArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform" />
                     </button>
                   </motion.form>
