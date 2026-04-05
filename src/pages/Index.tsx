@@ -362,12 +362,12 @@ const Mission = () => {
       // Stabilized character animations - Pieces from above and below
       split.chars.forEach((char, i) => {
         gsap.from(char, {
-          y: i % 2 === 0 ? -200 : 200, // More distance for assembly
+          y: i % 2 === 0 ? (isMobile ? -80 : -200) : (isMobile ? 80 : 200),
           opacity: 0,
-          rotateX: 80,
-          rotateY: i % 2 === 0 ? 15 : -15, // Subtle Y rotation for organic feel
+          rotateX: isMobile ? 40 : 80,
+          rotateY: i % 2 === 0 ? (isMobile ? 5 : 15) : (isMobile ? -5 : -15),
           scale: 0.8,
-          filter: "blur(4px)", // Sharp to clear effect
+          filter: "blur(4px)",
           ease: "back.out(2.5)",
           scrollTrigger: {
             trigger: char,
@@ -407,7 +407,7 @@ const Mission = () => {
         <h2 
           key={language}
           ref={textRef} 
-          className="text-[14vw] md:text-[11vw] font-heading font-medium leading-none tracking-tighter text-black transition-colors duration-500"
+          className="text-[10vw] md:text-[11vw] font-heading font-medium leading-none tracking-tighter text-black transition-colors duration-500"
         >
           {t('mission.text')}
         </h2>
@@ -615,78 +615,77 @@ const StackedValue = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const panels = gsap.utils.toArray(".stacked-panel");
-    const lastPanel = panels[panels.length - 1];
-    
-    panels.forEach((panel: any, i) => {
-      const inner = panel.querySelector(".stacked-inner");
-      if (!inner) return;
+    const mm = gsap.matchMedia();
 
-      const panelHeight = inner.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const difference = panelHeight - windowHeight;
-      const fakeScrollRatio = difference > 0 ? (difference / (difference + windowHeight)) : 0;
+    mm.add("(min-width: 769px)", () => {
+      const panels = gsap.utils.toArray(".stacked-panel");
+      const lastPanel = panels[panels.length - 1];
+      
+      panels.forEach((panel: any, i) => {
+        const inner = panel.querySelector(".stacked-inner");
+        if (!inner) return;
 
-      // Only add margin if there is content to fake-scroll
-      if (fakeScrollRatio) {
-        panel.style.marginBottom = (panelHeight * fakeScrollRatio) + "px";
-      }
+        const panelHeight = inner.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const difference = panelHeight - windowHeight;
+        const fakeScrollRatio = difference > 0 ? (difference / (difference + windowHeight)) : 0;
 
-      const isLast = panel === lastPanel;
+        if (fakeScrollRatio) {
+          panel.style.marginBottom = (panelHeight * fakeScrollRatio) + "px";
+        }
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: panel,
-          start: "bottom bottom",
-          end: () => fakeScrollRatio ? `+=${panelHeight}` : "bottom top",
-          pinSpacing: false,
-          pin: true,
-          scrub: true,
-          invalidateOnRefresh: true
+        const isLast = panel === lastPanel;
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: panel,
+            start: "bottom bottom",
+            end: () => fakeScrollRatio ? `+=${panelHeight}` : "bottom top",
+            pinSpacing: false,
+            pin: true,
+            scrub: true,
+            invalidateOnRefresh: true
+          }
+        });
+
+        if (fakeScrollRatio) {
+          tl.to(inner, {
+            yPercent: -100, 
+            y: windowHeight, 
+            duration: 1 / (1 - fakeScrollRatio) - 1, 
+            ease: "none"
+          });
+        }
+
+        if (!isLast) {
+          tl.fromTo(panel, 
+            { scale: 1, opacity: 1 }, 
+            { scale: 0.7, opacity: 0.5, duration: 0.9, ease: "none" }
+          )
+          .to(panel, { opacity: 0, duration: 0.1 });
         }
       });
-
-      // Handle internal scrolling for tall panels
-      if (fakeScrollRatio) {
-        tl.to(inner, {
-          yPercent: -100, 
-          y: windowHeight, 
-          duration: 1 / (1 - fakeScrollRatio) - 1, 
-          ease: "none"
-        });
-      }
-
-      // Add "stacking/depth" effect: scale down and fade out
-      // We skip this for the last panel of the sequence to avoid sudden disappearance 
-      // when the next section (Testimonials) arrives.
-      if (!isLast) {
-        tl.fromTo(panel, 
-          { scale: 1, opacity: 1 }, 
-          { scale: 0.7, opacity: 0.5, duration: 0.9, ease: "none" }
-        )
-        .to(panel, { opacity: 0, duration: 0.1 });
-      }
     });
 
     return () => {
-      ScrollTrigger.getAll().filter(st => panels.includes(st.trigger)).forEach(st => st.kill());
+      mm.revert();
     };
   }, []);
 
   return (
     <div ref={containerRef} className="relative overflow-hidden px-4 md:px-8 py-8">
       {/* 1. Clientes */}
-      <section className="stacked-panel h-[calc(100vh-4rem)] flex items-start justify-center bg-white z-[1] overflow-hidden border border-zinc-200/50 rounded-[40px] shadow-sm">
-        <div className="stacked-inner max-w-4xl w-full text-center py-20 px-8">
+      <section className="stacked-panel min-h-[80vh] md:h-[calc(100vh-4rem)] flex items-start justify-center bg-white z-[1] overflow-hidden border border-zinc-200/50 rounded-[24px] md:rounded-[40px] shadow-sm">
+        <div className="stacked-inner max-w-4xl w-full text-center py-12 md:py-20 px-4 md:px-8">
           <div className="flex justify-center mb-10 pt-4">
             <Globe className="w-12 h-12 text-black/10" />
           </div>
-          <h2 className="text-4xl md:text-6xl font-heading font-medium mb-12 dynamic-text">{t('stacked.clientes.title')}</h2>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12">{t('stacked.clientes.subtitle')}</p>
-          <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-16 mb-16">
-            <div className="text-3xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item1')}</div>
-            <div className="text-3xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item2')}</div>
-            <div className="text-3xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item3')}</div>
+          <h2 className="text-3xl md:text-6xl font-heading font-medium mb-8 md:mb-12 dynamic-text">{t('stacked.clientes.title')}</h2>
+          <p className="text-lg md:text-2xl text-muted-foreground mb-8 md:mb-12">{t('stacked.clientes.subtitle')}</p>
+          <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-16 mb-10 md:mb-16">
+            <div className="text-2xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item1')}</div>
+            <div className="text-2xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item2')}</div>
+            <div className="text-2xl md:text-4xl font-heading tracking-tight underline underline-offset-8 decoration-black/5">{t('stacked.clientes.item3')}</div>
           </div>
           <div className="flex items-center justify-center gap-3 text-xl font-heading font-medium text-black/80">
             <span>{t('stacked.clientes.footer')}</span>
@@ -696,8 +695,8 @@ const StackedValue = () => {
       </section>
 
       {/* 2. Resultados */}
-      <section className="stacked-panel h-[calc(100vh-4rem)] flex items-start justify-center bg-black text-white z-[2] overflow-hidden border border-white/10 rounded-[40px] shadow-2xl">
-        <div className="stacked-inner max-w-4xl w-full text-center py-20 px-8">
+      <section className="stacked-panel min-h-[80vh] md:h-[calc(100vh-4rem)] flex items-start justify-center bg-black text-white z-[2] overflow-hidden border border-white/10 rounded-[24px] md:rounded-[40px] shadow-2xl">
+        <div className="stacked-inner max-w-4xl w-full text-center py-12 md:py-20 px-4 md:px-8">
           <div className="flex justify-center mb-10 pt-4">
             <BarChart3 className="w-12 h-12 text-white/10" />
           </div>
@@ -725,8 +724,8 @@ const StackedValue = () => {
       </section>
 
       {/* 3. Contenido */}
-      <section className="stacked-panel h-[calc(100vh-4rem)] flex items-start justify-center bg-white z-[3] overflow-hidden border border-zinc-200/50 rounded-[40px] shadow-sm">
-        <div className="stacked-inner max-w-4xl w-full text-center py-20 px-8">
+      <section className="stacked-panel min-h-[80vh] md:h-[calc(100vh-4rem)] flex items-start justify-center bg-white z-[3] overflow-hidden border border-zinc-200/50 rounded-[24px] md:rounded-[40px] shadow-sm">
+        <div className="stacked-inner max-w-4xl w-full text-center py-12 md:py-20 px-4 md:px-8">
           <div className="flex justify-center mb-10 pt-4">
             <Video className="w-12 h-12 text-black/10" />
           </div>
@@ -743,8 +742,8 @@ const StackedValue = () => {
       </section>
 
       {/* 4. Proceso */}
-      <section className="stacked-panel h-[calc(100vh-4rem)] flex items-start justify-center bg-zinc-50 z-[4] overflow-hidden border border-zinc-200/50 rounded-[40px] shadow-sm">
-        <div className="stacked-inner max-w-4xl w-full py-20 px-8">
+      <section className="stacked-panel min-h-[80vh] md:h-[calc(100vh-4rem)] flex items-start justify-center bg-zinc-50 z-[4] overflow-hidden border border-zinc-200/50 rounded-[24px] md:rounded-[40px] shadow-sm">
+        <div className="stacked-inner max-w-4xl w-full py-12 md:py-20 px-4 md:px-8">
           <div className="flex justify-center mb-10 pt-4">
             <Settings2 className="w-12 h-12 text-black/10" />
           </div>
@@ -1178,7 +1177,7 @@ const ConnectingFooter = () => {
       <div id="connect-trigger" className="absolute top-0 left-0 w-full h-1" />
       
       {/* Black container */}
-      <div className="bg-black rounded-[40px] border border-white/10 py-20 md:py-32 px-6 md:px-16 mx-auto max-w-[1400px]">
+      <div className="bg-black rounded-[24px] md:rounded-[40px] border border-white/10 py-16 md:py-32 px-4 md:px-16 mx-auto max-w-[1400px]">
         <div className="flex flex-col items-center">
 
           {/* CTA */}
