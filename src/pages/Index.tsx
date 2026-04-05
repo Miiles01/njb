@@ -1171,7 +1171,7 @@ const ConnectingFooter = () => {
       <div id="connect-trigger" className="absolute top-0 left-0 w-full h-1" />
       
       {/* Black container */}
-      <div className="bg-black rounded-[40px] border border-white/10 py-20 md:py-32 px-6 md:px-16 mx-auto max-w-7xl">
+      <div className="bg-black rounded-[40px] border border-white/10 py-20 md:py-32 px-6 md:px-16 mx-auto max-w-[1400px]">
         <div className="flex flex-col items-center">
 
           {/* CTA */}
