@@ -7,6 +7,7 @@ import { Plus, LogOut, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import AnalyticsSection from "@/components/admin/AnalyticsSection";
 import ContactSubmissions from "@/components/admin/ContactSubmissions";
+import PendingApprovals from "@/components/admin/PendingApprovals";
 
 const getGreeting = () => {
   const h = new Date().getHours();
@@ -62,6 +63,11 @@ const AdminDashboard = ({
         {/* Analytics */}
         <div className="mb-12">
           <AnalyticsSection />
+        </div>
+
+        {/* Pending approvals */}
+        <div className="mb-12">
+          <PendingApprovals />
         </div>
 
         {/* Contact submissions */}
