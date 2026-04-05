@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AccordionNavbar from "@/components/AccordionNavbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 import { projectsData, Participation, ProjectData } from "@/data/projects";
 import FloatingProjectInfo from "@/components/FloatingProjectInfo";
