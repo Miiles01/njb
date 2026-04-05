@@ -5,6 +5,7 @@ import type { ProjectWithImages } from "@/hooks/useProjects";
 import { Button } from "@/components/ui/button";
 import { Plus, LogOut, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
+import AnalyticsSection from "@/components/admin/AnalyticsSection";
 
 const getGreeting = () => {
   const h = new Date().getHours();
@@ -55,6 +56,11 @@ const AdminDashboard = ({
           <p className="text-4xl md:text-6xl font-heading font-light tracking-tighter leading-[1.1] text-muted-foreground">
             {getGreeting()}
           </p>
+        </div>
+
+        {/* Analytics */}
+        <div className="mb-12">
+          <AnalyticsSection />
         </div>
 
         {/* New project button */}
