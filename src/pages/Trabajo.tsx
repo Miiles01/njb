@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import AccordionNavbar from "@/components/AccordionNavbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 import { projectsData, Participation, ProjectData } from "@/data/projects";
 import FloatingProjectInfo from "@/components/FloatingProjectInfo";
 import { useState } from "react";
 
-const ProjectSection = ({ project, slug, t, onHover }: { project: ProjectData, slug: string, t: any, onHover: (participation: Participation[] | null) => void }) => {
+const ProjectSection = ({ project, slug, t, onHover, onProjectClick }: { project: ProjectData, slug: string, t: any, onHover: (participation: Participation[] | null) => void, onProjectClick: (slug: string) => void }) => {
     const getPath = (img: string) => `/proyectos/${project.folder}/${img}`;
     const cover = project.images[0];
     const secondary = project.images.slice(1, 3);
@@ -20,7 +21,7 @@ const ProjectSection = ({ project, slug, t, onHover }: { project: ProjectData, s
             onMouseLeave={() => onHover(null)}
         >
             {/* Main Cover */}
-            <Link to={`/proyecto/${slug}`} className="block w-full mb-8">
+            <Link to={`/proyecto/${slug}`} className="block w-full mb-8" onClick={() => onProjectClick(slug)}>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +76,12 @@ const ProjectSection = ({ project, slug, t, onHover }: { project: ProjectData, s
 
 const Trabajo = () => {
     const { t } = useLanguage();
+    const { track } = useAnalytics();
     const [hoveredParticipation, setHoveredParticipation] = useState<Participation[] | null>(null);
+
+    const handleProjectClick = (slug: string) => {
+        track("project_click", { projectSlug: slug, pagePath: "/trabajo" });
+    };
 
     return (
         <div className="min-h-screen bg-white flex flex-col pt-32 md:pt-40">
@@ -113,6 +119,7 @@ const Trabajo = () => {
                             slug={slug}
                             t={t}
                             onHover={setHoveredParticipation}
+                            onProjectClick={handleProjectClick}
                         />
                     ))}
                 </section>

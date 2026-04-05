@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          metadata: Json | null
+          page_path: string | null
+          project_slug: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          metadata?: Json | null
+          page_path?: string | null
+          project_slug?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          metadata?: Json | null
+          page_path?: string | null
+          project_slug?: string | null
+        }
+        Relationships: []
+      }
       project_images: {
         Row: {
           alt_text: string | null

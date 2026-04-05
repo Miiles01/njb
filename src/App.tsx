@@ -14,6 +14,7 @@ import { SmoothScroll } from "./components/SmoothScroll";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { AuthProvider } from "@/hooks/useAuth";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import PageViewTracker from "@/components/PageViewTracker";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
         <LanguageProvider>
           <BrowserRouter>
             <SmoothScroll>
+              <PageViewTracker />
               <Toaster />
               <Sonner />
               <Routes>
