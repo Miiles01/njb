@@ -375,6 +375,40 @@ const BlockEditor = ({
     }
   };
 
+  const handleCoverUpload = async (file: File) => {
+    const slug = form.slug || "draft";
+    const path = `${slug}/cover-${Date.now()}.${file.name.split(".").pop()}`;
+    try {
+      await uploadImage.mutateAsync({ file, path });
+      setCoverPath(path);
+      toast.success("Imagen de preview subida");
+    } catch (err: any) {
+      toast.error(err.message || "Error al subir imagen");
+    }
+  };
+
+  const handleDetailImageUpload = async (file: File) => {
+    const slug = form.slug || "draft";
+    const path = `${slug}/detail-${Date.now()}.${file.name.split(".").pop()}`;
+    try {
+      await uploadImage.mutateAsync({ file, path });
+      setDetailImages((prev) => [...prev, { path, alt: "" }]);
+      toast.success("Imagen de detalle subida");
+    } catch (err: any) {
+      toast.error(err.message || "Error al subir imagen");
+    }
+  };
+
+  const removeDetailImage = async (index: number) => {
+    const img = detailImages[index];
+    if (img.id) {
+      try {
+        await deleteProjectImage.mutateAsync(img.id);
+      } catch {}
+    }
+    setDetailImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleSave = async () => {
     if (!form.title || !form.slug) {
       toast.error("Título y slug son requeridos");
@@ -382,11 +416,10 @@ const BlockEditor = ({
     }
     setSaving(true);
     try {
-      // Extract description from first text block for backward compatibility
       const firstTextBlock = blocks.find((b) => b.type === "text");
       const desc = firstTextBlock?.body ?? form.description_en;
 
-      await saveProject.mutateAsync({
+      const savedProject = await saveProject.mutateAsync({
         ...form,
         subtitle_es: form.subtitle_en,
         subtitle_fr: form.subtitle_en,
@@ -400,10 +433,48 @@ const BlockEditor = ({
         strategy_en: form.strategy_en,
         strategy_es: form.strategy_en,
         strategy_fr: form.strategy_en,
-        // content_blocks is JSONB — pass as-is; supabase-js handles it
         content_blocks: blocks as any,
         ...(project?.id ? { id: project.id } : {}),
       } as any);
+
+      const projectId = savedProject.id;
+
+      // Save cover image if changed
+      if (coverPath && coverPath !== existingCover?.storage_path) {
+        if (existingCover?.id) {
+          await deleteProjectImage.mutateAsync(existingCover.id);
+        }
+        await saveProjectImage.mutateAsync({
+          project_id: projectId,
+          storage_path: coverPath,
+          image_type: "cover",
+          sort_order: 0,
+        });
+      } else if (!coverPath && existingCover?.id) {
+        await deleteProjectImage.mutateAsync(existingCover.id);
+      }
+
+      // Save detail images — remove old ones not present, add new ones
+      const oldDetailIds = existingDetailImages.map((i) => i.id);
+      const currentIds = detailImages.filter((i) => i.id).map((i) => i.id!);
+      for (const oldId of oldDetailIds) {
+        if (!currentIds.includes(oldId)) {
+          await deleteProjectImage.mutateAsync(oldId);
+        }
+      }
+      for (let i = 0; i < detailImages.length; i++) {
+        const img = detailImages[i];
+        if (!img.id) {
+          await saveProjectImage.mutateAsync({
+            project_id: projectId,
+            storage_path: img.path,
+            image_type: "gallery",
+            sort_order: i + 1,
+            alt_text: img.alt || "",
+          });
+        }
+      }
+
       toast.success("Proyecto guardado");
       onClose();
     } catch (err: any) {
