@@ -18,10 +18,12 @@ import {
   ChevronUp,
   ChevronDown,
   Settings2,
+  Camera,
+  Layers,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useSaveProject, useUploadImage, getImageUrl } from "@/hooks/useProjects";
-import type { ProjectWithImages } from "@/hooks/useProjects";
+import { useSaveProject, useUploadImage, useSaveProjectImage, useDeleteProjectImage, getImageUrl } from "@/hooks/useProjects";
+import type { ProjectWithImages, ProjectImage } from "@/hooks/useProjects";
 
 /* ── Block Types ── */
 export type BlockType = "full-image" | "two-images" | "text" | "button";
