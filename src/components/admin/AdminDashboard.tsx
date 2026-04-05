@@ -64,6 +64,11 @@ const AdminDashboard = ({
           <AnalyticsSection />
         </div>
 
+        {/* Contact submissions */}
+        <div className="mb-12">
+          <ContactSubmissions />
+        </div>
+
         {/* New project button */}
         <div className="mb-8">
           <Button
