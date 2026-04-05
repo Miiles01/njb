@@ -76,7 +76,12 @@ const ProjectSection = ({ project, slug, t, onHover, onProjectClick }: { project
 
 const Trabajo = () => {
     const { t } = useLanguage();
+    const { track } = useAnalytics();
     const [hoveredParticipation, setHoveredParticipation] = useState<Participation[] | null>(null);
+
+    const handleProjectClick = (slug: string) => {
+        track("project_click", { projectSlug: slug, pagePath: "/trabajo" });
+    };
 
     return (
         <div className="min-h-screen bg-white flex flex-col pt-32 md:pt-40">
