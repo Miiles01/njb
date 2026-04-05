@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, LogOut, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import AnalyticsSection from "@/components/admin/AnalyticsSection";
+import ContactSubmissions from "@/components/admin/ContactSubmissions";
 
 const getGreeting = () => {
   const h = new Date().getHours();
@@ -61,6 +62,11 @@ const AdminDashboard = ({
         {/* Analytics */}
         <div className="mb-12">
           <AnalyticsSection />
+        </div>
+
+        {/* Contact submissions */}
+        <div className="mb-12">
+          <ContactSubmissions />
         </div>
 
         {/* New project button */}
