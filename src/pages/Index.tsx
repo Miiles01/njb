@@ -1227,7 +1227,7 @@ const ConnectingFooter = () => {
               {letters.map((letter, i) => (
                 <motion.span
                   key={i}
-                  whileHover={{ y: -30, color: "#154FD1" }}
+                  whileHover={{ y: -30 }}
                   transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   className="inline-block whitespace-pre"
                 >
