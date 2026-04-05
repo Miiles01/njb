@@ -327,45 +327,33 @@ const Mission = () => {
     }, (context) => {
       const { isMobile } = context.conditions as any;
       
-      // Split text into characters
       const split = new SplitType(textRef.current!, { types: "chars,words" });
       
-      // Calculate scroll distance exactly based on content width
       const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
       const scrollEnd = scrollDistance * (isMobile ? 1.3 : 1.5);
       
-      const tl = gsap.timeline({
+      // Horizontal scroll timeline
+      const scrollTween = gsap.to(horizontalRef.current, {
+        x: -scrollDistance,
+        ease: "none"
+      });
+
+      gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
           end: `+=${scrollEnd}`,
           pin: true,
           scrub: 1,
-          onEnter: () => {
-            gsap.to(sectionRef.current, { backgroundColor: "#000000", duration: 0.5 });
-            gsap.to(textRef.current, { color: "#ffffff", duration: 0.5 });
-          },
-          onLeaveBack: () => {
-            gsap.to(sectionRef.current, { backgroundColor: "#ffffff", duration: 0.5 });
-            gsap.to(textRef.current, { color: "#000000", duration: 0.5 });
-          },
         }
-      });
+      }).add(scrollTween);
 
-      // Horizontal movement tween - using exact pixel calculation
-      const scrollTween = gsap.to(horizontalRef.current, {
-        x: -scrollDistance,
-        ease: "none"
-      });
-      
-      tl.add(scrollTween);
-
-      // Stabilized character animations - Pieces from above and below
-      split.chars.forEach((char, i) => {
+      // Character assembly animation
+      split.chars?.forEach((char, i) => {
         gsap.from(char, {
-          y: i % 2 === 0 ? (isMobile ? -80 : -200) : (isMobile ? 80 : 200),
+          y: i % 2 === 0 ? (isMobile ? -60 : -200) : (isMobile ? 60 : 200),
           opacity: 0,
-          rotateX: isMobile ? 40 : 80,
+          rotateX: isMobile ? 30 : 80,
           rotateY: i % 2 === 0 ? (isMobile ? 5 : 15) : (isMobile ? -5 : -15),
           scale: 0.8,
           filter: "blur(4px)",
@@ -373,8 +361,8 @@ const Mission = () => {
           scrollTrigger: {
             trigger: char,
             containerAnimation: scrollTween,
-            start: "left 98%",
-            end: "left 48%",
+            start: "left 95%",
+            end: "left 50%",
             scrub: true
           }
         });
@@ -383,7 +371,7 @@ const Mission = () => {
       return () => {
         split.revert();
       };
-    }, sectionRef.current); // Use current of the ref for the scope
+    }, sectionRef.current);
 
     return () => {
       mm.revert();
@@ -394,7 +382,7 @@ const Mission = () => {
     <section 
       id="vision" 
       ref={sectionRef} 
-      className="relative min-h-[100vh] bg-white transition-colors duration-500 overflow-hidden flex items-center perspective-1000"
+      className="relative min-h-[100vh] bg-black overflow-hidden flex items-center perspective-1000"
     >
       <div 
         ref={horizontalRef} 
@@ -408,13 +396,14 @@ const Mission = () => {
         <h2 
           key={language}
           ref={textRef} 
-          className="text-[7vw] md:text-[11vw] font-heading font-medium leading-none tracking-tighter text-black transition-colors duration-500"
+          className="text-[7vw] md:text-[11vw] font-heading font-medium leading-none tracking-tighter text-white"
         >
           {t('mission.text')}
         </h2>
       </div>
     </section>
   );
+
 };
 
 const ProblemCards = () => {
