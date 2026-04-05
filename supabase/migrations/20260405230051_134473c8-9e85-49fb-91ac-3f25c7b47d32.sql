@@ -1,0 +1,1 @@
+ALTER TABLE public.projects ADD COLUMN content_blocks jsonb DEFAULT '[]'::jsonb;

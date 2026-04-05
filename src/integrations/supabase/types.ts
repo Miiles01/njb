@@ -54,6 +54,7 @@ export type Database = {
       }
       projects: {
         Row: {
+          content_blocks: Json | null
           created_at: string
           description_en: string
           description_es: string
@@ -78,6 +79,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          content_blocks?: Json | null
           created_at?: string
           description_en?: string
           description_es?: string
@@ -102,6 +104,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          content_blocks?: Json | null
           created_at?: string
           description_en?: string
           description_es?: string
