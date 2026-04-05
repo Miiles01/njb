@@ -142,7 +142,7 @@ const Hero = () => {
     <section 
       ref={sectionRef}
       key={language} 
-      className="relative min-h-[55vh] md:min-h-[100vh] flex flex-col justify-center md:justify-between items-center md:items-stretch gap-8 md:gap-0 py-12 md:py-32 px-12 md:px-24 overflow-hidden bg-white"
+      className="relative md:min-h-[100vh] flex flex-col justify-center md:justify-between items-center md:items-stretch gap-6 md:gap-0 pt-24 pb-12 md:py-32 px-12 md:px-24 overflow-hidden bg-white"
     >
       {/* Motion Trail Container */}
       <div className="absolute inset-0 pointer-events-none z-0">
