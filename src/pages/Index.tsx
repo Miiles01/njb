@@ -332,12 +332,13 @@ const Mission = () => {
       
       // Calculate scroll distance exactly based on content width
       const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
+      const scrollEnd = scrollDistance * (isMobile ? 1.3 : 1.5);
       
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${scrollDistance + (isMobile ? 1000 : 2000)}`,
+          end: `+=${scrollEnd}`,
           pin: true,
           scrub: 1,
           onEnter: () => {
@@ -407,7 +408,7 @@ const Mission = () => {
         <h2 
           key={language}
           ref={textRef} 
-          className="text-[10vw] md:text-[11vw] font-heading font-medium leading-none tracking-tighter text-black transition-colors duration-500"
+          className="text-[7vw] md:text-[11vw] font-heading font-medium leading-none tracking-tighter text-black transition-colors duration-500"
         >
           {t('mission.text')}
         </h2>
