@@ -270,12 +270,12 @@ const CompanyValue = () => {
         }
       });
 
-      // Smooth background color transition white → black
-      gsap.to(sectionRef.current, {
+      // Smooth background color transition on the wrapper
+      gsap.to("#color-transition-wrapper", {
         backgroundColor: "#000000",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "center center",
+          start: "60% center",
           end: "bottom top",
           scrub: true,
         }
@@ -286,7 +286,7 @@ const CompanyValue = () => {
         color: "#ffffff",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "center center",
+          start: "60% center",
           end: "bottom top",
           scrub: true,
         }
@@ -297,7 +297,7 @@ const CompanyValue = () => {
   }, [t]);
 
   return (
-    <section ref={sectionRef} className="py-12 md:pt-64 md:pb-32 bg-white flex items-center justify-center px-6">
+    <section ref={sectionRef} className="py-12 md:pt-64 md:pb-32 flex items-center justify-center px-6">
       <div className="container mx-auto max-w-4xl text-center space-y-12">
         <p 
           key={t('intro.text')}
@@ -422,7 +422,7 @@ const Mission = () => {
     <section 
       id="vision" 
       ref={sectionRef} 
-      className="relative min-h-[50vh] md:min-h-[100vh] bg-black overflow-hidden flex items-center justify-start perspective-1000 pt-32 pb-24 md:py-0"
+      className="relative min-h-[50vh] md:min-h-[100vh] bg-transparent overflow-hidden flex items-center justify-start perspective-1000 pt-32 pb-24 md:py-0"
     >
       <div 
         ref={horizontalRef} 
@@ -456,7 +456,7 @@ const ProblemCards = () => {
   ];
 
   return (
-    <section ref={containerRef} className="bg-black text-white py-16 md:py-32 px-6">
+    <section ref={containerRef} className="text-white py-16 md:py-32 px-6">
       <div className="container mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           {cards.map((card, i) => (
@@ -1339,9 +1339,11 @@ const Index = () => {
       <AccordionNavbar />
       <Hero />
       <ExpandingImage />
-      <CompanyValue />
-      <Mission />
-      <ProblemCards />
+      <div id="color-transition-wrapper" className="bg-white">
+        <CompanyValue />
+        <Mission />
+        <ProblemCards />
+      </div>
       <ProjectMagazine />
       <Focuses />
       <StackedValue />
