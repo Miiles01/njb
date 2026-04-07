@@ -422,7 +422,7 @@ const Mission = () => {
     <section 
       id="vision" 
       ref={sectionRef} 
-      className="relative min-h-[50vh] md:min-h-[100vh] bg-black overflow-hidden flex items-center justify-start perspective-1000 pt-32 pb-24 md:py-0"
+      className="relative min-h-[50vh] md:min-h-[100vh] bg-transparent overflow-hidden flex items-center justify-start perspective-1000 pt-32 pb-24 md:py-0"
     >
       <div 
         ref={horizontalRef} 
