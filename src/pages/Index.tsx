@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle } from "lucide-react";
+import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -341,10 +341,11 @@ const CompanyValue = () => {
 const Mission = () => {
   const { t, language } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
+  const horizontalRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || !textRef.current) return;
+    if (!sectionRef.current || !horizontalRef.current || !textRef.current) return;
 
     const mm = gsap.matchMedia();
 
@@ -371,18 +372,11 @@ const Mission = () => {
             },
           });
         } else {
-          const viewportWidth = sectionRef.current!.offsetWidth;
-          const textWidth = textRef.current!.scrollWidth;
-          const sidePadding = Math.max(viewportWidth * 0.08, 56);
-          const startX = sidePadding;
-          const endX = Math.min(startX, viewportWidth - textWidth - sidePadding);
-          const travelDistance = Math.abs(endX - startX);
-          const scrollEnd = Math.max(travelDistance * 1.6, viewportWidth * 1.8);
+          const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
+          const scrollEnd = Math.max(scrollDistance * 2, 2500);
 
-          gsap.set(textRef.current, { x: startX });
-
-          const scrollTween = gsap.to(textRef.current, {
-            x: endX,
+          const scrollTween = gsap.to(horizontalRef.current, {
+            x: -scrollDistance,
             ease: "none",
           });
 
@@ -404,12 +398,13 @@ const Mission = () => {
               rotateX: 80,
               rotateY: i % 2 === 0 ? 15 : -15,
               scale: 0.6,
+              filter: "blur(10px)",
               ease: "back.out(2.5)",
               scrollTrigger: {
                 trigger: char,
                 containerAnimation: scrollTween,
-                start: "left 90%",
-                end: "left 55%",
+                start: "left 85%",
+                end: "left 50%",
                 scrub: true,
               },
             });
@@ -418,7 +413,6 @@ const Mission = () => {
 
         return () => {
           split.revert();
-          gsap.set(textRef.current, { clearProps: "transform" });
         };
       },
       sectionRef.current,
@@ -435,8 +429,16 @@ const Mission = () => {
       ref={sectionRef}
       className="relative min-h-[50vh] md:min-h-[100vh] bg-transparent overflow-hidden flex items-center justify-start perspective-1000 pt-32 pb-24 md:py-0"
     >
-      <div className="flex h-full w-full items-center overflow-hidden px-6 md:px-0">
-        <h2
+      <div 
+        ref={horizontalRef} 
+        className="flex h-full items-center justify-start w-full md:w-max-content will-change-transform px-6 md:px-0"
+        style={{ 
+          paddingLeft: window.innerWidth >= 768 ? '55vw' : '0', 
+          paddingRight: window.innerWidth >= 768 ? '110vw' : '0',
+          whiteSpace: window.innerWidth >= 768 ? 'nowrap' : 'normal',
+        }}
+      >
+        <h2 
           key={language}
           ref={textRef}
           className="text-4xl md:text-[11vw] font-heading font-medium leading-tight md:leading-none tracking-tighter text-white text-center md:text-left w-full md:w-max md:max-w-none md:whitespace-nowrap"
@@ -802,6 +804,76 @@ const StackedValue = () => {
         </div>
       </section>
     </div>
+  );
+};
+
+const Solution = () => {
+  const { t } = useLanguage();
+  const items = [
+    { key: 'solution.item1', icon: Video },
+    { key: 'solution.item2', icon: Megaphone, bestseller: true },
+    { key: 'solution.item3', icon: PieChart },
+    { key: 'solution.item4', icon: Crosshair },
+    { key: 'solution.item5', icon: Mail }
+  ];
+
+  return (
+    <section className="py-32 md:py-64 px-6 bg-black text-white overflow-hidden">
+      <div className="container mx-auto max-w-7xl">
+        <div className="mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block px-4 py-1.5 rounded-full border border-white/20 text-xs md:text-sm font-heading font-medium tracking-widest uppercase mb-8"
+          >
+            {t('solution.title')}
+          </motion.div>
+          <h2 className="text-4xl md:text-7xl font-heading font-medium tracking-tighter mb-8 max-w-4xl leading-tight">
+            {t('solution.description')}
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {items.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className={`p-8 md:p-12 rounded-[40px] border transition-all duration-500 group relative overflow-hidden flex flex-col justify-between min-h-[320px] ${
+                item.bestseller 
+                ? 'bg-white text-black border-white ring-4 ring-white/10' 
+                : 'bg-white/5 text-white border-white/10 hover:bg-white/10'
+              }`}
+            >
+              <div className="flex justify-between items-start mb-12">
+                <div className={`p-4 rounded-2xl ${item.bestseller ? 'bg-black/5' : 'bg-white/10'}`}>
+                  <item.icon size={32} className={item.bestseller ? 'text-black' : 'text-white'} />
+                </div>
+                {item.bestseller && (
+                  <span className="px-4 py-1.5 bg-black text-white text-[10px] uppercase tracking-widest font-heading font-bold rounded-full animate-pulse">
+                    {t('solution.bestseller')}
+                  </span>
+                )}
+              </div>
+              
+              <div>
+                <h3 className="text-2xl md:text-3xl font-heading font-medium leading-tight">
+                  {t(item.key)}
+                </h3>
+              </div>
+
+              {/* Decorative light effect for the bestseller card */}
+              {item.bestseller && (
+                <div className="absolute -right-20 -top-20 w-64 h-64 bg-black/5 rounded-full blur-3xl group-hover:bg-black/10 transition-colors" />
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -1346,6 +1418,7 @@ const Index = () => {
         <CompanyValue />
         <Mission />
         <ProblemCards />
+        <Solution />
       </div>
       <ProjectMagazine />
       <Focuses />
