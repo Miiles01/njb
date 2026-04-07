@@ -297,7 +297,7 @@ const CompanyValue = () => {
   }, [t]);
 
   return (
-    <section ref={sectionRef} className="py-12 md:pt-64 md:pb-32 bg-white flex items-center justify-center px-6">
+    <section ref={sectionRef} className="py-12 md:pt-64 md:pb-32 flex items-center justify-center px-6">
       <div className="container mx-auto max-w-4xl text-center space-y-12">
         <p 
           key={t('intro.text')}
