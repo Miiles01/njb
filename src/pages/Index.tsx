@@ -399,7 +399,6 @@ const Mission = () => {
             rotateX: 80,
             rotateY: i % 2 === 0 ? 15 : -15,
             scale: 0.6,
-            filter: "blur(10px)",
             ease: "back.out(2.5)",
             scrollTrigger: {
               trigger: char,
@@ -432,8 +431,8 @@ const Mission = () => {
         ref={horizontalRef} 
         className="flex h-full items-center justify-start w-full md:w-max-content will-change-transform px-6 md:px-0"
         style={{ 
-          paddingLeft: window.innerWidth >= 768 ? '55vw' : '0', 
-          paddingRight: window.innerWidth >= 768 ? '55vw' : '0',
+          paddingLeft: window.innerWidth >= 768 ? '10vw' : '0', 
+          paddingRight: window.innerWidth >= 768 ? '10vw' : '0',
           whiteSpace: window.innerWidth >= 768 ? 'nowrap' : 'normal',
         }}
       >
