@@ -248,11 +248,11 @@ const ExpandingImage = () => {
 const CompanyValue = () => {
   const { t } = useLanguage();
   const textRef = useRef<HTMLParagraphElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
-    if (!textRef.current) return;
+    if (!textRef.current || !sectionRef.current) return;
     
-    // Using a scope context to avoid selector issues
     const ctx = gsap.context(() => {
       const split = new SplitType(textRef.current!, { types: 'words' });
       
@@ -269,18 +269,40 @@ const CompanyValue = () => {
           once: true
         }
       });
-    }, textRef); // Correctly scoped to the element
+
+      // Smooth background color transition white → black
+      gsap.to(sectionRef.current, {
+        backgroundColor: "#000000",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "center center",
+          end: "bottom top",
+          scrub: true,
+        }
+      });
+
+      // Text color transition black → white
+      gsap.to(".company-value-text", {
+        color: "#ffffff",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "center center",
+          end: "bottom top",
+          scrub: true,
+        }
+      });
+    }, sectionRef);
 
     return () => ctx.revert();
-  }, [t]); // Depend on t to re-run when language changes
+  }, [t]);
 
   return (
-    <section className="py-12 md:pt-64 md:pb-32 bg-white flex items-center justify-center px-6">
+    <section ref={sectionRef} className="py-12 md:pt-64 md:pb-32 bg-white flex items-center justify-center px-6">
       <div className="container mx-auto max-w-4xl text-center space-y-12">
         <p 
-          key={t('intro.text')} // Force re-render on language change
+          key={t('intro.text')}
           ref={textRef}
-          className="text-2xl md:text-3xl font-heading font-light leading-relaxed text-black"
+          className="company-value-text text-2xl md:text-3xl font-heading font-light leading-relaxed text-black"
         >
           {t('intro.text')}
         </p>
@@ -302,7 +324,7 @@ const CompanyValue = () => {
             whileInView={{ opacity: 0.5 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
-            className="text-sm md:text-base font-heading font-light tracking-wide text-black"
+            className="company-value-text text-sm md:text-base font-heading font-light tracking-wide text-black"
           >
             {t('intro.subtext')}
           </motion.span>
