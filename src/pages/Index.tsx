@@ -270,12 +270,12 @@ const CompanyValue = () => {
         }
       });
 
-      // Smooth background color transition white → black
-      gsap.to(sectionRef.current, {
+      // Smooth background color transition on the wrapper
+      gsap.to("#color-transition-wrapper", {
         backgroundColor: "#000000",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "center center",
+          start: "60% center",
           end: "bottom top",
           scrub: true,
         }
@@ -286,7 +286,7 @@ const CompanyValue = () => {
         color: "#ffffff",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "center center",
+          start: "60% center",
           end: "bottom top",
           scrub: true,
         }
