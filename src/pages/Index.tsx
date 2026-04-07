@@ -275,7 +275,7 @@ const CompanyValue = () => {
   }, [t]); // Depend on t to re-run when language changes
 
   return (
-    <section className="py-24 md:pt-64 md:pb-32 bg-white flex items-center justify-center px-6">
+    <section className="py-12 md:pt-64 md:pb-32 bg-white flex items-center justify-center px-6">
       <div className="container mx-auto max-w-4xl text-center space-y-12">
         <p 
           key={t('intro.text')} // Force re-render on language change
@@ -434,7 +434,7 @@ const ProblemCards = () => {
   ];
 
   return (
-    <section ref={containerRef} className="bg-black text-white py-32 px-6">
+    <section ref={containerRef} className="bg-black text-white py-16 md:py-32 px-6">
       <div className="container mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           {cards.map((card, i) => (
