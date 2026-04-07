@@ -1339,9 +1339,11 @@ const Index = () => {
       <AccordionNavbar />
       <Hero />
       <ExpandingImage />
-      <CompanyValue />
-      <Mission />
-      <ProblemCards />
+      <div id="color-transition-wrapper" className="bg-white">
+        <CompanyValue />
+        <Mission />
+        <ProblemCards />
+      </div>
       <ProjectMagazine />
       <Focuses />
       <StackedValue />
