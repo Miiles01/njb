@@ -432,7 +432,7 @@ const Mission = () => {
         className="flex h-full items-center justify-start w-full md:w-max-content will-change-transform px-6 md:px-0"
         style={{ 
           paddingLeft: window.innerWidth >= 768 ? '10vw' : '0', 
-          paddingRight: window.innerWidth >= 768 ? '10vw' : '0',
+          paddingRight: window.innerWidth >= 768 ? '50vw' : '0',
           whiteSpace: window.innerWidth >= 768 ? 'nowrap' : 'normal',
         }}
       >
