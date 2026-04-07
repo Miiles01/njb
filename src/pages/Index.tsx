@@ -322,8 +322,8 @@ const Mission = () => {
     const mm = gsap.matchMedia();
 
     mm.add({
-      isMobile: "(max-width: 768px)",
-      isDesktop: "(min-width: 769px)"
+      isMobile: "(max-width: 767px)",
+      isDesktop: "(min-width: 768px)"
     }, (context) => {
       const { isMobile } = context.conditions as any;
       const split = new SplitType(textRef.current!, { types: "chars,words" });
@@ -396,15 +396,15 @@ const Mission = () => {
     <section 
       id="vision" 
       ref={sectionRef} 
-      className="relative min-h-[50vh] md:min-h-[100vh] bg-black overflow-hidden flex items-center justify-center perspective-1000 py-24 md:py-0"
+      className="relative min-h-[50vh] md:min-h-[100vh] bg-black overflow-hidden flex items-center justify-center perspective-1000 pt-48 pb-24 md:py-0"
     >
       <div 
         ref={horizontalRef} 
         className="flex h-full items-center justify-center w-full md:w-max-content will-change-transform px-6 md:px-0"
         style={{ 
-          paddingLeft: window.innerWidth > 768 ? '50vw' : '0', 
-          paddingRight: window.innerWidth > 768 ? '50vw' : '0',
-          whiteSpace: window.innerWidth > 768 ? 'nowrap' : 'normal',
+          paddingLeft: window.innerWidth >= 768 ? '50vw' : '0', 
+          paddingRight: window.innerWidth >= 768 ? '50vw' : '0',
+          whiteSpace: window.innerWidth >= 768 ? 'nowrap' : 'normal',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center'
@@ -494,8 +494,8 @@ const ProjectMagazine = () => {
     const mm = gsap.matchMedia();
 
     mm.add({
-      isMobile: "(max-width: 768px)",
-      isDesktop: "(min-width: 769px)"
+      isMobile: "(max-width: 767px)",
+      isDesktop: "(min-width: 768px)"
     }, (context) => {
       const { isMobile } = context.conditions as any;
       const cards = cardsRef.current!.querySelectorAll('.magazine-card');
@@ -623,7 +623,7 @@ const StackedValue = () => {
   useLayoutEffect(() => {
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 769px)", () => {
+    mm.add("(min-width: 768px)", () => {
       const panels = gsap.utils.toArray(".stacked-panel");
       const lastPanel = panels[panels.length - 1];
       
@@ -783,7 +783,8 @@ const Focuses = () => {
   const { t } = useLanguage();
   const focuses = [
     t('focuses.item1'), t('focuses.item2'), t('focuses.item3'),
-    t('focuses.item4'), t('focuses.item5'), t('focuses.item6')
+    t('focuses.item4'), t('focuses.item5'), t('focuses.item6'),
+    t('focuses.item7'), t('focuses.item8'), t('focuses.item9')
   ];
 
   return (
@@ -854,11 +855,11 @@ const Testimonials = () => {
     <div className={`flex w-max shrink-0 gap-6 ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'} hover:[animation-play-state:paused] pr-6`}>
       {[...data, ...data].map((item, idx) => (
         <div key={`${idx}`} className="w-[300px] md:w-[450px] shrink-0 bg-white/70 backdrop-blur-md border border-zinc-200/50 rounded-[32px] p-8 md:p-10 hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col justify-between">
-          <p className="font-heading font-light text-foreground/80 leading-relaxed mb-8 text-sm md:text-base">{item.text[language as 'es' | 'en']}</p>
+          <p className="font-heading font-light text-foreground/80 leading-relaxed mb-8 text-sm md:text-base">{item.text[language as 'es' | 'en' | 'fr']}</p>
           <div className="flex items-center gap-4">
             <div className="flex flex-col min-w-0">
               <span className="font-heading font-medium truncate">{item.name}</span>
-              <span className="text-[10px] md:text-xs text-muted-foreground truncate opacity-70 tracking-wide">{item.role[language as 'es' | 'en']}</span>
+              <span className="text-[10px] md:text-xs text-muted-foreground truncate opacity-70 tracking-wide">{item.role[language as 'es' | 'en' | 'fr']}</span>
             </div>
           </div>
         </div>
