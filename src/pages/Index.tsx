@@ -207,13 +207,15 @@ const ExpandingImage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = window.innerWidth < 768;
+
   useLayoutEffect(() => {
     if (!containerRef.current || !boxRef.current) return;
 
     gsap.fromTo(boxRef.current, {
-      width: "50%",
-      height: "50vh",
-      borderRadius: "2rem",
+      width: isMobile ? "90%" : "50%",
+      height: isMobile ? "60vh" : "50vh",
+      borderRadius: isMobile ? "1.5rem" : "2rem",
     }, {
       width: "100%",
       height: "100vh",
@@ -225,10 +227,10 @@ const ExpandingImage = () => {
         scrub: 1,
       }
     });
-  }, []);
+  }, [isMobile]);
 
   return (
-    <section ref={containerRef} className="relative h-[120vh] flex items-center justify-center bg-white overflow-hidden">
+    <section ref={containerRef} className="relative h-[100vh] md:h-[120vh] flex items-center justify-center bg-white overflow-hidden">
       <div 
         ref={boxRef}
         className="bg-zinc-100 flex items-center justify-center overflow-hidden rounded-[2rem]"
