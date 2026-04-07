@@ -373,7 +373,8 @@ const Mission = () => {
           });
         } else {
           const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
-          const scrollEnd = Math.max(scrollDistance * 2, 2500);
+          // Even more generous scroll distance for reading
+          const scrollEnd = Math.max(scrollDistance * 3, 3000); 
 
           const scrollTween = gsap.to(horizontalRef.current, {
             x: -scrollDistance,
@@ -393,18 +394,16 @@ const Mission = () => {
 
           split.chars?.forEach((char, i) => {
             gsap.from(char, {
-              y: i % 2 === 0 ? -150 : 150,
+              y: i % 2 === 0 ? -100 : 100,
               opacity: 0,
-              rotateX: 80,
-              rotateY: i % 2 === 0 ? 15 : -15,
-              scale: 0.6,
-              filter: "blur(10px)",
-              ease: "back.out(2.5)",
+              rotateX: 45,
+              scale: 0.8,
+              ease: "power2.out",
               scrollTrigger: {
                 trigger: char,
                 containerAnimation: scrollTween,
-                start: "left 85%",
-                end: "left 50%",
+                start: "left 95%",
+                end: "left 70%",
                 scrub: true,
               },
             });
@@ -842,7 +841,8 @@ const Solution = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`p-8 md:p-12 rounded-[40px] border transition-all duration-500 group relative overflow-hidden flex flex-col justify-between min-h-[320px] ${
+              whileHover={{ scale: 1.02, y: -5 }}
+              className={`p-8 md:p-12 rounded-[40px] border transition-all duration-300 group relative overflow-hidden flex flex-col justify-between min-h-[320px] shadow-2xl ${
                 item.bestseller 
                 ? 'bg-white text-black border-white ring-4 ring-white/10' 
                 : 'bg-white/5 text-white border-white/10 hover:bg-white/10'
