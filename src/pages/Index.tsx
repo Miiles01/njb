@@ -326,47 +326,61 @@ const Mission = () => {
       isDesktop: "(min-width: 769px)"
     }, (context) => {
       const { isMobile } = context.conditions as any;
-      
       const split = new SplitType(textRef.current!, { types: "chars,words" });
-      
-      const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
-      const scrollEnd = scrollDistance * (isMobile ? 1.3 : 1.5);
-      
-      // Horizontal scroll timeline
-      const scrollTween = gsap.to(horizontalRef.current, {
-        x: -scrollDistance,
-        ease: "none"
-      });
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: `+=${scrollEnd}`,
-          pin: true,
-          scrub: 1,
-        }
-      }).add(scrollTween);
+      if (isMobile) {
+        // Mobile Animation: Simple light-up vertical scroll
+        gsap.set(split.words, { color: "rgba(255,255,255,0.15)" });
 
-      // Character assembly animation
-      split.chars?.forEach((char, i) => {
-        gsap.from(char, {
-          y: i % 2 === 0 ? (isMobile ? -60 : -200) : (isMobile ? 60 : 200),
-          opacity: 0,
-          rotateX: isMobile ? 30 : 80,
-          rotateY: i % 2 === 0 ? (isMobile ? 5 : 15) : (isMobile ? -5 : -15),
-          scale: 0.8,
-          filter: "blur(4px)",
-          ease: "back.out(2.5)",
+        gsap.to(split.words, {
+          color: "#fff",
+          stagger: 0.1,
           scrollTrigger: {
-            trigger: char,
-            containerAnimation: scrollTween,
-            start: "left 95%",
-            end: "left 50%",
+            trigger: textRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
             scrub: true
           }
         });
-      });
+      } else {
+        // Desktop Animation: Horizontal assembly scroll
+        const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
+        const scrollEnd = scrollDistance * 1.5;
+
+        const scrollTween = gsap.to(horizontalRef.current, {
+          x: -scrollDistance,
+          ease: "none"
+        });
+
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: `+=${scrollEnd}`,
+            pin: true,
+            scrub: 1,
+          }
+        }).add(scrollTween);
+
+        split.chars?.forEach((char, i) => {
+          gsap.from(char, {
+            y: i % 2 === 0 ? -200 : 200,
+            opacity: 0,
+            rotateX: 80,
+            rotateY: i % 2 === 0 ? 15 : -15,
+            scale: 0.8,
+            filter: "blur(4px)",
+            ease: "back.out(2.5)",
+            scrollTrigger: {
+              trigger: char,
+              containerAnimation: scrollTween,
+              start: "left 95%",
+              end: "left 50%",
+              scrub: true
+            }
+          });
+        });
+      }
 
       return () => {
         split.revert();
@@ -382,28 +396,30 @@ const Mission = () => {
     <section 
       id="vision" 
       ref={sectionRef} 
-      className="relative min-h-[100vh] bg-black overflow-hidden flex items-center perspective-1000"
+      className="relative min-h-[50vh] md:min-h-[100vh] bg-black overflow-hidden flex items-center justify-center perspective-1000 py-24 md:py-0"
     >
       <div 
         ref={horizontalRef} 
-        className="flex h-full items-center whitespace-nowrap will-change-transform"
+        className="flex h-full items-center justify-center w-full md:w-max-content will-change-transform px-6 md:px-0"
         style={{ 
-          paddingLeft: '50vw', 
-          paddingRight: '50vw',
-          width: 'max-content'
+          paddingLeft: window.innerWidth > 768 ? '50vw' : '0', 
+          paddingRight: window.innerWidth > 768 ? '50vw' : '0',
+          whiteSpace: window.innerWidth > 768 ? 'nowrap' : 'normal',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}
       >
         <h2 
           key={language}
           ref={textRef} 
-          className="text-[7vw] md:text-[11vw] font-heading font-medium leading-none tracking-tighter text-white"
+          className="text-4xl md:text-[11vw] font-heading font-medium leading-tight md:leading-none tracking-tighter text-white text-center md:text-left"
         >
           {t('mission.text')}
         </h2>
       </div>
     </section>
   );
-
 };
 
 const ProblemCards = () => {
@@ -692,8 +708,13 @@ const StackedValue = () => {
           </div>
           <h2 className="text-2xl md:text-6xl font-heading font-medium mb-6 md:mb-12 text-white">{t('stacked.resultados.title')}</h2>
           <p className="text-base md:text-2xl text-white/70 mb-6 md:mb-12">{t('stacked.resultados.subtitle')}</p>
-          <ul className="text-left max-w-2xl mx-auto space-y-4 md:space-y-6 mb-8 md:mb-16">
-            {[t('stacked.resultados.item1'), t('stacked.resultados.item2'), t('stacked.resultados.item3')].map((item, i) => (
+          <ul className="text-left max-w-2xl mx-auto space-y-4 md:space-y-6">
+            {[
+              t('stacked.resultados.item1'),
+              t('stacked.resultados.item2'),
+              t('stacked.resultados.item3'),
+              t('stacked.resultados.item4'),
+            ].map((item, i) => (
               <li key={i} className="flex items-start gap-4 text-base md:text-2xl border-l-2 border-white/20 pl-4 md:pl-6">
                 <span>{item}</span>
               </li>
@@ -739,7 +760,13 @@ const StackedValue = () => {
           </div>
           <h2 className="text-2xl md:text-6xl font-heading font-medium mb-8 md:mb-16 text-center dynamic-text">{t('stacked.proceso.title')}</h2>
           <div className="space-y-6 md:space-y-12 max-w-2xl mx-auto">
-            {[t('stacked.proceso.item1'), t('stacked.proceso.item2'), t('stacked.proceso.item3'), t('stacked.proceso.item4')].map((item, i) => (
+            {[
+              t('stacked.proceso.item1'),
+              t('stacked.proceso.item2'),
+              t('stacked.proceso.item3'),
+              t('stacked.proceso.item4'),
+              t('stacked.proceso.item5'),
+            ].map((item, i) => (
               <div key={i} className="flex gap-4 md:gap-8 items-center border-b border-black/5 pb-6 md:pb-8 last:border-0">
                 <span className="text-4xl md:text-7xl font-heading font-bold text-black/5">{i + 1}</span>
                 <span className="text-base md:text-3xl font-heading font-medium text-black/80">{item.replace(`${i+1}. `, '')}</span>
@@ -1041,13 +1068,14 @@ const Offer = () => {
     t('offer.card1.item2'),
     t('offer.card1.item3'),
     t('offer.card1.item4'),
+    t('offer.card1.item5'),
+    t('offer.card1.item6'),
   ];
 
   const card2Items = [
     t('offer.card2.item1'),
     t('offer.card2.item2'),
     t('offer.card2.item3'),
-    t('offer.card2.item4'),
   ];
 
   return (
