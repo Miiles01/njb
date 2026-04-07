@@ -341,80 +341,88 @@ const CompanyValue = () => {
 const Mission = () => {
   const { t, language } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const horizontalRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || !horizontalRef.current || !textRef.current) return;
+    if (!sectionRef.current || !textRef.current) return;
 
     const mm = gsap.matchMedia();
 
-    mm.add({
-      isMobile: "(max-width: 767px)",
-      isDesktop: "(min-width: 768px)"
-    }, (context) => {
-      const { isMobile } = context.conditions as any;
-      const split = new SplitType(textRef.current!, { types: "chars,words" });
+    mm.add(
+      {
+        isMobile: "(max-width: 767px)",
+        isDesktop: "(min-width: 768px)",
+      },
+      (context) => {
+        const { isMobile } = context.conditions as { isMobile: boolean };
+        const split = new SplitType(textRef.current!, { types: "chars,words" });
 
-      if (isMobile) {
-        // Mobile Animation: Simple light-up vertical scroll
-        gsap.set(split.words, { color: "rgba(255,255,255,0.15)" });
+        if (isMobile) {
+          gsap.set(split.words, { color: "rgba(255,255,255,0.15)" });
 
-        gsap.to(split.words, {
-          color: "#fff",
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: textRef.current,
-            start: "top 70%",
-            end: "bottom 30%",
-            scrub: true
-          }
-        });
-      } else {
-        // Desktop Animation: Horizontal assembly scroll
-        const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
-        // More generous scroll distance for full traversals
-        const scrollEnd = Math.max(scrollDistance * 2, 2500); 
-
-        const scrollTween = gsap.to(horizontalRef.current, {
-          x: -scrollDistance,
-          ease: "none"
-        });
-
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: `+=${scrollEnd}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-          }
-        }).add(scrollTween);
-
-        split.chars?.forEach((char, i) => {
-          gsap.from(char, {
-            y: i % 2 === 0 ? -150 : 150,
-            opacity: 0,
-            rotateX: 80,
-            rotateY: i % 2 === 0 ? 15 : -15,
-            scale: 0.6,
-            ease: "back.out(2.5)",
+          gsap.to(split.words, {
+            color: "#fff",
+            stagger: 0.1,
             scrollTrigger: {
-              trigger: char,
-              containerAnimation: scrollTween,
-              start: "left 85%",
-              end: "left 50%",
-              scrub: true
-            }
+              trigger: textRef.current,
+              start: "top 70%",
+              end: "bottom 30%",
+              scrub: true,
+            },
           });
-        });
-      }
+        } else {
+          const viewportWidth = sectionRef.current!.offsetWidth;
+          const textWidth = textRef.current!.scrollWidth;
+          const sidePadding = Math.max(viewportWidth * 0.08, 56);
+          const startX = sidePadding;
+          const endX = Math.min(startX, viewportWidth - textWidth - sidePadding);
+          const travelDistance = Math.abs(endX - startX);
+          const scrollEnd = Math.max(travelDistance * 1.6, viewportWidth * 1.8);
 
-      return () => {
-        split.revert();
-      };
-    }, sectionRef.current);
+          gsap.set(textRef.current, { x: startX });
+
+          const scrollTween = gsap.to(textRef.current, {
+            x: endX,
+            ease: "none",
+          });
+
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: `+=${scrollEnd}`,
+              pin: true,
+              scrub: 1,
+              invalidateOnRefresh: true,
+            },
+          }).add(scrollTween);
+
+          split.chars?.forEach((char, i) => {
+            gsap.from(char, {
+              y: i % 2 === 0 ? -150 : 150,
+              opacity: 0,
+              rotateX: 80,
+              rotateY: i % 2 === 0 ? 15 : -15,
+              scale: 0.6,
+              ease: "back.out(2.5)",
+              scrollTrigger: {
+                trigger: char,
+                containerAnimation: scrollTween,
+                start: "left 90%",
+                end: "left 55%",
+                scrub: true,
+              },
+            });
+          });
+        }
+
+        return () => {
+          split.revert();
+          gsap.set(textRef.current, { clearProps: "transform" });
+        };
+      },
+      sectionRef.current,
+    );
 
     return () => {
       mm.revert();
@@ -422,24 +430,16 @@ const Mission = () => {
   }, [language]);
 
   return (
-    <section 
-      id="vision" 
-      ref={sectionRef} 
+    <section
+      id="vision"
+      ref={sectionRef}
       className="relative min-h-[50vh] md:min-h-[100vh] bg-transparent overflow-hidden flex items-center justify-start perspective-1000 pt-32 pb-24 md:py-0"
     >
-      <div 
-        ref={horizontalRef} 
-        className="flex h-full items-center justify-start w-full md:w-max-content will-change-transform px-6 md:px-0"
-        style={{ 
-          paddingLeft: window.innerWidth >= 768 ? '10vw' : '0', 
-          paddingRight: window.innerWidth >= 768 ? '100vw' : '0',
-          whiteSpace: window.innerWidth >= 768 ? 'nowrap' : 'normal',
-        }}
-      >
-        <h2 
+      <div className="flex h-full w-full items-center overflow-hidden px-6 md:px-0">
+        <h2
           key={language}
-          ref={textRef} 
-          className="text-4xl md:text-[11vw] font-heading font-medium leading-tight md:leading-none tracking-tighter text-white text-center md:text-left"
+          ref={textRef}
+          className="text-4xl md:text-[11vw] font-heading font-medium leading-tight md:leading-none tracking-tighter text-white text-center md:text-left w-full md:w-max md:max-w-none md:whitespace-nowrap"
         >
           {t('mission.text')}
         </h2>
