@@ -337,15 +337,16 @@ const Mission = () => {
           stagger: 0.1,
           scrollTrigger: {
             trigger: textRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
+            start: "top 70%",
+            end: "bottom 30%",
             scrub: true
           }
         });
       } else {
         // Desktop Animation: Horizontal assembly scroll
         const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
-        const scrollEnd = scrollDistance * 1.5;
+        // More generous scroll distance for full traversals
+        const scrollEnd = Math.max(scrollDistance * 2, 2500); 
 
         const scrollTween = gsap.to(horizontalRef.current, {
           x: -scrollDistance,
@@ -359,22 +360,23 @@ const Mission = () => {
             end: `+=${scrollEnd}`,
             pin: true,
             scrub: 1,
+            invalidateOnRefresh: true,
           }
         }).add(scrollTween);
 
         split.chars?.forEach((char, i) => {
           gsap.from(char, {
-            y: i % 2 === 0 ? -200 : 200,
+            y: i % 2 === 0 ? -150 : 150,
             opacity: 0,
             rotateX: 80,
             rotateY: i % 2 === 0 ? 15 : -15,
-            scale: 0.8,
-            filter: "blur(4px)",
+            scale: 0.6,
+            filter: "blur(10px)",
             ease: "back.out(2.5)",
             scrollTrigger: {
               trigger: char,
               containerAnimation: scrollTween,
-              start: "left 95%",
+              start: "left 85%",
               end: "left 50%",
               scrub: true
             }
@@ -396,18 +398,15 @@ const Mission = () => {
     <section 
       id="vision" 
       ref={sectionRef} 
-      className="relative min-h-[50vh] md:min-h-[100vh] bg-black overflow-hidden flex items-center justify-center perspective-1000 pt-48 pb-24 md:py-0"
+      className="relative min-h-[50vh] md:min-h-[100vh] bg-black overflow-hidden flex items-center justify-start perspective-1000 pt-32 pb-24 md:py-0"
     >
       <div 
         ref={horizontalRef} 
-        className="flex h-full items-center justify-center w-full md:w-max-content will-change-transform px-6 md:px-0"
+        className="flex h-full items-center justify-start w-full md:w-max-content will-change-transform px-6 md:px-0"
         style={{ 
-          paddingLeft: window.innerWidth >= 768 ? '50vw' : '0', 
-          paddingRight: window.innerWidth >= 768 ? '50vw' : '0',
+          paddingLeft: window.innerWidth >= 768 ? '55vw' : '0', 
+          paddingRight: window.innerWidth >= 768 ? '55vw' : '0',
           whiteSpace: window.innerWidth >= 768 ? 'nowrap' : 'normal',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center'
         }}
       >
         <h2 
