@@ -213,9 +213,9 @@ const ExpandingImage = () => {
     if (!containerRef.current || !boxRef.current) return;
 
     gsap.fromTo(boxRef.current, {
-      width: isMobile ? "90%" : "50%",
-      height: isMobile ? "60vh" : "50vh",
-      borderRadius: isMobile ? "1.5rem" : "2rem",
+      width: isMobile ? "95%" : "50%",
+      height: isMobile ? "70vh" : "50vh",
+      borderRadius: isMobile ? "1.2rem" : "2rem",
     }, {
       width: "100%",
       height: "100vh",
