@@ -269,9 +269,12 @@ const CompanyValue = () => {
           once: true
         }
       });
+    }, sectionRef);
 
-      // Smooth background color transition on the wrapper
-      gsap.to("#color-transition-wrapper", {
+    // Background transition — outside scoped context so it can target the wrapper
+    const wrapperEl = document.getElementById("color-transition-wrapper");
+    if (wrapperEl) {
+      gsap.to(wrapperEl, {
         backgroundColor: "#000000",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -281,7 +284,6 @@ const CompanyValue = () => {
         }
       });
 
-      // Text color transition black → white
       gsap.to(".company-value-text", {
         color: "#ffffff",
         scrollTrigger: {
@@ -291,9 +293,11 @@ const CompanyValue = () => {
           scrub: true,
         }
       });
-    }, sectionRef);
+    }
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, [t]);
 
   return (
