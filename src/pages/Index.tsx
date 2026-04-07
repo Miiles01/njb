@@ -399,7 +399,6 @@ const Mission = () => {
             rotateX: 80,
             rotateY: i % 2 === 0 ? 15 : -15,
             scale: 0.6,
-            filter: "blur(10px)",
             ease: "back.out(2.5)",
             scrollTrigger: {
               trigger: char,
