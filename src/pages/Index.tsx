@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair } from "lucide-react";
+import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair, Flame } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -825,8 +825,9 @@ const Solution = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-1.5 rounded-full border border-white/20 text-xs md:text-sm font-heading font-medium tracking-widest uppercase mb-8"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 text-xs md:text-sm font-heading font-medium tracking-widest mb-8"
           >
+            <Rocket size={14} className="text-white" />
             {t('solution.title')}
           </motion.div>
           <h2 className="text-4xl md:text-7xl font-heading font-medium tracking-tighter mb-8 max-w-4xl leading-tight">
@@ -854,7 +855,8 @@ const Solution = () => {
                   <item.icon size={32} className={item.bestseller ? 'text-black' : 'text-white'} />
                 </div>
                 {item.bestseller && (
-                  <span className="px-4 py-1.5 bg-black text-white text-[10px] uppercase tracking-widest font-heading font-bold rounded-full animate-pulse">
+                  <span className="px-4 py-1.5 bg-black text-white text-[10px] tracking-widest font-heading font-medium rounded-full animate-pulse flex items-center gap-1.5">
+                    <Flame size={12} className="text-white fill-white" />
                     {t('solution.bestseller')}
                   </span>
                 )}

@@ -165,7 +165,7 @@ const translations = {
         'offer.footer.commitment': 'Sin compromiso',
         'offer.footer.limited': 'Cupos limitados cada mes',
         // Solution Section (Added)
-        'solution.title': '🚀 SOLUCIÓN',
+        'solution.title': 'Solución',
         'solution.subtitle': 'Contenido + Publicidad + Estrategia',
         'solution.description': 'Combinamos contenido + publicidad + estrategia para transformar la atención en ingresos.',
         'solution.item1': 'Contenido que convierte (video, reels, UGC)',
@@ -173,7 +173,7 @@ const translations = {
         'solution.item3': 'Seguimiento de conversiones (resultados reales, no "likes")',
         'solution.item4': 'Posicionamiento estratégico adaptado a tu mercado',
         'solution.item5': 'Email marketing (fidelización y aumento del valor del cliente)',
-        'solution.bestseller': 'Más vendido 🔥',
+        'solution.bestseller': 'Más vendido',
     },
     en: {
         // Navbar
@@ -331,7 +331,7 @@ const translations = {
         'offer.footer.commitment': 'No commitment',
         'offer.footer.limited': 'Limited slots each month',
         // Solution Section (Added)
-        'solution.title': '🚀 SOLUTION',
+        'solution.title': 'Solution',
         'solution.subtitle': 'Content + Advertising + Strategy',
         'solution.description': 'We combine content + advertising + strategy to transform attention into revenue.',
         'solution.item1': 'Content that converts (video, reels, UGC)',
@@ -339,7 +339,7 @@ const translations = {
         'solution.item3': 'Conversion tracking (real results, not "likes")',
         'solution.item4': 'Strategic positioning adapted to your market',
         'solution.item5': 'Email marketing (loyalty & customer value increase)',
-        'solution.bestseller': 'Bestseller 🔥',
+        'solution.bestseller': 'Bestseller',
     },
     fr: {
         // Navbar
@@ -497,7 +497,7 @@ const translations = {
         'offer.footer.commitment': 'Aucun engagement',
         'offer.footer.limited': 'Places limitées chaque mois',
         // Solution Section (Added)
-        'solution.title': '🚀 SOLUTION',
+        'solution.title': 'Solution',
         'solution.subtitle': 'Contenu + Publicité + Stratégie',
         'solution.description': 'On combine contenu + publicité + stratégie pour transformer l’attention en revenus.',
         'solution.item1': 'Contenu qui convertit (vidéo, reels, UGC)',
@@ -505,7 +505,7 @@ const translations = {
         'solution.item3': 'Suivi des conversions (résultats réels, pas des “likes”)',
         'solution.item4': 'Positionnement stratégique adapté à ton marché',
         'solution.item5': 'Email marketing (fidélisation & augmentation de la valeur client)',
-        'solution.bestseller': 'Le plus vendu 🔥',
+        'solution.bestseller': 'Le plus vendu',
     }
 };
 
