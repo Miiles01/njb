@@ -248,12 +248,14 @@ const ExpandingImage = () => {
 
 const CompanyValue = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const textRef = useRef<HTMLParagraphElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
     if (!textRef.current || !sectionRef.current) return;
     
+    // Scoped context for animations
     const ctx = gsap.context(() => {
       const split = new SplitType(textRef.current!, { types: 'words' });
       
@@ -272,7 +274,7 @@ const CompanyValue = () => {
       });
     }, sectionRef);
 
-    // Background transition — outside scoped context so it can target the wrapper
+    // Background transition — targets the parent wrapper
     const wrapperEl = document.getElementById("color-transition-wrapper");
     if (wrapperEl) {
       gsap.to(wrapperEl, {
@@ -313,8 +315,8 @@ const CompanyValue = () => {
         </p>
         
         <div className="flex flex-col items-center gap-4">
-          <motion.a
-            href="#connect"
+          <motion.button
+            onClick={() => navigate('/contacto')}
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -324,7 +326,7 @@ const CompanyValue = () => {
           >
             <Calendar size={28} className="transition-transform group-hover:scale-110" />
             <span className="relative z-10">{t('intro.cta')}</span>
-          </motion.a>
+          </motion.button>
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 0.5 }}
