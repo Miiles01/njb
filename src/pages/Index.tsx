@@ -317,10 +317,11 @@ const CompanyValue = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-black text-white rounded-full font-heading font-medium text-lg hover:shadow-xl transition-all"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="px-10 py-5 md:px-14 md:py-7 bg-black text-white rounded-full font-heading font-medium text-xl md:text-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all flex items-center gap-4 group"
           >
+            <Sparkles size={28} className="text-white group-hover:rotate-12 transition-transform" />
             {t('intro.cta')}
           </motion.a>
           <motion.span
