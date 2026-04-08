@@ -489,7 +489,7 @@ const ProblemCards = () => {
           viewport={{ once: true }}
           className="text-center"
         >
-          <p className="text-2xl md:text-3xl font-heading font-light leading-relaxed max-w-3xl mx-auto opacity-70 italic">
+          <p className="text-2xl md:text-3xl font-heading font-light leading-relaxed max-w-3xl mx-auto opacity-70">
             {t('problem.conclusion')}
           </p>
         </motion.div>
@@ -905,7 +905,7 @@ const Focuses = () => {
             <Globe size={14} className="dynamic-text" />
             {t('focuses.title')}
           </motion.div>
-          <h2 className="text-3xl md:text-5xl font-heading font-medium mb-8 dynamic-text max-w-3xl mx-auto leading-tight italic">
+          <h2 className="text-3xl md:text-5xl font-heading font-medium mb-8 dynamic-text max-w-3xl mx-auto leading-tight">
             {t('focuses.subtitle')}
           </h2>
         </div>
