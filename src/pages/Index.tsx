@@ -446,7 +446,7 @@ const Mission = () => {
           ref={textRef}
           className="text-4xl md:text-[11vw] font-heading font-medium leading-tight md:leading-none tracking-tighter text-white text-center md:text-left w-full md:w-max md:max-w-none md:whitespace-nowrap"
         >
-          {window.innerWidth >= 768 ? `${"\u00A0".repeat(25)}${t('mission.text')}${"\u00A0".repeat(25)}` : t('mission.text')}
+          {window.innerWidth >= 768 ? `${"\u00A0".repeat(25)}${t('mission.text')}${"\u00A0".repeat(50)}` : t('mission.text')}
         </h2>
       </div>
     </section>
