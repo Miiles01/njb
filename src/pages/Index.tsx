@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair, Flame, Store, Briefcase, Utensils, Home } from "lucide-react";
+import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair, Flame, Store, Briefcase, Utensils, Home, Calendar } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -321,7 +321,7 @@ const CompanyValue = () => {
             whileTap={{ scale: 0.98 }}
             className="px-10 py-5 md:px-14 md:py-7 bg-black text-white rounded-full font-heading font-medium text-xl md:text-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all flex items-center gap-4 group"
           >
-            <Sparkles size={28} className="text-white group-hover:rotate-12 transition-transform" />
+            <Calendar size={28} className="text-white group-hover:scale-110 transition-transform" />
             {t('intro.cta')}
           </motion.a>
           <motion.span
