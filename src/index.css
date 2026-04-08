@@ -102,7 +102,7 @@ html.lenis body {
     overflow: hidden;
     background-color: black;
     z-index: 1;
-    transition: color 1s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .btn-premium-expansion::before {
@@ -111,11 +111,11 @@ html.lenis body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, 60%) scale(0.1);
-    width: 150%;
+    width: 200%; /* Slightly larger for fuller coverage */
     aspect-ratio: 1/1;
-    border-radius: 40%; /* Slightly irregular circle for more organic expansion */
+    border-radius: 40%;
     background-color: white;
-    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), border-radius 1.2s ease;
+    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1), border-radius 1.8s ease-in-out;
     z-index: -1;
     pointer-events: none;
   }
@@ -132,6 +132,6 @@ html.lenis body {
   /* Ensure lucide icons transition as well */
   .btn-premium-expansion:hover svg {
     color: black;
-    transition: color 1s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
