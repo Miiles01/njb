@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair, Flame, Store, Briefcase, Utensils, Home, Calendar } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
@@ -319,10 +320,10 @@ const CompanyValue = () => {
             viewport={{ once: true }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="px-10 py-5 md:px-14 md:py-7 bg-black text-white rounded-full font-heading font-medium text-xl md:text-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all flex items-center gap-4 group"
+            className="btn-premium-expansion px-10 py-5 md:px-14 md:py-7 font-heading font-medium text-xl md:text-2xl transition-all gap-4 group rounded-full"
           >
-            <Calendar size={28} className="text-white group-hover:scale-110 transition-transform" />
-            {t('intro.cta')}
+            <Calendar size={28} className="transition-transform group-hover:scale-110" />
+            <span className="relative z-10">{t('intro.cta')}</span>
           </motion.a>
           <motion.span
             initial={{ opacity: 0 }}
@@ -433,8 +434,8 @@ const Mission = () => {
         ref={horizontalRef} 
         className="flex h-full items-center justify-start w-full md:w-max-content will-change-transform px-6 md:px-0"
         style={{ 
-          paddingLeft: window.innerWidth >= 768 ? '55vw' : '0', 
-          paddingRight: window.innerWidth >= 768 ? '110vw' : '0',
+          paddingLeft: window.innerWidth >= 768 ? '75vw' : '0', 
+          paddingRight: window.innerWidth >= 768 ? '120vw' : '0',
           whiteSpace: window.innerWidth >= 768 ? 'nowrap' : 'normal',
         }}
       >
@@ -443,7 +444,7 @@ const Mission = () => {
           ref={textRef}
           className="text-4xl md:text-[11vw] font-heading font-medium leading-tight md:leading-none tracking-tighter text-white text-center md:text-left w-full md:w-max md:max-w-none md:whitespace-nowrap"
         >
-          {t('mission.text')}
+          {window.innerWidth >= 768 ? `${"\u00A0".repeat(25)}${t('mission.text')}${"\u00A0".repeat(25)}` : t('mission.text')}
         </h2>
       </div>
     </section>
@@ -808,7 +809,30 @@ const StackedValue = () => {
 };
 
 const Solution = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const descriptionRef = useRef<HTMLHeadingElement>(null);
+
+  useLayoutEffect(() => {
+    if (!descriptionRef.current) return;
+
+    const split = new SplitType(descriptionRef.current, { types: "words" });
+    
+    gsap.set(split.words, { color: "rgba(255,255,255,0.15)" });
+
+    gsap.to(split.words, {
+      color: "#fff",
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: descriptionRef.current,
+        start: "top 80%",
+        end: "bottom 40%",
+        scrub: true,
+      },
+    });
+
+    return () => split.revert();
+  }, [language]);
+
   const items = [
     { key: 'solution.item1', icon: Video },
     { key: 'solution.item2', icon: Megaphone, bestseller: true },
@@ -830,7 +854,10 @@ const Solution = () => {
             <Rocket size={14} className="text-white" />
             {t('solution.title')}
           </motion.div>
-          <h2 className="text-4xl md:text-7xl font-heading font-medium tracking-tighter mb-8 max-w-4xl leading-tight">
+          <h2 
+            ref={descriptionRef}
+            className="text-4xl md:text-7xl font-heading font-medium tracking-tighter mb-8 max-w-4xl leading-tight"
+          >
             {t('solution.description')}
           </h2>
         </div>

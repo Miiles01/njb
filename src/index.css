@@ -92,4 +92,46 @@ html.lenis body {
   .shadow-black-lg {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   }
+
+  .btn-premium-expansion {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+    background-color: black;
+    z-index: 1;
+    transition: color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .btn-premium-expansion::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 60%) scale(0.1);
+    width: 150%;
+    aspect-ratio: 1/1;
+    border-radius: 40%; /* Slightly irregular circle for more organic expansion */
+    background-color: white;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1), border-radius 0.6s ease;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .btn-premium-expansion:hover {
+    color: black;
+  }
+
+  .btn-premium-expansion:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+    border-radius: 50%;
+  }
+
+  /* Ensure lucide icons transition as well */
+  .btn-premium-expansion:hover svg {
+    color: black;
+    transition: color 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  }
 }
