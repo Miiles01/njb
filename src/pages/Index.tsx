@@ -950,10 +950,10 @@ const Focuses = () => {
               whileHover={{ y: -8 }}
               className="p-8 md:p-12 rounded-[32px] border border-black/5 bg-white dynamic-text text-left transition-all duration-500 hover:!bg-black hover:!border-black flex flex-col justify-between min-h-[160px] md:min-h-[200px] group cursor-pointer shadow-sm hover:shadow-2xl"
             >
-              <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-6 group-hover:bg-white/10 transition-all duration-500">
-                <item.icon size={24} className="dynamic-text opacity-50 group-hover:text-white group-hover:opacity-100 transition-all duration-500" />
+              <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-6 group-hover:!bg-white/10 transition-all duration-500">
+                <item.icon size={24} className="dynamic-text opacity-50 group-hover:!text-white group-hover:opacity-100 transition-all duration-500" />
               </div>
-              <span className="font-heading font-medium text-lg md:text-xl leading-tight group-hover:text-white transition-colors duration-500">
+              <span className="font-heading font-medium text-lg md:text-xl leading-tight group-hover:!text-white transition-colors duration-500">
                 {t(item.key)}
               </span>
             </motion.div>
