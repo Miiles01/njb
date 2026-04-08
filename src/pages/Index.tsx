@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair, Flame } from "lucide-react";
+import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair, Flame, Store, Briefcase, Utensils, Home } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -882,33 +882,51 @@ const Solution = () => {
 
 const Focuses = () => {
   const { t } = useLanguage();
+  
   const focuses = [
-    t('focuses.item1'), t('focuses.item2'), t('focuses.item3'),
-    t('focuses.item4'), t('focuses.item5'), t('focuses.item6'),
-    t('focuses.item7'), t('focuses.item8'), t('focuses.item9')
+    { key: 'focuses.item1', icon: Store },
+    { key: 'focuses.item2', icon: Briefcase },
+    { key: 'focuses.item3', icon: Utensils },
+    { key: 'focuses.item4', icon: Home },
+    { key: 'focuses.item5', icon: User },
+    { key: 'focuses.item6', icon: Rocket },
   ];
 
   return (
     <section className="pt-32 pb-32 md:pt-64 md:pb-32 px-6 bg-transparent">
       <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-heading font-medium mb-4 dynamic-text">{t('focuses.title')}</h2>
-          <p className="text-lg text-muted-foreground transition-colors max-w-2xl mx-auto">
+        <div className="text-center mb-16 md:mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/10 text-xs md:text-sm font-heading font-medium tracking-widest mb-8 dynamic-text"
+          >
+            <Globe size={14} className="dynamic-text" />
+            {t('focuses.title')}
+          </motion.div>
+          <h2 className="text-3xl md:text-5xl font-heading font-medium mb-8 dynamic-text max-w-3xl mx-auto leading-tight italic">
             {t('focuses.subtitle')}
-          </p>
+          </h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {focuses.map((focus, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {focuses.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-5 md:p-8 rounded-[20px] md:rounded-[30px] border border-border/10 bg-secondary/5 dynamic-text text-center hover:bg-secondary/10 transition-colors flex items-center justify-center font-heading font-medium text-base md:text-lg min-h-[80px] md:min-h-[120px]"
+              whileHover={{ y: -5, backgroundColor: "rgba(0,0,0,0.02)" }}
+              className="p-8 md:p-12 rounded-[32px] border border-black/5 bg-secondary/5 dynamic-text text-left transition-all duration-300 flex flex-col justify-between min-h-[160px] md:min-h-[200px] group"
             >
-              {focus}
+              <div className="w-12 h-12 rounded-2xl bg-black/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <item.icon size={24} className="dynamic-text opacity-50" />
+              </div>
+              <span className="font-heading font-medium text-lg md:text-xl leading-tight">
+                {t(item.key)}
+              </span>
             </motion.div>
           ))}
         </div>
