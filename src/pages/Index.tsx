@@ -344,109 +344,37 @@ const CompanyValue = () => {
 
 const Mission = () => {
   const { t, language } = useLanguage();
-  const sectionRef = useRef<HTMLElement>(null);
-  const horizontalRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || !horizontalRef.current || !textRef.current) return;
+    if (!textRef.current) return;
 
-    const mm = gsap.matchMedia();
+    const split = new SplitType(textRef.current, { types: "words" });
+    
+    gsap.set(split.words, { color: "rgba(0,0,0,0.15)" });
 
-    mm.add(
-      {
-        isMobile: "(max-width: 767px)",
-        isDesktop: "(min-width: 768px)",
+    gsap.to(split.words, {
+      color: "#000",
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: textRef.current,
+        start: "top 80%",
+        end: "bottom 30%",
+        scrub: true,
       },
-      (context) => {
-        const { isMobile } = context.conditions as { isMobile: boolean };
-        const split = new SplitType(textRef.current!, { types: "chars,words" });
+    });
 
-        if (isMobile) {
-          gsap.set(split.words, { color: "rgba(255,255,255,0.15)" });
-
-          gsap.to(split.words, {
-            color: "#fff",
-            stagger: 0.1,
-            scrollTrigger: {
-              trigger: textRef.current,
-              start: "top 70%",
-              end: "bottom 30%",
-              scrub: true,
-            },
-          });
-        } else {
-          const scrollDistance = horizontalRef.current!.scrollWidth - window.innerWidth;
-          // Even more generous scroll distance for reading
-          const scrollEnd = Math.max(scrollDistance * 3, 3000); 
-
-          const scrollTween = gsap.to(horizontalRef.current, {
-            x: -scrollDistance,
-            ease: "none",
-          });
-
-          gsap.timeline({
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top top",
-              end: `+=${scrollEnd}`,
-              pin: true,
-              scrub: 1,
-              invalidateOnRefresh: true,
-            },
-          }).add(scrollTween);
-
-          split.chars?.forEach((char, i) => {
-            gsap.from(char, {
-              y: i % 2 === 0 ? -100 : 100,
-              opacity: 0,
-              rotateX: 45,
-              scale: 0.8,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: char,
-                containerAnimation: scrollTween,
-                start: "left 95%",
-                end: "left 70%",
-                scrub: true,
-              },
-            });
-          });
-        }
-
-        return () => {
-          split.revert();
-        };
-      },
-      sectionRef.current,
-    );
-
-    return () => {
-      mm.revert();
-    };
+    return () => split.revert();
   }, [language]);
 
   return (
-    <section
-      id="vision"
-      ref={sectionRef}
-      className="relative min-h-[50vh] md:min-h-[100vh] bg-transparent overflow-hidden flex items-center justify-start perspective-1000 pt-32 pb-24 md:py-0"
-    >
-      <div 
-        ref={horizontalRef} 
-        className="flex h-full items-center justify-start w-full md:w-max-content will-change-transform px-6 md:px-0"
-        style={{ 
-          paddingLeft: window.innerWidth >= 768 ? '75vw' : '0', 
-          paddingRight: window.innerWidth >= 768 ? '120vw' : '0',
-          whiteSpace: window.innerWidth >= 768 ? 'nowrap' : 'normal',
-        }}
-      >
+    <section id="vision" className="py-32 md:py-64 px-6 bg-white overflow-hidden">
+      <div className="container mx-auto max-w-7xl">
         <h2 
-          key={language}
           ref={textRef}
-          className="text-4xl md:text-[11vw] font-heading font-medium leading-tight md:leading-none tracking-tighter text-white text-center md:text-left w-full md:w-max md:max-w-none md:whitespace-nowrap"
+          className="text-4xl md:text-7xl font-heading font-medium leading-tight tracking-tighter text-black text-center max-w-5xl mx-auto"
         >
-          {window.innerWidth >= 768 ? `${"\u00A0".repeat(25)}${t('mission.text')}${"\u00A0".repeat(50)}` : t('mission.text')}
+          {t('mission.text')}
         </h2>
       </div>
     </section>
@@ -609,9 +537,9 @@ const ProjectMagazine = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen bg-white flex flex-col items-center justify-center overflow-hidden perspective-1000 pt-32 z-30 isolate"
+      className="relative min-h-[140vh] bg-white flex flex-col items-center overflow-hidden perspective-1000 pt-48 md:pt-80 pb-32 z-30 isolate"
     >
-      <div className="absolute top-32 left-0 w-full text-center z-20">
+      <div className="absolute top-24 md:top-32 left-0 w-full text-center z-20">
         <h2 className="magazine-text opacity-0 text-5xl md:text-7xl font-heading font-medium tracking-tighter text-black mb-4">
           {t('grid.title')}
         </h2>
@@ -628,12 +556,12 @@ const ProjectMagazine = () => {
 
       <div 
         ref={cardsRef} 
-        className="relative w-full h-[50vh] md:h-[60vh] flex items-center justify-center transform-style-3d preserve-3d mt-20 md:mt-40"
+        className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center transform-style-3d preserve-3d mt-48 md:mt-80"
       >
         {projectImages.map((img, i) => (
           <div 
             key={i}
-            className="magazine-card absolute w-[160px] md:w-[320px] aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden bg-white preserve-3d will-change-transform"
+            className="magazine-card absolute w-[180px] md:w-[320px] aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden bg-white preserve-3d will-change-transform shadow-2xl"
           >
             <img 
               src={img.src} 
