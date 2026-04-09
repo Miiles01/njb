@@ -351,10 +351,10 @@ const Mission = () => {
 
     const split = new SplitType(textRef.current, { types: "words" });
     
-    gsap.set(split.words, { color: "rgba(0,0,0,0.15)" });
+    gsap.set(split.words, { color: "rgba(255,255,255,0.15)" });
 
     gsap.to(split.words, {
-      color: "#000",
+      color: "#fff",
       stagger: 0.1,
       scrollTrigger: {
         trigger: textRef.current,
@@ -368,11 +368,11 @@ const Mission = () => {
   }, [language]);
 
   return (
-    <section id="vision" className="py-32 md:py-64 px-6 bg-white overflow-hidden">
+    <section id="vision" className="py-32 md:py-64 px-6 bg-black text-white overflow-hidden">
       <div className="container mx-auto max-w-7xl">
         <h2 
           ref={textRef}
-          className="text-4xl md:text-7xl font-heading font-medium leading-tight tracking-tighter text-black text-center max-w-5xl mx-auto"
+          className="text-4xl md:text-7xl font-heading font-medium leading-tight tracking-tighter text-white text-center max-w-5xl mx-auto"
         >
           {t('mission.text')}
         </h2>
