@@ -537,9 +537,9 @@ const ProjectMagazine = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen bg-white flex flex-col items-center justify-center overflow-hidden perspective-1000 pt-32 z-30 isolate"
+      className="relative min-h-[130vh] bg-white flex flex-col items-center justify-center overflow-hidden perspective-1000 pt-32 pb-24 z-30 isolate"
     >
-      <div className="absolute top-32 left-0 w-full text-center z-20">
+      <div className="absolute top-24 md:top-32 left-0 w-full text-center z-20">
         <h2 className="magazine-text opacity-0 text-5xl md:text-7xl font-heading font-medium tracking-tighter text-black mb-4">
           {t('grid.title')}
         </h2>
@@ -556,7 +556,7 @@ const ProjectMagazine = () => {
 
       <div 
         ref={cardsRef} 
-        className="relative w-full h-[50vh] md:h-[60vh] flex items-center justify-center transform-style-3d preserve-3d mt-20 md:mt-40"
+        className="relative w-full h-[55vh] md:h-[65vh] flex items-center justify-center transform-style-3d preserve-3d mt-32 md:mt-48"
       >
         {projectImages.map((img, i) => (
           <div 
