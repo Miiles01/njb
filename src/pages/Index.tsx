@@ -368,7 +368,7 @@ const Mission = () => {
   }, [language]);
 
   return (
-    <section id="vision" className="py-32 md:py-64 px-6 bg-transparent overflow-hidden">
+    <section id="vision" className="pt-32 md:pt-64 pb-16 md:pb-24 px-6 bg-transparent overflow-hidden">
       <div className="container mx-auto max-w-7xl">
         <h2 
           ref={textRef}
@@ -392,7 +392,7 @@ const ProblemCards = () => {
   ];
 
   return (
-    <section ref={containerRef} className="text-white py-16 md:py-32 px-6">
+    <section ref={containerRef} className="text-white pt-8 md:pt-16 pb-16 md:pb-32 px-6">
       <div className="container mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           {cards.map((card, i) => (
