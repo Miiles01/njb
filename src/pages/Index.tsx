@@ -839,7 +839,31 @@ const Solution = () => {
 
 const Focuses = () => {
   const { t } = useLanguage();
+  const textRef = useRef<HTMLHeadingElement>(null);
   
+  useLayoutEffect(() => {
+    if (!textRef.current) return;
+    
+    // We use a small delay or a setTimeout to ensure the DOM is ready and translations are loaded
+    const ctx = gsap.context(() => {
+      const split = new SplitType(textRef.current!, { types: 'words' });
+      
+      gsap.from(split.words, {
+        opacity: 0, 
+        y: 15,
+        stagger: 0.06, 
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "top 85%",
+        }
+      });
+    }, textRef);
+
+    return () => ctx.revert();
+  }, [t]);
+
   const focuses = [
     { key: 'focuses.item1', icon: Store },
     { key: 'focuses.item2', icon: Briefcase },
@@ -862,7 +886,10 @@ const Focuses = () => {
             <Globe size={14} className="dynamic-text" />
             {t('focuses.title')}
           </motion.div>
-          <h2 className="text-3xl md:text-5xl font-heading font-medium mb-8 dynamic-text max-w-3xl mx-auto leading-tight">
+          <h2 
+            ref={textRef}
+            className="text-3xl md:text-5xl font-heading font-medium mb-8 dynamic-text max-w-3xl mx-auto leading-tight"
+          >
             {t('focuses.subtitle')}
           </h2>
         </div>
