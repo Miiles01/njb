@@ -122,11 +122,11 @@ const Hero = () => {
         y: mousePos.current.y - img.offsetHeight / 2,
       })
       .to(img, {
-        duration: 1.2,
+        duration: 0.8,
         ease: "power2.out",
         opacity: 0,
         scale: 0.5,
-        delay: 1.5,
+        delay: 1.0,
       });
 
       currentImg.current = (currentImg.current + 1) % images.length;
