@@ -35,13 +35,14 @@ const Hero = () => {
 
   // Motion Trail State & Refs
   const images = [
-    '/user_uploads/1.png',
-    '/user_uploads/2.png',
-    '/user_uploads/3.png',
-    '/user_uploads/4.png',
-    '/user_uploads/5.png',
-    '/user_uploads/6.png',
-    '/user_uploads/7.png',
+    '/lovabol/1f8086c6-29ff-4506-ba2b-db0a6f5c50b9.png',
+    '/lovabol/6E812A4C-4BC6-4099-825E-618A91AEE912.png',
+    '/lovabol/4b1d397e-9012-4f48-ba04-e7e867715ceb.png',
+    '/lovabol/image%20525.png',
+    '/lovabol/E500D044-AA01-4071-B412-0793BC5B0BA6.png',
+    '/lovabol/PHOTO-2025-04-30-17-51-16.jpg',
+    '/lovabol/3859ff89-14e3-4f24-82c6-f707ed3b7637.png',
+    '/lovabol/WhatsApp%20Image%202026-04-07%20at%2023.25.26.jpeg'
   ];
   
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -146,17 +147,17 @@ const Hero = () => {
       className="relative md:min-h-[100vh] flex flex-col justify-center md:justify-between items-center md:items-stretch gap-6 md:gap-0 pt-24 pb-8 md:py-32 px-12 md:px-24 overflow-hidden bg-white"
     >
       {/* Motion Trail Container */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      <div className="absolute inset-0 pointer-events-none z-[50]">
         {images.map((src, i) => (
           <div
             key={i}
             ref={el => imgRefs.current[i] = el}
-            className="absolute opacity-0 w-32 md:w-48 h-auto will-change-transform"
+            className="absolute opacity-0 w-32 md:w-48 aspect-square will-change-transform"
           >
             <img 
               src={src} 
               alt="" 
-              className="w-full h-auto object-contain" 
+              className="w-full h-full object-cover rounded-md" 
             />
           </div>
         ))}
@@ -437,14 +438,16 @@ const ProjectMagazine = () => {
   const title2Ref = useRef<HTMLHeadingElement>(null);
 
   const projectImages = [
-    { src: "/proyectos/Original/portada-1.webp", alt: "Original Cover" },
-    { src: "/proyectos/Tularosa/portada-1.webp", alt: "Tularosa Cover" },
-    { src: "/proyectos/Original/fotos-instagram.webp", alt: "Original Social" },
+    { src: "/lovabol/1f8086c6-29ff-4506-ba2b-db0a6f5c50b9.png", alt: "Lovabol" },
+    { src: "/lovabol/6E812A4C-4BC6-4099-825E-618A91AEE912.png", alt: "Lovabol" },
+    { src: "/lovabol/4b1d397e-9012-4f48-ba04-e7e867715ceb.png", alt: "Lovabol" },
     { src: "/proyectos/Tularosa/mockup-de-comida.webp", alt: "Tularosa Mockup" },
-    { src: "/proyectos/Original/landing-page-1.webp", alt: "Original Web" },
-    { src: "/proyectos/Tularosa/frase-publicitaria-1.webp", alt: "Tularosa Brand" },
+    { src: "/lovabol/image%20525.png", alt: "Lovabol" },
+    { src: "/lovabol/E500D044-AA01-4071-B412-0793BC5B0BA6.png", alt: "Lovabol" },
     { src: "/proyectos/Original/isotipo.webp", alt: "Original Logo" },
-    { src: "/proyectos/Tularosa/publicidad-de-exterior.webp", alt: "Tularosa Ads" },
+    { src: "/lovabol/PHOTO-2025-04-30-17-51-16.jpg", alt: "Lovabol" },
+    { src: "/lovabol/3859ff89-14e3-4f24-82c6-f707ed3b7637.png", alt: "Lovabol" },
+    { src: "/lovabol/WhatsApp%20Image%202026-04-07%20at%2023.25.26.jpeg", alt: "Lovabol" },
   ];
 
   useLayoutEffect(() => {
