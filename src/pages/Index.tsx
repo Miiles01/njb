@@ -34,7 +34,7 @@ const Hero = () => {
   const tagline = t('hero.tagline');
 
   // Motion Trail State & Refs
-  const images = [
+  const baseImages = [
     '/lovabol/1f8086c6-29ff-4506-ba2b-db0a6f5c50b9.png',
     '/lovabol/6E812A4C-4BC6-4099-825E-618A91AEE912.png',
     '/lovabol/4b1d397e-9012-4f48-ba04-e7e867715ceb.png',
@@ -44,6 +44,7 @@ const Hero = () => {
     '/lovabol/3859ff89-14e3-4f24-82c6-f707ed3b7637.png',
     '/lovabol/WhatsApp%20Image%202026-04-07%20at%2023.25.26.jpeg'
   ];
+  const images = [...baseImages, ...baseImages, ...baseImages, ...baseImages];
   
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
   const mousePos = useRef({ x: 0, y: 0 });
@@ -114,7 +115,6 @@ const Hero = () => {
       const tl = gsap.timeline();
       
       tl.set(img, {
-        startAt: { opacity: 0, scale: 1 },
         opacity: 1,
         scale: 1,
         zIndex: zIndexVal.current,
@@ -123,9 +123,10 @@ const Hero = () => {
       })
       .to(img, {
         duration: 1.2,
-        ease: "expo.out",
+        ease: "power2.out",
         opacity: 0,
-        scale: 0.2,
+        scale: 0.5,
+        delay: 1.5,
       });
 
       currentImg.current = (currentImg.current + 1) % images.length;
@@ -237,11 +238,19 @@ const ExpandingImage = () => {
         ref={boxRef}
         className="bg-zinc-100 flex items-center justify-center overflow-hidden rounded-[2rem]"
       >
-        <img 
-          src="/proyectos/Original/portada-1.webp" 
-          alt="Original Portfolio" 
+        <video 
+          key={isMobile ? "mobile" : "desktop"}
+          autoPlay 
+          muted 
+          loop 
+          playsInline
           className="w-full h-full object-cover"
-        />
+        >
+          <source 
+            src={isMobile ? "/lovabol/mobile.mp4" : "/lovabol/desktop.MP4"} 
+            type="video/mp4" 
+          />
+        </video>
       </div>
     </section>
   );
