@@ -578,11 +578,17 @@ const ProjectMagazine = () => {
             key={i}
             className="magazine-card absolute w-[130px] md:w-[320px] aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden bg-white preserve-3d will-change-transform"
           >
-            <img 
-              src={img.src} 
-              alt={img.alt} 
-              className="w-full h-full object-cover transition-all duration-700" 
-            />
+            <motion.div 
+              className="w-full h-full"
+              whileHover={{ y: -20, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <img 
+                src={img.src} 
+                alt={img.alt} 
+                className="w-full h-full object-cover transition-opacity duration-700" 
+              />
+            </motion.div>
           </div>
         ))}
       </div>
