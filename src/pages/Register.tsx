@@ -19,7 +19,7 @@ const Register = () => {
     setError("");
 
     if (password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres");
+      setError("Password must be at least 6 characters");
       setLoading(false);
       return;
     }
@@ -47,7 +47,7 @@ const Register = () => {
         });
 
       if (requestError) {
-        setError("Error al enviar solicitud. Intenta de nuevo.");
+        setError("Error sending request. Please try again.");
         setLoading(false);
         return;
       }
@@ -69,17 +69,17 @@ const Register = () => {
           </div>
           <div>
             <h1 className="text-2xl font-heading font-medium tracking-tighter">
-              Solicitud enviada
+              Request sent
             </h1>
             <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
-              Tu registro está pendiente de aprobación por un administrador.
-              Recibirás acceso una vez que sea aprobado.
+              Your registration is pending administrator approval.
+              You will receive access once approved.
             </p>
           </div>
           <Link to="/login">
             <Button variant="outline" className="rounded-full px-6 h-11 text-sm gap-2 mt-4">
               <ArrowLeft className="h-4 w-4" />
-              Volver al login
+              Back to login
             </Button>
           </Link>
         </div>
@@ -95,17 +95,17 @@ const Register = () => {
             <UserPlus className="h-5 w-5 text-foreground/70" />
           </div>
           <h1 className="text-3xl font-heading font-medium tracking-tighter">
-            Crear cuenta
+            Create account
           </h1>
           <p className="text-muted-foreground mt-2 text-sm">
-            Solicita acceso al panel de administración
+            Request access to the admin dashboard
           </p>
         </div>
 
         <form onSubmit={handleRegister} className="space-y-3">
           <Input
             type="text"
-            placeholder="Nombre completo"
+            placeholder="Full name"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
@@ -121,7 +121,7 @@ const Register = () => {
           />
           <Input
             type="password"
-            placeholder="Contraseña"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -136,14 +136,14 @@ const Register = () => {
             className="w-full h-12 rounded-xl text-sm font-medium"
             disabled={loading}
           >
-            {loading ? "Enviando..." : "Solicitar acceso"}
+            {loading ? "Sending..." : "Request access"}
           </Button>
         </form>
 
         <p className="text-center text-sm text-muted-foreground">
-          ¿Ya tienes cuenta?{" "}
+          Already have an account?{" "}
           <Link to="/login" className="text-foreground font-medium hover:underline">
-            Inicia sesión
+            Sign in
           </Link>
         </p>
       </div>
