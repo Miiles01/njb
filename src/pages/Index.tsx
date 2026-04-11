@@ -576,11 +576,11 @@ const ProjectMagazine = () => {
         {projectImages.map((img, i) => (
           <div 
             key={i}
-            className="magazine-card absolute w-[130px] md:w-[320px] aspect-[3/4] rounded-xl md:rounded-2xl overflow-hidden bg-white preserve-3d will-change-transform"
+            className="magazine-card absolute w-[130px] md:w-[320px] aspect-[3/4] preserve-3d will-change-transform"
           >
             <motion.div 
-              className="w-full h-full"
-              whileHover={{ y: -20, scale: 1.02 }}
+              className="w-full h-full bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-sm"
+              whileHover={{ y: -30, scale: 1.02, shadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)" }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <img 
