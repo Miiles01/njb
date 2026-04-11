@@ -126,7 +126,7 @@ const Hero = () => {
         ease: "power2.out",
         opacity: 0,
         scale: 0.5,
-        delay: 1.0,
+        delay: 0.5,
       });
 
       currentImg.current = (currentImg.current + 1) % images.length;
