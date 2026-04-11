@@ -34,17 +34,14 @@ const Hero = () => {
   const tagline = t('hero.tagline');
 
   // Motion Trail State & Refs
-  const baseImages = [
+  const images = [
     '/lovabol/1f8086c6-29ff-4506-ba2b-db0a6f5c50b9.png',
     '/lovabol/6E812A4C-4BC6-4099-825E-618A91AEE912.png',
     '/lovabol/4b1d397e-9012-4f48-ba04-e7e867715ceb.png',
     '/lovabol/image%20525.png',
     '/lovabol/E500D044-AA01-4071-B412-0793BC5B0BA6.png',
-    '/lovabol/PHOTO-2025-04-30-17-51-16.jpg',
-    '/lovabol/3859ff89-14e3-4f24-82c6-f707ed3b7637.png',
-    '/lovabol/WhatsApp%20Image%202026-04-07%20at%2023.25.26.jpeg'
+    '/lovabol/PHOTO-2025-04-30-17-51-16.jpg'
   ];
-  const images = [...baseImages, ...baseImages, ...baseImages, ...baseImages];
   
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
   const mousePos = useRef({ x: 0, y: 0 });
