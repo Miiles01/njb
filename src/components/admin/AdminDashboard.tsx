@@ -11,9 +11,9 @@ import PendingApprovals from "@/components/admin/PendingApprovals";
 
 const getGreeting = () => {
   const h = new Date().getHours();
-  if (h < 12) return "Buenos días";
-  if (h < 19) return "Buenas tardes";
-  return "Buenas noches";
+  if (h < 12) return "Good morning";
+  if (h < 19) return "Good afternoon";
+  return "Good evening";
 };
 
 const AdminDashboard = ({
@@ -33,17 +33,17 @@ const AdminDashboard = ({
       {/* Top bar */}
       <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="max-w-7xl mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
-          <span className="text-sm font-medium tracking-tight">Panel</span>
+          <span className="text-sm font-medium tracking-tight">Dashboard</span>
           <div className="flex items-center gap-2">
             <Link to="/">
               <Button variant="ghost" size="sm" className="text-xs gap-1.5">
                 <ExternalLink className="h-3.5 w-3.5" />
-                Ver sitio
+                View site
               </Button>
             </Link>
             <Button variant="ghost" size="sm" onClick={signOut} className="text-xs gap-1.5">
               <LogOut className="h-3.5 w-3.5" />
-              Salir
+              Sign out
             </Button>
           </div>
         </div>
@@ -53,7 +53,7 @@ const AdminDashboard = ({
         {/* Greeting */}
         <div className="mb-12 md:mb-16">
           <h1 className="text-4xl md:text-6xl font-heading font-medium tracking-tighter leading-[1.1]">
-            Hola, {name}
+            Hello, {name}
           </h1>
           <p className="text-4xl md:text-6xl font-heading font-light tracking-tighter leading-[1.1] text-muted-foreground">
             {getGreeting()}
@@ -82,7 +82,7 @@ const AdminDashboard = ({
             className="rounded-full px-6 h-11 text-sm font-medium gap-2"
           >
             <Plus className="h-4 w-4" />
-            Nuevo
+            New
           </Button>
         </div>
 
@@ -95,10 +95,10 @@ const AdminDashboard = ({
           </div>
         ) : !projects?.length ? (
           <div className="text-center py-24">
-            <p className="text-muted-foreground mb-6 text-lg">No hay proyectos aún</p>
+            <p className="text-muted-foreground mb-6 text-lg">No projects yet</p>
             <Button onClick={onNewProject} variant="outline" className="rounded-full px-6">
               <Plus className="h-4 w-4 mr-2" />
-              Crear primer proyecto
+              Create first project
             </Button>
           </div>
         ) : (
@@ -120,7 +120,7 @@ const AdminDashboard = ({
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-muted-foreground/40 text-sm">Sin imagen</span>
+                        <span className="text-muted-foreground/40 text-sm">No image</span>
                       </div>
                     )}
                   </div>
@@ -128,7 +128,7 @@ const AdminDashboard = ({
                     <h3 className="text-sm font-medium truncate">{project.title}</h3>
                     {!project.published && (
                       <span className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
-                        Borrador
+                        Draft
                       </span>
                     )}
                   </div>
