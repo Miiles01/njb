@@ -148,7 +148,7 @@ const Hero = () => {
       className="relative md:min-h-[100vh] flex flex-col justify-center md:justify-between items-center md:items-stretch gap-6 md:gap-0 pt-24 pb-8 md:py-32 px-12 md:px-24 overflow-hidden bg-white"
     >
       {/* Motion Trail Container */}
-      <div className="absolute inset-0 pointer-events-none z-[50]">
+      <div className="absolute inset-0 pointer-events-none z-0">
         {images.map((src, i) => (
           <div
             key={i}
@@ -169,7 +169,7 @@ const Hero = () => {
       >
         <h1 
           ref={titleRef}
-          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black mix-blend-difference flex"
+          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-white mix-blend-difference flex"
         >
           {heroTitle.split("").map((char, i) => (
             <motion.span
@@ -187,7 +187,7 @@ const Hero = () => {
       <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0 relative z-10">
         <p
           ref={taglineRef}
-          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black mix-blend-difference flex flex-wrap justify-center md:justify-end gap-x-[0.3em]"
+          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-white mix-blend-difference flex flex-wrap justify-center md:justify-end gap-x-[0.3em]"
         >
           {heroTagline.split(" ").map((word, i) => (
             <motion.span
