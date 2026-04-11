@@ -169,7 +169,7 @@ const Hero = () => {
       >
         <h1 
           ref={titleRef}
-          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-white mix-blend-difference flex"
+          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black mix-blend-difference flex"
         >
           {heroTitle.split("").map((char, i) => (
             <motion.span
@@ -187,7 +187,7 @@ const Hero = () => {
       <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0 relative z-10">
         <p
           ref={taglineRef}
-          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-white mix-blend-difference flex flex-wrap justify-center md:justify-end gap-x-[0.3em]"
+          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black mix-blend-difference flex flex-wrap justify-center md:justify-end gap-x-[0.3em]"
         >
           {heroTagline.split(" ").map((word, i) => (
             <motion.span
