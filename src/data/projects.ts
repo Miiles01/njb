@@ -40,6 +40,32 @@ export const projectsData: Record<string, ProjectData> = {
             { icon: "bar", textKey: "proj.part.funnels" },
             { icon: "star", textKey: "proj.part.strategy" }
         ]
+    },
+    realestate: {
+        title: "Real Estate",
+        folder: "Real-Estate",
+        subtitleKey: "proj.realestate.subtitle",
+        industryKey: "proj.realestate.details.industry",
+        roleKey: "proj.realestate.details.role",
+        descriptionKey: "proj.realestate.details.description",
+        images: ["portada.jpg", "brandboard.png", "item-1.png", "item-2.png"],
+        participation: [
+            { icon: "star", textKey: "proj.part.strategy" },
+            { icon: "eye", textKey: "proj.part.visual" }
+        ]
+    },
+    sportswear: {
+        title: "Sportswear",
+        folder: "Sportswear",
+        subtitleKey: "proj.sportswear.subtitle",
+        industryKey: "proj.sportswear.details.industry",
+        roleKey: "proj.sportswear.details.role",
+        descriptionKey: "proj.sportswear.details.description",
+        images: ["portada.jpg", "item-1.jpg", "item-2.jpg", "item-3.webp"],
+        participation: [
+            { icon: "bar", textKey: "proj.part.funnels" },
+            { icon: "star", textKey: "proj.part.strategy" }
+        ]
     }
 };
 

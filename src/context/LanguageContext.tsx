@@ -41,6 +41,8 @@ const translations = {
         // Projects
         'proj.tularosa.subtitle': 'Estrategia visual y comunicación para el sector de hôtellerie y gastronomía.',
         'proj.original.subtitle': 'Dirección de arte y presencia digital para el sector de la barbería y cuidado personal.',
+        'proj.realestate.subtitle': 'Marketing inmobiliario de lujo y estrategia de marca para Nayar Estate.',
+        'proj.sportswear.subtitle': 'E-commerce y dirección de arte para marca de ropa deportiva Naw.',
 
         // Project Details
         'proj.details.strategy': 'Planificación Funcional',
@@ -147,6 +149,8 @@ const translations = {
         'proj.part.funnels': 'Embudos de Ventas',
         'proj.part.strategy': 'Estrategia de Identidad de Marca',
         'proj.part.ai': 'Automatización con IA',
+        'proj.part.visual': 'Identidad Visual de Lujo',
+        'proj.part.ecommerce': 'Crecimiento E-commerce',
 
         // Offer Section
         'offer.title': 'Comienza con una estrategia + sesión de contenido gratis',
@@ -206,6 +210,8 @@ const translations = {
         // Projects
         'proj.tularosa.subtitle': 'Visual strategy and communication for the hospitality and gastronomy sector.',
         'proj.original.subtitle': 'Art direction and digital presence for the barbershop and personal care sector.',
+        'proj.realestate.subtitle': 'Luxury real estate marketing and brand strategy for Nayar Estate.',
+        'proj.sportswear.subtitle': 'E-commerce and art direction for Naw sportswear brand.',
 
         // Project Details
         'proj.details.strategy': 'Action Plan',
@@ -371,6 +377,8 @@ const translations = {
         // Projects
         'proj.tularosa.subtitle': 'Stratégie visuelle et communication pour le secteur de l\'hôtellerie et de la gastronomie.',
         'proj.original.subtitle': 'Direction artistique et présence numérique pour le secteur de la barberie et des soins personnels.',
+        'proj.realestate.subtitle': 'Marketing immobilier de luxe et stratégie de marque pour Nayar Estate.',
+        'proj.sportswear.subtitle': 'E-commerce et direction artistique pour la marque de sport Naw.',
 
         // Project Details
         'proj.details.strategy': 'Plan d\'action',

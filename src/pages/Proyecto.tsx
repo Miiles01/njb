@@ -79,13 +79,66 @@ const projectData: Record<string, ProjectContent> = {
     },
     folder: "Tularosa",
     images: [
-      { src: "portada-1.webp", alt: "Tularosa — Cover", aspect: "wide" },
-      { src: "portada-2.webp", alt: "Tularosa — Cover 2", aspect: "wide" },
-      { src: "mockup-de-comida.webp", alt: "Tularosa — Food Mockup", aspect: "wide" },
-      { src: "frase-publicitaria-1.webp", alt: "Tularosa — Tagline 1", aspect: "wide" },
-      { src: "frase-publicitaria-2.webp", alt: "Tularosa — Tagline 2", aspect: "wide" },
-      { src: "frase-publicitaria-3.webp", alt: "Tularosa — Tagline 3", aspect: "wide" },
-      { src: "publicidad-de-exterior.webp", alt: "Tularosa — Outdoor Advertising", aspect: "wide" },
+      { src: "portada-1.webp", alt: "Restauration & hôtellerie — Cover", aspect: "wide" },
+      { src: "video-1.mp4", alt: "Process — High quality content", aspect: "wide" },
+      { src: "video-2.mp4", alt: "Campaign — Motion graphics", aspect: "wide" },
+      { src: "portada-2.webp", alt: "Restauration & hôtellerie — Cover 2", aspect: "wide" },
+      { src: "mockup-de-comida.webp", alt: "Restauration & hôtellerie — Food Mockup", aspect: "wide" },
+      { src: "extra-1.png", alt: "Brand Assets", aspect: "wide" },
+      { src: "frase-publicitaria-1.webp", alt: "Restauration & hôtellerie — Tagline 1", aspect: "wide" },
+      { src: "publicidad-de-exterior.webp", alt: "Restauration & hôtellerie — Outdoor Advertising", aspect: "wide" },
+    ],
+  },
+  realestate: {
+    title: "Real Estate",
+    industry: {
+      es: "Bienes Raíces / Real Estate",
+      en: "Real Estate",
+      fr: "Immobilier",
+    },
+    role: {
+      es: "Estrategia de Marca y Lanzamiento de Proyecto",
+      en: "Brand Strategy & Project Launch",
+      fr: "Stratégie de marque & Lancement de projet",
+    },
+    description: {
+      es: "Desarrollamos la identidad integral para Nayar Estate, enfocándonos en un posicionamiento de lujo y exclusividad. Creamos el manual de identidad, activos de marca y una estrategia visual coherente que eleva la percepción de valor de las propiedades, facilitando la conexión con inversionistas de alto nivel.",
+      en: "We developed the comprehensive identity for Nayar Estate, focusing on luxury and exclusivity positioning. We created the identity manual, brand assets, and a coherent visual strategy that elevates the value perception of properties, facilitating connection with high-level investors.",
+      fr: "Nous avons développé l'identité complète de Nayar Estate, en nous concentrant sur un positionnement de luxe et d'exclusivité. Nous avons créé le manuel d'identité, les actifs de la marque et une stratégie visuelle cohérente qui rehausse la perception de la valeur des propriétés.",
+    },
+    folder: "Real-Estate",
+    images: [
+      { src: "portada.jpg", alt: "Nayar Estate — Cover", aspect: "wide" },
+      { src: "brandboard.png", alt: "Brand Moodboard", aspect: "wide" },
+      { src: "logo.png", alt: "Identity Design", aspect: "wide" },
+      { src: "item-1.png", alt: "Visual Assets 1", aspect: "wide" },
+      { src: "item-2.png", alt: "Visual Assets 2", aspect: "wide" },
+      { src: "item-3.png", alt: "Visual Assets 3", aspect: "wide" },
+    ],
+  },
+  sportswear: {
+    title: "Sportswear",
+    industry: {
+      es: "Ropa Deportiva / E-commerce",
+      en: "Sportswear & E-commerce",
+      fr: "Vêtements de sport & E-commerce",
+    },
+    role: {
+      es: "Dirección de Arte y Optimización de Conversión",
+      en: "Art Direction & Conversion Optimization",
+      fr: "Direction artistique & Optimisation de la conversion",
+    },
+    description: {
+      es: "Para el sector de ropa deportiva, nos centramos en crear un impacto visual directo que impulse las ventas online. Optimizamos la presentación de productos mediante fotografía de alto impacto y una estructura de navegación orientada a la conversión, logrando una experiencia de compra fluida y aspiracional.",
+      en: "For the sportswear sector, we focused on creating a direct visual impact that drives online sales. We optimized product presentation through high-impact photography and a conversion-oriented navigation structure, achieving a seamless and aspirational shopping experience.",
+      fr: "Pour le secteur des vêtements de sport, nous nous sommes concentrés sur la création d'un impact visuel direct qui stimule les ventes en ligne. Nous avons optimisé la présentation des produits grâce à une photographie à fort impact.",
+    },
+    folder: "Sportswear",
+    images: [
+      { src: "portada.jpg", alt: "Sportswear — Cover", aspect: "wide" },
+      { src: "item-1.jpg", alt: "Product Detail 1", aspect: "wide" },
+      { src: "item-2.jpg", alt: "Product Detail 2", aspect: "wide" },
+      { src: "item-3.webp", alt: "Product Display", aspect: "wide" },
     ],
   },
 };
@@ -100,25 +153,40 @@ const fadeUp = {
   }),
 };
 
-/* ── Full-width image block ── */
-const ProjectImageDisplay = ({ src, alt, index }: { src: string; alt: string; index: number }) => (
-  <motion.div
-    custom={index}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, margin: "-80px" }}
-    variants={fadeUp}
-    className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5"
-  >
-    <img
-      src={src}
-      alt={alt}
-      loading={index < 2 ? "eager" : "lazy"}
-      decoding="async"
-      className="w-full h-auto object-cover"
-    />
-  </motion.div>
-);
+/* ── Full-width media block ── */
+const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; index: number }) => {
+  const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(src);
+
+  return (
+    <motion.div
+      custom={index}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={fadeUp}
+      className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5"
+    >
+      {isVideo ? (
+        <video
+          src={src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-auto object-cover"
+        />
+      ) : (
+        <img
+          src={src}
+          alt={alt}
+          loading={index < 2 ? "eager" : "lazy"}
+          decoding="async"
+          className="w-full h-auto object-cover"
+        />
+      )}
+    </motion.div>
+  );
+};
 
 /* ── Main Component ── */
 const Proyecto = () => {
@@ -179,7 +247,7 @@ const Proyecto = () => {
 
         {/* Cover image — full bleed effect */}
         <div className="px-4 md:px-8 lg:px-12 mb-8">
-          <ProjectImageDisplay src={basePath + project.images[0].src} alt={project.images[0].alt} index={0} />
+          <ProjectMediaDisplay src={basePath + project.images[0].src} alt={project.images[0].alt} index={0} />
         </div>
 
         {/* Description block */}
@@ -208,7 +276,7 @@ const Proyecto = () => {
               <React.Fragment key={realIdx}>
                 {/* Full-width image */}
                 <div className="px-4 md:px-8 lg:px-12">
-                  <ProjectImageDisplay src={basePath + img.src} alt={img.alt} index={realIdx} />
+                  <ProjectMediaDisplay src={basePath + img.src} alt={img.alt} index={realIdx} />
                 </div>
 
                 {/* Render strategy right after the first gallery image if present */}
