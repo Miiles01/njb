@@ -1112,58 +1112,124 @@ const StrategyIllustration = () => {
 };
 
 
-const ScaleIllustration = () => (
-  <motion.svg
-    viewBox="0 0 280 200"
-    className="w-full h-auto"
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true }}
-  >
-    {/* Browser window frame */}
-    <motion.rect x="30" y="20" width="220" height="160" rx="12" fill="none" stroke="#e4e4e7" strokeWidth="1.5"
-      initial={{ pathLength: 0 }} whileInView={{ pathLength: 1 }}
-      viewport={{ once: true }} transition={{ duration: 0.8 }}
-    />
-    <motion.rect x="30" y="20" width="220" height="30" rx="12" fill="#fafafa" stroke="#e4e4e7" strokeWidth="1.5"
-      initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-      viewport={{ once: true }} transition={{ delay: 0.3 }}
-    />
-    {/* Browser dots */}
-    {[52, 68, 84].map((cx, i) => (
-      <motion.circle key={i} cx={cx} cy="35" r="3.5"
-        fill={["#ef4444", "#eab308", "#22c55e"][i]}
-        initial={{ scale: 0 }} whileInView={{ scale: 1 }}
-        viewport={{ once: true }} transition={{ delay: 0.5 + i * 0.1, type: "spring" }}
-      />
-    ))}
-    {/* Content blocks */}
-    {[{y: 65, w: 140}, {y: 85, w: 100}, {y: 105, w: 180}, {y: 125, w: 120}].map((b, i) => (
-      <motion.rect key={i} x="50" y={b.y} width={b.w} height="10" rx="3" fill="#e4e4e7"
-        initial={{ width: 0 }} whileInView={{ width: b.w }}
-        viewport={{ once: true }} transition={{ delay: 0.7 + i * 0.12, duration: 0.4 }}
-      />
-    ))}
-    {/* Floating phone */}
-    <motion.g
-      initial={{ opacity: 0, x: 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
+const ScaleIllustration = () => {
+  const figmaBlue = "#18A0FB";
+  
+  return (
+    <motion.svg
+      viewBox="0 0 280 200"
+      className="w-full h-auto bg-[#F5F5F5] rounded-xl overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ delay: 1.2, duration: 0.5 }}
     >
-      <rect x="190" y="90" width="50" height="80" rx="8" fill="white" stroke="#d4d4d8" strokeWidth="1" />
-      <rect x="197" y="102" width="36" height="4" rx="1.5" fill="#e4e4e7" />
-      <rect x="197" y="112" width="24" height="4" rx="1.5" fill="#e4e4e7" />
-      <rect x="197" y="122" width="30" height="4" rx="1.5" fill="#e4e4e7" />
-      <circle cx="215" cy="160" r="4" fill="#e4e4e7" />
-    </motion.g>
-    {/* Cursor */}
-    <motion.path d="M160 130 L160 148 L167 142 L175 155" stroke="#000" strokeWidth="2" fill="none" strokeLinecap="round"
-      initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-      viewport={{ once: true }} transition={{ delay: 1.6 }}
-    />
-  </motion.svg>
-);
+      {/* Figma Canvas Dotted Grid */}
+      <defs>
+        <pattern id="dotGrid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="0.5" fill="#E2E2E2" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dotGrid)" />
+
+      {/* Main Design Frame */}
+      <motion.g
+        initial={{ x: 50, y: 40, width: 180, height: 120 }}
+        animate={{ 
+          width: [180, 200, 180],
+          height: [120, 130, 120],
+          x: [50, 40, 50],
+          y: [40, 35, 40]
+        }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {/* The Frame Background */}
+        <motion.rect
+          width="100%"
+          height="100%"
+          rx="4"
+          fill="white"
+          stroke={figmaBlue}
+          strokeWidth="1.5"
+          className="shadow-sm"
+        />
+
+        {/* Selection Nodes (Corners) */}
+        {[
+          { cx: 0, cy: 0 },
+          { cx: "100%", cy: 0 },
+          { cx: 0, cy: "100%" },
+          { cx: "100%", cy: "100%" }
+        ].map((pos, i) => (
+          <circle key={i} cx={pos.cx} cy={pos.cy} r="2.5" fill="white" stroke={figmaBlue} strokeWidth="1" />
+        ))}
+
+        {/* Internal Mockup Content */}
+        <rect x="15" y="15" width="40" height="6" rx="3" fill="#F0F0F0" />
+        <rect x="15" y="28" width="80" height="10" rx="4" fill={figmaBlue} fillOpacity="0.1" />
+        
+        <circle cx="150" cy="65" r="25" fill="#F8F8F8" stroke="#EEE" strokeWidth="1" />
+        
+        <rect x="15" y="100" width="150" height="4" rx="2" fill="#F0F0F0" />
+        <rect x="15" y="108" width="100" height="4" rx="2" fill="#F0F0F0" />
+      </motion.g>
+
+      {/* Primary Designer Cursor (Mike) */}
+      <motion.g
+        animate={{ 
+          x: [240, 230, 40, 240], 
+          y: [170, 165, 35, 170] 
+        }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {/* Tooltip Label */}
+        <motion.rect
+          x="12" y="12" width="60" height="20" rx="4" fill={figmaBlue}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        />
+        <text x="18" y="26" fontSize="8" fontFamily="Arial" fill="white" fontWeight="bold">NJB Design</text>
+        
+        {/* Cursor Icon */}
+        <path 
+          d="M0 0 L12 11.5 L7.5 12 L11 19 L8 21 L4.5 14 L0 18 Z" 
+          fill={figmaBlue}
+          stroke="white"
+          strokeWidth="1"
+        />
+      </motion.g>
+
+      {/* Secondary Collaborative Cursor */}
+      <motion.g
+        animate={{ 
+          x: [20, 150, 220, 20], 
+          y: [150, 180, 80, 150] 
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      >
+        <motion.rect
+          x="12" y="12" width="35" height="16" rx="4" fill="#A259FF"
+        />
+        <text x="16" y="23" fontSize="7" fontFamily="Arial" fill="white">Client</text>
+        <path 
+          d="M0 0 L12 11.5 L7.5 12 L11 19 L8 21 L4.5 14 L0 18 Z" 
+          fill="#A259FF"
+          stroke="white"
+          strokeWidth="1"
+        />
+      </motion.g>
+
+      {/* Measuring Lines (Optional but cool) */}
+      <motion.g
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+      >
+        <line x1="50" y1="30" x2="230" y2="30" stroke={figmaBlue} strokeWidth="0.5" strokeDasharray="2,2" />
+        <text x="130" y="25" fontSize="6" fill={figmaBlue} textAnchor="middle">2400px</text>
+      </motion.g>
+
+    </motion.svg>
+  );
+};
 
 const Offer = () => {
   const { t } = useLanguage();
