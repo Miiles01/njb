@@ -25,7 +25,7 @@ interface ProjectContent {
 
 const projectData: Record<string, ProjectContent> = {
   original: {
-    title: "Original — Salon de Barbier",
+    title: "Barbería",
     industry: {
       es: "Barbería y Cuidado Personal Masculino",
       en: "Barbershop & Men's Grooming",
@@ -42,9 +42,9 @@ const projectData: Record<string, ProjectContent> = {
       fr: "Nous avons conceptualisé et exécuté une stratégie de marque conçue pour percer le marché saturé des salons de coiffure, en créant une identité visuelle unique avec son manuel de directives respectif. Nous avons développé une plateforme web orientée à 100 % vers les résultats, en mettant en œuvre une mise en page de tunnel (funnel) optimisée qui guide l'utilisateur de la découverte à la réservation automatique via un système intégré.",
     },
     strategy: {
-      es: "El gran reto fue posicionar a Original lejos del estereotipo clásico de barbería de barrio. Se conceptualizó la marca como un punto de encuentro premium para el «cuidado personal integral». A nivel de infraestructura (funnel), se diagramó un flujo que elimina fricciones: en lugar de obligar al usuario a leer menús largos, diseñamos un proceso visual donde en un máximo de 3 clics logran el agendamiento y pago, optimizando así el Customer Lifetime Value (LTV).",
-      en: "The main challenge was positioning Original far from the classic neighborhood barbershop stereotype. The brand was conceptualized as a premium meeting point for «comprehensive personal care». At the infrastructure level (funnel), a frictionless flow was diagrammed: instead of forcing the user to read long menus, we designed a visual process where within a maximum of 3 clicks they achieve booking and payment, optimizing Customer Lifetime Value (LTV).",
-      fr: "Le défi majeur était de positionner Original loin du stéréotype classique du salon de coiffure de quartier. La marque a été conceptualisée comme un point de rencontre haut de gamme pour les « soins personnels complets ». Au niveau de l'infrastructure, nous avons conçu un flux sans friction : au lieu de forcer l'utilisateur à lire de longs menus, nous avons conçu un processus visuel où, en un maximum de 3 clics, il parvient à réserver et à payer.",
+      es: "El gran reto fue posicionar la marca lejos del estereotipo clásico de barbería de barrio. Se conceptualizó como un punto de encuentro premium para el «cuidado personal integral». A nivel de infraestructura (funnel), se diagramó un flujo que elimina fricciones: en lugar de obligar al usuario a leer menús largos, diseñamos un proceso visual donde en un máximo de 3 clics logran el agendamiento y pago, optimizando así el Customer Lifetime Value (LTV).",
+      en: "The main challenge was positioning the brand far from the classic neighborhood barbershop stereotype. It was conceptualized as a premium meeting point for «comprehensive personal care». At the infrastructure level (funnel), a frictionless flow was diagrammed: instead of forcing the user to read long menus, we designed a visual process where within a maximum of 3 clicks they achieve booking and payment, optimizing Customer Lifetime Value (LTV).",
+      fr: "Le défi majeur était de se positionner loin du stéréotype classique du salon de coiffure de quartier. La marque a été conceptualisée comme un point de rencontre haut de gamme pour les « soins personnels complets ». Au niveau de l'infrastructure, nous avons conçu un flux sans friction : au lieu de forcer l'utilisateur à lire de longs menus, nous avons conçu un processus visuel où, en un maximum de 3 clics, il parvient à réserver et à payer.",
     },
     folder: "Original",
     images: [

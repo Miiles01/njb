@@ -40,7 +40,7 @@ const translations = {
 
         // Projects
         'proj.tularosa.subtitle': 'Estrategia visual y comunicación para el sector de hôtellerie y gastronomía.',
-        'proj.original.subtitle': 'Dirección de arte y diseño web para agencia creativa digital.',
+        'proj.original.subtitle': 'Dirección de arte y presencia digital para el sector de la barbería y cuidado personal.',
 
         // Project Details
         'proj.details.strategy': 'Planificación Funcional',
@@ -52,9 +52,9 @@ const translations = {
         'proj.tularosa.details.description': 'Trabajamos en la creación de una experiencia visual sofisticada y acogedora para el sector hospitality. El enfoque principal fue capturar la esencia de la propuesta gastronómica a través de una paleta de colores terrosos y una tipografía elegante, aplicada en todos los puntos de contacto, desde menús físicos hasta presencia digital.',
 
         // Original Project Details (Legacy)
-        'proj.original.details.industry': 'Agencia Creativa Digital',
+        'proj.original.details.industry': 'Barbería y Cuidado Personal',
         'proj.original.details.role': 'Dirección de Arte y Diseño Web',
-        'proj.original.details.description': 'Como parte de Original, lideramos la dirección de arte y el diseño de su plataforma digital. El proyecto se centró en mostrar el portafolio creativo de la agencia mediante una experiencia web inmersiva, utilizando animaciones fluidas y una disposición tipográfica audaz que destaca su capacidad de innovación.',
+        'proj.original.details.description': 'Lideramos la dirección de arte y el diseño de la plataforma digital para el sector de barbería. El proyecto se centró en mostrar el portafolio y servicios mediante una experiencia web inmersiva, utilizando animaciones fluidas y una disposición tipográfica audaz.',
 
         // Hero
         'hero.title': 'NJB',
@@ -206,7 +206,7 @@ const translations = {
 
         // Projects
         'proj.tularosa.subtitle': 'Visual strategy and communication for the hospitality and gastronomy sector.',
-        'proj.original.subtitle': 'Art direction and web design for digital creative agency.',
+        'proj.original.subtitle': 'Art direction and digital presence for the barbershop and personal care sector.',
 
         // Project Details
         'proj.details.strategy': 'Action Plan',
@@ -218,9 +218,9 @@ const translations = {
         'proj.tularosa.details.description': 'We worked on creating a sophisticated and welcoming visual experience for the hospitality sector. The core focus was to capture the essence of the culinary offerings through an earthy color palette and elegant typography, applied across all touchpoints, from physical menus to digital presence.',
 
         // Original Project Details
-        'proj.original.details.industry': 'Digital Creative Agency',
+        'proj.original.details.industry': 'Barbershop & Personal Care',
         'proj.original.details.role': 'Art Direction and Web Design',
-        'proj.original.details.description': "As part of Original, we led the art direction and design of their digital platform. The project focused on showcasing the agency's creative portfolio through an immersive web experience, using smooth animations and a bold typographic layout that highlights their innovation capacity.",
+        'proj.original.details.description': 'We led the art direction and design of the digital platform for the barbershop sector. The project focused on showcasing the portfolio and services through an immersive web experience, using smooth animations and a bold typographic layout.',
 
         // Hero
         'hero.title': 'NJB',
@@ -372,7 +372,7 @@ const translations = {
 
         // Projects
         'proj.tularosa.subtitle': 'Stratégie visuelle et communication pour le secteur de l\'hôtellerie et de la gastronomie.',
-        'proj.original.subtitle': 'Direction artistique et design web pour une agence créative numérique.',
+        'proj.original.subtitle': 'Direction artistique et présence numérique pour le secteur de la barberie et des soins personnels.',
 
         // Project Details
         'proj.details.strategy': 'Plan d\'action',
@@ -384,9 +384,9 @@ const translations = {
         'proj.tularosa.details.description': 'Nous avons travaillé à la création d\'une expérience visuelle sophistiquée et accueillante para le secteur de l\'hôtellerie. L\'objectif principal était de capturer l\'essence de l\'offre culinaire à travers une palette de couleurs terreuses et une typographie élégante, appliquée sur tous les points de contacto.',
 
         // Original Project Details
-        'proj.original.details.industry': 'Agence Créative Numérique',
+        'proj.original.details.industry': 'Barberie & Soins Personnels',
         'proj.original.details.role': 'Direction artistique et design web',
-        'proj.original.details.description': 'Dans le cadre d\'Original, nous avons dirigé la direction artistique et la conception de leur plateforme numérique. Le projet s\'est concentré sur la présentation du portefeuille créatif de l\'agence à travers une expérience web immersive.',
+        'proj.original.details.description': 'Nous avons dirigé la direction artistique et la conception de la plateforme numérique pour le secteur de la barberie. Le projet s\'est concentré sur la présentation du portefeuille et des services à travers une expérience web immersive.',
 
         // Hero
         'hero.title': 'NJB',

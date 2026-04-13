@@ -29,7 +29,7 @@ export const projectsData: Record<string, ProjectData> = {
         ]
     },
     original: {
-        title: "Original",
+        title: "Barbería",
         folder: "Original",
         subtitleKey: "proj.original.subtitle",
         industryKey: "proj.original.details.industry",
