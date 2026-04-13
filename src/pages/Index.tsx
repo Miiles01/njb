@@ -57,8 +57,7 @@ const Hero = () => {
   useLayoutEffect(() => {
     if (!taglineRef.current || !titleRef.current) return;
     
-    // We target the individual spans for the entry animation
-    const titleChars = titleRef.current.querySelectorAll('.hero-title-char');
+    // We target the individual tagline words for the entry animation
     const taglineWords = taglineRef.current.querySelectorAll('.hero-tagline-word');
 
     // Logo Animation
@@ -164,6 +163,7 @@ const Hero = () => {
         className="relative z-10 w-full flex md:justify-start justify-center pt-8 md:pt-0"
       >
         <div 
+          ref={titleRef}
           className="hero-logo-container w-full flex md:justify-start justify-center"
         >
           <img 
