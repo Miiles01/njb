@@ -107,7 +107,7 @@ const AccordionNavbar = () => {
                         <img 
                             src="/lovabol/logotipo.png" 
                             alt="NJB" 
-                            className="h-6 md:h-8 w-auto object-contain" 
+                            className="h-3 md:h-4 w-auto object-contain" 
                         />
                     </Link>
                 </motion.div>
@@ -189,7 +189,7 @@ const AccordionNavbar = () => {
                             <img 
                                 src="/lovabol/logotipo.png" 
                                 alt="NJB" 
-                                className="h-6 md:h-8 w-auto object-contain" 
+                                className="h-3 md:h-4 w-auto object-contain" 
                             />
                             <button
                                 onClick={() => setMobileMenuOpen(false)}

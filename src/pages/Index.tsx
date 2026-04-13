@@ -169,7 +169,7 @@ const Hero = () => {
           <img 
             src="/lovabol/logotipo.png" 
             alt="NJB" 
-            className="w-[85vw] md:w-[60vw] max-w-[1200px] h-auto object-contain select-none pointer-events-none" 
+            className="w-[42vw] md:w-[30vw] max-w-[600px] h-auto object-contain select-none pointer-events-none" 
           />
         </div>
       </div>
