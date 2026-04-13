@@ -108,12 +108,12 @@ const projectData: Record<string, ProjectContent> = {
     },
     folder: "Real-Estate",
     images: [
-      { src: "portada.jpg", alt: "Nayar Estate — Cover", aspect: "wide" },
+      { src: "item-1.png", alt: "Nayar Estate — Cover", aspect: "wide" },
       { src: "brandboard.png", alt: "Brand Moodboard", aspect: "wide" },
-      { src: "logo.png", alt: "Identity Design", aspect: "wide" },
-      { src: "item-1.png", alt: "Visual Assets 1", aspect: "wide" },
-      { src: "item-2.png", alt: "Visual Assets 2", aspect: "wide" },
       { src: "item-3.png", alt: "Visual Assets 3", aspect: "wide" },
+      { src: "item-2.png", alt: "Visual Assets 2", aspect: "wide" },
+      { src: "logo.png", alt: "Identity Design", aspect: "wide" },
+      { src: "portada.jpg", alt: "Nayar Estate — View", aspect: "wide" },
     ],
   },
   sportswear: {

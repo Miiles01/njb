@@ -48,7 +48,7 @@ export const projectsData: Record<string, ProjectData> = {
         industryKey: "proj.realestate.details.industry",
         roleKey: "proj.realestate.details.role",
         descriptionKey: "proj.realestate.details.description",
-        images: ["portada.jpg", "brandboard.png", "item-1.png", "item-2.png"],
+        images: ["item-1.png", "brandboard.png", "item-3.png", "item-2.png", "logo.png", "portada.jpg"],
         participation: [
             { icon: "star", textKey: "proj.part.strategy" },
             { icon: "eye", textKey: "proj.part.visual" }
