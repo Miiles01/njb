@@ -39,7 +39,7 @@ const translations = {
         'work.subtitle': 'Pensamos con propósito para marcas que buscan autenticidad y escalabilidad.',
 
         // Projects
-        'proj.tularosa.subtitle': 'Estrategia visual y comunicación para hospitality y gastronomía.',
+        'proj.tularosa.subtitle': 'Estrategia visual y comunicación para el sector de hôtellerie y gastronomía.',
         'proj.original.subtitle': 'Dirección de arte y diseño web para agencia creativa digital.',
 
         // Project Details
@@ -49,7 +49,7 @@ const translations = {
         // Tularosa Project Details (Legacy - kept for safety but using newer dynamic fields in Proyecto.tsx)
         'proj.tularosa.details.industry': 'Hospitalidad y Gastronomía',
         'proj.tularosa.details.role': 'Estrategia Visual y Diseño de Identidad',
-        'proj.tularosa.details.description': 'Trabajamos con Tularosa en la creación de una experiencia visual sofisticada y acogedora. El enfoque principal fue capturar la esencia de su propuesta gastronómica a través de una paleta de colores terrosos y una tipografía elegante, aplicada en todos los puntos de contacto, desde menús físicos hasta su presencia digital.',
+        'proj.tularosa.details.description': 'Trabajamos en la creación de una experiencia visual sofisticada y acogedora para el sector hospitality. El enfoque principal fue capturar la esencia de la propuesta gastronómica a través de una paleta de colores terrosos y una tipografía elegante, aplicada en todos los puntos de contacto, desde menús físicos hasta presencia digital.',
 
         // Original Project Details (Legacy)
         'proj.original.details.industry': 'Agencia Creativa Digital',
@@ -205,7 +205,7 @@ const translations = {
         'work.subtitle': 'We think with purpose for brands seeking authenticity and scalability.',
 
         // Projects
-        'proj.tularosa.subtitle': 'Visual strategy and communication for hospitality and gastronomy.',
+        'proj.tularosa.subtitle': 'Visual strategy and communication for the hospitality and gastronomy sector.',
         'proj.original.subtitle': 'Art direction and web design for digital creative agency.',
 
         // Project Details
@@ -215,7 +215,7 @@ const translations = {
         // Tularosa Project Details
         'proj.tularosa.details.industry': 'Hospitality and Gastronomy',
         'proj.tularosa.details.role': 'Visual Strategy and Identity Design',
-        'proj.tularosa.details.description': 'We worked with Tularosa to create a sophisticated and welcoming visual experience. The core focus was to capture the essence of their culinary offerings through an earthy color palette and elegant typography, applied across all touchpoints, from physical menus to their digital presence.',
+        'proj.tularosa.details.description': 'We worked on creating a sophisticated and welcoming visual experience for the hospitality sector. The core focus was to capture the essence of the culinary offerings through an earthy color palette and elegant typography, applied across all touchpoints, from physical menus to digital presence.',
 
         // Original Project Details
         'proj.original.details.industry': 'Digital Creative Agency',
@@ -371,7 +371,7 @@ const translations = {
         'work.subtitle': 'Nous réfléchissons avec un but précis pour les marques qui recherchent l\'authenticité et l\'évolutivité.',
 
         // Projects
-        'proj.tularosa.subtitle': 'Stratégie visuelle et communication pour l\'hôtellerie et la gastronomie.',
+        'proj.tularosa.subtitle': 'Stratégie visuelle et communication pour le secteur de l\'hôtellerie et de la gastronomie.',
         'proj.original.subtitle': 'Direction artistique et design web pour une agence créative numérique.',
 
         // Project Details
@@ -381,7 +381,7 @@ const translations = {
         // Tularosa Project Details
         'proj.tularosa.details.industry': 'Hôtellerie et Gastronomie',
         'proj.tularosa.details.role': 'Stratégie visuelle et conception d\'identité',
-        'proj.tularosa.details.description': 'Nous avons travaillé avec Tularosa pour créer une expérience visuelle sophistiquée et accueillante. L\'objectif principal était de capturer l\'essence de leur offre culinaire à travers une palette de couleurs terreuses et une typographie élégante, appliquée sur tous les points de contact.',
+        'proj.tularosa.details.description': 'Nous avons travaillé à la création d\'une expérience visuelle sophistiquée et accueillante para le secteur de l\'hôtellerie. L\'objectif principal était de capturer l\'essence de l\'offre culinaire à travers une palette de couleurs terreuses et une typographie élégante, appliquée sur tous les points de contacto.',
 
         // Original Project Details
         'proj.original.details.industry': 'Agence Créative Numérique',

@@ -16,7 +16,7 @@ export interface ProjectData {
 
 export const projectsData: Record<string, ProjectData> = {
     tularosa: {
-        title: "Tularosa",
+        title: "Restauration & hôtellerie",
         folder: "Tularosa",
         subtitleKey: "proj.tularosa.subtitle",
         industryKey: "proj.tularosa.details.industry",
