@@ -61,13 +61,12 @@ const Hero = () => {
     const titleChars = titleRef.current.querySelectorAll('.hero-title-char');
     const taglineWords = taglineRef.current.querySelectorAll('.hero-tagline-word');
 
-    // NJB Title Animation
-    gsap.from(titleChars, {
-      y: 50,
+    // Logo Animation
+    gsap.from(".hero-logo-container", {
+      scale: 0.9,
       opacity: 0,
-      stagger: 0.03,
-      duration: 0.6,
-      ease: "back.out(1.7)",
+      duration: 1,
+      ease: "power2.out",
       delay: 0.2
     });
 
@@ -164,21 +163,15 @@ const Hero = () => {
       <div
         className="relative z-10 w-full flex md:justify-start justify-center pt-8 md:pt-0"
       >
-        <h1 
-          ref={titleRef}
-          className="text-[35vw] md:text-[25vw] font-heading font-medium leading-[0.8] tracking-tighter select-none cursor-default text-black flex"
+        <div 
+          className="hero-logo-container w-full flex md:justify-start justify-center"
         >
-          {heroTitle.split("").map((char, i) => (
-            <motion.span
-              key={i}
-              className="hero-title-char inline-block whitespace-pre"
-              whileHover={{ y: -30 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </h1>
+          <img 
+            src="/lovabol/Logotipo.png" 
+            alt="NJB" 
+            className="w-[85vw] md:w-[60vw] max-w-[1200px] h-auto object-contain select-none pointer-events-none" 
+          />
+        </div>
       </div>
 
       <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0 relative z-10">
