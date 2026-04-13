@@ -32,7 +32,7 @@ const ProjectSection = ({ project, slug, t, onHover, onProjectClick }: { project
                     <img
                         src={getPath(cover)}
                         alt={project.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                        className={`w-full h-full object-cover hover:scale-105 transition-transform duration-700 ${slug === 'sportswear' ? 'object-bottom' : ''}`}
                     />
                 </motion.div>
             </Link>

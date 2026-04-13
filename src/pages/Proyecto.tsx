@@ -173,7 +173,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
           loop
           muted
           playsInline
-          className="w-full h-auto object-cover"
+          className={`w-full h-auto object-cover ${src.includes('Sportswear') ? 'object-bottom' : ''}`}
         />
       ) : (
         <img
@@ -181,7 +181,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
           alt={alt}
           loading={index < 2 ? "eager" : "lazy"}
           decoding="async"
-          className="w-full h-auto object-cover"
+          className={`w-full h-auto object-cover ${src.includes('Sportswear') ? 'object-bottom' : ''}`}
         />
       )}
     </motion.div>
