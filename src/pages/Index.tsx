@@ -169,7 +169,7 @@ const Hero = () => {
           <img 
             src="/lovabol/logotipo.svg" 
             alt="NJB" 
-            className="w-[42vw] md:w-[30vw] max-w-[600px] h-auto object-contain select-none pointer-events-none" 
+            className="w-[42vw] md:w-[30vw] max-w-[600px] h-auto object-contain select-none pointer-events-none brightness-0 invert mix-blend-exclusion" 
           />
         </div>
       </div>
@@ -177,7 +177,7 @@ const Hero = () => {
       <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0 relative z-10">
         <p
           ref={taglineRef}
-          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black flex flex-wrap justify-center md:justify-end gap-x-[0.3em]"
+          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-white flex flex-wrap justify-center md:justify-end gap-x-[0.3em] mix-blend-exclusion"
         >
           {heroTagline.split(" ").map((word, i) => (
             <motion.span
