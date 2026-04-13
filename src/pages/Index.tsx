@@ -573,7 +573,7 @@ const ProjectMagazine = () => {
           >
             <motion.div 
               className="w-full h-full bg-white rounded-xl md:rounded-2xl overflow-hidden shadow-sm"
-              whileHover={{ y: -30, scale: 1.02, shadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)" }}
+              whileHover={{ y: -30, scale: 1.02, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1)" }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <img 
