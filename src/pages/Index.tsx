@@ -35,12 +35,12 @@ const Hero = () => {
 
   // Motion Trail State & Refs
   const images = [
-    '/lovabol/02d772d1-4029-4f98-8e16-3bb0cdf50495.jpg',
-    '/lovabol/3485530d-4d23-4df9-965c-b8daecd174af.jpg',
-    '/lovabol/3859ff89-14e3-4f24-82c6-f707ed3b7637.png',
-    '/lovabol/6E812A4C-4BC6-4099-825E-618A91AEE912.png',
-    '/lovabol/E500D044-AA01-4071-B412-0793BC5B0BA6.png',
-    '/lovabol/image%20525.png'
+    '/lovabol/item2.jpg',
+    '/lovabol/item3.jpg',
+    '/lovabol/item4.png',
+    '/lovabol/item5.png',
+    '/lovabol/item6.png',
+    '/lovabol/image525.png'
   ];
   
   const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -167,7 +167,7 @@ const Hero = () => {
           className="hero-logo-container w-full flex md:justify-start justify-center"
         >
           <img 
-            src="/lovabol/Logotipo.png" 
+            src="/lovabol/logotipo.png" 
             alt="NJB" 
             className="w-[85vw] md:w-[60vw] max-w-[1200px] h-auto object-contain select-none pointer-events-none" 
           />
@@ -443,16 +443,16 @@ const ProjectMagazine = () => {
   const title2Ref = useRef<HTMLHeadingElement>(null);
 
   const projectImages = [
-    { src: "/lovabol/BRANDBOARD%20MOOD%20NAYAR%20ESTATE-1.png", alt: "Lovabol" },
-    { src: "/lovabol/final1%201.png", alt: "Lovabol" },
-    { src: "/lovabol/image%2068.png", alt: "Lovabol" },
-    { src: "/lovabol/3859ff89-14e3-4f24-82c6-f707ed3b7637.png", alt: "Lovabol" },
-    { src: "/lovabol/6E812A4C-4BC6-4099-825E-618A91AEE912.png", alt: "Lovabol" },
-    { src: "/lovabol/E500D044-AA01-4071-B412-0793BC5B0BA6.png", alt: "Lovabol" },
-    { src: "/lovabol/02d772d1-4029-4f98-8e16-3bb0cdf50495.jpg", alt: "Lovabol" },
-    { src: "/lovabol/3485530d-4d23-4df9-965c-b8daecd174af.jpg", alt: "Lovabol" },
-    { src: "/lovabol/att.5KJ8yJtR0DE818Q8Ml3w-YwAuBjrIEEmQjoypFI6yKA.jpg", alt: "Lovabol" },
-    { src: "/lovabol/image%20525.png", alt: "Lovabol" },
+    { src: "/lovabol/brandboard.png", alt: "Lovabol" },
+    { src: "/lovabol/final1.png", alt: "Lovabol" },
+    { src: "/lovabol/image68.png", alt: "Lovabol" },
+    { src: "/lovabol/item4.png", alt: "Lovabol" },
+    { src: "/lovabol/item5.png", alt: "Lovabol" },
+    { src: "/lovabol/item6.png", alt: "Lovabol" },
+    { src: "/lovabol/item2.jpg", alt: "Lovabol" },
+    { src: "/lovabol/item3.jpg", alt: "Lovabol" },
+    { src: "/lovabol/att_item1.jpg", alt: "Lovabol" },
+    { src: "/lovabol/image525.png", alt: "Lovabol" },
   ];
 
   useLayoutEffect(() => {
