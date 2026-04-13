@@ -693,17 +693,6 @@ const StackedValue = () => {
               </li>
             ))}
           </ul>
-          
-          <div className="mt-6 md:mt-12 p-6 md:p-12 border-2 border-dashed border-white/10 rounded-[24px] md:rounded-[40px] bg-white/5 mx-auto max-w-2xl">
-            <div className="flex items-center justify-center gap-3 text-base md:text-xl text-white/50">
-              <span>{t('stacked.resultados.footer')}</span>
-              <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
-            </div>
-            <div className="grid grid-cols-2 gap-4 mt-6 md:mt-8 opacity-10">
-              <div className="aspect-video bg-white/10 rounded-2xl"></div>
-              <div className="aspect-video bg-white/10 rounded-2xl"></div>
-            </div>
-          </div>
         </div>
       </section>
 
