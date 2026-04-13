@@ -105,9 +105,9 @@ const AccordionNavbar = () => {
                 <motion.div style={{ color: textColor }}>
                     <Link to="/" className="flex items-center group">
                         <img 
-                            src="/lovabol/logotipo.png" 
+                            src="/lovabol/logotipo.svg" 
                             alt="NJB" 
-                            className="h-3 md:h-4 w-auto object-contain" 
+                            className="h-4 md:h-6 w-auto object-contain" 
                         />
                     </Link>
                 </motion.div>
@@ -187,9 +187,9 @@ const AccordionNavbar = () => {
                         {/* Header of Mobile Menu */}
                         <div className="flex justify-between items-center px-8 py-6 w-full mt-4">
                             <img 
-                                src="/lovabol/logotipo.png" 
+                                src="/lovabol/logotipo.svg" 
                                 alt="NJB" 
-                                className="h-3 md:h-4 w-auto object-contain" 
+                                className="h-4 md:h-6 w-auto object-contain" 
                             />
                             <button
                                 onClick={() => setMobileMenuOpen(false)}

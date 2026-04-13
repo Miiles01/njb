@@ -167,7 +167,7 @@ const Hero = () => {
           className="hero-logo-container w-full flex md:justify-start justify-center"
         >
           <img 
-            src="/lovabol/logotipo.png" 
+            src="/lovabol/logotipo.svg" 
             alt="NJB" 
             className="w-[42vw] md:w-[30vw] max-w-[600px] h-auto object-contain select-none pointer-events-none" 
           />
