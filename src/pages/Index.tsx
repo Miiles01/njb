@@ -140,7 +140,7 @@ const Hero = () => {
     <section 
       ref={sectionRef}
       key={language} 
-      className="relative md:min-h-[100vh] flex flex-col justify-center md:justify-between items-center md:items-stretch gap-6 md:gap-0 pt-24 pb-8 md:py-32 px-12 md:px-24 overflow-hidden bg-white"
+      className="relative md:min-h-[100vh] flex flex-col justify-center md:justify-between items-center md:items-stretch gap-6 md:gap-0 pt-24 pb-8 md:py-32 px-12 md:px-24 overflow-hidden bg-[#ffffff] isolate"
     >
       {/* Motion Trail Container */}
       <div className="absolute inset-0 pointer-events-none z-0">
@@ -169,7 +169,7 @@ const Hero = () => {
           <img 
             src="/lovabol/logotipo.svg" 
             alt="NJB" 
-            className="w-[42vw] md:w-[30vw] max-w-[600px] h-auto object-contain select-none pointer-events-none brightness-0 invert mix-blend-exclusion" 
+            className="w-[42vw] md:w-[30vw] max-w-[600px] h-auto object-contain select-none pointer-events-none invert mix-blend-exclusion" 
           />
         </div>
       </div>
