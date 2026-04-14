@@ -174,6 +174,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
           loop
           muted
           playsInline
+          preload="auto"
           className={`w-full h-auto object-cover ${src.includes('Sportswear') ? 'object-bottom' : ''}`}
         />
       ) : (

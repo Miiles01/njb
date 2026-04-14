@@ -130,9 +130,25 @@ const Hero = () => {
     window.addEventListener('mousemove', handleMouseMove);
     const animationId = requestAnimationFrame(render);
 
+    // Video Preloading Hints
+    const preloadDesktop = document.createElement('link');
+    preloadDesktop.rel = 'preload';
+    preloadDesktop.as = 'video';
+    preloadDesktop.href = '/lovabol/desktop.MP4';
+    
+    const preloadMobile = document.createElement('link');
+    preloadMobile.rel = 'preload';
+    preloadMobile.as = 'video';
+    preloadMobile.href = '/lovabol/mobile.mp4';
+    
+    document.head.appendChild(preloadDesktop);
+    document.head.appendChild(preloadMobile);
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationId);
+      if (document.head.contains(preloadDesktop)) document.head.removeChild(preloadDesktop);
+      if (document.head.contains(preloadMobile)) document.head.removeChild(preloadMobile);
     };
   }, [heroTagline, language, images.length]);
 
@@ -240,6 +256,8 @@ const ExpandingImage = () => {
           muted 
           loop 
           playsInline
+          preload="auto"
+          poster="/lovabol/att_item1.jpg"
           className="w-full h-full object-cover"
         >
           <source 
@@ -1115,72 +1133,153 @@ const StrategyIllustration = () => {
 const ScaleIllustration = () => {
   const figmaBlue = "#18A0FB";
   const figmaPurple = "#A259FF";
+  const figmaDark = "#2C2C2C";
+  const figmaBorder = "#E6E6E6";
   
-  // Custom cubic-bezier for "snappy" designer-like movements
+  // Custom designer-like ease
   const designerEase = [0.22, 1, 0.36, 1];
-
+  
   const typingText = "Growth Strategy";
   const letters = typingText.split("");
 
   return (
     <motion.svg
       viewBox="0 0 280 200"
-      className="w-full h-auto bg-[#F9F9F9] rounded-xl overflow-hidden shadow-inner border border-zinc-200/50"
+      className="w-full h-auto bg-[#F9F9F9] rounded-xl overflow-hidden shadow-2xl border border-zinc-200/50"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
     >
-      {/* Figma Canvas Dotted Grid */}
       <defs>
-        <pattern id="dotGridLarge" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+        <pattern id="dotGridHD" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
           <circle cx="1" cy="1" r="0.6" fill="#EAEAEA" />
         </pattern>
+        <filter id="cursorShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="1" />
+          <feOffset dx="0.5" dy="0.5" result="offsetblur" />
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="0.2" />
+          </feComponentTransfer>
+          <feMerge>
+            <feMergeNode />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
       </defs>
-      <rect width="100%" height="100%" fill="url(#dotGridLarge)" />
+      <rect width="100%" height="100%" fill="url(#dotGridHD)" />
 
-      {/* Simplified Side Panels (Figma UI) */}
-      <rect x="0" y="0" width="40" height="200" fill="white" stroke="#E6E6E6" strokeWidth="0.5" />
-      <rect x="240" y="0" width="40" height="200" fill="white" stroke="#E6E6E6" strokeWidth="0.5" />
+      {/* --- Figma UI Header --- */}
+      <rect width="280" height="18" fill={figmaDark} />
+      <circle cx="10" cy="9" r="2.5" fill="#FF5F57" />
+      <circle cx="18" cy="9" r="2.5" fill="#FFBD2E" />
+      <circle cx="26" cy="9" r="2.5" fill="#28C840" />
       
-      {/* Layer icons mockup */}
-      {[0, 1, 2, 3].map((i) => (
-        <rect key={i} x="12" y={40 + i * 20} width="16" height="2" rx="1" fill="#F0F0F0" />
+      <text x="140" y="12" fontSize="6" fontFamily="Inter, sans-serif" fill="#CCC" textAnchor="middle" fontWeight="500">
+        NJB Agency / Production Suite
+      </text>
+      
+      <rect x="235" y="4" width="35" height="10" rx="2" fill={figmaBlue} />
+      <text x="252.5" y="11" fontSize="5" fontFamily="Inter, sans-serif" fill="white" textAnchor="middle" fontWeight="bold">Share</text>
+
+      {/* --- Rulers --- */}
+      <rect x="40" y="18" width="200" height="4" fill="white" stroke={figmaBorder} strokeWidth="0.5" />
+      <rect x="36" y="22" width="4" height="178" fill="white" stroke={figmaBorder} strokeWidth="0.5" />
+      {[0, 20, 40, 60, 80, 100, 120, 140, 160].map(x => (
+        <line key={x} x1={40 + x} y1="18" x2={40 + x} y2="21" stroke="#CCC" strokeWidth="0.5" />
       ))}
 
-      {/* Main Design Area */}
-      <g transform="translate(40, 0)">
-        {/* Alignment Smart Guides (appear during "snap") */}
+      {/* --- Side Panels --- */}
+      {/* Left: Layers */}
+      <rect x="0" y="18" width="40" height="182" fill="white" stroke={figmaBorder} strokeWidth="0.5" />
+      <text x="6" y="28" fontSize="5" fontWeight="bold" fill="#888">LAYERS</text>
+      {[
+        { name: "Frame 1", type: "grid", active: true },
+        { name: "Headline", type: "text" },
+        { name: "Button", type: "rect" },
+        { name: "Vector", type: "pen" }
+      ].map((layer, i) => (
+        <g key={i} transform={`translate(0, ${35 + i * 12})`}>
+          {layer.active && <rect width="40" height="12" fill={figmaBlue} fillOpacity="0.1" />}
+          <rect x="6" y="3" width="6" height="6" rx="1" fill={layer.active ? figmaBlue : "#EEE"} />
+          <text x="15" y="8" fontSize="5.5" fill={layer.active ? "#333" : "#999"}>{layer.name}</text>
+        </g>
+      ))}
+
+      {/* Right: Properties */}
+      <rect x="240" y="18" width="40" height="182" fill="white" stroke={figmaBorder} strokeWidth="0.5" />
+      <text x="246" y="28" fontSize="5" fontWeight="bold" fill="#888">DESIGN</text>
+      
+      {/* Property Inputs */}
+      <g transform="translate(244, 40)">
+        <text y="0" fontSize="5" fill="#999">X</text>
+        <motion.text x="8" y="0" fontSize="5.5" fill="#333"
+          animate={{ opacity: [1, 0, 1] }} 
+          transition={{ duration: 6, times: [0.45, 0.47, 0.55], repeat: Infinity }}
+        >
+          {/* We simulate the change with a simple overlaying values trick */}
+          <tspan x="8">
+            {/* Logic: show '40' then '120' during the drag animation timestamps */}
+          </tspan>
+        </motion.text>
+        <motion.tspan x="8" fill="#333" fontSize="5.5">
+          {/* Static values for now as changing text content precisely in keyframes is tricky in inline SVG */}
+          124
+        </motion.tspan>
+
+        <text y="10" fontSize="5" fill="#999">Y</text>
+        <text x="8" y="10" fontSize="5.5" fill="#333">240</text>
+        
+        <text y="20" fontSize="5" fill="#999">W</text>
+        <text x="8" y="20" fontSize="5.5" fill="#333">180</text>
+        
+        <rect y="30" width="32" height="1" fill="#EEE" />
+      </g>
+
+      {/* --- Main Design Area --- */}
+      <g transform="translate(40, 18)">
+        {/* Alignment Smart Guides */}
         <motion.line 
-          x1="100" y1="0" x2="100" y2="200" 
+          x1="100" y1="0" x2="100" y2="182" 
           stroke={figmaBlue} strokeWidth="0.5" strokeDasharray="3,3"
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 0, 1, 0, 0] }}
           transition={{ duration: 6, repeat: Infinity, times: [0, 0.45, 0.5, 0.55, 1] }}
         />
 
-        {/* Dragging Shape Interaction */}
+        {/* The Frame / Section handle */}
         <motion.g
-          animate={{ x: [20, 20, 80, 80, 20], y: [60, 60, 60, 60, 60] }}
+          animate={{ x: [20, 20, 90, 90, 20], y: [60, 60, 60, 60, 60] }}
           transition={{ duration: 6, repeat: Infinity, ease: designerEase }}
         >
-          <rect width="60" height="40" rx="4" fill="white" stroke={figmaBlue} strokeWidth="1.5" />
-          {/* Nodes */}
-          <circle cx="0" cy="0" r="2" fill="white" stroke={figmaBlue} strokeWidth="0.8" />
-          <circle cx="60" cy="40" r="2" fill="white" stroke={figmaBlue} strokeWidth="0.8" />
-          
-          <rect x="10" y="12" width="40" height="4" rx="2" fill="#F0F0F0" />
-          <rect x="10" y="24" width="25" height="4" rx="2" fill="#F0F0F0" />
+          {/* Highlight selection box */}
+          <rect width="80" height="40" rx="2" fill="white" stroke={figmaBlue} strokeWidth="1" />
+          <motion.rect 
+            width="80" height="40" rx="2" fill={figmaBlue} fillOpacity="0"
+            animate={{ fillOpacity: [0, 0.1, 0.1, 0] }}
+            transition={{ duration: 6, repeat: Infinity, times: [0, 0.2, 0.8, 1] }}
+          />
+
+          {/* Actual Nodes */}
+          {[
+            { x: -1.5, y: -1.5 }, { x: 78.5, y: -1.5 }, 
+            { x: -1.5, y: 38.5 }, { x: 78.5, y: 38.5 }
+          ].map((n, i) => (
+            <rect key={i} x={n.x} y={n.y} width="3" height="3" fill="white" stroke={figmaBlue} strokeWidth="0.5" />
+          ))}
+
+          {/* Internal elements */}
+          <rect x="10" y="12" width="60" height="4" rx="2" fill="#F0F0F0" />
+          <rect x="10" y="22" width="40" height="4" rx="2" fill={figmaBlue} fillOpacity="0.2" />
         </motion.g>
 
-        {/* Text Typing Interaction Area */}
+        {/* Text Area Typing */}
         <g transform="translate(20, 130)">
-          {/* Text Cursor | */}
           <motion.line
             x1="0" y1="0" x2="0" y2="16"
             stroke={figmaPurple} strokeWidth="1.5"
             animate={{ 
               opacity: [1, 0, 1],
-              x: [0, 0, 95, 95, 0] // Movement follows text growth
+              x: [0, 0, 95, 95, 0] 
             }}
             transition={{ 
               opacity: { duration: 0.8, repeat: Infinity },
@@ -1205,35 +1304,44 @@ const ScaleIllustration = () => {
           </text>
         </g>
 
-        {/* Cursors */}
+        {/* --- Cursors (High Fidelity) --- */}
         
-        {/* Architect Cursor (Drags shape) */}
+        {/* Architect Cursor */}
         <motion.g
           animate={{ 
-            x: [100, 20, 80, 100], 
-            y: [100, 60, 60, 100],
-            scale: [1, 0.9, 0.9, 1]
+            x: [180, 40, 110, 180], 
+            y: [140, 80, 80, 140],
+            scale: [1, 0.95, 0.95, 1]
           }}
           transition={{ duration: 6, repeat: Infinity, ease: designerEase }}
+          filter="url(#cursorShadow)"
         >
           <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaBlue} stroke="white" strokeWidth="0.8" />
-          <rect x="12" y="10" width="50" height="15" rx="3" fill={figmaBlue} />
+          <rect x="12" y="10" width="45" height="15" rx="3" fill={figmaBlue} />
           <text x="16" y="21" fontSize="8" fill="white" fontWeight="bold">NJB Dev</text>
         </motion.g>
 
-        {/* Writer Cursor (Types text) */}
+        {/* Writer Cursor */}
         <motion.g
           animate={{ 
-            x: [180, 20, 115, 180], 
+            x: [120, 20, 115, 120], 
             y: [160, 130, 130, 160],
-            scale: [1, 0.9, 0.9, 1]
+            scale: [1, 0.95, 0.95, 1]
           }}
           transition={{ duration: 6, repeat: Infinity, ease: designerEase, delay: 0.5 }}
+          filter="url(#cursorShadow)"
         >
           <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaPurple} stroke="white" strokeWidth="0.8" />
           <rect x="12" y="10" width="30" height="15" rx="3" fill={figmaPurple} />
           <text x="16" y="21" fontSize="8" fill="white">Copy</text>
         </motion.g>
+
+        {/* Avatar pile in top header (rendered here to be on top) */}
+        <g transform="translate(190, -14)">
+          <circle cx="0" cy="0" r="4" fill="#DDD" stroke={figmaDark} strokeWidth="0.5" />
+          <circle cx="6" cy="0" r="4" fill="#BBB" stroke={figmaDark} strokeWidth="0.5" />
+          <circle cx="12" cy="0" r="4" fill="#999" stroke={figmaDark} strokeWidth="0.5" />
+        </g>
       </g>
     </motion.svg>
   );
