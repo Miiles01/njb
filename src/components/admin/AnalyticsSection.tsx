@@ -100,12 +100,6 @@ const AnalyticsSection = () => {
 
   const stats: AnalyticsStat[] = [
     {
-      label: "Visitas",
-      value: data.totalPageViews,
-      icon: <Eye className="h-4 w-4" />,
-      detail: "Últimos 30 días",
-    },
-    {
       label: "Clics en proyectos",
       value: data.totalProjectClicks,
       icon: <MousePointerClick className="h-4 w-4" />,
