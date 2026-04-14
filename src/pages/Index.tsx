@@ -134,7 +134,7 @@ const Hero = () => {
     const preloadDesktop = document.createElement('link');
     preloadDesktop.rel = 'preload';
     preloadDesktop.as = 'video';
-    preloadDesktop.href = '/lovabol/desktop.MP4';
+    preloadDesktop.href = '/lovabol/desktop.mp4';
     
     const preloadMobile = document.createElement('link');
     preloadMobile.rel = 'preload';
@@ -261,7 +261,7 @@ const ExpandingImage = () => {
           className="w-full h-full object-cover"
         >
           <source 
-            src={isMobile ? "/lovabol/mobile.mp4" : "/lovabol/desktop.MP4"} 
+            src={isMobile ? "/lovabol/mobile.mp4" : "/lovabol/desktop.mp4"} 
             type="video/mp4" 
           />
         </video>
@@ -465,7 +465,7 @@ const ProjectMagazine = () => {
     { src: "/proyectos/Real-Estate/item-1.png", alt: "Real Estate" },
     { src: "/proyectos/Sportswear/portada.jpg", alt: "Sportswear", align: "object-bottom" },
     { src: "/proyectos/Original/portada-1.webp", alt: "Barbería" },
-    { src: "/proyectos/Tularosa/mockup-de-comida.webp", alt: "Restauration 2" },
+    { src: "/proyectos/Tularosa/item5.png", alt: "Restauration 2" },
     { src: "/proyectos/Real-Estate/brandboard.png", alt: "Real Estate 2" },
     { src: "/proyectos/Sportswear/item-1.jpg", alt: "Sportswear 2" },
     { src: "/lovabol/item4.png", alt: "Lovabol Focus" },
