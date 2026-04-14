@@ -1137,7 +1137,7 @@ const ScaleIllustration = () => {
   const figmaBorder = "#E6E6E6";
   
   // Custom designer-like ease
-  const designerEase = [0.22, 1, 0.36, 1];
+  const designerEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
   
   const typingText = "Growth Strategy";
   const letters = typingText.split("");
