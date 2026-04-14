@@ -49,10 +49,11 @@ const projectData: Record<string, ProjectContent> = {
     folder: "Original",
     images: [
       { src: "portada-1.webp", alt: "Original — Cover", aspect: "wide" },
+      { src: "original-1.webp", alt: "Original — Style", aspect: "wide" },
+      { src: "barberia-new.jpg", alt: "Original — Barbería Experience", aspect: "wide" },
       { src: "isotipo.webp", alt: "Original — Isotipo", aspect: "wide" },
       { src: "fotos-instagram.webp", alt: "Original — Instagram", aspect: "wide" },
       { src: "landing-page-1.webp", alt: "Original — Landing Page 1", aspect: "wide" },
-      { src: "landing-page-2.webp", alt: "Original — Landing Page 2", aspect: "wide" },
     ],
   },
   tularosa: {

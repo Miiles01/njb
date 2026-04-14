@@ -35,7 +35,7 @@ export const projectsData: Record<string, ProjectData> = {
         industryKey: "proj.original.details.industry",
         roleKey: "proj.original.details.role",
         descriptionKey: "proj.original.details.description",
-        images: ["portada-1.webp", "original-1.webp", "original-2.webp"],
+        images: ["portada-1.webp", "original-1.webp", "barberia-new.jpg", "isotipo.webp", "fotos-instagram.webp"],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
             { icon: "star", textKey: "proj.part.strategy" }

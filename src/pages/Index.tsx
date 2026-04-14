@@ -443,6 +443,7 @@ const ProjectMagazine = () => {
   const title2Ref = useRef<HTMLHeadingElement>(null);
 
   const projectImages = [
+    { src: "/lovabol/item4.png", alt: "Lovabol Focus" },
     { src: "/proyectos/Tularosa/portada-1.webp", alt: "Restauration" },
     { src: "/proyectos/Real-Estate/item-1.png", alt: "Real Estate" },
     { src: "/proyectos/Sportswear/portada.jpg", alt: "Sportswear", align: "object-bottom" },
@@ -450,7 +451,6 @@ const ProjectMagazine = () => {
     { src: "/proyectos/Tularosa/mockup-de-comida.webp", alt: "Restauration 2" },
     { src: "/proyectos/Real-Estate/brandboard.png", alt: "Real Estate 2" },
     { src: "/proyectos/Sportswear/item-1.jpg", alt: "Sportswear 2" },
-    { src: "/proyectos/Original/original-1.webp", alt: "Barbería 2" },
   ];
 
   useLayoutEffect(() => {
