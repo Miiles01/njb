@@ -1235,115 +1235,139 @@ const ScaleIllustration = () => {
         <rect y="30" width="32" height="1" fill="#EEE" />
       </g>
 
-      {/* --- Main Design Area --- */}
-      <g transform="translate(40, 18)">
-        {/* Alignment Smart Guides */}
-        <motion.line 
-          x1="100" y1="0" x2="100" y2="182" 
-          stroke={figmaBlue} strokeWidth="0.5" strokeDasharray="3,3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0, 1, 0, 0] }}
-          transition={{ duration: 6, repeat: Infinity, times: [0, 0.45, 0.5, 0.55, 1] }}
-        />
-
-        {/* The Frame / Section handle */}
-        <motion.g
-          animate={{ x: [20, 20, 90, 90, 20], y: [60, 60, 60, 60, 60] }}
-          transition={{ duration: 6, repeat: Infinity, ease: designerEase }}
-        >
-          {/* Highlight selection box */}
-          <rect width="80" height="40" rx="2" fill="white" stroke={figmaBlue} strokeWidth="1" />
-          <motion.rect 
-            width="80" height="40" rx="2" fill={figmaBlue} fillOpacity="0"
-            animate={{ fillOpacity: [0, 0.1, 0.1, 0] }}
-            transition={{ duration: 6, repeat: Infinity, times: [0, 0.2, 0.8, 1] }}
+        {/* --- Main Design Area --- */}
+        <g transform="translate(40, 18)">
+          {/* Alignment Smart Guides */}
+          <motion.line 
+            x1="110" y1="0" x2="110" y2="182" 
+            stroke={figmaBlue} strokeWidth="0.5" strokeDasharray="3,3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0, 1, 1, 0, 0] }}
+            transition={{ duration: 7, repeat: Infinity, times: [0, 0.45, 0.48, 0.72, 0.75, 1] }}
           />
 
-          {/* Actual Nodes */}
-          {[
-            { x: -1.5, y: -1.5 }, { x: 78.5, y: -1.5 }, 
-            { x: -1.5, y: 38.5 }, { x: 78.5, y: 38.5 }
-          ].map((n, i) => (
-            <rect key={i} x={n.x} y={n.y} width="3" height="3" fill="white" stroke={figmaBlue} strokeWidth="0.5" />
-          ))}
-
-          {/* Internal elements */}
-          <rect x="10" y="12" width="60" height="4" rx="2" fill="#F0F0F0" />
-          <rect x="10" y="22" width="40" height="4" rx="2" fill={figmaBlue} fillOpacity="0.2" />
-        </motion.g>
-
-        {/* Text Area Typing */}
-        <g transform="translate(20, 130)">
-          <motion.line
-            x1="0" y1="0" x2="0" y2="16"
-            stroke={figmaPurple} strokeWidth="1.5"
+          {/* The Frame / Section handle (DRAGGABLE) */}
+          <motion.g
             animate={{ 
-              opacity: [1, 0, 1],
-              x: [0, 0, 95, 95, 0] 
+              x: [20, 20, 110, 110, 20], 
+              y: [60, 60, 60, 60, 60] 
             }}
             transition={{ 
-              opacity: { duration: 0.8, repeat: Infinity },
-              x: { duration: 6, repeat: Infinity, ease: designerEase }
+              duration: 7, 
+              repeat: Infinity, 
+              ease: designerEase,
+              times: [0, 0.3, 0.7, 0.8, 1]
             }}
-          />
-          <text fontSize="12" fontFamily="Inter, sans-serif" fontWeight="500" fill="#333">
-            {letters.map((char, i) => (
-              <motion.tspan
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 0, 1, 1, 0] }}
-                transition={{ 
-                  duration: 6, 
-                  repeat: Infinity, 
-                  times: [0, 0.1 + (i * 0.02), 0.15 + (i * 0.02), 0.8, 1] 
-                }}
-              >
-                {char}
-              </motion.tspan>
+          >
+            {/* Highlight selection box */}
+            <motion.rect 
+              width="80" height="40" rx="2" 
+              fill="white" 
+              stroke={figmaBlue} 
+              strokeWidth="1"
+              animate={{ 
+                strokeWidth: [1, 1, 2, 2, 1],
+                boxShadow: ["0 0 0 rgba(0,0,0,0)", "0 0 0 rgba(0,0,0,0)", "0 4px 12px rgba(24,160,251,0.2)", "0 4px 12px rgba(24,160,251,0.2)", "0 0 0 rgba(0,0,0,0)"]
+              }}
+              transition={{ duration: 7, repeat: Infinity, times: [0, 0.28, 0.3, 0.7, 0.72] }}
+            />
+
+            {/* Selection Nodes */}
+            {[
+              { x: -1.5, y: -1.5 }, { x: 78.5, y: -1.5 }, 
+              { x: -1.5, y: 38.5 }, { x: 78.5, y: 38.5 }
+            ].map((n, i) => (
+              <rect key={i} x={n.x} y={n.y} width="3" height="3" fill="white" stroke={figmaBlue} strokeWidth="0.5" />
             ))}
-          </text>
+
+            {/* Internal elements */}
+            <rect x="10" y="12" width="60" height="4" rx="2" fill="#F0F0F0" />
+            <rect x="10" y="22" width="40" height="4" rx="2" fill={figmaBlue} fillOpacity="0.2" />
+          </motion.g>
+
+          {/* Text Area Typing */}
+          <g transform="translate(20, 130)">
+            <motion.line
+              x1="0" y1="0" x2="0" y2="16"
+              stroke={figmaPurple} strokeWidth="1.5"
+              animate={{ 
+                opacity: [1, 0, 1],
+                x: [0, 0, 95, 95, 0] 
+              }}
+              transition={{ 
+                opacity: { duration: 0.8, repeat: Infinity },
+                x: { duration: 7, repeat: Infinity, ease: designerEase, times: [0, 0.1, 0.7, 0.8, 1] }
+              }}
+            />
+            <text fontSize="12" fontFamily="Inter, sans-serif" fontWeight="500" fill="#333">
+              {letters.map((char, i) => (
+                <motion.tspan
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 0, 1, 1, 0] }}
+                  transition={{ 
+                    duration: 7, 
+                    repeat: Infinity, 
+                    times: [0, 0.1 + (i * 0.02), 0.15 + (i * 0.02), 0.8, 1] 
+                  }}
+                >
+                  {char}
+                </motion.tspan>
+              ))}
+            </text>
+          </g>
+
+          {/* --- Cursors (High Fidelity & Locked) --- */}
+          
+          {/* Architect Cursor */}
+          <motion.g
+            animate={{ 
+              x: [180, 20, 110, 110, 180], 
+              y: [140, 60, 60, 60, 140],
+              scale: [1, 1, 0.85, 0.85, 1] // Click effect during grab
+            }}
+            transition={{ 
+              duration: 7, 
+              repeat: Infinity, 
+              ease: designerEase,
+              times: [0, 0.3, 0.7, 0.8, 1]
+            }}
+            filter="url(#cursorShadow)"
+          >
+            <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaBlue} stroke="white" strokeWidth="0.8" />
+            <rect x="12" y="10" width="45" height="15" rx="3" fill={figmaBlue} />
+            <text x="16" y="21" fontSize="8" fill="white" fontWeight="bold">NJB Dev</text>
+          </motion.g>
+
+          {/* Writer Cursor */}
+          <motion.g
+            animate={{ 
+              x: [120, 20, 115, 115, 120], 
+              y: [160, 130, 130, 130, 160],
+              scale: [1, 1, 0.9, 0.9, 1]
+            }}
+            transition={{ 
+              duration: 7, 
+              repeat: Infinity, 
+              ease: designerEase, 
+              delay: 0.5,
+              times: [0, 0.1, 0.7, 0.8, 1]
+            }}
+            filter="url(#cursorShadow)"
+          >
+            <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaPurple} stroke="white" strokeWidth="0.8" />
+            <rect x="12" y="10" width="30" height="15" rx="3" fill={figmaPurple} />
+            <text x="16" y="21" fontSize="8" fill="white">Copy</text>
+          </motion.g>
+
+          {/* Avatar pile in top header (rendered here to be on top) */}
+          <g transform="translate(190, -14)">
+            <circle cx="0" cy="0" r="4" fill="#DDD" stroke={figmaDark} strokeWidth="0.5" />
+            <circle cx="6" cy="0" r="4" fill="#BBB" stroke={figmaDark} strokeWidth="0.5" />
+            <circle cx="12" cy="0" r="4" fill="#999" stroke={figmaDark} strokeWidth="0.5" />
+          </g>
         </g>
-
-        {/* --- Cursors (High Fidelity) --- */}
-        
-        {/* Architect Cursor */}
-        <motion.g
-          animate={{ 
-            x: [180, 40, 110, 180], 
-            y: [140, 80, 80, 140],
-            scale: [1, 0.95, 0.95, 1]
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: designerEase }}
-          filter="url(#cursorShadow)"
-        >
-          <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaBlue} stroke="white" strokeWidth="0.8" />
-          <rect x="12" y="10" width="45" height="15" rx="3" fill={figmaBlue} />
-          <text x="16" y="21" fontSize="8" fill="white" fontWeight="bold">NJB Dev</text>
-        </motion.g>
-
-        {/* Writer Cursor */}
-        <motion.g
-          animate={{ 
-            x: [120, 20, 115, 120], 
-            y: [160, 130, 130, 160],
-            scale: [1, 0.95, 0.95, 1]
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: designerEase, delay: 0.5 }}
-          filter="url(#cursorShadow)"
-        >
-          <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaPurple} stroke="white" strokeWidth="0.8" />
-          <rect x="12" y="10" width="30" height="15" rx="3" fill={figmaPurple} />
-          <text x="16" y="21" fontSize="8" fill="white">Copy</text>
-        </motion.g>
-
-        {/* Avatar pile in top header (rendered here to be on top) */}
-        <g transform="translate(190, -14)">
-          <circle cx="0" cy="0" r="4" fill="#DDD" stroke={figmaDark} strokeWidth="0.5" />
-          <circle cx="6" cy="0" r="4" fill="#BBB" stroke={figmaDark} strokeWidth="0.5" />
-          <circle cx="12" cy="0" r="4" fill="#999" stroke={figmaDark} strokeWidth="0.5" />
-        </g>
-      </g>
-    </motion.svg>
+      </motion.svg>
   );
 };
 
