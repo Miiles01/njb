@@ -110,7 +110,7 @@ const Hero = () => {
       {/* Stage 2: Content/Video Hero */}
       <section 
         id="hero-content"
-        className="hero-content-stage relative min-h-screen flex items-center bg-white overflow-hidden pt-28 pb-24 md:py-0 px-6 md:px-12 lg:px-24 snap-start"
+        className="hero-content-stage relative min-h-screen flex items-center bg-white overflow-hidden pt-40 pb-24 lg:py-0 px-6 md:px-12 lg:px-24 snap-start"
       >
         <div className="w-full max-w-[1400px] mx-auto">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-32">
