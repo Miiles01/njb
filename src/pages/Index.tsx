@@ -76,9 +76,9 @@ const Hero = () => {
 
   return (
     <div className="bg-white">
-      {/* Stage 1: Centered Logo Hero */}
+      {/* Stage 1: Centered Logo Hero (Hidden on Mobile to avoid duplication) */}
       <section 
-        className="relative h-screen flex items-center justify-center overflow-hidden bg-white px-6 snap-start"
+        className="hidden lg:flex relative h-screen items-center justify-center overflow-hidden bg-white px-6 snap-start"
       >
         <div className="w-full flex justify-center items-center">
           <img 
