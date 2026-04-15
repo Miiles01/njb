@@ -32,34 +32,41 @@ const Hero = () => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Logo Animation
-      gsap.from(".hero-logo-img", {
-        scale: 0.95,
+      // Stage 1: Centered Logo Entrance
+      gsap.from(".logo-stage-img", {
+        scale: 0.9,
         opacity: 0,
-        duration: 1.2,
-        ease: "power2.out",
+        duration: 1.5,
+        ease: "power3.out",
         delay: 0.2
       });
 
-      // Staggered text animation for tagline
+      // Stage 2: Content Section Entrance
       gsap.from(".hero-tagline-word", {
+        scrollTrigger: {
+          trigger: ".hero-content-stage",
+          start: "top 70%",
+          toggleActions: "play none none reverse"
+        },
         opacity: 0,
-        y: 25,
-        stagger: 0.04,
+        y: 20,
+        stagger: 0.05,
         duration: 0.8,
-        ease: "power3.out",
-        delay: 0.6
+        ease: "power2.out"
       });
 
-      // Video container entrance
       if (videoRef.current) {
         gsap.from(videoRef.current, {
+          scrollTrigger: {
+            trigger: ".hero-content-stage",
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+          },
           opacity: 0,
-          x: 60,
-          scale: 0.98,
-          duration: 1.4,
-          ease: "power3.out",
-          delay: 0.9
+          y: 40,
+          scale: 0.95,
+          duration: 1.2,
+          ease: "power2.out"
         });
       }
     });
@@ -68,64 +75,93 @@ const Hero = () => {
   }, [language]);
 
   return (
-    <section 
-      className="relative min-h-screen flex flex-col justify-center bg-white overflow-hidden pt-32 pb-16 md:pt-0"
-    >
-      <div className="w-full px-6 md:px-12 lg:px-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-          
-          {/* Left Side: Content */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full">
-            <div className="mb-12 md:mb-16 w-full flex justify-center lg:justify-start">
-              <img 
-                src="/lovabol/logotipo.svg" 
-                alt="NJB" 
-                className="hero-logo-img w-[60vw] md:w-[35vw] max-w-[550px] h-auto object-contain select-none pointer-events-none" 
-              />
+    <div className="bg-white">
+      {/* Stage 1: Centered Logo Hero */}
+      <section 
+        className="relative h-screen flex items-center justify-center overflow-hidden bg-white px-6 snap-start"
+      >
+        <div className="w-full flex justify-center items-center">
+          <img 
+            src="/lovabol/logotipo.svg" 
+            alt="NJB" 
+            className="logo-stage-img w-[70vw] md:w-[60vw] lg:w-[45vw] max-w-[800px] h-auto object-contain select-none transition-transform duration-700 hover:scale-[1.02]" 
+          />
+        </div>
+        
+        {/* Scroll Indicator */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-10 flex flex-col items-center gap-3"
+          onClick={() => document.getElementById('hero-content')?.scrollIntoView({ behavior: 'smooth' })}
+        >
+          <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-black/30">Scroll</span>
+          <div className="w-[1px] h-14 bg-black/5 relative overflow-hidden">
+            <motion.div 
+              animate={{ y: [0, 56] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-0 w-full h-1/3 bg-black/30"
+            />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Stage 2: Content/Video Hero */}
+      <section 
+        id="hero-content"
+        className="hero-content-stage relative min-h-screen flex items-center bg-white overflow-hidden pt-32 pb-24 md:py-0 px-6 md:px-12 lg:px-24 snap-start"
+      >
+        <div className="w-full max-w-[1400px] mx-auto">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-32">
+            
+            {/* Left Side: Tagline */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[55%] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+              <h1 className="hero-tagline text-[8.5vw] md:text-5xl lg:text-[5.5rem] font-heading font-medium tracking-tighter leading-[1.05] text-black mb-10 lg:mb-0">
+                {heroTagline.split(" ").map((word, i) => (
+                  <motion.span
+                    key={i}
+                    className="hero-tagline-word inline-block mr-[0.25em] whitespace-nowrap"
+                    whileHover={{ y: -8, color: "#154FD1" }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </h1>
             </div>
 
-            <h1 className="hero-tagline max-w-3xl text-3xl md:text-5xl lg:text-7xl font-heading font-medium tracking-tighter leading-[1.05] text-black">
-              {heroTagline.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  className="hero-tagline-word inline-block mr-[0.25em] whitespace-nowrap"
-                  whileHover={{ y: -8, color: "#154FD1" }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </h1>
-          </div>
-
-          {/* Right Side: Portrait Video */}
-          <div 
-            ref={videoRef}
-            className="relative w-full aspect-[3/4] md:aspect-[9/16] max-w-[420px] mx-auto lg:mr-0 lg:ml-auto rounded-[40px] overflow-hidden shadow-2xl border border-black/5 bg-zinc-50 group transition-all duration-700 hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)]"
-          >
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline
-              preload="auto"
-              poster="/lovabol/att_item1.jpg"
-              className="w-full h-full object-cover scale-[1.02] group-hover:scale-100 transition-transform duration-[3000ms]"
+            {/* Right Side: Portrait Video */}
+            <div 
+              ref={videoRef}
+              className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[440px] aspect-[9/16] flex-shrink-0 rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.18)] border border-black/5 bg-zinc-50 group"
             >
-              <source src="/lovabol/mobile.mp4" type="video/mp4" />
-            </video>
-            
-            {/* Subtle Glassmorphism Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+              <video 
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+                preload="auto"
+                key="hero-video-stage2-mobile"
+                className="w-full h-full object-cover"
+              >
+                <source src="/lovabol/mobile.mp4" type="video/mp4" />
+              </video>
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Trigger for next section scroll animations */}
-      <div id="vision-trigger" className="absolute bottom-10 w-full h-1" />
-    </section>
+        {/* Vision Trigger */}
+        <div id="vision-trigger" className="absolute bottom-10 w-full h-1" />
+      </section>
+    </div>
   );
 };
+
+
+
 
 
 
