@@ -27,248 +27,107 @@ const LinkedinModern = ({ size = 20, className = "" }: { size?: number, classNam
 
 const Hero = () => {
   const { t, language } = useLanguage();
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const taglineRef = useRef<HTMLParagraphElement>(null);
-  const trailContainerRef = useRef<HTMLDivElement>(null);
-  const tagline = t('hero.tagline');
-
-  // Motion Trail State & Refs
-  const images = [
-    '/lovabol/item2.jpg',
-    '/lovabol/item3.jpg',
-    '/lovabol/item4.png',
-    '/lovabol/item5.png',
-    '/lovabol/item6.png',
-    '/lovabol/image525.png'
-  ];
-  
-  const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const mousePos = useRef({ x: 0, y: 0 });
-  const lastMousePos = useRef({ x: 0, y: 0 });
-  const cacheMousePos = useRef({ x: 0, y: 0 });
-  const threshold = 80;
-  const currentImg = useRef(0);
-  const zIndexVal = useRef(1);
-
-  const heroTitle = t('hero.title');
-  const heroTagline = tagline;
+  const videoRef = useRef<HTMLDivElement>(null);
+  const heroTagline = t('hero.tagline');
 
   useLayoutEffect(() => {
-    if (!taglineRef.current || !titleRef.current) return;
-    
-    // We target the individual tagline words for the entry animation
-    const taglineWords = taglineRef.current.querySelectorAll('.hero-tagline-word');
-
-    // Logo Animation
-    gsap.from(".hero-logo-container", {
-      scale: 0.9,
-      opacity: 0,
-      duration: 1,
-      ease: "power2.out",
-      delay: 0.2
-    });
-
-    // Tagline Animation
-    gsap.from(taglineWords, {
-      opacity: 0,
-      y: 15,
-      stagger: 0.06,
-      duration: 0.5,
-      ease: "power2.out",
-      delay: 0.8
-    });
-
-    // Mouse Move Logic for Trail (kept as is)
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
-    };
-
-    const getDistance = (p1: {x:number, y:number}, p2: {x:number, y:number}) => {
-      return Math.hypot(p2.x - p1.x, p2.y - p1.y);
-    };
-
-    const render = () => {
-      const distance = getDistance(mousePos.current, lastMousePos.current);
-      
-      cacheMousePos.current.x = gsap.utils.interpolate(cacheMousePos.current.x, mousePos.current.x, 0.1);
-      cacheMousePos.current.y = gsap.utils.interpolate(cacheMousePos.current.y, mousePos.current.y, 0.1);
-
-      if (distance > threshold) {
-        showNextImage();
-        lastMousePos.current = { ...mousePos.current };
-      }
-      requestAnimationFrame(render);
-    };
-
-    const showNextImage = () => {
-      const img = imgRefs.current[currentImg.current];
-      if (!img) return;
-
-      zIndexVal.current++;
-      gsap.killTweensOf(img);
-      const tl = gsap.timeline();
-      
-      tl.set(img, {
-        opacity: 1,
-        scale: 1,
-        zIndex: zIndexVal.current,
-        x: mousePos.current.x - img.offsetWidth / 2,
-        y: mousePos.current.y - img.offsetHeight / 2,
-      })
-      .to(img, {
-        duration: 0.8,
-        ease: "power2.out",
+    const ctx = gsap.context(() => {
+      // Logo Animation
+      gsap.from(".hero-logo-img", {
+        scale: 0.95,
         opacity: 0,
-        scale: 0.5,
-        delay: 0.5,
+        duration: 1.2,
+        ease: "power2.out",
+        delay: 0.2
       });
 
-      currentImg.current = (currentImg.current + 1) % images.length;
-    };
+      // Staggered text animation for tagline
+      gsap.from(".hero-tagline-word", {
+        opacity: 0,
+        y: 25,
+        stagger: 0.04,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: 0.6
+      });
 
-    window.addEventListener('mousemove', handleMouseMove);
-    const animationId = requestAnimationFrame(render);
+      // Video container entrance
+      if (videoRef.current) {
+        gsap.from(videoRef.current, {
+          opacity: 0,
+          x: 60,
+          scale: 0.98,
+          duration: 1.4,
+          ease: "power3.out",
+          delay: 0.9
+        });
+      }
+    });
 
-    // Video Preloading Hints
-    const preloadDesktop = document.createElement('link');
-    preloadDesktop.rel = 'preload';
-    preloadDesktop.as = 'video';
-    preloadDesktop.href = '/lovabol/desktop.mp4';
-    
-    const preloadMobile = document.createElement('link');
-    preloadMobile.rel = 'preload';
-    preloadMobile.as = 'video';
-    preloadMobile.href = '/lovabol/mobile.mp4';
-    
-    document.head.appendChild(preloadDesktop);
-    document.head.appendChild(preloadMobile);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationId);
-      if (document.head.contains(preloadDesktop)) document.head.removeChild(preloadDesktop);
-      if (document.head.contains(preloadMobile)) document.head.removeChild(preloadMobile);
-    };
-  }, [heroTagline, language, images.length]);
+    return () => ctx.revert();
+  }, [language]);
 
   return (
     <section 
-      ref={sectionRef}
-      key={language} 
-      className="relative md:min-h-[100vh] flex flex-col justify-center md:justify-between items-center md:items-stretch gap-6 md:gap-0 pt-24 pb-8 md:py-32 px-12 md:px-24 overflow-hidden bg-white"
+      className="relative min-h-screen flex flex-col justify-center bg-white overflow-hidden pt-32 pb-16 md:pt-0"
     >
-      {/* Motion Trail Container */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {images.map((src, i) => (
-          <div
-            key={i}
-            ref={el => imgRefs.current[i] = el}
-            className="absolute opacity-0 w-32 md:w-48 aspect-square will-change-transform"
-          >
-            <img 
-              src={src} 
-              alt="" 
-              className="w-full h-full object-cover rounded-md" 
-            />
-          </div>
-        ))}
-      </div>
+      <div className="w-full px-6 md:px-12 lg:px-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+          
+          {/* Left Side: Content */}
+          <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full">
+            <div className="mb-12 md:mb-16 w-full flex justify-center lg:justify-start">
+              <img 
+                src="/lovabol/logotipo.svg" 
+                alt="NJB" 
+                className="hero-logo-img w-[60vw] md:w-[35vw] max-w-[550px] h-auto object-contain select-none pointer-events-none" 
+              />
+            </div>
 
-      <div
-        className="relative z-10 w-full flex md:justify-start justify-center pt-8 md:pt-0"
-      >
-        <div 
-          ref={titleRef}
-          className="hero-logo-container w-full flex md:justify-start justify-center"
-        >
-          <img 
-            src="/lovabol/logotipo.svg" 
-            alt="NJB" 
-            className="w-[42vw] md:w-[30vw] max-w-[600px] h-auto object-contain select-none pointer-events-none" 
-          />
+            <h1 className="hero-tagline max-w-3xl text-3xl md:text-5xl lg:text-7xl font-heading font-medium tracking-tighter leading-[1.05] text-black">
+              {heroTagline.split(" ").map((word, i) => (
+                <motion.span
+                  key={i}
+                  className="hero-tagline-word inline-block mr-[0.25em] whitespace-nowrap"
+                  whileHover={{ y: -8, color: "#154FD1" }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </h1>
+          </div>
+
+          {/* Right Side: Portrait Video */}
+          <div 
+            ref={videoRef}
+            className="relative w-full aspect-[3/4] md:aspect-[9/16] max-w-[420px] mx-auto lg:mr-0 lg:ml-auto rounded-[40px] overflow-hidden shadow-2xl border border-black/5 bg-zinc-50 group transition-all duration-700 hover:shadow-[0_45px_100px_-20px_rgba(0,0,0,0.15)]"
+          >
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              preload="auto"
+              poster="/lovabol/att_item1.jpg"
+              className="w-full h-full object-cover scale-[1.02] group-hover:scale-100 transition-transform duration-[3000ms]"
+            >
+              <source src="/lovabol/mobile.mp4" type="video/mp4" />
+            </video>
+            
+            {/* Subtle Glassmorphism Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+          </div>
         </div>
       </div>
 
-      <div className="w-full flex md:justify-end justify-center pb-8 md:pb-0 relative z-10">
-        <p
-          ref={taglineRef}
-          className="hero-tagline max-w-sm md:max-w-xl text-2xl md:text-5xl font-heading font-medium md:leading-[1.1] leading-tight text-center md:text-right select-none text-black flex flex-wrap justify-center md:justify-end gap-x-[0.3em]"
-        >
-          {heroTagline.split(" ").map((word, i) => (
-            <motion.span
-              key={i}
-              className="hero-tagline-word inline-block whitespace-nowrap"
-              whileHover={{ y: -15 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              {word}
-            </motion.span>
-          ))}
-        </p>
-      </div>
-      <div id="vision-trigger" className="absolute bottom-0 w-full h-1" />
+      {/* Trigger for next section scroll animations */}
+      <div id="vision-trigger" className="absolute bottom-10 w-full h-1" />
     </section>
   );
 };
 
-const ExpandingImage = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const boxRef = useRef<HTMLDivElement>(null);
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-  useLayoutEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useLayoutEffect(() => {
-    if (!containerRef.current || !boxRef.current) return;
-
-    gsap.fromTo(boxRef.current, {
-      width: isMobile ? "95%" : "50%",
-      height: isMobile ? "70vh" : "50vh",
-      borderRadius: isMobile ? "1.2rem" : "2rem",
-    }, {
-      width: "100%",
-      height: "100vh",
-      borderRadius: "0rem",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1,
-      }
-    });
-  }, [isMobile]);
-
-  return (
-    <section ref={containerRef} className="relative h-[100vh] md:h-[120vh] flex items-center justify-center bg-white overflow-hidden">
-      <div 
-        ref={boxRef}
-        className="bg-zinc-100 flex items-center justify-center overflow-hidden rounded-[2rem]"
-      >
-        <video 
-          key={isMobile ? "mobile" : "desktop"}
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          preload="auto"
-          poster="/lovabol/att_item1.jpg"
-          className="w-full h-full object-cover"
-        >
-          <source 
-            src={isMobile ? "/lovabol/mobile.mp4" : "/lovabol/desktop.mp4"} 
-            type="video/mp4" 
-          />
-        </video>
-      </div>
-    </section>
-  );
-};
 
 const CompanyValue = () => {
   const { t } = useLanguage();
@@ -1625,7 +1484,6 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <AccordionNavbar />
       <Hero />
-      <ExpandingImage />
       <div id="color-transition-wrapper" className="bg-white">
         <CompanyValue />
         <Mission />
