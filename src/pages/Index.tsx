@@ -372,7 +372,7 @@ const ProjectMagazine = () => {
     { src: "/proyectos/Tularosa/item5.png", alt: "Restauration 2" },
     { src: "/proyectos/Real-Estate/brandboard.png", alt: "Real Estate 2" },
     { src: "/proyectos/Sportswear/item-1.jpg", alt: "Sportswear 2" },
-    { src: "/lovabol/item4.png", alt: "Lovabol Focus" },
+    { src: "/lovabol/restauracion.jpg", alt: "Restauration" },
   ];
 
   useLayoutEffect(() => {
