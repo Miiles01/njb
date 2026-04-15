@@ -110,13 +110,22 @@ const Hero = () => {
       {/* Stage 2: Content/Video Hero */}
       <section 
         id="hero-content"
-        className="hero-content-stage relative min-h-screen flex items-center bg-white overflow-hidden pt-32 pb-24 md:py-0 px-6 md:px-12 lg:px-24 snap-start"
+        className="hero-content-stage relative min-h-screen flex items-center bg-white overflow-hidden pt-28 pb-24 md:py-0 px-6 md:px-12 lg:px-24 snap-start"
       >
         <div className="w-full max-w-[1400px] mx-auto">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-32">
             
-            {/* Left Side: Tagline */}
+            {/* Left Side: Logo (Mobile Only) + Tagline */}
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[55%] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+              {/* Mobile-only logo header for Stage 2 */}
+              <div className="mb-10 lg:hidden w-full flex justify-center">
+                <img 
+                  src="/lovabol/logotipo.svg" 
+                  alt="NJB" 
+                  className="hero-stage2-mobile-logo w-[55vw] max-w-[300px] h-auto object-contain"
+                />
+              </div>
+
               <h1 className="hero-tagline text-[8.5vw] md:text-5xl lg:text-[5.5rem] font-heading font-medium tracking-tighter leading-[1.05] text-black mb-10 lg:mb-0">
                 {heroTagline.split(" ").map((word, i) => (
                   <motion.span
