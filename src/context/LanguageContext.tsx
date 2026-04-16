@@ -38,13 +38,44 @@ const translations = {
         'work.title': 'Proyectos',
         'work.subtitle': 'Pensamos con propósito para marcas que buscan autenticidad y escalabilidad.',
 
-        // Projects
-        'proj.tularosa.subtitle': 'Estrategia visual y comunicación para el sector de hôtellerie y gastronomía.',
-        'proj.original.subtitle': 'Dirección de arte y presencia digital para el sector de la barbería y cuidado personal.',
-        'proj.realestate.subtitle': 'Marketing inmobiliario de lujo y estrategia de marca.',
-        'proj.sportswear.subtitle': 'E-commerce y dirección de arte para marca de ropa deportiva.',
+        // Projects (New Structure)
+        'proj.bar.subtitle': 'Estrategia de marca y creación de contenido para la industria nocturna.',
+        'proj.club.subtitle': 'Dirección de arte y presencia digital para clubes y espacios exclusivos.',
+        'proj.marca-deportiva.subtitle': 'E-commerce y dirección de arte para marcas de ropa deportiva.',
+        'proj.restaurante.subtitle': 'Marketing gastronómico y estrategia visual para el sector restaurantero.',
+        'proj.sesiones.subtitle': 'Producción audiovisual y sesiones de contenido de alto impacto.',
+        'proj.social-events.subtitle': 'Estrategia y cobertura digital para eventos sociales y corporativos.',
+        'proj.realestate.subtitle': 'Marketing de lujo y branding estratégico para el sector inmobiliario.',
 
-        // Project Details
+        // Project Details (New)
+        'proj.bar.industry': 'Vida Nocturna',
+        'proj.bar.role': 'Estrategia de Marca y Contenido',
+        'proj.bar.description': 'Creamos una identidad visual vibrante y magnética para el sector nocturno, enfocada en capturar la energía y exclusividad del espacio a través de contenido cinemático y publicidad segmentada.',
+        
+        'proj.club.industry': 'Clubes y Espacios Exclusivos',
+        'proj.club.role': 'Dirección de Arte y Digital',
+        'proj.club.description': 'Transformamos la presencia digital de espacios nocturnos mediante una dirección de arte audaz y estrategias de contenido que impulsan la reserva y el reconocimiento de marca.',
+        
+        'proj.marca-deportiva.industry': 'Moda Deportiva y Lifestyle',
+        'proj.marca-deportiva.role': 'E-commerce y Dirección Creativa',
+        'proj.marca-deportiva.description': 'Elevamos marcas de ropa deportiva con una dirección creativa enfocada en el rendimiento y el estilo, optimizando la experiencia de compra y la narrativa visual.',
+        
+        'proj.restaurante.industry': 'Gastronomía y Hospitalidad',
+        'proj.restaurante.role': 'Marketing Gastronómico',
+        'proj.restaurante.description': 'Desarrollamos estrategias integrales para el sector restaurantero, conectando la esencia culinaria con los comensales a través de una identidad visual potente y campañas de conversión.',
+        
+        'proj.sesiones.industry': 'Producción Audiovisual',
+        'proj.sesiones.role': 'Contenido de Alto Impacto',
+        'proj.sesiones.description': 'Sesiones de contenido diseñadas para marcas que buscan destacar en la era digital, combinando calidad cinematográfica con objetivos claros de negocio.',
+        
+        'proj.social-events.industry': 'Eventos Sociales y Corporativos',
+        'proj.social-events.role': 'Cobertura y Estrategia Digital',
+        'proj.social-events.description': 'Capturamos la esencia de grandes eventos, proporcionando un valor estratégico que trasciende la simple cobertura visual.',
+
+        'proj.realestate.industry': 'Inmobiliaria de Lujo',
+        'proj.realestate.role': 'Marketing de Lujo y Branding',
+        'proj.realestate.description': 'Propuestas visuales de alto nivel para el sector inmobiliario, centradas en la exclusividad y la generación de confianza mediante una identidad impecable.',
+
         'proj.details.strategy': 'Planificación Funcional',
         'proj.details.backToWork': 'Volver a proyectos',
 
@@ -207,13 +238,44 @@ const translations = {
         'work.title': 'Projects',
         'work.subtitle': 'We think with purpose for brands seeking authenticity and scalability.',
 
-        // Projects
-        'proj.tularosa.subtitle': 'Visual strategy and communication for the hospitality and gastronomy sector.',
-        'proj.original.subtitle': 'Art direction and digital presence for the barbershop and personal care sector.',
-        'proj.realestate.subtitle': 'Luxury real estate marketing and brand strategy.',
-        'proj.sportswear.subtitle': 'E-commerce and art direction for sportswear brand.',
+        // Projects (New Structure)
+        'proj.bar.subtitle': 'Brand strategy and content creation for the nightlife industry.',
+        'proj.club.subtitle': 'Art direction and digital presence for exclusive clubs and venues.',
+        'proj.marca-deportiva.subtitle': 'E-commerce and art direction for sportswear brands.',
+        'proj.restaurante.subtitle': 'Gastronomic marketing and visual strategy for the restaurant sector.',
+        'proj.sesiones.subtitle': 'Audiovisual production and high-impact content sessions.',
+        'proj.social-events.subtitle': 'Digital strategy and coverage for social and corporate events.',
+        'proj.realestate.subtitle': 'Luxury marketing and strategic branding for the real estate sector.',
 
-        // Project Details
+        // Project Details (New)
+        'proj.bar.industry': 'Nightlife',
+        'proj.bar.role': 'Brand Strategy & Content',
+        'proj.bar.description': 'We create a vibrant and magnetic visual identity for the nightlife sector, focused on capturing the space\'s energy and exclusivity through cinematic content and targeted advertising.',
+        
+        'proj.club.industry': 'Clubs & Exclusive Venues',
+        'proj.club.role': 'Art Direction & Digital',
+        'proj.club.description': 'We transform the digital presence of nightlife venues through bold art direction and content strategies that drive bookings and brand recognition.',
+        
+        'proj.marca-deportiva.industry': 'Sportswear & Lifestyle',
+        'proj.marca-deportiva.role': 'E-commerce & Creative Direction',
+        'proj.marca-deportiva.description': 'We elevate sportswear brands with creative direction focused on performance and style, optimizing the shopping experience and visual narrative.',
+        
+        'proj.restaurante.industry': 'Gastronomy & Hospitality',
+        'proj.restaurante.role': 'Gastronomic Marketing',
+        'proj.restaurante.description': 'We develop comprehensive strategies for the restaurant sector, connecting the culinary essence with diners through a powerful visual identity and conversion campaigns.',
+        
+        'proj.sesiones.industry': 'Audiovisual Production',
+        'proj.sesiones.role': 'High-Impact Content',
+        'proj.sesiones.description': 'Content sessions designed for brands looking to stand out in the digital age, combining cinematic quality with clear business objectives.',
+        
+        'proj.social-events.industry': 'Social & Corporate Events',
+        'proj.social-events.role': 'Coverage & Digital Strategy',
+        'proj.social-events.description': 'We capture the essence of large events, providing strategic value that transcends simple visual coverage.',
+
+        'proj.realestate.industry': 'Luxury Real Estate',
+        'proj.realestate.role': 'Luxury Marketing & Branding',
+        'proj.realestate.description': 'High-level visual proposals for the real estate sector, focused on exclusivity and building trust through an impeccable identity.',
+
         'proj.details.strategy': 'Action Plan',
         'proj.details.backToWork': 'Back to projects',
 
@@ -374,13 +436,44 @@ const translations = {
         'work.title': 'Projets',
         'work.subtitle': 'Nous réfléchissons avec un but précis pour les marques qui recherchent l\'authenticité et l\'évolutivité.',
 
-        // Projects
-        'proj.tularosa.subtitle': 'Stratégie visuelle et communication pour le secteur de l\'hôtellerie et de la gastronomie.',
-        'proj.original.subtitle': 'Direction artistique et présence numérique pour le secteur de la barberie et des soins personnels.',
-        'proj.realestate.subtitle': 'Marketing immobilier de luxe et stratégie de marque.',
-        'proj.sportswear.subtitle': 'E-commerce et direction artistique pour marque de vêtements de sport.',
+        // Projects (New Structure)
+        'proj.bar.subtitle': 'Stratégie de marque et création de contenu pour l\'industrie nocturne.',
+        'proj.club.subtitle': 'Direction artistique et présence numérique pour les clubs et lieux exclusifs.',
+        'proj.marca-deportiva.subtitle': 'E-commerce et direction artistique pour les marques de sport.',
+        'proj.restaurante.subtitle': 'Marketing gastronomique et stratégie visuelle pour le secteur de la restauration.',
+        'proj.sesiones.subtitle': 'Production audiovisuelle et sessions de contenu à fort impact.',
+        'proj.social-events.subtitle': 'Stratégie et couverture numérique pour les événements sociaux et corporatifs.',
+        'proj.realestate.subtitle': 'Marketing de luxe et branding stratégique pour le secteur immobilier.',
 
-        // Project Details
+        // Project Details (New)
+        'proj.bar.industry': 'Vie Nocturne',
+        'proj.bar.role': 'Stratégie de Marque & Contenu',
+        'proj.bar.description': 'Nous créons une identité visuelle vibrante et magnétique pour le secteur nocturne, axée sur la capture de l\'énergie et de l\'exclusivité à travers un contenu cinématographique.',
+        
+        'proj.club.industry': 'Clubs & Lieux Exclusifs',
+        'proj.club.role': 'Direction Artistique & Digital',
+        'proj.club.description': 'Nous transformons la présence numérique des lieux de nuit grâce à une direction artistique audacieuse et des stratégies de contenu qui stimulent les réservations.',
+        
+        'proj.marca-deportiva.industry': 'Vêtements de Sport & Lifestyle',
+        'proj.marca-deportiva.role': 'E-commerce & Direction Créative',
+        'proj.marca-deportiva.description': 'Nous élevons les marques de vêtements de sport avec une direction créative axée sur la performance et le style.',
+        
+        'proj.restaurante.industry': 'Gastronomie & Hôtellerie',
+        'proj.restaurante.role': 'Marketing Gastronomique',
+        'proj.restaurante.description': 'Nous développons des stratégies complètes pour le secteur de la restauration, reliant l\'essence culinaire aux clients.',
+        
+        'proj.sesiones.industry': 'Production Audiovisuelle',
+        'proj.sesiones.role': 'Contenu à Fort Impact',
+        'proj.sesiones.description': 'Sessions de contenu conçues pour les marques qui cherchent à se démarquer à l\'ère numérique.',
+        
+        'proj.social-events.industry': 'Événements Sociaux & Corporatifs',
+        'proj.social-events.role': 'Couverture & Stratégie Numérique',
+        'proj.social-events.description': 'Nous capturons l\'essence des grands événements, offrant une valeur stratégique qui dépasse la simple couverture visuelle.',
+
+        'proj.realestate.industry': 'Immobilier de Luxe',
+        'proj.realestate.role': 'Marketing de Luxe & Branding',
+        'proj.realestate.description': 'Propositions visuelles de haut niveau pour le secteur immobilier, axées sur l\'exclusivité.',
+
         'proj.details.strategy': 'Plan d\'action',
         'proj.details.backToWork': 'Retour aux projets',
 

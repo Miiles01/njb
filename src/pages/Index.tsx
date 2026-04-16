@@ -126,7 +126,7 @@ const Hero = () => {
                 />
               </div>
 
-              <h1 className="hero-tagline text-[8.5vw] md:text-5xl lg:text-[5.5rem] font-heading font-medium tracking-tighter leading-[1.05] text-black mb-10 lg:mb-0">
+              <h1 className="hero-tagline text-[7.5vw] md:text-4xl lg:text-[4.8rem] font-heading font-medium tracking-tighter leading-[1.05] text-black mb-10 lg:mb-0">
                 {heroTagline.split(" ").map((word, i) => (
                   <motion.span
                     key={i}

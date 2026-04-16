@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import React, { useState, useRef } from "react";
 import AccordionNavbar from "@/components/AccordionNavbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
@@ -7,7 +8,6 @@ import { useAnalytics } from "@/hooks/useAnalytics";
 import { usePublishedProjects, getImageUrl } from "@/hooks/useProjects";
 import type { ProjectWithImages } from "@/hooks/useProjects";
 import FloatingProjectInfo from "@/components/FloatingProjectInfo";
-import { useState } from "react";
 import type { Participation } from "@/data/projects";
 
 const getLangField = (project: ProjectWithImages, field: string, lang: string): string => {
@@ -24,11 +24,26 @@ const ProjectSection = ({
   lang: string;
   onProjectClick: (slug: string) => void;
 }) => {
+  const { t } = useLanguage();
   const cover = project.project_images?.find((i) => i.image_type === "cover");
   const secondary = project.project_images
     ?.filter((i) => i.image_type === "secondary")
     .sort((a, b) => a.sort_order - b.sort_order)
     .slice(0, 2);
+  
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => console.error("Error playing video:", err));
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
 
   return (
     <div className="mb-32">
@@ -37,20 +52,34 @@ const ProjectSection = ({
         to={`/proyecto/${project.slug}`}
         className="block w-full mb-8"
         onClick={() => onProjectClick(project.slug)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="aspect-[16/9] w-full overflow-hidden rounded-[2rem] bg-secondary/5"
+          className="aspect-[16/9] w-full overflow-hidden rounded-[2rem] bg-secondary/5 group"
         >
           {cover && (
-            <img
-              src={getImageUrl(cover.storage_path)}
-              alt={cover.alt_text || project.title}
-              className={`w-full h-full object-cover hover:scale-105 transition-transform duration-700 ${project.slug === "sportswear" ? "object-bottom" : ""}`}
-            />
+            /\.(mp4|webm|ogg|mov)$/i.test(cover.storage_path) ? (
+              <video
+                ref={videoRef}
+                src={getImageUrl(cover.storage_path)}
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01] ${project.slug === "marca-deportiva" ? "object-bottom" : ""}`}
+              />
+            ) : (
+              <img
+                src={getImageUrl(cover.storage_path)}
+                alt={cover.alt_text || project.title}
+                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${project.slug === "marca-deportiva" ? "object-bottom" : ""}`}
+              />
+            )
           )}
         </motion.div>
       </Link>
@@ -91,7 +120,7 @@ const ProjectSection = ({
           </h3>
         </Link>
         <p className="text-lg font-heading font-light opacity-60 max-w-xl">
-          {getLangField(project, "subtitle", lang)}
+          {t(getLangField(project, "subtitle", lang))}
         </p>
       </motion.div>
     </div>

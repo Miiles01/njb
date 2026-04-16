@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -21,6 +21,19 @@ const fadeUp = {
 /* ── Full-width media block ── */
 const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; index: number }) => {
   const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(src);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(err => console.error("Error playing video:", err));
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
 
   return (
     <motion.div
@@ -29,17 +42,19 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={fadeUp}
-      className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5 cursor-pointer group"
     >
       {isVideo ? (
         <video
+          ref={videoRef}
           src={src}
-          autoPlay
           loop
           muted
           playsInline
           preload="auto"
-          className={`w-full h-auto object-cover ${src.includes("Sportswear") ? "object-bottom" : ""}`}
+          className={`w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.01] ${src.includes("Sportswear") ? "object-bottom" : ""}`}
         />
       ) : (
         <img
@@ -47,7 +62,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
           alt={alt}
           loading={index < 2 ? "eager" : "lazy"}
           decoding="async"
-          className={`w-full h-auto object-cover ${src.includes("Sportswear") ? "object-bottom" : ""}`}
+          className={`w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 ${src.includes("Sportswear") ? "object-bottom" : ""}`}
         />
       )}
     </motion.div>
@@ -93,10 +108,10 @@ const Proyecto = () => {
   const coverImage = allImages[0];
   const galleryImages = allImages.slice(1);
 
-  const description = getLang(project, "description", language);
-  const strategy = getLang(project, "strategy", language);
-  const industry = getLang(project, "industry", language);
-  const role = getLang(project, "role", language);
+  const description = t(getLang(project, "description", language));
+  const strategy = t(getLang(project, "strategy", language));
+  const industry = t(getLang(project, "industry", language));
+  const role = t(getLang(project, "role", language));
 
   return (
     <div className="min-h-screen bg-white flex flex-col">

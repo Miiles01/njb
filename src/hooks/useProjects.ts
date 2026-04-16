@@ -1,6 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
+import { projectsData } from "@/data/projects";
 
 export type Project = Tables<"projects">;
 export type ProjectImage = Tables<"project_images">;
@@ -10,40 +8,75 @@ export const usePublishedProjects = () =>
   useQuery({
     queryKey: ["projects", "published"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("projects")
-        .select("*, project_images(*)")
-        .eq("published", true)
-        .order("sort_order");
-      if (error) throw error;
-      return data as ProjectWithImages[];
+      // Transition to local data as requested for better control
+      return Object.entries(projectsData).map(([slug, project]) => ({
+        id: slug,
+        slug,
+        title: project.title,
+        published: true,
+        subtitle_es: project.subtitleKey,
+        subtitle_en: project.subtitleKey,
+        subtitle_fr: project.subtitleKey,
+        industry_es: project.industryKey,
+        industry_en: project.industryKey,
+        industry_fr: project.industryKey,
+        role_es: project.roleKey,
+        role_en: project.roleKey,
+        role_fr: project.roleKey,
+        description_es: project.descriptionKey,
+        description_en: project.descriptionKey,
+        description_fr: project.descriptionKey,
+        sort_order: 0,
+        project_images: project.images.map((img, idx) => ({
+          id: `${slug}-${idx}`,
+          project_id: slug,
+          storage_path: `/proyectos/${project.folder}/${img}`,
+          image_type: idx === 0 ? "cover" : "secondary",
+          sort_order: idx,
+          alt_text: project.title,
+          created_at: new Date().toISOString()
+        }))
+      })) as any as ProjectWithImages[];
     },
   });
 
-export const useAllProjects = () =>
-  useQuery({
-    queryKey: ["projects", "all"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("projects")
-        .select("*, project_images(*)")
-        .order("sort_order");
-      if (error) throw error;
-      return data as ProjectWithImages[];
-    },
-  });
+export const useAllProjects = () => usePublishedProjects();
 
 export const useProject = (slug: string) =>
   useQuery({
     queryKey: ["project", slug],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("projects")
-        .select("*, project_images(*)")
-        .eq("slug", slug)
-        .single();
-      if (error) throw error;
-      return data as ProjectWithImages;
+      const project = projectsData[slug as keyof typeof projectsData];
+      if (!project) throw new Error("Project not found");
+      
+      return {
+        id: slug,
+        slug,
+        title: project.title,
+        published: true,
+        subtitle_es: project.subtitleKey,
+        subtitle_en: project.subtitleKey,
+        subtitle_fr: project.subtitleKey,
+        industry_es: project.industryKey,
+        industry_en: project.industryKey,
+        industry_fr: project.industryKey,
+        role_es: project.roleKey,
+        role_en: project.roleKey,
+        role_fr: project.roleKey,
+        description_es: project.descriptionKey,
+        description_en: project.descriptionKey,
+        description_fr: project.descriptionKey,
+        sort_order: 0,
+        project_images: project.images.map((img, idx) => ({
+          id: `${slug}-${idx}`,
+          project_id: slug,
+          storage_path: `/proyectos/${project.folder}/${img}`,
+          image_type: idx === 0 ? "cover" : "secondary",
+          sort_order: idx,
+          alt_text: project.title,
+          created_at: new Date().toISOString()
+        }))
+      } as any as ProjectWithImages;
     },
     enabled: !!slug,
   });
