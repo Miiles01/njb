@@ -161,7 +161,6 @@ export const projectsData: Record<string, ProjectData> = {
         descriptionKey: "proj.realestate.description",
         images: [
             "item-1.png",
-            "portada.jpg",
             "brandboard.png",
             "item-3.png",
             "item-2.png",
