@@ -72,13 +72,13 @@ const ProjectSection = ({
                 muted
                 playsInline
                 preload="auto"
-                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01] ${project.slug === "marca-deportiva" ? "object-bottom" : ""}`}
+                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01] ${project.slug === "marca-deportiva" ? "object-bottom" : ""} ${project.slug === "social-events" ? "object-top" : ""}`}
               />
             ) : (
               <img
                 src={getImageUrl(cover.storage_path)}
                 alt={cover.alt_text || project.title}
-                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${project.slug === "marca-deportiva" ? "object-bottom" : ""}`}
+                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${project.slug === "marca-deportiva" ? "object-bottom" : ""} ${project.slug === "social-events" ? "object-top" : ""}`}
               />
             )
           )}

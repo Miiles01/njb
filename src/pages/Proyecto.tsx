@@ -54,7 +54,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
           muted
           playsInline
           preload="auto"
-          className={`w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.01] ${src.includes("Sportswear") ? "object-bottom" : ""}`}
+          className={`w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.01] ${src.includes("marca-deportiva") ? "object-bottom" : ""} ${src.includes("social-events") ? "object-top" : ""}`}
         />
       ) : (
         <img
@@ -62,7 +62,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
           alt={alt}
           loading={index < 2 ? "eager" : "lazy"}
           decoding="async"
-          className={`w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 ${src.includes("Sportswear") ? "object-bottom" : ""}`}
+          className={`w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 ${src.includes("marca-deportiva") ? "object-bottom" : ""} ${src.includes("social-events") ? "object-top" : ""}`}
         />
       )}
     </motion.div>
