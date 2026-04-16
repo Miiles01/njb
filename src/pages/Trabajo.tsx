@@ -67,6 +67,7 @@ const ProjectSection = ({
               <video
                 ref={videoRef}
                 src={getImageUrl(cover.storage_path)}
+                autoPlay
                 loop
                 muted
                 playsInline
