@@ -52,8 +52,6 @@ const ProjectSection = ({
         to={`/proyecto/${project.slug}`}
         className="block w-full mb-8"
         onClick={() => onProjectClick(project.slug)}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
