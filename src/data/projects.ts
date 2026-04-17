@@ -23,7 +23,7 @@ export const projectsData: Record<string, ProjectData> = {
         roleKey: "proj.bar.role",
         descriptionKey: "proj.bar.description",
         images: [
-            "Imaganes preview/9A0ADB9E-79CB-4A8C-A066-656C12282E67segment_video_2.mp4",
+            "https://youtube.com/shorts/0LjbP3K56mI",
             "Imaganes preview/6E812A4C-4BC6-4099-825E-618A91AEE912.webp",
             "Imaganes preview/70891831-6EA7-430A-A7AF-1412597E5498.webp",
             "att_item1.jpg",
