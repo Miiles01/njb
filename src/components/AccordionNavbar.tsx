@@ -102,7 +102,11 @@ const AccordionNavbar = () => {
                 }}
                 className="fixed left-1/2 -translate-x-1/2 z-[100] border flex items-center justify-between px-8 md:px-12"
             >
-                <motion.div style={{ color: textColor }}>
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+                >
                     <Link to="/" className="flex items-center group">
                         <img 
                             src="/lovabol/logotipo.svg" 

@@ -34,11 +34,10 @@ const Hero = () => {
     const ctx = gsap.context(() => {
       // Stage 1: Centered Logo Entrance
       gsap.from(".logo-stage-img", {
-        scale: 0.9,
         opacity: 0,
-        duration: 1.5,
-        ease: "power3.out",
-        delay: 0.2
+        duration: 2,
+        ease: "power2.inOut",
+        delay: 0.3
       });
 
       // Stage 2: Content Section Entrance
@@ -119,7 +118,11 @@ const Hero = () => {
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[55%] animate-in fade-in slide-in-from-bottom-4 duration-1000">
               {/* Mobile-only logo header for Stage 2 */}
               <div className="mb-10 lg:hidden w-full flex justify-center">
-                <img 
+                <motion.img 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
                   src="/lovabol/logotipo.svg" 
                   alt="NJB" 
                   className="hero-stage2-mobile-logo w-[55vw] max-w-[300px] h-auto object-contain"
