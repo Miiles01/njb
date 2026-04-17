@@ -663,29 +663,6 @@ const StackedValue = () => {
 
 const Solution = () => {
   const { t, language } = useLanguage();
-  const descriptionRef = useRef<HTMLHeadingElement>(null);
-
-  useLayoutEffect(() => {
-    if (!descriptionRef.current) return;
-
-    const split = new SplitType(descriptionRef.current, { types: "words" });
-    
-    gsap.set(split.words, { color: "rgba(255,255,255,0.15)" });
-
-    gsap.to(split.words, {
-      color: "#fff",
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: descriptionRef.current,
-        start: "top 80%",
-        end: "bottom 40%",
-        scrub: true,
-      },
-    });
-
-    return () => split.revert();
-  }, [language]);
-
   const items = [
     { key: 'solution.item1', icon: Video },
     { key: 'solution.item2', icon: Megaphone, bestseller: true },
@@ -707,12 +684,14 @@ const Solution = () => {
             <Rocket size={14} className="text-white" />
             {t('solution.title')}
           </motion.div>
-          <h2 
-            ref={descriptionRef}
-            className="text-4xl md:text-7xl font-heading font-medium tracking-tighter mb-8 max-w-4xl leading-tight"
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-7xl font-heading font-medium tracking-tighter mb-8 max-w-4xl leading-tight text-white"
           >
             {t('solution.description')}
-          </h2>
+          </motion.h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
