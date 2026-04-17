@@ -33,7 +33,7 @@ export const usePublishedProjects = () =>
         project_images: project.images.map((img, idx) => ({
           id: `${slug}-${idx}`,
           project_id: slug,
-          storage_path: `/proyectos/${project.folder}/${img}`,
+          storage_path: img.startsWith("http") ? img : `/proyectos/${project.folder}/${img}`,
           image_type: idx === 0 ? "cover" : "secondary",
           sort_order: idx,
           alt_text: project.title,
@@ -73,7 +73,7 @@ export const useProject = (slug: string) =>
         project_images: project.images.map((img, idx) => ({
           id: `${slug}-${idx}`,
           project_id: slug,
-          storage_path: `/proyectos/${project.folder}/${img}`,
+          storage_path: img.startsWith("http") ? img : `/proyectos/${project.folder}/${img}`,
           image_type: idx === 0 ? "cover" : "secondary",
           sort_order: idx,
           alt_text: project.title,

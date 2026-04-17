@@ -21,7 +21,20 @@ const fadeUp = {
 /* ── Full-width media block ── */
 const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; index: number }) => {
   const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(src);
+  const isYouTube = src.includes("youtube.com") || src.includes("youtu.be");
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Extract YouTube ID
+  let youtubeId = "";
+  if (isYouTube) {
+    if (src.includes("/shorts/")) {
+      youtubeId = src.split("/shorts/")[1].split("?")[0];
+    } else if (src.includes("v=")) {
+      youtubeId = src.split("v=")[1].split("&")[0];
+    } else {
+      youtubeId = src.split("/").pop()?.split("?")[0] || "";
+    }
+  }
 
   const handleMouseEnter = () => {
     if (videoRef.current) {
@@ -44,9 +57,19 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
       variants={fadeUp}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5 cursor-pointer group"
+      className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5 cursor-pointer group relative"
     >
-      {isVideo ? (
+      {isYouTube ? (
+        <div className="aspect-[9/16] w-full">
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`}
+            className="w-[110%] h-[110%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] pointer-events-none object-cover"
+            title={alt}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          />
+        </div>
+      ) : isVideo ? (
         <video
           ref={videoRef}
           src={src}

@@ -43,16 +43,16 @@ export const projectsData: Record<string, ProjectData> = {
         roleKey: "proj.club.role",
         descriptionKey: "proj.club.description",
         images: [
-            "A92E605D-9C1C-45C7-9F5D-2DF3A6922A42segment_video_2.mp4",
-            "imaganes preview/copy_6A24855D-85A6-4432-98D7-F368AF53BFF3.mp4",
+            "https://youtube.com/shorts/HkINsy8Zz4Y",
+            "https://youtube.com/shorts/S46AV32pfwE",
             "imaganes preview/IMG_3201.webp",
             "imaganes preview/IMG_3204.webp",
             "imaganes preview/Imagen pequen??a 2 /WhatsApp Image 2026-04-12 at 22.49.57.jpeg",
             "IMG_3200.webp",
             "IMG_3202.webp",
             "IMG_3203.webp",
-            "copy_19BDAE2D-CC38-47F6-9D11-F44486E9D224.mp4",
-            "copy_B8A7DBD9-A6E5-41B1-A44E-C5C5FF9974AA.mp4"
+            "https://youtube.com/shorts/sQeNNcK8u1M",
+            "https://youtube.com/shorts/Nu1blQSxI8I"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
