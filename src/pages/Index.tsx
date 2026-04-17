@@ -151,10 +151,9 @@ const Hero = () => {
                 loop 
                 playsInline
                 preload="auto"
-                key="hero-video-stage2-mobile"
                 className="w-full h-full object-cover"
               >
-                <source src="/lovabol/mobile.mp4" type="video/mp4" />
+                <source src="https://drive.google.com/uc?id=1wgUgP5BgEszAiA3PK5diKZBObMkBPd0N" type="video/mp4" />
               </video>
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
@@ -954,34 +953,6 @@ const ContactLink = ({ label, value, href, icon: Icon, showTooltip = true, varia
 };
 // Animated SVG illustrations for the Offer cards
 const StrategyIllustration = () => {
-  const svgRef = useRef<SVGSVGElement>(null);
-
-  useLayoutEffect(() => {
-    if (!svgRef.current) return;
-    const ctx = gsap.context(() => {
-      // Set initial states
-      gsap.set(".chart-line", { strokeDasharray: 600, strokeDashoffset: 600 });
-      gsap.set(".data-dot", { opacity: 0, scale: 0, transformOrigin: "center center" });
-      gsap.set(".chart-bar", { scaleY: 0, transformOrigin: "bottom center" });
-      gsap.set(".grid-line", { opacity: 0 });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: svgRef.current,
-          start: "top 80%",
-          once: true,
-        }
-      });
-
-      tl.to(".grid-line", { opacity: 1, stagger: 0.05, duration: 0.3 })
-        .to(".chart-bar", { scaleY: 1, stagger: 0.06, duration: 0.4, ease: "power2.out" }, "-=0.1")
-        .to(".chart-line", { strokeDashoffset: 0, duration: 1.5, ease: "power2.inOut" }, "-=0.5")
-        .to(".data-dot", { opacity: 1, scale: 1, stagger: 0.1, duration: 0.3, ease: "back.out(2)" }, "-=0.8");
-    }, svgRef);
-
-    return () => ctx.revert();
-  }, []);
-
   const bars = [40, 70, 55, 90, 80, 120, 110, 150];
   const dots = [
     { cx: 44, cy: 165 }, { cx: 72, cy: 140 }, { cx: 100, cy: 150 },
@@ -990,7 +961,7 @@ const StrategyIllustration = () => {
   ];
 
   return (
-    <svg ref={svgRef} viewBox="0 0 280 200" className="w-full h-auto">
+    <svg viewBox="0 0 280 200" className="w-full h-auto">
       {/* Background grid */}
       {[...Array(6)].map((_, i) => (
         <line key={`g${i}`} className="grid-line" x1="20" y1={30 + i * 30} x2="260" y2={30 + i * 30}
@@ -998,7 +969,7 @@ const StrategyIllustration = () => {
       ))}
       {/* Rising bar chart */}
       {bars.map((h, i) => (
-        <rect key={i} className="chart-bar" x={35 + i * 28} y={200 - h} width="18" height={h} rx="4"
+        <rect key={i} x={35 + i * 28} y={200 - h} width="18" height={h} rx="4"
           fill={i >= 6 ? "#000" : "#e4e4e7"} />
       ))}
       {/* Trend line */}
@@ -1006,7 +977,7 @@ const StrategyIllustration = () => {
         fill="none" stroke="#000" strokeWidth="2" strokeLinecap="round" />
       {/* Data dots */}
       {dots.map((d, i) => (
-        <circle key={i} className="data-dot" cx={d.cx} cy={d.cy} r="4" fill="#000" />
+        <circle key={i} cx={d.cx} cy={d.cy} r="4" fill="#000" />
       ))}
     </svg>
   );
@@ -1026,12 +997,9 @@ const ScaleIllustration = () => {
   const letters = typingText.split("");
 
   return (
-    <motion.svg
+    <svg
       viewBox="0 0 280 200"
       className="w-full h-auto bg-[#F9F9F9] rounded-xl overflow-hidden shadow-2xl border border-zinc-200/50"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
     >
       <defs>
         <pattern id="dotGridHD" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
@@ -1095,19 +1063,11 @@ const ScaleIllustration = () => {
       {/* Property Inputs */}
       <g transform="translate(244, 40)">
         <text y="0" fontSize="5" fill="#999">X</text>
-        <motion.text x="8" y="0" fontSize="5.5" fill="#333"
-          animate={{ opacity: [1, 0, 1] }} 
-          transition={{ duration: 6, times: [0.45, 0.47, 0.55], repeat: Infinity }}
-        >
-          {/* We simulate the change with a simple overlaying values trick */}
+        <text x="8" y="0" fontSize="5.5" fill="#333">
           <tspan x="8">
-            {/* Logic: show '40' then '120' during the drag animation timestamps */}
+            120
           </tspan>
-        </motion.text>
-        <motion.tspan x="8" fill="#333" fontSize="5.5">
-          {/* Static values for now as changing text content precisely in keyframes is tricky in inline SVG */}
-          124
-        </motion.tspan>
+        </text>
 
         <text y="10" fontSize="5" fill="#999">Y</text>
         <text x="8" y="10" fontSize="5.5" fill="#333">240</text>
@@ -1121,38 +1081,22 @@ const ScaleIllustration = () => {
         {/* --- Main Design Area --- */}
         <g transform="translate(40, 18)">
           {/* Alignment Smart Guides */}
-          <motion.line 
+          <line 
             x1="110" y1="0" x2="110" y2="182" 
             stroke={figmaBlue} strokeWidth="0.5" strokeDasharray="3,3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0, 1, 1, 0, 0] }}
-            transition={{ duration: 7, repeat: Infinity, times: [0, 0.45, 0.48, 0.72, 0.75, 1] }}
           />
 
           {/* The Frame / Section handle (DRAGGABLE) */}
-          <motion.g
-            animate={{ 
-              x: [20, 20, 110, 110, 20], 
-              y: [60, 60, 60, 60, 60] 
-            }}
-            transition={{ 
-              duration: 7, 
-              repeat: Infinity, 
-              ease: designerEase,
-              times: [0, 0.3, 0.7, 0.8, 1]
-            }}
+          <g
+            transform="translate(110, 60)"
           >
-            {/* Highlight selection box */}
-            <motion.rect 
+            {/* Selection box */}
+            <rect 
               width="80" height="40" rx="2" 
               fill="white" 
               stroke={figmaBlue} 
-              strokeWidth="1"
-              animate={{ 
-                strokeWidth: [1, 1, 2, 2, 1],
-                boxShadow: ["0 0 0 rgba(0,0,0,0)", "0 0 0 rgba(0,0,0,0)", "0 4px 12px rgba(24,160,251,0.2)", "0 4px 12px rgba(24,160,251,0.2)", "0 0 0 rgba(0,0,0,0)"]
-              }}
-              transition={{ duration: 7, repeat: Infinity, times: [0, 0.28, 0.3, 0.7, 0.72] }}
+              strokeWidth="2"
+              style={{ filter: "drop-shadow(0 4px 6px rgba(24,160,251,0.2))" }}
             />
 
             {/* Selection Nodes */}
@@ -1166,82 +1110,40 @@ const ScaleIllustration = () => {
             {/* Internal elements */}
             <rect x="10" y="12" width="60" height="4" rx="2" fill="#F0F0F0" />
             <rect x="10" y="22" width="40" height="4" rx="2" fill={figmaBlue} fillOpacity="0.2" />
-          </motion.g>
+          </g>
 
           {/* Text Area Typing */}
           <g transform="translate(20, 130)">
-            <motion.line
-              x1="0" y1="0" x2="0" y2="16"
+            <line
+              x1="95" y1="0" x2="95" y2="16"
               stroke={figmaPurple} strokeWidth="1.5"
-              animate={{ 
-                opacity: [1, 0, 1],
-                x: [0, 0, 95, 95, 0] 
-              }}
-              transition={{ 
-                opacity: { duration: 0.8, repeat: Infinity },
-                x: { duration: 7, repeat: Infinity, ease: designerEase, times: [0, 0.1, 0.7, 0.8, 1] }
-              }}
             />
             <text fontSize="12" fontFamily="Inter, sans-serif" fontWeight="500" fill="#333">
-              {letters.map((char, i) => (
-                <motion.tspan
-                  key={i}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 0, 1, 1, 0] }}
-                  transition={{ 
-                    duration: 7, 
-                    repeat: Infinity, 
-                    times: [0, 0.1 + (i * 0.02), 0.15 + (i * 0.02), 0.8, 1] 
-                  }}
-                >
-                  {char}
-                </motion.tspan>
-              ))}
+              Growth Strategy
             </text>
           </g>
 
           {/* --- Cursors (High Fidelity & Locked) --- */}
           
           {/* Architect Cursor */}
-          <motion.g
-            animate={{ 
-              x: [180, 20, 110, 110, 180], 
-              y: [140, 60, 60, 60, 140],
-              scale: [1, 1, 0.85, 0.85, 1] // Click effect during grab
-            }}
-            transition={{ 
-              duration: 7, 
-              repeat: Infinity, 
-              ease: designerEase,
-              times: [0, 0.3, 0.7, 0.8, 1]
-            }}
+          <g
+            transform="translate(110, 60)"
             filter="url(#cursorShadow)"
           >
             <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaBlue} stroke="white" strokeWidth="0.8" />
             <rect x="12" y="10" width="45" height="15" rx="3" fill={figmaBlue} />
             <text x="16" y="21" fontSize="8" fill="white" fontWeight="bold">NJB Dev</text>
-          </motion.g>
+          </g>
 
           {/* Writer Cursor */}
-          <motion.g
-            animate={{ 
-              x: [120, 20, 115, 115, 120], 
-              y: [160, 130, 130, 130, 160],
-              scale: [1, 1, 0.9, 0.9, 1]
-            }}
-            transition={{ 
-              duration: 7, 
-              repeat: Infinity, 
-              ease: designerEase, 
-              delay: 0.5,
-              times: [0, 0.1, 0.7, 0.8, 1]
-            }}
+          <g
+            transform="translate(115, 130)"
             filter="url(#cursorShadow)"
           >
             <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaPurple} stroke="white" strokeWidth="0.8" />
             <rect x="12" y="10" width="30" height="15" rx="3" fill={figmaPurple} />
             <text x="16" y="21" fontSize="8" fill="white">Copy</text>
-          </motion.g>
+          </g>
 
           {/* Avatar pile in top header (rendered here to be on top) */}
           <g transform="translate(190, -14)">
@@ -1250,7 +1152,7 @@ const ScaleIllustration = () => {
             <circle cx="12" cy="0" r="4" fill="#999" stroke={figmaDark} strokeWidth="0.5" />
           </g>
         </g>
-      </motion.svg>
+    </svg>
   );
 };
 
@@ -1276,27 +1178,19 @@ const Offer = () => {
     <section className="py-32 md:py-48 px-6 bg-white relative z-[10]">
       <div className="container mx-auto max-w-6xl">
         {/* Title */}
-        <motion.div
+        <div
           className="text-center mb-16 md:mb-24"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-5xl font-heading font-medium tracking-tight dynamic-text max-w-3xl mx-auto leading-tight">
             {t('offer.title')}
           </h2>
-        </motion.div>
+        </div>
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Card 1 - Strategy */}
-          <motion.div
+          <div
             className="bg-white rounded-[32px] border border-zinc-200/60 p-8 md:p-10 flex flex-col shadow-[0_8px_40px_-12px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] transition-shadow duration-500"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
           >
             <div className="bg-zinc-50 rounded-[24px] p-6 mb-8 overflow-hidden">
               <StrategyIllustration />
@@ -1306,30 +1200,22 @@ const Offer = () => {
             </h3>
             <ul className="space-y-4 flex-1">
               {card1Items.map((item, i) => (
-                <motion.li
+                <li
                   key={i}
                   className="flex items-start gap-3"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 + i * 0.1 }}
                 >
                   <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-black flex items-center justify-center">
                     <Check className="w-3 h-3 text-white" strokeWidth={3} />
                   </span>
                   <span className="text-base md:text-lg text-zinc-700 font-light">{item}</span>
-                </motion.li>
+                </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Card 2 - Scale */}
-          <motion.div
+          <div
             className="bg-white rounded-[32px] border border-zinc-200/60 p-8 md:p-10 flex flex-col shadow-[0_8px_40px_-12px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] transition-shadow duration-500"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.25 }}
           >
             <div className="bg-zinc-50 rounded-[24px] p-6 mb-8 overflow-hidden">
               <ScaleIllustration />
@@ -1339,31 +1225,23 @@ const Offer = () => {
             </h3>
             <ul className="space-y-4 flex-1">
               {card2Items.map((item, i) => (
-                <motion.li
+                <li
                   key={i}
                   className="flex items-start gap-3"
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 + i * 0.1 }}
                 >
                   <span className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full bg-black flex items-center justify-center">
                     <Check className="w-3 h-3 text-white" strokeWidth={3} />
                   </span>
                   <span className="text-base md:text-lg text-zinc-700 font-light">{item}</span>
-                </motion.li>
+                </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
         </div>
 
         {/* Footer notes */}
-        <motion.div
+        <div
           className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mt-12 md:mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
         >
           <div className="flex items-center gap-3 text-base md:text-lg font-heading font-medium text-black/80">
             <ArrowRight className="w-5 h-5" />
@@ -1373,7 +1251,7 @@ const Offer = () => {
             <AlertCircle className="w-5 h-5" />
             <span>{t('offer.footer.limited')}</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
