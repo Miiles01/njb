@@ -43,11 +43,11 @@ export const projectsData: Record<string, ProjectData> = {
         roleKey: "proj.club.role",
         descriptionKey: "proj.club.description",
         images: [
+            "A92E605D-9C1C-45C7-9F5D-2DF3A6922A42segment_video_2.MP4",
             "imaganes preview/copy_6A24855D-85A6-4432-98D7-F368AF53BFF3.mov",
             "imaganes preview/IMG_3201.png",
             "imaganes preview/IMG_3204.png",
             "imaganes preview/Imagen pequen??a 2 /WhatsApp Image 2026-04-12 at 22.49.57.jpeg",
-            "A92E605D-9C1C-45C7-9F5D-2DF3A6922A42segment_video_2.MP4",
             "IMG_3200.png",
             "IMG_3202.png",
             "IMG_3203.png",
