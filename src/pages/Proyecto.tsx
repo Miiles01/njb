@@ -63,7 +63,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
         <div className="aspect-[9/16] w-full">
           <iframe
             src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`}
-            className="w-[110%] h-[110%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] pointer-events-none object-cover"
+            className="w-[115%] h-[115%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] pointer-events-none object-cover"
             title={alt}
             allow="autoplay; encrypted-media"
             allowFullScreen

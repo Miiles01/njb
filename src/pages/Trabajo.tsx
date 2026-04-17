@@ -79,7 +79,7 @@ const ProjectSection = ({
                 <div className="w-full h-full">
                   <iframe
                     src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`}
-                    className="w-full h-[316%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none object-cover"
+                    className="w-[115%] h-[316%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none object-cover"
                     title={project.title}
                     allow="autoplay; encrypted-media"
                     allowFullScreen
