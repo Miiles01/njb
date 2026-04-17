@@ -147,7 +147,7 @@ const Hero = () => {
             >
               <iframe
                 src="https://www.youtube.com/embed/gWDVc3IUSYc?autoplay=1&mute=1&loop=1&playlist=gWDVc3IUSYc&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3"
-                className="w-full h-full object-cover pointer-events-none"
+                className="w-[110%] h-[110%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] pointer-events-none object-cover"
                 title="NJB Hero Video"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
