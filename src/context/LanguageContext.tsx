@@ -39,6 +39,13 @@ const translations = {
         'work.subtitle': 'Pensamos con propósito para marcas que buscan autenticidad y escalabilidad.',
 
         // Projects (New Structure)
+        'proj.bar.title': 'Bar',
+        'proj.club.title': 'Club',
+        'proj.marca-deportiva.title': 'Marca Deportiva',
+        'proj.restaurante.title': 'Restaurante',
+        'proj.sesiones.title': 'Sesiones de Contenido',
+        'proj.social-events.title': 'Social Events',
+        'proj.realestate.title': 'Real Estate',
         'proj.bar.subtitle': 'Estrategia de marca y creación de contenido para la industria nocturna.',
         'proj.club.subtitle': 'Dirección de arte y presencia digital para clubes y espacios exclusivos.',
         'proj.marca-deportiva.subtitle': 'E-commerce y dirección de arte para marcas de ropa deportiva.',
@@ -239,6 +246,13 @@ const translations = {
         'work.subtitle': 'We think with purpose for brands seeking authenticity and scalability.',
 
         // Projects (New Structure)
+        'proj.bar.title': 'Bar',
+        'proj.club.title': 'Club',
+        'proj.marca-deportiva.title': 'Sportswear Brand',
+        'proj.restaurante.title': 'Restaurant',
+        'proj.sesiones.title': 'Content Sessions',
+        'proj.social-events.title': 'Social Events',
+        'proj.realestate.title': 'Real Estate',
         'proj.bar.subtitle': 'Brand strategy and content creation for the nightlife industry.',
         'proj.club.subtitle': 'Art direction and digital presence for exclusive clubs and venues.',
         'proj.marca-deportiva.subtitle': 'E-commerce and art direction for sportswear brands.',
@@ -437,6 +451,13 @@ const translations = {
         'work.subtitle': 'Nous réfléchissons avec un but précis pour les marques qui recherchent l\'authenticité et l\'évolutivité.',
 
         // Projects (New Structure)
+        'proj.bar.title': 'Bar',
+        'proj.club.title': 'Club',
+        'proj.marca-deportiva.title': 'Marque Sportive',
+        'proj.restaurante.title': 'Restaurant',
+        'proj.sesiones.title': 'Sessions de Contenu',
+        'proj.social-events.title': 'Événements Sociaux',
+        'proj.realestate.title': 'Immobilier',
         'proj.bar.subtitle': 'Stratégie de marque et création de contenu pour l\'industrie nocturne.',
         'proj.club.subtitle': 'Direction artistique et présence numérique pour les clubs et lieux exclusifs.',
         'proj.marca-deportiva.subtitle': 'E-commerce et direction artistique pour les marques de sport.',

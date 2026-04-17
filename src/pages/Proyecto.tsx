@@ -126,10 +126,10 @@ const Proyecto = () => {
             transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-6xl md:text-8xl lg:text-[8vw] font-heading font-medium tracking-tighter leading-none mb-8"
           >
-            {project.title}
+            {t(`proj.${project.slug}.title`) || project.title}
           </motion.h1>
 
-          {/* Meta info */}
+          {/* Meta info ... */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -182,39 +182,48 @@ const Proyecto = () => {
           </div>
         )}
 
-        {/* Image gallery */}
-        <div className="space-y-6 md:space-y-8">
-          {galleryImages.map((img, idx) => (
-            <React.Fragment key={img.id}>
-              <div className="px-4 md:px-8 lg:px-12">
-                <ProjectMediaDisplay
-                  src={getImageUrl(img.storage_path)}
-                  alt={img.alt_text || `${project.title} ${idx + 1}`}
-                  index={idx + 1}
-                />
-              </div>
+        {/* Image gallery in Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8 lg:px-12">
+          {galleryImages.map((img, idx) => {
+            const isLast = idx === galleryImages.length - 1;
+            const isDeportivaLast = project.slug === "marca-deportiva" && isLast;
+            const isRealEstateFirst = project.slug === "realestate" && idx === 0;
+            const isFullWidth = isDeportivaLast || isRealEstateFirst;
 
-              {/* Strategy after first gallery image */}
-              {idx === 0 && strategy && (
-                <div className="px-6 md:px-12 lg:px-20 container mx-auto my-20 md:my-32">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7 }}
-                    className="max-w-3xl border-t border-black/5 pt-12 md:pt-20"
-                  >
-                    <p className="text-xs tracking-widest text-muted-foreground mb-4 uppercase">
-                      {t("proj.details.strategy")}
-                    </p>
-                    <p className="text-xl md:text-3xl font-heading font-light leading-relaxed text-foreground/80">
-                      {strategy}
-                    </p>
-                  </motion.div>
+            return (
+              <React.Fragment key={img.id}>
+                <div className={isFullWidth ? "md:col-span-2" : ""}>
+                  <ProjectMediaDisplay
+                    src={getImageUrl(img.storage_path)}
+                    alt={img.alt_text || `${project.title} ${idx + 1}`}
+                    index={idx + 1}
+                  />
                 </div>
-              )}
-            </React.Fragment>
-          ))}
+
+                {/* Strategy block inside grid spanning 2 columns */}
+                {idx === 0 && strategy && (
+                  <div className="md:col-span-2 py-20 md:py-32">
+                    <div className="container mx-auto px-2 md:px-4 lg:px-8">
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7 }}
+                        className="max-w-3xl border-t border-black/5 pt-12 md:pt-20"
+                      >
+                        <p className="text-xs tracking-widest text-muted-foreground mb-4 uppercase">
+                          {t("proj.details.strategy")}
+                        </p>
+                        <p className="text-xl md:text-3xl font-heading font-light leading-relaxed text-foreground/80">
+                          {strategy}
+                        </p>
+                      </motion.div>
+                    </div>
+                  </div>
+                )}
+              </React.Fragment>
+            );
+          })}
         </div>
 
         {/* Back to projects */}
