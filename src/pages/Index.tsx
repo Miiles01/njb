@@ -369,8 +369,8 @@ const ProjectMagazine = () => {
     { src: "/proyectos/Real-Estate/item-1.png", alt: "Real Estate" },
     { src: "/proyectos/Sportswear/portada.jpg", alt: "Sportswear", align: "object-bottom" },
     { src: "/proyectos/Original/portada-1.webp", alt: "Barbería" },
-    { src: "/proyectos/Tularosa/item5.png", alt: "Restauration 2" },
-    { src: "/proyectos/Real-Estate/brandboard.png", alt: "Real Estate 2" },
+    { src: "/proyectos/Tularosa/item5.webp", alt: "Restauration 2" },
+    { src: "/proyectos/Real-Estate/brandboard.webp", alt: "Real Estate 2" },
     { src: "/proyectos/Sportswear/item-1.jpg", alt: "Sportswear 2" },
     { src: "/lovabol/restauracion.jpg", alt: "Restauration" },
   ];
