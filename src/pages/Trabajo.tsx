@@ -58,28 +58,59 @@ const ProjectSection = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="aspect-[16/9] w-full overflow-hidden rounded-[2rem] bg-secondary/5 group"
+          className="aspect-[16/9] w-full overflow-hidden rounded-[2rem] bg-secondary/5 group relative"
         >
-          {cover && (
-            /\.(mp4|webm|ogg|mov)$/i.test(cover.storage_path) ? (
-              <video
-                ref={videoRef}
-                src={getImageUrl(cover.storage_path)}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01] ${project.slug === "marca-deportiva" ? "object-bottom" : ""} ${project.slug === "social-events" ? "object-top" : ""}`}
-              />
-            ) : (
+          {cover && (() => {
+            const src = getImageUrl(cover.storage_path);
+            const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(src);
+            const isYouTube = src.includes("youtube.com") || src.includes("youtu.be");
+
+            if (isYouTube) {
+              let youtubeId = "";
+              if (src.includes("/shorts/")) {
+                youtubeId = src.split("/shorts/")[1].split("?")[0];
+              } else if (src.includes("v=")) {
+                youtubeId = src.split("v=")[1].split("&")[0];
+              } else {
+                youtubeId = src.split("/").pop()?.split("?")[0] || "";
+              }
+
+              return (
+                <div className="w-full h-full">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`}
+                    className="w-[110%] h-[110%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] pointer-events-none object-cover"
+                    title={project.title}
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                  />
+                </div>
+              );
+            }
+
+            if (isVideo) {
+              return (
+                <video
+                  ref={videoRef}
+                  src={src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01] ${project.slug === "marca-deportiva" ? "object-bottom" : ""} ${project.slug === "social-events" ? "object-top" : ""}`}
+                />
+              );
+            }
+
+            return (
               <img
-                src={getImageUrl(cover.storage_path)}
+                src={src}
                 alt={cover.alt_text || project.title}
                 className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${project.slug === "marca-deportiva" ? "object-bottom" : ""} ${project.slug === "social-events" ? "object-top" : ""}`}
               />
-            )
-          )}
+            );
+          })()}
         </motion.div>
       </Link>
 
