@@ -146,7 +146,7 @@ const Hero = () => {
               className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[440px] aspect-[9/16] flex-shrink-0 rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.18)] border border-black/5 bg-zinc-50 group"
             >
               <video 
-                key="hero-video-drive-1"
+                key="hero-video-drive-2"
                 autoPlay 
                 muted 
                 loop 
@@ -154,10 +154,17 @@ const Hero = () => {
                 preload="auto"
                 crossOrigin="anonymous"
                 className="w-full h-full object-cover"
+                onPlay={() => console.log("NJB Video Playing from Drive")}
+                onError={(e) => console.error("NJB Video Error:", e)}
               >
                 <source src="https://drive.google.com/uc?id=1wgUgP5BgEszAiA3PK5diKZBObMkBPd0N&export=download" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
+              
+              {/* Diagnostic Label - will be removed once confirmed */}
+              <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 text-[8px] rounded z-50 pointer-events-none opacity-50">
+                DRIVE SOURCE ACTIVE
+              </div>
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             </div>
