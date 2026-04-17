@@ -118,10 +118,10 @@ export const projectsData: Record<string, ProjectData> = {
         roleKey: "proj.sesiones.role",
         descriptionKey: "proj.sesiones.description",
         images: [
-            "https://youtube.com/shorts/vcn__HrDl-8",
+            "https://youtube.com/shorts/5t6HArXA0vk",
             "imagenes-preview/screenshot-2.webp",
             "screenshot-1.webp",
-            "https://youtube.com/shorts/5t6HArXA0vk",
+            "https://youtube.com/shorts/vcn__HrDl-8",
             "https://youtube.com/shorts/gQrDKUFQwkk",
             "https://youtube.com/shorts/q0vXdr5mLWE",
             "https://youtube.com/shorts/_4lzcmTDq8o",
