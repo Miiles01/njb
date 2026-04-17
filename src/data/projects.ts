@@ -70,14 +70,14 @@ export const projectsData: Record<string, ProjectData> = {
         roleKey: "proj.marca-deportiva.role",
         descriptionKey: "proj.marca-deportiva.description",
         images: [
+            "imagenes-preview/PHOTO-2025-04-30-17-51-16.jpg",
+            "imagenes-preview/00c6a52b-08e3-40b9-a765-74f0a6c1bfd2-1.webp",
+            "imagenes-preview/02d772d1-4029-4f98-8e16-3bb0cdf50495.jpg",
             "30ed5067-d17f-4230-8369-1bd282ba9c44-1.webp",
             "3485530d-4d23-4df9-965c-b8daecd174af.jpg",
             "img-2178-1.webp",
             "IMG_2692.PNG",
-            "screenshot-preview.png",
-            "imagenes-preview/00c6a52b-08e3-40b9-a765-74f0a6c1bfd2 (1).webp",
-            "imagenes-preview/02d772d1-4029-4f98-8e16-3bb0cdf50495.jpg",
-            "imagenes-preview/PHOTO-2025-04-30-17-51-16.jpg"
+            "screenshot-preview.png"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
