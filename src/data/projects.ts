@@ -119,14 +119,14 @@ export const projectsData: Record<string, ProjectData> = {
         descriptionKey: "proj.sesiones.description",
         images: [
             "https://youtube.com/shorts/vcn__HrDl-8",
-            "imagenes preview/Screenshot 2026-04-15 at 4.13.06 PM.webp",
+            "imagenes preview/Screenshot 2026-04-15 at 4.13.06 PM.webp",
             "https://youtube.com/shorts/5t6HArXA0vk",
             "039BCB4C-2224-49AB-B297-83C9D100EC36.webp",
             "1b6d9432-dfac-4b69-b6b7-fb2daf9379b9.jpg",
             "5E7A9C66-3D16-4B2E-897C-36ED2AB38FD1.webp",
             "7dd166ce-ea15-4ff0-aa9f-8b81b972e281.jpg",
             "https://youtube.com/shorts/gQrDKUFQwkk",
-            "Screenshot 2026-04-15 at 3.30.00 PM.webp",
+            "Screenshot 2026-04-15 at 3.30.00 PM.webp",
             "https://youtube.com/shorts/q0vXdr5mLWE",
             "https://youtube.com/shorts/_4lzcmTDq8o",
             "https://youtube.com/shorts/IuzRfMrCtxs"
