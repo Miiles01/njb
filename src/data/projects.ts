@@ -50,7 +50,7 @@ export const projectsData: Record<string, ProjectData> = {
             "https://youtube.com/shorts/S46AV32pfwE",
             "imaganes preview/IMG_3201.webp",
             "imaganes preview/IMG_3204.webp",
-            "imaganes preview/Imagen pequen??a 2 /WhatsApp Image 2026-04-12 at 22.49.57.jpeg",
+            "imaganes preview/Imagen pequeña 2 /WhatsApp Image 2026-04-12 at 22.49.57.jpeg",
             "IMG_3200.webp",
             "IMG_3202.webp",
             "IMG_3203.webp",
@@ -77,7 +77,7 @@ export const projectsData: Record<string, ProjectData> = {
             "3485530d-4d23-4df9-965c-b8daecd174af.jpg",
             "IMG_2178 (1).webp",
             "IMG_2692.PNG",
-            "Screenshot 2026-04-15 at 3.32.49???PM.png"
+            "Screenshot 2026-04-15 at 3.32.49 PM.png"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
