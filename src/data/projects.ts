@@ -120,16 +120,16 @@ export const projectsData: Record<string, ProjectData> = {
         images: [
             "https://youtube.com/shorts/vcn__HrDl-8",
             "imagenes-preview/screenshot-2.webp",
+            "screenshot-1.webp",
             "https://youtube.com/shorts/5t6HArXA0vk",
+            "https://youtube.com/shorts/gQrDKUFQwkk",
+            "https://youtube.com/shorts/q0vXdr5mLWE",
+            "https://youtube.com/shorts/_4lzcmTDq8o",
+            "https://youtube.com/shorts/IuzRfMrCtxs",
             "039BCB4C-2224-49AB-B297-83C9D100EC36.webp",
             "1b6d9432-dfac-4b69-b6b7-fb2daf9379b9.jpg",
             "5E7A9C66-3D16-4B2E-897C-36ED2AB38FD1.webp",
-            "7dd166ce-ea15-4ff0-aa9f-8b81b972e281.jpg",
-            "https://youtube.com/shorts/gQrDKUFQwkk",
-            "screenshot-1.webp",
-            "https://youtube.com/shorts/q0vXdr5mLWE",
-            "https://youtube.com/shorts/_4lzcmTDq8o",
-            "https://youtube.com/shorts/IuzRfMrCtxs"
+            "7dd166ce-ea15-4ff0-aa9f-8b81b972e281.jpg"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
