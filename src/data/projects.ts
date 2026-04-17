@@ -93,13 +93,13 @@ export const projectsData: Record<string, ProjectData> = {
             "Imaganes preview/Frame 2085662328.png",
             "Imaganes preview/image 68.webp",
             "1f8086c6-29ff-4506-ba2b-db0a6f5c50b9.webp",
-            "39b4068c-17c9-48e7-81da-575cb550270a.mp4",
+            "https://youtube.com/shorts/6Fvouem_lqE",
             "4b1d397e-9012-4f48-ba04-e7e867715ceb.webp",
             "790BA540-0EE3-44E8-879C-A048D6786B8A.webp",
             "E500D044-AA01-4071-B412-0793BC5B0BA6.webp",
             "IMG_2600.PNG",
             "att.5KJ8yJtR0DE818Q8Ml3w-YwAuBjrIEEmQjoypFI6yKA.jpg",
-            "copy_F40763E6-8BB1-4753-B08E-AAF494A1DDE8.mp4",
+            "https://youtube.com/shorts/Fp7cPqzV6as",
             "item4.webp"
         ],
         participation: [
