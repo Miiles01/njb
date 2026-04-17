@@ -7,15 +7,6 @@ export type Project = Tables<"projects">;
 export type ProjectImage = Tables<"project_images">;
 export type ProjectWithImages = Project & { project_images: ProjectImage[] };
 
-const encodeLocalAssetPath = (path: string) =>
-  path
-    .split("/")
-    .map((segment, index) => {
-      if (index === 0 || !segment) return segment;
-      return encodeURIComponent(segment);
-    })
-    .join("/");
-
 export const usePublishedProjects = () =>
   useQuery({
     queryKey: ["projects", "published"],
@@ -42,7 +33,7 @@ export const usePublishedProjects = () =>
         project_images: project.images.map((img, idx) => ({
           id: `${slug}-${idx}`,
           project_id: slug,
-          storage_path: img.startsWith("http") ? img : `/proyectos/${project.folder}/${img}`,
+          storage_path: img.startsWith("http") ? img : `proyectos/${project.folder}/${img}`,
           image_type: idx === 0 ? "cover" : "secondary",
           sort_order: idx,
           alt_text: project.title,
@@ -82,7 +73,7 @@ export const useProject = (slug: string) =>
         project_images: project.images.map((img, idx) => ({
           id: `${slug}-${idx}`,
           project_id: slug,
-          storage_path: img.startsWith("http") ? img : `/proyectos/${project.folder}/${img}`,
+          storage_path: img.startsWith("http") ? img : `proyectos/${project.folder}/${img}`,
           image_type: idx === 0 ? "cover" : "secondary",
           sort_order: idx,
           alt_text: project.title,
@@ -182,13 +173,15 @@ export const useDeleteProjectImage = () => {
 };
 
 export const getImageUrl = (storagePath: string) => {
-  // If the path starts with / or http, treat as a direct URL (public folder or external)
-  if (storagePath.startsWith("/")) {
-    return encodeLocalAssetPath(storagePath);
+  if (storagePath.startsWith("http")) return storagePath;
+  
+  // Local project assets from the public folder
+  if (storagePath.includes("proyectos/")) {
+    const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+    const cleanPath = storagePath.startsWith("/") ? storagePath : `/${storagePath}`;
+    return `${base}${cleanPath}`;
   }
-  if (storagePath.startsWith("http")) {
-    return storagePath;
-  }
+
   const { data } = supabase.storage.from("project-images").getPublicUrl(storagePath);
   return data.publicUrl;
 };
