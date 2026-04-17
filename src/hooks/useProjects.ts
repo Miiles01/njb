@@ -7,6 +7,15 @@ export type Project = Tables<"projects">;
 export type ProjectImage = Tables<"project_images">;
 export type ProjectWithImages = Project & { project_images: ProjectImage[] };
 
+const encodeLocalAssetPath = (path: string) =>
+  path
+    .split("/")
+    .map((segment, index) => {
+      if (index === 0 || !segment) return segment;
+      return encodeURIComponent(segment);
+    })
+    .join("/");
+
 export const usePublishedProjects = () =>
   useQuery({
     queryKey: ["projects", "published"],
@@ -174,7 +183,10 @@ export const useDeleteProjectImage = () => {
 
 export const getImageUrl = (storagePath: string) => {
   // If the path starts with / or http, treat as a direct URL (public folder or external)
-  if (storagePath.startsWith("/") || storagePath.startsWith("http")) {
+  if (storagePath.startsWith("/")) {
+    return encodeLocalAssetPath(storagePath);
+  }
+  if (storagePath.startsWith("http")) {
     return storagePath;
   }
   const { data } = supabase.storage.from("project-images").getPublicUrl(storagePath);
