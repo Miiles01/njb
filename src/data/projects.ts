@@ -44,10 +44,9 @@ export const projectsData: Record<string, ProjectData> = {
         descriptionKey: "proj.club.description",
         images: [
             "https://youtube.com/shorts/HkINsy8Zz4Y",
-            "card.webp",
             "imagenes-preview/IMG_3201.webp",
-            "https://youtube.com/shorts/S46AV32pfwE",
             "imagenes-preview/IMG_3204.webp",
+            "https://youtube.com/shorts/S46AV32pfwE",
             "imagenes-preview/imagen-pequena-2/whatsapp-image.jpeg",
             "IMG_3200.webp",
             "IMG_3202.webp",
