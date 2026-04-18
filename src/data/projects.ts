@@ -145,7 +145,6 @@ export const projectsData: Record<string, ProjectData> = {
         descriptionKey: "proj.social-events.description",
         images: [
             "imagenes-preview/CFCFE098-B813-457F-AF6A-AACE6D8D0956.webp",
-            "imagenes-preview/A06BFBCB-522A-484D-BDC8-D7243858EAD2.webp",
             "portada.webp",
             "imagenes-preview/69e3a06d-2a2b-471f-9e25-16bd90ecb40f.webp",
             "535708FF-AE0A-4563-A289-D22A06C42341.webp"
