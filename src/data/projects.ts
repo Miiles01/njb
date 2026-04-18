@@ -26,7 +26,6 @@ export const projectsData: Record<string, ProjectData> = {
             "https://youtube.com/shorts/0LjbP3K56mI",
             "imagenes-preview/6E812A4C-4BC6-4099-825E-618A91AEE912.webp",
             "imagenes-preview/70891831-6EA7-430A-A7AF-1412597E5498.webp",
-            "att_item1.jpg",
             "item4.webp",
             "item6.webp"
         ],
@@ -97,8 +96,6 @@ export const projectsData: Record<string, ProjectData> = {
             "1f8086c6-29ff-4506-ba2b-db0a6f5c50b9.webp",
             "https://youtube.com/shorts/6Fvouem_lqE",
             "4b1d397e-9012-4f48-ba04-e7e867715ceb.webp",
-            "790BA540-0EE3-44E8-879C-A048D6786B8A.webp",
-            "E500D044-AA01-4071-B412-0793BC5B0BA6.webp",
             "IMG_2600.PNG",
             "att.5KJ8yJtR0DE818Q8Ml3w-YwAuBjrIEEmQjoypFI6yKA.jpg",
             "https://youtube.com/shorts/Fp7cPqzV6as",
@@ -122,11 +119,9 @@ export const projectsData: Record<string, ProjectData> = {
             "screenshot-1.webp",
             "https://youtube.com/shorts/vcn__HrDl-8",
             "https://youtube.com/shorts/gQrDKUFQwkk",
-            "https://youtube.com/shorts/q0vXdr5mLWE",
             "https://youtube.com/shorts/_4lzcmTDq8o",
             "https://youtube.com/shorts/IuzRfMrCtxs",
             "039BCB4C-2224-49AB-B297-83C9D100EC36.webp",
-            "1b6d9432-dfac-4b69-b6b7-fb2daf9379b9.jpg",
             "5E7A9C66-3D16-4B2E-897C-36ED2AB38FD1.webp",
             "7dd166ce-ea15-4ff0-aa9f-8b81b972e281.jpg"
         ],
@@ -145,7 +140,6 @@ export const projectsData: Record<string, ProjectData> = {
         images: [
             "imagenes-preview/CFCFE098-B813-457F-AF6A-AACE6D8D0956.webp",
             "imagenes-preview/A06BFBCB-522A-484D-BDC8-D7243858EAD2.webp",
-            "portada.webp",
             "imagenes-preview/69e3a06d-2a2b-471f-9e25-16bd90ecb40f.webp",
             "535708FF-AE0A-4563-A289-D22A06C42341.webp"
         ],

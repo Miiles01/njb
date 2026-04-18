@@ -48,6 +48,8 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
     }
   };
 
+  const isShort = isYouTube && src.includes("/shorts/");
+
   return (
     <motion.div
       custom={index}
@@ -60,10 +62,14 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
       className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5 cursor-pointer group relative"
     >
       {isYouTube ? (
-        <div className="aspect-[9/16] w-full">
+        <div className={`w-full ${isShort ? "aspect-[9/16]" : "aspect-[16/9]"}`}>
           <iframe
             src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`}
-            className="w-[115%] h-[115%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] pointer-events-none object-cover"
+            className={`absolute top-1/2 left-1/2 -translate-x-1/2 pointer-events-none object-cover ${
+              isShort 
+                ? "w-[115%] h-[115%] -translate-y-[52%]" 
+                : "w-full h-full -translate-y-1/2"
+            }`}
             title={alt}
             allow="autoplay; encrypted-media"
             allowFullScreen
