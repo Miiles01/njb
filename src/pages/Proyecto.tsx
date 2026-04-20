@@ -229,7 +229,8 @@ const Proyecto = () => {
             const isLast = idx === galleryImages.length - 1;
             const isDeportivaLast = project.slug === "marca-deportiva" && isLast;
             const isRealEstateFirst = project.slug === "realestate" && idx === 0;
-            const isFullWidth = isDeportivaLast || isRealEstateFirst;
+            const isBellezaSlide = project.slug === "belleza" && idx >= 2;
+            const isFullWidth = isDeportivaLast || isRealEstateFirst || isBellezaSlide;
 
             return (
               <React.Fragment key={img.id}>
@@ -238,10 +239,18 @@ const Proyecto = () => {
                     src={getImageUrl(img.storage_path)}
                     alt={img.alt_text || `${project.title} ${idx + 1}`}
                     index={idx + 1}
-                    className={isDeportivaLast ? "flex flex-col items-center justify-end bg-transparent" : ""}
+                    className={
+                      isDeportivaLast 
+                        ? "flex flex-col items-center justify-end bg-transparent" 
+                        : isBellezaSlide 
+                        ? "aspect-[16/9]" 
+                        : ""
+                    }
                     mediaOverrideClass={
                       isDeportivaLast 
                         ? "w-full md:w-[85%] h-auto max-h-[85vh] object-contain object-bottom transition-transform duration-700 group-hover:scale-[1.01]" 
+                        : isBellezaSlide 
+                        ? "w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.01]" 
                         : ""
                     }
                   />

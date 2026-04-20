@@ -46,6 +46,7 @@ const translations = {
         'proj.sesiones.title': 'Sesiones de Contenido',
         'proj.social-events.title': 'Social Events',
         'proj.realestate.title': 'Real Estate',
+        'proj.belleza.title': 'Belleza',
         'proj.bar.subtitle': 'Estrategia de marca y creación de contenido para la industria nocturna.',
         'proj.club.subtitle': 'Dirección de arte y presencia digital para clubes y espacios exclusivos.',
         'proj.marca-deportiva.subtitle': 'E-commerce y dirección de arte para marcas de ropa deportiva.',
@@ -53,6 +54,7 @@ const translations = {
         'proj.sesiones.subtitle': 'Producción audiovisual y sesiones de contenido de alto impacto.',
         'proj.social-events.subtitle': 'Estrategia y cobertura digital para eventos sociales y corporativos.',
         'proj.realestate.subtitle': 'Marketing de lujo y branding estratégico para el sector inmobiliario.',
+        'proj.belleza.subtitle': 'Dirección de arte y estética para marcas de belleza y cuidado personal.',
 
         // Project Details (New)
         'proj.bar.industry': 'Vida Nocturna',
@@ -82,6 +84,10 @@ const translations = {
         'proj.realestate.industry': 'Inmobiliaria de Lujo',
         'proj.realestate.role': 'Marketing de Lujo y Branding',
         'proj.realestate.description': 'Propuestas visuales de alto nivel para el sector inmobiliario, centradas en la exclusividad y la generación de confianza mediante una identidad impecable.',
+
+        'proj.belleza.industry': 'Belleza y Cuidado Personal',
+        'proj.belleza.role': 'Dirección de Arte y Contenido',
+        'proj.belleza.description': 'Creamos contenido visual y campañas estéticas que resaltan la esencia y los beneficios de los productos de belleza y cuidado personal.',
 
         'proj.details.strategy': 'Planificación Funcional',
         'proj.details.backToWork': 'Volver a proyectos',
@@ -253,6 +259,7 @@ const translations = {
         'proj.sesiones.title': 'Content Sessions',
         'proj.social-events.title': 'Social Events',
         'proj.realestate.title': 'Real Estate',
+        'proj.belleza.title': 'Beauty',
         'proj.bar.subtitle': 'Brand strategy and content creation for the nightlife industry.',
         'proj.club.subtitle': 'Art direction and digital presence for exclusive clubs and venues.',
         'proj.marca-deportiva.subtitle': 'E-commerce and art direction for sportswear brands.',
@@ -260,6 +267,7 @@ const translations = {
         'proj.sesiones.subtitle': 'Audiovisual production and high-impact content sessions.',
         'proj.social-events.subtitle': 'Digital strategy and coverage for social and corporate events.',
         'proj.realestate.subtitle': 'Luxury marketing and strategic branding for the real estate sector.',
+        'proj.belleza.subtitle': 'Art direction and aesthetics for beauty and personal care brands.',
 
         // Project Details (New)
         'proj.bar.industry': 'Nightlife',
@@ -289,6 +297,10 @@ const translations = {
         'proj.realestate.industry': 'Luxury Real Estate',
         'proj.realestate.role': 'Luxury Marketing & Branding',
         'proj.realestate.description': 'High-level visual proposals for the real estate sector, focused on exclusivity and building trust through an impeccable identity.',
+
+        'proj.belleza.industry': 'Beauty and Personal Care',
+        'proj.belleza.role': 'Art Direction & Content',
+        'proj.belleza.description': 'We create visual content and aesthetic campaigns that highlight the essence and benefits of beauty and personal care products.',
 
         'proj.details.strategy': 'Action Plan',
         'proj.details.backToWork': 'Back to projects',
@@ -458,6 +470,7 @@ const translations = {
         'proj.sesiones.title': 'Sessions de Contenu',
         'proj.social-events.title': 'Événements Sociaux',
         'proj.realestate.title': 'Immobilier',
+        'proj.belleza.title': 'Beauté',
         'proj.bar.subtitle': 'Stratégie de marque et création de contenu pour l\'industrie nocturne.',
         'proj.club.subtitle': 'Direction artistique et présence numérique pour les clubs et lieux exclusifs.',
         'proj.marca-deportiva.subtitle': 'E-commerce et direction artistique pour les marques de sport.',
@@ -465,6 +478,7 @@ const translations = {
         'proj.sesiones.subtitle': 'Production audiovisuelle et sessions de contenu à fort impact.',
         'proj.social-events.subtitle': 'Stratégie et couverture numérique pour les événements sociaux et corporatifs.',
         'proj.realestate.subtitle': 'Marketing de luxe et branding stratégique pour le secteur immobilier.',
+        'proj.belleza.subtitle': 'Direction artistique et esthétique pour les marques de beauté et de soins personnels.',
 
         // Project Details (New)
         'proj.bar.industry': 'Vie Nocturne',
@@ -494,6 +508,10 @@ const translations = {
         'proj.realestate.industry': 'Immobilier de Luxe',
         'proj.realestate.role': 'Marketing de Luxe & Branding',
         'proj.realestate.description': 'Propositions visuelles de haut niveau pour le secteur immobilier, axées sur l\'exclusivité.',
+
+        'proj.belleza.industry': 'Beauté et Soins Personnels',
+        'proj.belleza.role': 'Direction Artistique et Contenu',
+        'proj.belleza.description': 'Nous créons du contenu visuel et des campagnes esthétiques qui mettent en valeur l\'essence et les avantages des produits de beauté et de soins.',
 
         'proj.details.strategy': 'Plan d\'action',
         'proj.details.backToWork': 'Retour aux projets',
