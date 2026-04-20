@@ -50,8 +50,7 @@ export const projectsData: Record<string, ProjectData> = {
             "IMG_3202.webp",
             "IMG_3203.webp",
             "https://youtube.com/shorts/sQeNNcK8u1M",
-            "https://youtube.com/shorts/Nu1blQSxI8I",
-            "https://youtube.com/shorts/r8T056MomP4"
+            "https://youtube.com/shorts/Nu1blQSxI8I"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
