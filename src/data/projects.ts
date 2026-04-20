@@ -15,26 +15,7 @@ export interface ProjectData {
 }
 
 export const projectsData: Record<string, ProjectData> = {
-    belleza: {
-        title: "Belleza",
-        folder: "belleza",
-        subtitleKey: "proj.belleza.subtitle",
-        industryKey: "proj.belleza.industry",
-        roleKey: "proj.belleza.role",
-        descriptionKey: "proj.belleza.description",
-        images: [
-            "imagenes-preview/grande.png",
-            "imagenes-preview/pequena_1.png",
-            "imagenes-preview/pequena_2.jpeg",
-            "slide_63.png",
-            "slide_64.png",
-            "slide_67.png"
-        ],
-        participation: [
-            { icon: "bar", textKey: "proj.part.funnels" },
-            { icon: "star", textKey: "proj.part.strategy" }
-        ]
-    },
+
     bar: {
         title: "Bar",
         folder: "bar",
@@ -73,6 +54,26 @@ export const projectsData: Record<string, ProjectData> = {
             "portrait.webp",
             "https://youtube.com/shorts/sQeNNcK8u1M",
             "https://youtube.com/shorts/Nu1blQSxI8I"
+        ],
+        participation: [
+            { icon: "bar", textKey: "proj.part.funnels" },
+            { icon: "star", textKey: "proj.part.strategy" }
+        ]
+    },
+    belleza: {
+        title: "Belleza",
+        folder: "belleza",
+        subtitleKey: "proj.belleza.subtitle",
+        industryKey: "proj.belleza.industry",
+        roleKey: "proj.belleza.role",
+        descriptionKey: "proj.belleza.description",
+        images: [
+            "imagenes-preview/grande.png",
+            "imagenes-preview/pequena_1.png",
+            "imagenes-preview/pequena_2.jpeg",
+            "slide_63.png",
+            "slide_64.png",
+            "slide_67.png"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
