@@ -229,8 +229,9 @@ const Proyecto = () => {
             const isLast = idx === galleryImages.length - 1;
             const isDeportivaLast = project.slug === "marca-deportiva" && isLast;
             const isRealEstateFirst = project.slug === "realestate" && idx === 0;
-            const isBellezaSlide = project.slug === "belleza" && idx >= 2;
-            const isFullWidth = isDeportivaLast || isRealEstateFirst || isBellezaSlide;
+            const isBellezaProject = project.slug === "belleza";
+            const isBellezaSlide = isBellezaProject && idx >= 2;
+            const isFullWidth = isDeportivaLast || isRealEstateFirst || isBellezaProject;
 
             return (
               <React.Fragment key={img.id}>
