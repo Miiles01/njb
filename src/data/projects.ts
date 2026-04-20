@@ -46,12 +46,9 @@ export const projectsData: Record<string, ProjectData> = {
             "https://youtube.com/shorts/HkINsy8Zz4Y",
             "imagenes-preview/IMG_3201.webp",
             "imagenes-preview/IMG_3204.webp",
-            "imagenes-preview/imagen-pequena-2/whatsapp-image.jpeg",
             "IMG_3200.webp",
             "IMG_3202.webp",
             "IMG_3203.webp",
-            "logo-original.webp",
-            "portrait.webp",
             "https://youtube.com/shorts/sQeNNcK8u1M",
             "https://youtube.com/shorts/Nu1blQSxI8I",
             "https://youtube.com/shorts/r8T056MomP4"
