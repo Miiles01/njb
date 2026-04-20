@@ -19,7 +19,19 @@ const fadeUp = {
 };
 
 /* ── Full-width media block ── */
-const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; index: number }) => {
+const ProjectMediaDisplay = ({ 
+  src, 
+  alt, 
+  index,
+  className = "",
+  mediaOverrideClass = ""
+}: { 
+  src: string; 
+  alt: string; 
+  index: number;
+  className?: string;
+  mediaOverrideClass?: string;
+}) => {
   const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(src);
   const isYouTube = src.includes("youtube.com") || src.includes("youtu.be");
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -59,7 +71,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
       variants={fadeUp}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5 cursor-pointer group relative"
+      className={`w-full overflow-hidden rounded-2xl md:rounded-3xl bg-secondary/5 cursor-pointer group relative ${className}`}
     >
       {isYouTube ? (
         <div className={`w-full ${isShort ? "aspect-[9/16]" : "aspect-[16/9]"}`}>
@@ -83,7 +95,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
           muted
           playsInline
           preload="auto"
-          className={`w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.01] ${src.includes("marca-deportiva") ? "object-bottom" : ""}`}
+          className={mediaOverrideClass || "w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.01]"}
         />
       ) : (
         <img
@@ -91,7 +103,7 @@ const ProjectMediaDisplay = ({ src, alt, index }: { src: string; alt: string; in
           alt={alt}
           loading={index < 2 ? "eager" : "lazy"}
           decoding="async"
-          className={`w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 ${src.includes("marca-deportiva") ? "object-bottom" : ""}`}
+          className={mediaOverrideClass || "w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.01]"}
         />
       )}
     </motion.div>
@@ -226,6 +238,12 @@ const Proyecto = () => {
                     src={getImageUrl(img.storage_path)}
                     alt={img.alt_text || `${project.title} ${idx + 1}`}
                     index={idx + 1}
+                    className={isDeportivaLast ? "flex flex-col items-center justify-end bg-transparent" : ""}
+                    mediaOverrideClass={
+                      isDeportivaLast 
+                        ? "w-full md:w-[85%] h-auto max-h-[85vh] object-contain object-bottom transition-transform duration-700 group-hover:scale-[1.01]" 
+                        : ""
+                    }
                   />
                 </div>
 

@@ -45,7 +45,6 @@ export const projectsData: Record<string, ProjectData> = {
             "https://youtube.com/shorts/HkINsy8Zz4Y",
             "imagenes-preview/IMG_3201.webp",
             "imagenes-preview/IMG_3204.webp",
-            "https://youtube.com/shorts/S46AV32pfwE",
             "imagenes-preview/imagen-pequena-2/whatsapp-image.jpeg",
             "IMG_3200.webp",
             "IMG_3202.webp",
@@ -116,14 +115,13 @@ export const projectsData: Record<string, ProjectData> = {
         images: [
             "https://youtu.be/JhNdb-imGVs",
             "imagenes-preview/screenshot-2.webp",
-            "screenshot-1.webp",
             "https://youtube.com/shorts/vcn__HrDl-8",
+            "screenshot-1.webp",
             "https://youtube.com/shorts/gQrDKUFQwkk",
-            "https://youtube.com/shorts/_4lzcmTDq8o",
-            "https://youtube.com/shorts/IuzRfMrCtxs",
-            "039BCB4C-2224-49AB-B297-83C9D100EC36.webp",
             "5E7A9C66-3D16-4B2E-897C-36ED2AB38FD1.webp",
-            "7dd166ce-ea15-4ff0-aa9f-8b81b972e281.jpg"
+            "https://youtube.com/shorts/_4lzcmTDq8o",
+            "7dd166ce-ea15-4ff0-aa9f-8b81b972e281.jpg",
+            "https://youtube.com/shorts/IuzRfMrCtxs"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
@@ -141,7 +139,8 @@ export const projectsData: Record<string, ProjectData> = {
             "imagenes-preview/CFCFE098-B813-457F-AF6A-AACE6D8D0956.webp",
             "imagenes-preview/A06BFBCB-522A-484D-BDC8-D7243858EAD2.webp",
             "imagenes-preview/69e3a06d-2a2b-471f-9e25-16bd90ecb40f.webp",
-            "535708FF-AE0A-4563-A289-D22A06C42341.webp"
+            "535708FF-AE0A-4563-A289-D22A06C42341.webp",
+            "039BCB4C-2224-49AB-B297-83C9D100EC36.webp"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
