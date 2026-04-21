@@ -133,8 +133,8 @@ export const projectsData: Record<string, ProjectData> = {
         images: [
             "https://youtu.be/JhNdb-imGVs",
             "imagenes-preview/screenshot-2.webp",
-            "https://youtube.com/shorts/vcn__HrDl-8",
             "screenshot-1.webp",
+            "https://youtube.com/shorts/vcn__HrDl-8",
             "https://youtube.com/shorts/gQrDKUFQwkk",
             "5E7A9C66-3D16-4B2E-897C-36ED2AB38FD1.webp",
             "https://youtube.com/shorts/_4lzcmTDq8o",
