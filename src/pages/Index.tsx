@@ -153,7 +153,7 @@ const Hero = () => {
               className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[440px] aspect-[9/16] flex-shrink-0 rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.18)] border border-black/5 bg-zinc-50 group"
             >
               <iframe
-                src="https://www.youtube.com/embed/gWDVc3IUSYc?autoplay=1&mute=1&loop=1&playlist=gWDVc3IUSYc&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3"
+                src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3"
                 className="w-[110%] h-[110%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[52%] pointer-events-none object-cover"
                 title="NJB Hero Video"
                 allow="autoplay; encrypted-media"
