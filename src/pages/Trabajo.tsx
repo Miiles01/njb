@@ -149,7 +149,7 @@ const ProjectSection = ({
       >
         <Link to={`/proyecto/${project.slug}`} className="group">
           <h3 className="text-3xl font-heading font-medium tracking-tighter mb-2 group-hover:text-blue-600 transition-colors">
-            {project.title}
+            {t(`proj.${project.slug}.title`)}
           </h3>
         </Link>
         <p className="text-lg font-heading font-light opacity-60 max-w-xl">
