@@ -140,67 +140,6 @@ const AnalyticsSection = () => {
         ))}
       </div>
 
-      {/* Top pages & projects */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Top pages */}
-        <div className="bg-muted/30 border border-border/50 rounded-2xl p-5">
-          <h3 className="text-sm font-medium mb-4">Páginas más visitadas</h3>
-          {data.topPages.length === 0 ? (
-            <p className="text-xs text-muted-foreground">Sin datos aún</p>
-          ) : (
-            <div className="space-y-3">
-              {data.topPages.map((page, idx) => {
-                const maxCount = data.topPages[0]?.count || 1;
-                const pct = Math.round((page.count / maxCount) * 100);
-                const label = PAGE_LABELS[page.page_path] || page.page_path;
-                return (
-                  <div key={page.page_path} className="space-y-1">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="truncate font-medium">{label}</span>
-                      <span className="text-muted-foreground text-xs ml-2">{page.count}</span>
-                    </div>
-                    <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-foreground/20 rounded-full transition-all"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        {/* Top projects */}
-        <div className="bg-muted/30 border border-border/50 rounded-2xl p-5">
-          <h3 className="text-sm font-medium mb-4">Proyectos más vistos</h3>
-          {data.topProjects.length === 0 ? (
-            <p className="text-xs text-muted-foreground">Sin datos aún</p>
-          ) : (
-            <div className="space-y-3">
-              {data.topProjects.map((proj) => {
-                const maxCount = data.topProjects[0]?.count || 1;
-                const pct = Math.round((proj.count / maxCount) * 100);
-                return (
-                  <div key={proj.project_slug} className="space-y-1">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="truncate font-medium capitalize">{proj.project_slug}</span>
-                      <span className="text-muted-foreground text-xs ml-2">{proj.count} clics</span>
-                    </div>
-                    <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-foreground/20 rounded-full transition-all"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 };
