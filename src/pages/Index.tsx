@@ -130,12 +130,8 @@ const Hero = () => {
             </div>
 
             {/* Right Side: Portrait Video */}
-            <motion.div
-              ref={videoRef}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1.5, ease: "easeOut", delay: 0.6 }}
-              className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[440px] aspect-[9/16] flex-shrink-0 rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.18)] border border-black/5 bg-zinc-50 group"
+            <div
+              className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[440px] aspect-[9/16] flex-shrink-0 rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.18)] border border-black/5 bg-zinc-50"
             >
               <iframe
                 src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
@@ -143,9 +139,7 @@ const Hero = () => {
                 title="NJB Hero Video"
                 allow="autoplay; encrypted-media"
               />
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            </motion.div>
+            </div>
           </div>
         </div>
 
