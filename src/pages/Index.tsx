@@ -59,20 +59,6 @@ const Hero = () => {
         ease: "power2.out"
       });
 
-      if (videoRef.current) {
-        gsap.from(videoRef.current, {
-          scrollTrigger: {
-            trigger: ".hero-content-stage",
-            start: "top 70%",
-            toggleActions: "play none none none"
-          },
-          opacity: 0,
-          y: 40,
-          scale: 0.95,
-          duration: 1.2,
-          ease: "power2.out"
-        });
-      }
     });
 
     return () => ctx.revert();
