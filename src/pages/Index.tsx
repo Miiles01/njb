@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair, Flame, Store, Briefcase, Utensils, Home, Calendar } from "lucide-react";
-import { useState, useLayoutEffect, useRef } from "react";
+import { useState, useLayoutEffect, useRef, useEffect } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -29,6 +29,10 @@ const Hero = () => {
   const { t, language } = useLanguage();
   const videoRef = useRef<HTMLDivElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVideoLoaded(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
   const heroTagline = t('hero.tagline');
 
   useLayoutEffect(() => {
@@ -60,7 +64,7 @@ const Hero = () => {
           scrollTrigger: {
             trigger: ".hero-content-stage",
             start: "top 70%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
           },
           opacity: 0,
           y: 40,
