@@ -135,12 +135,11 @@ const Hero = () => {
             </div>
 
             {/* Right Side: Portrait Video */}
-            <motion.div 
+            <motion.div
               ref={videoRef}
               initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, ease: "easeOut", delay: 0.4 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.5, ease: "easeOut", delay: 0.6 }}
               className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[440px] aspect-[9/16] flex-shrink-0 rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.18)] border border-black/5 bg-zinc-50 group"
             >
               <AnimatePresence>
