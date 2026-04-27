@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Phone, Check, Download, User, ArrowRight, Users, TrendingUp, Target, Globe, BarChart3, Video, Settings2, Sparkles, Rocket, ShieldCheck, AlertCircle, Megaphone, PieChart, Crosshair, Flame, Store, Briefcase, Utensils, Home, Calendar } from "lucide-react";
-import { useState, useLayoutEffect, useRef, useEffect } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -28,11 +28,6 @@ const LinkedinModern = ({ size = 20, className = "" }: { size?: number, classNam
 const Hero = () => {
   const { t, language } = useLanguage();
   const videoRef = useRef<HTMLDivElement>(null);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setVideoLoaded(true), 2500);
-    return () => clearTimeout(t);
-  }, []);
   const heroTagline = t('hero.tagline');
 
   useLayoutEffect(() => {
@@ -142,32 +137,12 @@ const Hero = () => {
               transition={{ duration: 1.5, ease: "easeOut", delay: 0.6 }}
               className="relative w-full max-w-[320px] md:max-w-[400px] lg:max-w-[440px] aspect-[9/16] flex-shrink-0 rounded-[40px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.18)] border border-black/5 bg-zinc-50 group"
             >
-              <AnimatePresence>
-                {!videoLoaded && (
-                  <motion.div 
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute inset-0 bg-zinc-100 flex items-center justify-center z-10"
-                  >
-                    <div className="w-8 h-8 border-2 border-black/10 border-t-black/40 rounded-full animate-spin" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: videoLoaded ? 1 : 0, scale: videoLoaded ? 1 : 1.1 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                className="w-full h-full relative"
-              >
-                <iframe
-                  src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
-                  className="w-[130%] h-[130%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                  title="NJB Hero Video"
-                  allow="autoplay; encrypted-media"
-                  onLoad={() => setVideoLoaded(true)}
-                />
-              </motion.div>
+              <iframe
+                src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
+                className="w-[130%] h-[130%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                title="NJB Hero Video"
+                allow="autoplay; encrypted-media"
+              />
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             </motion.div>
