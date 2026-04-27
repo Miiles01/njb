@@ -33,4 +33,4 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           local-dir: ./dist/
           server-dir: /home/u826055601/domains/silver-stork-176589.hostingersite.com/public_html/
-          protocol: ftps
+          protocol: ftp
