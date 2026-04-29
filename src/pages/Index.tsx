@@ -99,27 +99,43 @@ const Hero = () => {
       >
         <div className="w-full max-w-[1300px] mx-auto">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+            
+            {/* Logo solo en mobile — Primero en el stack */}
+            <div className="order-1 lg:hidden w-full flex justify-center mb-8">
+              <motion.img
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                src="/lovabol/logotipo.svg"
+                alt="NJB"
+                className="w-[60vw] max-w-[320px] h-auto object-contain"
+              />
+            </div>
 
-            {/* Video — primero en mobile, derecha en desktop */}
+            {/* Texto — Segundo en mobile, izquierda en desktop */}
+            <div className="order-2 lg:order-first flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[56%]">
+              <h1 className="hero-tagline text-[9vw] md:text-5xl lg:text-[5rem] font-heading font-medium tracking-tighter leading-[1.1] text-black">
+                {heroTagline.split(" ").map((word, i) => (
+                  <motion.span
+                    key={i}
+                    className="hero-tagline-word inline-block mr-[0.25em] whitespace-nowrap"
+                    whileHover={{ y: -8, color: "#154FD1" }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+              </h1>
+            </div>
+
+            {/* Video — Tercero en mobile, derecha en desktop */}
             <motion.div 
-              className="w-full lg:w-[45%] flex flex-col items-center lg:items-end justify-center lg:justify-end lg:order-last"
+              className="order-3 lg:order-last w-full lg:w-[45%] flex flex-col items-center lg:items-end justify-center lg:justify-end"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
             >
-              {/* Logo solo en mobile */}
-              <div className="mb-12 lg:hidden w-full flex justify-center">
-                <motion.img
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-                  src="/lovabol/logotipo.svg"
-                  alt="NJB"
-                  className="w-[60vw] max-w-[320px] h-auto object-contain"
-                />
-              </div>
-
               <div
                 className="relative rounded-[28px] overflow-hidden shadow-2xl border border-black/5 bg-zinc-900/10"
                 style={{ width: 'min(75vw, 380px)', aspectRatio: '9/16' }}
@@ -134,22 +150,6 @@ const Hero = () => {
                 />
               </div>
             </motion.div>
-
-            {/* Texto — segundo en mobile, izquierda en desktop */}
-            <div className="lg:order-first flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[56%]">
-              <h1 className="hero-tagline text-[9vw] md:text-5xl lg:text-[5rem] font-heading font-medium tracking-tighter leading-[1.1] text-black">
-                {heroTagline.split(" ").map((word, i) => (
-                  <motion.span
-                    key={i}
-                    className="hero-tagline-word inline-block mr-[0.25em] whitespace-nowrap"
-                    whileHover={{ y: -8, color: "#154FD1" }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </h1>
-            </div>
 
           </div>
         </div>
