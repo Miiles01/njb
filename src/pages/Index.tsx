@@ -93,20 +93,22 @@ const Hero = () => {
       </section>
 
       {/* Stage 2: Content/Video Hero */}
-      <section 
+      <section
         id="hero-content"
-        className="hero-content-stage relative min-h-screen flex items-center bg-white pt-40 pb-24 lg:py-0 px-6 md:px-12 lg:px-40 snap-start"
+        className="hero-content-stage relative min-h-screen flex items-center bg-white pt-32 pb-16 lg:py-0 px-6 md:px-12 lg:px-40 overflow-hidden snap-start"
       >
         <div className="w-full max-w-[1300px] mx-auto">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-20">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
 
-            {/* Video — aparece primero en mobile, derecha en desktop */}
-            <div className="order-first lg:order-last flex-shrink-0 w-full flex justify-center lg:justify-end">
-              <div className="relative w-[58vw] max-w-[260px] md:max-w-[320px] lg:max-w-[380px] rounded-[32px] overflow-hidden shadow-[0_32px_80px_-16px_rgba(0,0,0,0.22)] border border-black/5 bg-zinc-900" style={{ aspectRatio: '9/16' }}>
-                {/* Capa para ocultar UI de YouTube */}
+            {/* Video — primero en mobile, derecha en desktop */}
+            <div className="w-full flex justify-center lg:justify-end lg:order-last flex-shrink-0">
+              <div
+                className="relative rounded-[28px] overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.20)] border border-black/5 bg-zinc-900"
+                style={{ width: 'min(56vw, 280px)', aspectRatio: '9/16' }}
+              >
                 <div className="absolute inset-0 z-10 pointer-events-none" />
                 <iframe
-                  src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1&color=white&enablejsapi=0"
+                  src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                   style={{ width: '140%', height: '140%' }}
                   title="NJB Hero Video"
@@ -115,21 +117,9 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Texto — aparece segundo en mobile, izquierda en desktop */}
-            <div className="order-last lg:order-first flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[55%]">
-              {/* Logo solo en mobile */}
-              <div className="mb-10 lg:hidden w-full flex justify-center">
-                <motion.img
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-                  src="/lovabol/logotipo.svg"
-                  alt="NJB"
-                  className="w-[55vw] max-w-[300px] h-auto object-contain"
-                />
-              </div>
-
-              <h1 className="hero-tagline text-[8vw] md:text-5xl lg:text-[5rem] font-heading font-medium tracking-tighter leading-[1.15] text-black">
+            {/* Texto — segundo en mobile, izquierda en desktop */}
+            <div className="lg:order-first flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[56%]">
+              <h1 className="hero-tagline text-[9vw] md:text-5xl lg:text-[5rem] font-heading font-medium tracking-tighter leading-[1.1] text-black">
                 {heroTagline.split(" ").map((word, i) => (
                   <motion.span
                     key={i}
