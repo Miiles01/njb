@@ -102,15 +102,27 @@ const Hero = () => {
 
             {/* Video — primero en mobile, derecha en desktop */}
             <motion.div 
-              className="w-full lg:w-[40%] flex justify-center lg:justify-end lg:order-last"
+              className="w-full lg:w-[45%] flex flex-col items-center lg:items-end justify-center lg:justify-end lg:order-last"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
             >
+              {/* Logo solo en mobile */}
+              <div className="mb-12 lg:hidden w-full flex justify-center">
+                <motion.img
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                  src="/lovabol/logotipo.svg"
+                  alt="NJB"
+                  className="w-[60vw] max-w-[320px] h-auto object-contain"
+                />
+              </div>
+
               <div
                 className="relative rounded-[28px] overflow-hidden shadow-2xl border border-black/5 bg-zinc-900/10"
-                style={{ width: 'min(65vw, 320px)', aspectRatio: '9/16' }}
+                style={{ width: 'min(75vw, 380px)', aspectRatio: '9/16' }}
               >
                 <div className="absolute inset-0 z-10 pointer-events-none rounded-[28px] ring-1 ring-inset ring-black/10" />
                 <iframe
