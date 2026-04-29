@@ -31,16 +31,10 @@ jobs:
 
       - name: Push dist to deploy branch
         run: |
+          cd dist
+          git init
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          # Fetch dist branch or create it
-          git fetch origin dist 2>/dev/null || true
-          git checkout dist 2>/dev/null || git checkout --orphan dist
-          # Remove old files
-          git rm -rf . --quiet 2>/dev/null || true
-          # Copy new build
-          cp -r dist/. .
-          rm -rf dist
           git add -A
-          git diff --staged --quiet || git commit -m "Deploy $(date +%Y%m%d%H%M%S)"
-          git push origin dist
+          git commit -m "Deploy $(date +%Y%m%d%H%M%S)"
+          git push --force https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Miiles01/njb.git HEAD:dist
