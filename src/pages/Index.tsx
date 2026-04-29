@@ -101,21 +101,27 @@ const Hero = () => {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
 
             {/* Video — primero en mobile, derecha en desktop */}
-            <div className="w-full flex justify-center lg:justify-end lg:order-last flex-shrink-0">
+            <motion.div 
+              className="w-full flex justify-center lg:justify-end lg:order-last flex-shrink-0"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+            >
               <div
-                className="relative rounded-[28px] overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.20)] border border-black/5 bg-zinc-900"
-                style={{ width: 'min(56vw, 280px)', aspectRatio: '9/16' }}
+                className="relative rounded-[28px] overflow-hidden shadow-2xl border border-black/5 bg-zinc-900/10"
+                style={{ width: 'min(65vw, 320px)', aspectRatio: '9/16' }}
               >
-                <div className="absolute inset-0 z-10 pointer-events-none" />
+                <div className="absolute inset-0 z-10 pointer-events-none rounded-[28px] ring-1 ring-inset ring-black/10" />
                 <iframe
                   src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                  style={{ width: '140%', height: '140%' }}
+                  style={{ width: '150%', height: '150%' }}
                   title="NJB Hero Video"
                   allow="autoplay; encrypted-media"
                 />
               </div>
-            </div>
+            </motion.div>
 
             {/* Texto — segundo en mobile, izquierda en desktop */}
             <div className="lg:order-first flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[56%]">
