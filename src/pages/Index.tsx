@@ -102,7 +102,7 @@ const Hero = () => {
 
             {/* Video — primero en mobile, derecha en desktop */}
             <motion.div 
-              className="w-full flex justify-center lg:justify-end lg:order-last flex-shrink-0"
+              className="w-full lg:w-[40%] flex justify-center lg:justify-end lg:order-last"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
