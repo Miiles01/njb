@@ -95,9 +95,9 @@ const Hero = () => {
       {/* Stage 2: Content/Video Hero */}
       <section
         id="hero-content"
-        className="hero-content-stage relative min-h-screen flex items-center bg-white pt-32 pb-16 lg:py-0 px-6 md:px-12 lg:px-40 overflow-hidden snap-start"
+        className="hero-content-stage relative min-h-screen flex items-center bg-white pt-32 pb-16 lg:py-0 px-6 md:px-12 lg:px-40 snap-start"
       >
-        <div className="w-full max-w-[1300px] mx-auto">
+        <div className="w-full max-w-[1300px] mx-auto overflow-visible">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
             
             {/* Logo solo en mobile — Primero en el stack */}
@@ -130,24 +130,26 @@ const Hero = () => {
 
             {/* Video — Tercero en mobile, derecha en desktop */}
             <motion.div 
-              className="order-3 lg:order-last w-full lg:w-[45%] flex flex-col items-center lg:items-end justify-center lg:justify-end"
+              className="order-3 lg:order-last w-full lg:w-[45%] flex flex-col items-center lg:items-end justify-center lg:justify-end overflow-visible"
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
             >
               <div
-                className="relative rounded-[28px] overflow-hidden shadow-2xl border border-black/5 bg-zinc-900/10"
+                className="relative rounded-[28px] shadow-2xl border border-black/5"
                 style={{ width: 'min(75vw, 380px)', aspectRatio: '9/16' }}
               >
+                <div className="absolute inset-0 rounded-[28px] overflow-hidden bg-zinc-900/10">
+                  <iframe
+                    src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                    style={{ width: '150%', height: '150%' }}
+                    title="NJB Hero Video"
+                    allow="autoplay; encrypted-media"
+                  />
+                </div>
                 <div className="absolute inset-0 z-10 pointer-events-none rounded-[28px] ring-1 ring-inset ring-black/10" />
-                <iframe
-                  src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                  style={{ width: '150%', height: '150%' }}
-                  title="NJB Hero Video"
-                  allow="autoplay; encrypted-media"
-                />
               </div>
             </motion.div>
 
