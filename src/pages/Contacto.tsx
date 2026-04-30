@@ -33,7 +33,7 @@ const Contacto = () => {
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err: any) {
-      toast.error("Error al enviar. Intenta de nuevo.");
+      toast.error(t('contact.form.error'));
     }
     setLoading(false);
   };
@@ -125,7 +125,7 @@ const Contacto = () => {
                       disabled={loading}
                       className="group relative flex items-center justify-between bg-white text-black py-5 px-8 rounded-full text-lg font-bold mt-8 hover:bg-zinc-200 transition-all overflow-hidden disabled:opacity-50"
                     >
-                      <span className="relative z-10">{loading ? "Enviando..." : t('contact.form.send')}</span>
+                      <span className="relative z-10">{loading ? t('contact.form.sending') : t('contact.form.send')}</span>
                       <ArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform" />
                     </button>
                   </motion.form>
@@ -137,10 +137,11 @@ const Contacto = () => {
                     className="h-full flex flex-col items-center justify-center text-center py-20"
                   >
                     <Check className="w-16 h-16 text-green-500 mb-6" />
-                    <h3 className="text-2xl font-bold mb-2">Success!</h3>
+                    <h3 className="text-2xl font-bold mb-2">{t('contact.form.success_title')}</h3>
                     <p className="text-zinc-400">{t('contact.form.success')}</p>
                   </motion.div>
                 )}
+
               </AnimatePresence>
 
               {/* Decorative elements for premium feel */}

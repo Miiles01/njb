@@ -980,6 +980,7 @@ const StrategyIllustration = () => {
 
 
 const ScaleIllustration = () => {
+  const { t } = useLanguage();
   const figmaBlue = "#18A0FB";
   const figmaPurple = "#A259FF";
   const figmaDark = "#2C2C2C";
@@ -988,7 +989,7 @@ const ScaleIllustration = () => {
   // Custom designer-like ease
   const designerEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
   
-  const typingText = "Growth Strategy";
+  const typingText = t('svg.strategy');
   const letters = typingText.split("");
 
   return (
@@ -1021,7 +1022,7 @@ const ScaleIllustration = () => {
       <circle cx="26" cy="9" r="2.5" fill="#28C840" />
       
       <text x="140" y="12" fontSize="6" fontFamily="Inter, sans-serif" fill="#CCC" textAnchor="middle" fontWeight="500">
-        NJB Agency / Production Suite
+        {t('svg.suite')}
       </text>
       
       <rect x="235" y="4" width="35" height="10" rx="2" fill={figmaBlue} />
@@ -1114,7 +1115,7 @@ const ScaleIllustration = () => {
               stroke={figmaPurple} strokeWidth="1.5"
             />
             <text fontSize="12" fontFamily="Inter, sans-serif" fontWeight="500" fill="#333">
-              Growth Strategy
+              {t('svg.strategy')}
             </text>
           </g>
 
@@ -1127,7 +1128,7 @@ const ScaleIllustration = () => {
           >
             <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaBlue} stroke="white" strokeWidth="0.8" />
             <rect x="12" y="10" width="45" height="15" rx="3" fill={figmaBlue} />
-            <text x="16" y="21" fontSize="8" fill="white" fontWeight="bold">NJB Dev</text>
+            <text x="16" y="21" fontSize="8" fill="white" fontWeight="bold">{t('svg.dev')}</text>
           </g>
 
           {/* Writer Cursor */}
@@ -1137,7 +1138,7 @@ const ScaleIllustration = () => {
           >
             <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaPurple} stroke="white" strokeWidth="0.8" />
             <rect x="12" y="10" width="30" height="15" rx="3" fill={figmaPurple} />
-            <text x="16" y="21" fontSize="8" fill="white">Copy</text>
+            <text x="16" y="21" fontSize="8" fill="white">{t('svg.copy')}</text>
           </g>
 
           {/* Avatar pile in top header (rendered here to be on top) */}
@@ -1150,6 +1151,7 @@ const ScaleIllustration = () => {
     </svg>
   );
 };
+
 
 const Offer = () => {
   const { t } = useLanguage();

@@ -221,6 +221,16 @@ const translations = {
         'solution.item4': 'Posicionamiento estratégico adaptado a tu mercado',
         'solution.item5': 'Email marketing (fidelización y aumento del valor del cliente)',
         'solution.bestseller': 'Más vendido',
+        // Contact Form Status
+        'contact.form.sending': 'Enviando...',
+        'contact.form.error': 'Error al enviar. Intenta de nuevo.',
+        'contact.form.success_title': '¡Éxito!',
+
+        // SVG Illustrations
+        'svg.suite': 'NJB Agency / Suite de Producción',
+        'svg.strategy': 'Estrategia de Crecimiento',
+        'svg.dev': 'NJB Dev',
+        'svg.copy': 'Copy',
     },
     en: {
         // Navbar
@@ -246,6 +256,9 @@ const translations = {
         'contact.form.phone': 'Your Phone Number',
         'contact.form.send': 'Send Message',
         'contact.form.success': 'Thank you! We will get in touch soon.',
+        'contact.form.sending': 'Sending...',
+        'contact.form.error': 'Error sending. Please try again.',
+        'contact.form.success_title': 'Success!',
 
         // Work
         'work.title': 'Projects',
@@ -406,6 +419,8 @@ const translations = {
         'proj.part.funnels': 'Sales Funnels',
         'proj.part.strategy': 'Brand Identity Strategy',
         'proj.part.ai': 'AI Automation',
+        'proj.part.visual': 'Luxury Visual Identity',
+        'proj.part.ecommerce': 'E-commerce Growth',
 
         // Offer Section
         'offer.title': 'Start with a strategy + free content session',
@@ -432,6 +447,12 @@ const translations = {
         'solution.item4': 'Strategic positioning adapted to your market',
         'solution.item5': 'Email marketing (loyalty & customer value increase)',
         'solution.bestseller': 'Bestseller',
+
+        // SVG Illustrations
+        'svg.suite': 'NJB Agency / Production Suite',
+        'svg.strategy': 'Growth Strategy',
+        'svg.dev': 'NJB Dev',
+        'svg.copy': 'Copy',
     },
     fr: {
         // Navbar
@@ -457,6 +478,9 @@ const translations = {
         'contact.form.phone': 'Votre Numéro de Téléphone',
         'contact.form.send': 'Envoyer le Message',
         'contact.form.success': 'Merci ! Nous vous contacterons bientôt.',
+        'contact.form.sending': 'Envoi en cours...',
+        'contact.form.error': 'Erreur lors de l\'envoi. Veuillez réessayer.',
+        'contact.form.success_title': 'Succès !',
 
         // Work
         'work.title': 'Projets',
@@ -617,6 +641,8 @@ const translations = {
         'proj.part.funnels': 'Tunnels de vente',
         'proj.part.strategy': 'Stratégie d\'identité de marque',
         'proj.part.ai': 'Automatisation avec IA',
+        'proj.part.visual': 'Identité visuelle de luxe',
+        'proj.part.ecommerce': 'Croissance E-commerce',
 
         // Offer Section
         'offer.title': 'Commence avec une stratégie + séance de contenu gratuite',
@@ -643,6 +669,12 @@ const translations = {
         'solution.item4': 'Positionnement stratégique adapté à ton marché',
         'solution.item5': 'Email marketing (fidélisation & augmentation de la valeur client)',
         'solution.bestseller': 'Le plus vendu',
+
+        // SVG Illustrations
+        'svg.suite': 'NJB Agency / Suite de Production',
+        'svg.strategy': 'Stratégie de Croissance',
+        'svg.dev': 'NJB Dev',
+        'svg.copy': 'Rédaction',
     }
 };
 
@@ -869,18 +901,102 @@ export const experienceFr = [
                 period: "Avril 2025 - Février 2026 · 11 mois",
                 location: "Mexique · Hybride",
                 details: [
-                    "Stratégie de marketing IA et optimisation des tunnels : planification et exécution de tunnels de marketing basés sur l'IA, stratégies de positionnement et systèmes de conversion.",
-                    "Positionnement de produit IA et Storytelling : développement de stratégies de positionnement et de cadres narratifs pour les produits d'IA."
+                    "Stratégie de marketing IA et optimisation des tunnels : Planification et exécution de tunnels de marketing basés sur l'IA, stratégies de positionnement et systèmes de conversion, intégrant l'analyse de données, les flux de travail \"vibe coding\" et l'automatisation avec l'IA en utilisant des outils avancés comme Lovable, Base44, Antigravity, Zapier et Make.",
+                    "Positionnement de produit IA et Storytelling : Développement de stratégies de positionnement et de cadres narratifs pour les produits d'IA, traduisant des capacités d'IA complexes en propositions de valeur claires par le storytelling, les insights basés sur les données et les stratégies de marketing axées sur la croissance."
+                ]
+            },
+            {
+                title: "Responsable de projet marketing",
+                period: "Février 2024 - Avril 2025 · 1 an 3 mois",
+                details: [
+                    "Gestion de projet et stratégies numériques : Planification et exécution de stratégies de marketing numérique, SEO & SEM, et growth marketing, via Google Ads, Facebook Ads et LinkedIn Ads.",
+                    "Analyse de données et Business Intelligence : Optimisation des campagnes avec Google Analytics, SEMrush, Tableau et Power BI. Mise en œuvre de tests A/B et de stratégies de conversion.",
+                    "Marketing de contenu et réseaux sociaux : Stratégies de marketing de contenu et marketing d'influence sur Instagram, LinkedIn, TikTok et YouTube."
+                ],
+                skills: "Expérience client, stratégie média et +4 compétences"
+            },
+            {
+                title: "Marketer Junior",
+                period: "Juillet 2023 - Janvier 2024 · 7 mois",
+                location: "À distance",
+                details: [
+                    "Stratégies de rétention : Mise en œuvre de flux automatisés sur Klaviyo et ActiveCampaign pour augmenter la LTV et réduire le taux de désabonnement.",
+                    "Campagnes Outbound : Développement de campagnes multicanaux utilisant GoHighLevel et Instantly, optimisant la conversion des leads qualifiés (SQL).",
+                    "Délivrabilité : Configuration des enregistrements DMARC, DKIM et TXT pour assurer la livraison en boîte de réception."
                 ]
             }
         ]
     },
     {
-        company: "Idiomes",
+        company: "Fiverr",
+        duration: "5 ans 7 mois",
+        location: "À distance",
         roles: [
-            { title: "Espagnol", period: "Natif" },
-            { title: "Anglais", period: "Professionnel" },
-            { title: "Français", period: "Courant" }
+            {
+                title: "Spécialiste numérique",
+                period: "Mars 2020 - Septembre 2024 · 4 ans 7 mois",
+                details: [
+                    "Branding et stratégie : Création d'identités visuelles alignées sur la proposition de valeur, optimisant le positionnement sur le marché.",
+                    "Multimédia : Création de contenu visuel avec Adobe Creative Suite, Figma et Canva pour des campagnes numériques.",
+                    "Growth Marketing : Développement de stratégies de contenu sur Instagram, Facebook, LinkedIn et TikTok."
+                ],
+                skills: "Médias de marketing numérique, Google Analytics et +1 compétence"
+            },
+            {
+                title: "Freelance Branding",
+                period: "Mars 2019 - Février 2020 · 1 an",
+                details: [
+                    "Localisation de campagnes : Adaptation des messages et des expériences utilisateur pour assurer une résonance culturelle en LATAM.",
+                    "Notoriété organique : Activation des communautés locales et des influenceurs pour augmenter la portée sans investissement média payant.",
+                    "Esthétique minimaliste : Supervision du contenu narratif avec un accent sur le branding émotionnel et le storytelling visuel."
+                ]
+            }
+        ]
+    },
+    {
+        company: "BRIX Agency",
+        duration: "Temps plein",
+        roles: [
+            {
+                title: "Product Designer",
+                period: "Février 2023 - Mai 2023 · 4 mois",
+                location: "États-Unis · À distance",
+                details: [
+                    "Design UX/UI : Création et optimisation d'interfaces intuitives sur Figma pour une expérience fluide.",
+                    "Développement Web : Collaboration technique pour assurer la mise en œuvre correcte des designs.",
+                    "Recherche : Analyse des utilisateurs et tests d'utilisabilité pour améliorer l'accessibilité et la conversion."
+                ],
+                skills: "Expérience client"
+            }
+        ]
+    },
+    {
+        company: "Éducation",
+        roles: [
+            {
+                title: "Université nationale autonome du Mexique",
+                period: "Administration, Marketing",
+                location: "2022 – Présent",
+                details: ["Deuxième année académique."],
+                skills: "Plans de projet, réseautage et +2 compétences"
+            }
+        ]
+    },
+    {
+        company: "Langues",
+        roles: [
+            {
+                title: "Espagnol",
+                period: "Natif"
+            },
+            {
+                title: "Anglais",
+                period: "Professionnel"
+            },
+            {
+                title: "Français",
+                period: "Courant"
+            }
         ]
     }
 ];
