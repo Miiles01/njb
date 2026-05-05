@@ -11,6 +11,8 @@ import { toast } from "sonner";
 const Contacto = () => {
   const { t } = useLanguage();
   const { track } = useAnalytics();
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({ email: "", phone: "" });
   const [message, setMessage] = useState("");
