@@ -31,6 +31,7 @@ const translations = {
         'contact.subtitle': 'Cuéntanos sobre tu próximo proyecto.',
         'contact.form.email': 'Tu Correo Electrónico',
         'contact.form.phone': 'Tu Número de Teléfono',
+        'contact.form.message': 'Tu Mensaje',
         'contact.form.send': 'Enviar Mensaje',
         'contact.form.success': '¡Gracias! Nos pondremos en contacto pronto.',
 
@@ -178,7 +179,7 @@ const translations = {
         // Footer
         'footer.headline': 'Hagámoslo',
         'footer.subline': 'Hablemos pronto',
-        'footer.cta': 'Reserva tu consulta gratuita ahora',
+        'footer.cta': 'Reservar ahora',
         'footer.cta.button': 'Reservar ahora',
         'footer.linkedin': 'LinkedIn',
         'footer.copyright': '© 2026 NJB',
@@ -254,6 +255,7 @@ const translations = {
         'contact.subtitle': 'Let\'s talk about your next project.',
         'contact.form.email': 'Your Email Address',
         'contact.form.phone': 'Your Phone Number',
+        'contact.form.message': 'Your Message',
         'contact.form.send': 'Send Message',
         'contact.form.success': 'Thank you! We will get in touch soon.',
         'contact.form.sending': 'Sending...',
@@ -404,7 +406,7 @@ const translations = {
         // Footer
         'footer.headline': 'Let\'s do it',
         'footer.subline': 'Talk soon',
-        'footer.cta': 'Book your free consultation now',
+        'footer.cta': 'Book now',
         'footer.cta.button': 'Book now',
         'footer.linkedin': 'LinkedIn',
         'footer.copyright': '© 2026 NJB',
@@ -476,6 +478,7 @@ const translations = {
         'contact.subtitle': 'Parlez-nous de votre prochain projet.',
         'contact.form.email': 'Votre Adresse Email',
         'contact.form.phone': 'Votre Numéro de Téléphone',
+        'contact.form.message': 'Votre Message',
         'contact.form.send': 'Envoyer le Message',
         'contact.form.success': 'Merci ! Nous vous contacterons bientôt.',
         'contact.form.sending': 'Envoi en cours...',
@@ -626,7 +629,7 @@ const translations = {
         // Footer
         'footer.headline': 'Faisons-le',
         'footer.subline': 'À bientôt',
-        'footer.cta': 'Réserve ta consultation gratuite dès maintenant',
+        'footer.cta': 'Planifier maintenant',
         'footer.cta.button': 'Planifier maintenant',
         'footer.linkedin': 'LinkedIn',
         'footer.copyright': '© 2026 NJB',

@@ -11,27 +11,39 @@ import { toast } from "sonner";
 const Contacto = () => {
   const { t } = useLanguage();
   const { track } = useAnalytics();
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({ email: "", phone: "" });
+  const [message, setMessage] = useState("");
+
+  const handleNextStep = (e: React.FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value.trim();
+    setFormData({ email, phone });
+    setStep(2);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const form = e.target as HTMLFormElement;
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
-    const phone = (form.elements.namedItem("phone") as HTMLInputElement).value.trim();
-
     try {
       const { error } = await supabase.from("contact_submissions" as any).insert({
-        email,
-        phone,
+        email: formData.email,
+        phone: formData.phone,
+        message: message,
       });
       if (error) throw error;
 
       track("contact_form_submit", { pagePath: "/contacto" });
       setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => {
+        setSubmitted(false);
+        setStep(1);
+        setFormData({ email: "", phone: "" });
+        setMessage("");
+      }, 5000);
     } catch (err: any) {
       toast.error(t('contact.form.error'));
     }
@@ -83,65 +95,109 @@ const Contacto = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 1, ease: "circOut" }}
-              className="w-full lg:w-[450px] bg-black text-white p-10 md:p-14 rounded-[40px] shadow-2xl overflow-hidden relative"
+              className="w-full lg:w-[450px] bg-black text-white p-10 md:p-14 rounded-[40px] shadow-2xl overflow-hidden relative min-h-[500px] flex flex-col"
             >
               <AnimatePresence mode="wait">
                 {!submitted ? (
-                  <motion.form 
-                    key="form"
-                    onSubmit={handleSubmit}
-                    className="flex flex-col gap-8 relative z-10"
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0, y: -20 }}
-                  >
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
-                        {t('contact.form.email')}
-                      </label>
-                      <input 
-                        required
-                        type="email" 
-                        id="email"
-                        placeholder="hello@example.com"
-                        className="w-full bg-transparent border-b border-zinc-800 py-3 text-xl focus:border-white transition-colors outline-none placeholder:text-zinc-700"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="phone" className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
-                        {t('contact.form.phone')}
-                      </label>
-                      <input 
-                        required
-                        type="tel" 
-                        id="phone"
-                        placeholder="+33 123 456 789"
-                        className="w-full bg-transparent border-b border-zinc-800 py-3 text-xl focus:border-white transition-colors outline-none placeholder:text-zinc-700"
-                      />
-                    </div>
-
-                    <button 
-                      type="submit"
-                      disabled={loading}
-                      className="group relative flex items-center justify-between bg-white text-black py-5 px-8 rounded-full text-lg font-bold mt-8 hover:bg-zinc-200 transition-all overflow-hidden disabled:opacity-50"
+                  step === 1 ? (
+                    <motion.form 
+                      key="step1"
+                      onSubmit={handleNextStep}
+                      className="flex flex-col gap-8 relative z-10 flex-1"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
                     >
-                      <span className="relative z-10">{loading ? t('contact.form.sending') : t('contact.form.send')}</span>
-                      <ArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform" />
-                    </button>
-                  </motion.form>
+                      <div className="space-y-2">
+                        <label htmlFor="email" className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
+                          {t('contact.form.email')}
+                        </label>
+                        <input 
+                          required
+                          type="email" 
+                          id="email"
+                          defaultValue={formData.email}
+                          placeholder="hello@example.com"
+                          className="w-full bg-transparent border-b border-zinc-800 py-3 text-xl focus:border-white transition-colors outline-none placeholder:text-zinc-700"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label htmlFor="phone" className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
+                          {t('contact.form.phone')}
+                        </label>
+                        <input 
+                          required
+                          type="tel" 
+                          id="phone"
+                          defaultValue={formData.phone}
+                          placeholder="+1 123 456 789"
+                          className="w-full bg-transparent border-b border-zinc-800 py-3 text-xl focus:border-white transition-colors outline-none placeholder:text-zinc-700"
+                        />
+                      </div>
+
+                      <button 
+                        type="submit"
+                        className="group relative flex items-center justify-between bg-white text-black py-5 px-8 rounded-full text-lg font-bold mt-auto hover:bg-zinc-200 transition-all overflow-hidden"
+                      >
+                        <span className="relative z-10">{t('common.next')}</span>
+                        <ArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform" />
+                      </button>
+                    </motion.form>
+                  ) : (
+                    <motion.form 
+                      key="step2"
+                      onSubmit={handleSubmit}
+                      className="flex flex-col gap-8 relative z-10 flex-1"
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                    >
+                      <div className="space-y-2 flex-1 flex flex-col">
+                        <label htmlFor="message" className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
+                          {t('contact.form.message')}
+                        </label>
+                        <textarea 
+                          required
+                          id="message"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          placeholder="..."
+                          className="w-full bg-transparent border-b border-zinc-800 py-3 text-xl focus:border-white transition-colors outline-none placeholder:text-zinc-700 flex-1 min-h-[150px] resize-none"
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-4">
+                        <button 
+                          type="submit"
+                          disabled={loading}
+                          className="group relative flex items-center justify-between bg-white text-black py-5 px-8 rounded-full text-lg font-bold hover:bg-zinc-200 transition-all overflow-hidden disabled:opacity-50"
+                        >
+                          <span className="relative z-10">{loading ? t('contact.form.sending') : t('contact.form.send')}</span>
+                          <ArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform" />
+                        </button>
+                        <button 
+                          type="button"
+                          onClick={() => setStep(1)}
+                          className="text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors py-2"
+                        >
+                          Volver
+                        </button>
+                      </div>
+                    </motion.form>
+                  )
                 ) : (
                   <motion.div 
                     key="success"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="h-full flex flex-col items-center justify-center text-center py-20"
+                    className="h-full flex flex-col items-center justify-center text-center py-20 flex-1"
                   >
                     <Check className="w-16 h-16 text-green-500 mb-6" />
                     <h3 className="text-2xl font-bold mb-2">{t('contact.form.success_title')}</h3>
                     <p className="text-zinc-400">{t('contact.form.success')}</p>
                   </motion.div>
                 )}
-
               </AnimatePresence>
 
               {/* Decorative elements for premium feel */}
