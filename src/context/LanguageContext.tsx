@@ -31,6 +31,8 @@ const translations = {
         'contact.subtitle': 'Cuéntanos sobre tu próximo proyecto.',
         'contact.form.email': 'Tu Correo Electrónico',
         'contact.form.phone': 'Tu Número de Teléfono',
+        'contact.form.message': 'Mensaje',
+        'contact.form.messagePlaceholder': 'Cuéntanos sobre tu proyecto...',
         'contact.form.send': 'Enviar Mensaje',
         'contact.form.success': '¡Gracias! Nos pondremos en contacto pronto.',
 
@@ -244,6 +246,8 @@ const translations = {
         'contact.subtitle': 'Let\'s talk about your next project.',
         'contact.form.email': 'Your Email Address',
         'contact.form.phone': 'Your Phone Number',
+        'contact.form.message': 'Message',
+        'contact.form.messagePlaceholder': 'Tell us about your project...',
         'contact.form.send': 'Send Message',
         'contact.form.success': 'Thank you! We will get in touch soon.',
 
@@ -455,6 +459,8 @@ const translations = {
         'contact.subtitle': 'Parlez-nous de votre prochain projet.',
         'contact.form.email': 'Votre Adresse Email',
         'contact.form.phone': 'Votre Numéro de Téléphone',
+        'contact.form.message': 'Message',
+        'contact.form.messagePlaceholder': 'Parlez-nous de votre projet...',
         'contact.form.send': 'Envoyer le Message',
         'contact.form.success': 'Merci ! Nous vous contacterons bientôt.',
 

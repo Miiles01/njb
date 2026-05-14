@@ -5,8 +5,8 @@ import AccordionNavbar from "@/components/AccordionNavbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
 
 const Contacto = () => {
   const { t } = useLanguage();
@@ -21,13 +21,15 @@ const Contacto = () => {
     const form = e.target as HTMLFormElement;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
     const phone = (form.elements.namedItem("phone") as HTMLInputElement).value.trim();
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim();
 
     try {
-      const { error } = await supabase.from("contact_submissions" as any).insert({
-        email,
-        phone,
-      });
-      if (error) throw error;
+      await emailjs.send(
+        "service_blgutpo",
+        "template_7cub78o",
+        { email, phone, message },
+        "dG0WvqFEtD5YDjQxo"
+      );
 
       track("contact_form_submit", { pagePath: "/contacto" });
       setSubmitted(true);
@@ -111,12 +113,24 @@ const Contacto = () => {
                       <label htmlFor="phone" className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
                         {t('contact.form.phone')}
                       </label>
-                      <input 
+                      <input
                         required
-                        type="tel" 
+                        type="tel"
                         id="phone"
                         placeholder="+33 123 456 789"
                         className="w-full bg-transparent border-b border-zinc-800 py-3 text-xl focus:border-white transition-colors outline-none placeholder:text-zinc-700"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label htmlFor="message" className="text-xs uppercase tracking-widest text-zinc-500 font-bold">
+                        {t('contact.form.message')}
+                      </label>
+                      <textarea
+                        id="message"
+                        rows={3}
+                        placeholder={t('contact.form.messagePlaceholder')}
+                        className="w-full bg-transparent border-b border-zinc-800 py-3 text-xl focus:border-white transition-colors outline-none placeholder:text-zinc-700 resize-none"
                       />
                     </div>
 
