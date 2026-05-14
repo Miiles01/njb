@@ -5,8 +5,8 @@ import AccordionNavbar from "@/components/AccordionNavbar";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
 
 const Contacto = () => {
   const { t } = useLanguage();
@@ -31,12 +31,12 @@ const Contacto = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.from("contact_submissions" as any).insert({
-        email: formData.email,
-        phone: formData.phone,
-        message: message,
-      });
-      if (error) throw error;
+      await emailjs.send(
+        "service_blgutpo",
+        "template_7cub78o",
+        { email: formData.email, phone: formData.phone, message },
+        "dG0WvqFEtD5YDjQxo"
+      );
 
       track("contact_form_submit", { pagePath: "/contacto" });
       setSubmitted(true);
