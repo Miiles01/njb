@@ -95,30 +95,25 @@ const Hero = () => {
       {/* Stage 2: Content/Video Hero */}
       <section
         id="hero-content"
-        className="hero-content-stage relative min-h-screen flex items-center bg-white pt-32 pb-16 lg:py-0 px-6 md:px-12 lg:px-40 overflow-hidden snap-start"
+        className="hero-content-stage relative min-h-screen flex items-center bg-white pt-32 pb-16 lg:py-0 px-6 md:px-12 lg:px-40 snap-start"
       >
-        <div className="w-full max-w-[1300px] mx-auto">
+        <div className="w-full max-w-[1300px] mx-auto overflow-visible">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
-
-            {/* Video — primero en mobile, derecha en desktop */}
-            <div className="w-full flex justify-center lg:justify-end lg:order-last flex-shrink-0">
-              <div
-                className="relative rounded-[28px] overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.20)] border border-black/5 bg-zinc-900"
-                style={{ width: 'min(56vw, 280px)', aspectRatio: '9/16' }}
-              >
-                <div className="absolute inset-0 z-10 pointer-events-none" />
-                <iframe
-                  src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                  style={{ width: '140%', height: '140%' }}
-                  title="NJB Hero Video"
-                  allow="autoplay; encrypted-media"
-                />
-              </div>
+            
+            {/* Logo solo en mobile — Primero en el stack */}
+            <div className="order-1 lg:hidden w-full flex justify-center mb-8">
+              <motion.img
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                src="/lovabol/logotipo.svg"
+                alt="NJB"
+                className="w-[60vw] max-w-[320px] h-auto object-contain"
+              />
             </div>
 
-            {/* Texto — segundo en mobile, izquierda en desktop */}
-            <div className="lg:order-first flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[56%]">
+            {/* Texto — Segundo en mobile, izquierda en desktop */}
+            <div className="order-2 lg:order-first flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full lg:max-w-[56%]">
               <h1 className="hero-tagline text-[9vw] md:text-5xl lg:text-[5rem] font-heading font-medium tracking-tighter leading-[1.1] text-black">
                 {heroTagline.split(" ").map((word, i) => (
                   <motion.span
@@ -132,6 +127,31 @@ const Hero = () => {
                 ))}
               </h1>
             </div>
+
+            {/* Video — Tercero en mobile, derecha en desktop */}
+            <motion.div 
+              className="order-3 lg:order-last w-full lg:w-[45%] flex flex-col items-center lg:items-end justify-center lg:justify-end overflow-visible"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+            >
+              <div
+                className="relative rounded-[28px] shadow-2xl border border-black/5"
+                style={{ width: 'min(75vw, 380px)', aspectRatio: '9/16' }}
+              >
+                <div className="absolute inset-0 rounded-[28px] overflow-hidden bg-zinc-900/10">
+                  <iframe
+                    src="https://www.youtube.com/embed/OO8JHYuPTLY?autoplay=1&mute=1&loop=1&playlist=OO8JHYuPTLY&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&showinfo=0&fs=0&disablekb=1"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                    style={{ width: '150%', height: '150%' }}
+                    title="NJB Hero Video"
+                    allow="autoplay; encrypted-media"
+                  />
+                </div>
+                <div className="absolute inset-0 z-10 pointer-events-none rounded-[28px] ring-1 ring-inset ring-black/10" />
+              </div>
+            </motion.div>
 
           </div>
         </div>
@@ -960,6 +980,7 @@ const StrategyIllustration = () => {
 
 
 const ScaleIllustration = () => {
+  const { t } = useLanguage();
   const figmaBlue = "#18A0FB";
   const figmaPurple = "#A259FF";
   const figmaDark = "#2C2C2C";
@@ -968,7 +989,7 @@ const ScaleIllustration = () => {
   // Custom designer-like ease
   const designerEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
   
-  const typingText = "Growth Strategy";
+  const typingText = t('svg.strategy');
   const letters = typingText.split("");
 
   return (
@@ -1001,7 +1022,7 @@ const ScaleIllustration = () => {
       <circle cx="26" cy="9" r="2.5" fill="#28C840" />
       
       <text x="140" y="12" fontSize="6" fontFamily="Inter, sans-serif" fill="#CCC" textAnchor="middle" fontWeight="500">
-        NJB Agency / Production Suite
+        {t('svg.suite')}
       </text>
       
       <rect x="235" y="4" width="35" height="10" rx="2" fill={figmaBlue} />
@@ -1094,7 +1115,7 @@ const ScaleIllustration = () => {
               stroke={figmaPurple} strokeWidth="1.5"
             />
             <text fontSize="12" fontFamily="Inter, sans-serif" fontWeight="500" fill="#333">
-              Growth Strategy
+              {t('svg.strategy')}
             </text>
           </g>
 
@@ -1107,7 +1128,7 @@ const ScaleIllustration = () => {
           >
             <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaBlue} stroke="white" strokeWidth="0.8" />
             <rect x="12" y="10" width="45" height="15" rx="3" fill={figmaBlue} />
-            <text x="16" y="21" fontSize="8" fill="white" fontWeight="bold">NJB Dev</text>
+            <text x="16" y="21" fontSize="8" fill="white" fontWeight="bold">{t('svg.dev')}</text>
           </g>
 
           {/* Writer Cursor */}
@@ -1117,7 +1138,7 @@ const ScaleIllustration = () => {
           >
             <path d="M0 0 L10 10 L6 10 L9 16 L7 17 L4 11 L0 15 Z" fill={figmaPurple} stroke="white" strokeWidth="0.8" />
             <rect x="12" y="10" width="30" height="15" rx="3" fill={figmaPurple} />
-            <text x="16" y="21" fontSize="8" fill="white">Copy</text>
+            <text x="16" y="21" fontSize="8" fill="white">{t('svg.copy')}</text>
           </g>
 
           {/* Avatar pile in top header (rendered here to be on top) */}
@@ -1130,6 +1151,7 @@ const ScaleIllustration = () => {
     </svg>
   );
 };
+
 
 const Offer = () => {
   const { t } = useLanguage();
