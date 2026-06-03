@@ -115,7 +115,9 @@ export const projectsData: Record<string, ProjectData> = {
             "4b1d397e-9012-4f48-ba04-e7e867715ceb.webp",
             "IMG_2600.PNG",
             "att.5KJ8yJtR0DE818Q8Ml3w-YwAuBjrIEEmQjoypFI6yKA.jpg",
-            "https://youtube.com/shorts/Fp7cPqzV6as"
+            "https://youtube.com/shorts/Fp7cPqzV6as",
+            "Frame 2085661984.png",
+            "Frame 2085661985.png"
         ],
         participation: [
             { icon: "bar", textKey: "proj.part.funnels" },
