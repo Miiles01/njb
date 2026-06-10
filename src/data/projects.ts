@@ -47,6 +47,8 @@ export const projectsData: Record<string, ProjectData> = {
             "imagenes-preview/IMG_3201.webp",
             "imagenes-preview/IMG_3204.webp",
             "IMG_3203.webp",
+            "club22.jpeg",
+            "club23.jpg",
             "https://youtube.com/shorts/sQeNNcK8u1M",
             "https://youtube.com/shorts/Nu1blQSxI8I"
         ],
