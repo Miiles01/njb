@@ -736,6 +736,13 @@ export default function Work() {
               </div>
               
               <div className="flex flex-col gap-3 relative">
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                  onClick={() => handleCreateTask(column)}
+                >
+                  <Plus className="w-4 h-4 mr-2" /> {t("addTask").replace("+ ", "")}
+                </Button>
                 {dropIndicator?.column === column && dropIndicator.index === 0 && (
                   <div className="h-1 bg-primary rounded-full w-full absolute top-0 -mt-1.5 z-10" />
                 )}
@@ -837,13 +844,6 @@ export default function Work() {
                     </div>
                   );
                 })}
-                <Button 
-                  variant="ghost" 
-                  className="w-full mt-2 justify-start text-muted-foreground hover:bg-muted/50 hover:text-foreground"
-                  onClick={() => handleCreateTask(column)}
-                >
-                  <Plus className="w-4 h-4 mr-2" /> {t("addTask").replace("+ ", "")}
-                </Button>
               </div>
             </div>
           ))}
