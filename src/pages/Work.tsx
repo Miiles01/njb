@@ -416,14 +416,14 @@ export default function Work() {
           
           <div className="flex flex-wrap items-center gap-3">
             {/* Users Sidebar */}
-            <Sheet open={isUsersOpen} onOpenChange={setIsUsersOpen}>
+            <Sheet modal={false} open={isUsersOpen} onOpenChange={setIsUsersOpen}>
               <SheetTrigger asChild>
                 <Button variant="outline" className="gap-2">
                   <Users className="w-4 h-4" />
                   Equipo
                 </Button>
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent hideOverlay className="bg-white dark:bg-card border-l shadow-2xl">
                 <SheetHeader>
                   <SheetTitle>Gestión de Equipo</SheetTitle>
                 </SheetHeader>
