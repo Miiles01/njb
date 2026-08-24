@@ -433,36 +433,38 @@ export default function Work() {
                   Equipo
                 </Button>
               </SheetTrigger>
-              <SheetContent hideOverlay className="bg-white dark:bg-card border-l shadow-2xl">
-                <SheetHeader>
-                  <SheetTitle>Gestión de Equipo</SheetTitle>
-                </SheetHeader>
-                <div className="py-6 space-y-6">
-                  <div className="flex gap-2">
-                    <Input placeholder="Nuevo miembro..." value={newUserName} onChange={e => setNewUserName(e.target.value)} />
-                    <Button onClick={handleAddUser} size="icon"><Plus className="w-4 h-4" /></Button>
-                  </div>
-                  <div className="space-y-4">
-                    {team.map(member => (
-                      <div key={member.id} className="flex items-center gap-4 p-3 rounded-xl border border-border/50">
-                        <Avatar>
-                          <AvatarImage src={member.avatarUrl} />
-                          <AvatarFallback>{member.name.substring(0, 2).toUpperCase()}</AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 space-y-1">
-                          <p className="text-sm font-medium">{member.name}</p>
-                          <div className="flex items-center gap-2">
-                            <ImageIcon className="w-3 h-3 text-muted-foreground" />
-                            <Input 
-                              placeholder="URL de foto" 
-                              className="h-7 text-xs" 
-                              value={member.avatarUrl}
-                              onChange={e => handleUpdateAvatar(member.id, e.target.value)}
-                            />
+              <SheetContent hideOverlay className="bg-white dark:bg-card border-l shadow-2xl p-0">
+                <div className="absolute inset-0 overflow-y-auto p-6 pb-20 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
+                  <SheetHeader className="mb-6">
+                    <SheetTitle>Gestión de Equipo</SheetTitle>
+                  </SheetHeader>
+                  <div className="space-y-6">
+                    <div className="flex gap-2">
+                      <Input placeholder="Nuevo miembro..." value={newUserName} onChange={e => setNewUserName(e.target.value)} />
+                      <Button onClick={handleAddUser} size="icon"><Plus className="w-4 h-4" /></Button>
+                    </div>
+                    <div className="space-y-4">
+                      {team.map(member => (
+                        <div key={member.id} className="flex items-center gap-4 p-3 rounded-xl bg-muted/20">
+                          <Avatar>
+                            <AvatarImage src={member.avatarUrl} />
+                            <AvatarFallback>{member.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 space-y-1">
+                            <p className="text-sm font-medium">{member.name}</p>
+                            <div className="flex items-center gap-2">
+                              <ImageIcon className="w-3 h-3 text-muted-foreground" />
+                              <Input 
+                                placeholder="URL de foto" 
+                                className="h-7 text-xs bg-transparent border-none shadow-none px-0 focus-visible:ring-0" 
+                                value={member.avatarUrl}
+                                onChange={e => handleUpdateAvatar(member.id, e.target.value)}
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                  </div>
                   </div>
                 </div>
               </SheetContent>
@@ -688,7 +690,7 @@ export default function Work() {
             }}
           />
 
-          <div className="h-full overflow-y-auto p-6 pt-12 pb-20">
+          <div className="absolute inset-0 overflow-y-auto p-8 pt-12 pb-24 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
           {selectedTask && (
             <div className="space-y-8">
               
@@ -730,7 +732,7 @@ export default function Work() {
               </div>
 
               {/* Assignment */}
-              <div className="flex items-center justify-between border-y py-4">
+              <div className="flex items-center justify-between py-2">
                 <span className="text-sm font-medium text-muted-foreground">Asignado a</span>
                 <Select value={selectedTask.assigneeId || "none"} onValueChange={(val) => handleUpdateSelectedTask({ assigneeId: val === "none" ? null : val })}>
                   <SelectTrigger className="w-auto h-8 border-none shadow-none gap-2">
@@ -914,7 +916,7 @@ export default function Work() {
               </div>
 
 
-              <div className="pt-8 flex justify-end border-t border-border/50">
+              <div className="pt-4 flex justify-end">
                 <Button variant="ghost" className="text-destructive hover:bg-destructive hover:text-destructive-foreground gap-2 transition-colors" onClick={() => setTaskToDelete(selectedTask.id)}>
                    <Trash2 className="w-4 h-4" />
                    Eliminar Tarea
