@@ -135,6 +135,7 @@ export default function Work() {
   const saveProjects = (newProjects: ProjectTag[]) => {
     setProjects(newProjects);
     localStorage.setItem("njb_work_projects", JSON.stringify(newProjects));
+    fetch('/api.php?action=sync_projects', { method: 'POST', body: JSON.stringify({ projects: newProjects }) }).catch(e => console.error(e));
   };
   
   const [tagDropdownOpen, setTagDropdownOpen] = useState(false);
@@ -146,18 +147,31 @@ export default function Work() {
     const auth = localStorage.getItem("njb_work_auth");
     if (auth === "true") setIsAuthenticated(true);
     
-    const savedTasks = localStorage.getItem("njb_work_tasks");
-    setTasks(savedTasks ? JSON.parse(savedTasks) : initialTasks);
-
-    const savedTeam = localStorage.getItem("njb_work_team");
-    if (savedTeam) {
-        const parsed = JSON.parse(savedTeam);
-        const updated = parsed.map((m: TeamMember) => m.name === 'Manuel' && !m.avatarUrl ? { ...m, avatarUrl: '/avatars/manuel.jpg' } : m);
-        setTeam(updated);
-        localStorage.setItem("njb_work_team", JSON.stringify(updated));
-    } else {
-        setTeam(defaultTeam);
-    }
+    fetch('/api.php?action=get_all')
+      .then(r => r.json())
+      .then(data => {
+        if (data.tasks && data.tasks.length > 0) setTasks(data.tasks);
+        else {
+           const savedTasks = localStorage.getItem("njb_work_tasks");
+           setTasks(savedTasks ? JSON.parse(savedTasks) : initialTasks);
+        }
+        
+        if (data.team && data.team.length > 0) setTeam(data.team);
+        else {
+           const savedTeam = localStorage.getItem("njb_work_team");
+           setTeam(savedTeam ? JSON.parse(savedTeam) : defaultTeam);
+        }
+        
+        if (data.projects && data.projects.length > 0) setProjects(data.projects);
+      })
+      .catch(e => {
+        console.error("No se pudo conectar a la base de datos, usando memoria local.", e);
+        const savedTasks = localStorage.getItem("njb_work_tasks");
+        setTasks(savedTasks ? JSON.parse(savedTasks) : initialTasks);
+        const savedTeam = localStorage.getItem("njb_work_team");
+        if (savedTeam) setTeam(JSON.parse(savedTeam));
+        else setTeam(defaultTeam);
+      });
   }, []);
 
   useEffect(() => {
@@ -226,6 +240,7 @@ export default function Work() {
   const saveTasks = (newTasks: Task[]) => {
     setTasks(newTasks);
     localStorage.setItem("njb_work_tasks", JSON.stringify(newTasks));
+    fetch('/api.php?action=sync_tasks', { method: 'POST', body: JSON.stringify({ tasks: newTasks }) }).catch(e => console.error(e));
   };
 
   const saveTeam = (newTeam: TeamMember[]) => {
@@ -647,6 +662,7 @@ export default function Work() {
                 if (taskToDelete) {
                   const newTasks = tasks.filter(t => t.id !== taskToDelete);
                   saveTasks(newTasks);
+                  fetch('/api.php?action=delete_task', { method: 'POST', body: JSON.stringify({ id: taskToDelete }) }).catch(e=>console.error(e));
                   if (selectedTask?.id === taskToDelete) setSelectedTask(null);
                   toast.success("Tarea eliminada");
                 }
