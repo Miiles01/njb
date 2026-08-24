@@ -325,30 +325,24 @@ export default function Work() {
   };
 
   // Tasks Management
-  const handleCreateTask = () => {
-    if (!newTask.title) return toast.error("El título es obligatorio");
-    
-    const columnTasks = tasks.filter(t => t.status === (newTask.status || "Nuevas"));
-    
-    const task: Task = {
+  const handleCreateTask = (defaultStatus: Status = "Nuevas") => {
+    const columnTasks = tasks.filter(t => t.status === defaultStatus);
+    const emptyTask: Task = {
       id: Date.now().toString(),
-      title: newTask.title || "",
-      subtitle: newTask.subtitle || "",
-      description: newTask.description || "",
-      assigneeIds: newTask.assigneeId ? [newTask.assigneeId] : [],
-      priority: (newTask.priority as Priority) || "Media",
-      project: newTask.project || "General",
-      status: (newTask.status as Status) || "Nuevas",
+      title: "",
+      subtitle: "",
+      description: "",
+      assigneeIds: [],
+      priority: "Baja",
+      project: "",
+      status: defaultStatus,
       checklists: [],
       links: [],
       images: [],
       order: columnTasks.length
     };
-
-    saveTasks([...tasks, task]);
-    setIsDialogOpen(false);
-    setNewTask({ title: "", subtitle: "", description: "", assigneeId: null, priority: "Media", project: "", status: "Nuevas" });
-    toast.success("Tarea creada");
+    saveTasks([...tasks, emptyTask]);
+    setSelectedTask(emptyTask);
   };
 
   const handleUpdateSelectedTask = (updates: Partial<Task>) => {
