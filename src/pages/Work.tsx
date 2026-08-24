@@ -673,8 +673,19 @@ export default function Work() {
                 </div>
                 
                 <div className="space-y-1">
-                  <SheetTitle className="text-2xl leading-tight">{selectedTask.title}</SheetTitle>
-                  {selectedTask.subtitle && <p className="text-sm font-medium text-muted-foreground">{selectedTask.subtitle}</p>}
+                  <SheetTitle className="sr-only">Detalles de Tarea</SheetTitle>
+                  <input 
+                    value={selectedTask.title} 
+                    onChange={(e) => handleUpdateSelectedTask({ title: e.target.value })} 
+                    placeholder="Sin título"
+                    className="w-full text-3xl font-bold bg-transparent border-none outline-none focus:ring-0 px-0 placeholder:text-muted-foreground/30 transition-all text-foreground"
+                  />
+                  <input 
+                    value={selectedTask.subtitle || ''} 
+                    onChange={(e) => handleUpdateSelectedTask({ subtitle: e.target.value })} 
+                    placeholder="Añadir subtítulo..."
+                    className="w-full text-sm font-medium text-muted-foreground bg-transparent border-none outline-none focus:ring-0 px-0 placeholder:text-muted-foreground/30 transition-all"
+                  />
                 </div>
               </div>
 
@@ -703,11 +714,21 @@ export default function Work() {
               </div>
 
               {/* Description */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-medium flex items-center gap-2">Descripción</h4>
-                <p className="text-sm leading-relaxed bg-muted/30 p-4 rounded-xl whitespace-pre-wrap">
-                  {selectedTask.description || "No hay descripción proporcionada."}
-                </p>
+              <div className="space-y-3 pt-2">
+                <textarea 
+                  value={selectedTask.description || ''}
+                  onChange={(e) => {
+                     e.target.style.height = 'auto';
+                     e.target.style.height = e.target.scrollHeight + 'px';
+                     handleUpdateSelectedTask({ description: e.target.value });
+                  }}
+                  onFocus={(e) => {
+                     e.target.style.height = 'auto';
+                     e.target.style.height = e.target.scrollHeight + 'px';
+                  }}
+                  placeholder="Añadir descripción o notas..."
+                  className="w-full text-sm leading-relaxed bg-transparent border-none outline-none focus:ring-0 px-0 resize-none overflow-hidden placeholder:text-muted-foreground/40 min-h-[60px]"
+                />
               </div>
 
               {/* Checklist */}
