@@ -333,7 +333,7 @@ export default function Work() {
             <p className="text-muted-foreground mt-1">Gestiona las tareas y el equipo NJB</p>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             {/* Users Sidebar */}
             <Sheet open={isUsersOpen} onOpenChange={setIsUsersOpen}>
               <SheetTrigger asChild>
@@ -398,7 +398,7 @@ export default function Work() {
                     <label className="text-sm font-medium">Descripción</label>
                     <Textarea value={newTask.description} onChange={e => setNewTask({...newTask, description: e.target.value})} placeholder="Detalles..." className="resize-none" rows={3} />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <label className="text-sm font-medium">Asignado a</label>
                       <Select value={newTask.assigneeId || "none"} onValueChange={(val) => setNewTask({...newTask, assigneeId: val === "none" ? null : val})}>
@@ -433,13 +433,13 @@ export default function Work() {
         </div>
 
         {/* Kanban Board */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="flex lg:grid lg:grid-cols-3 gap-6 overflow-x-auto pb-4 snap-x">
           {columns.map((column) => (
             <div 
               key={column}
               onDragOver={(e) => handleDragOverColumn(e, column)}
               onDrop={(e) => handleDrop(e, column)}
-              className="flex flex-col gap-4 bg-muted/30 rounded-2xl p-4 min-h-[500px]"
+              className="flex flex-col gap-4 bg-muted/30 rounded-2xl p-4 min-w-[85vw] sm:min-w-[350px] lg:min-w-0 flex-shrink-0 snap-center min-h-[70vh] lg:min-h-[500px]"
             >
               <div className="flex items-center justify-between px-2">
                 <h3 className="font-medium text-lg">{column}</h3>
