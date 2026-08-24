@@ -58,7 +58,11 @@ const translations = {
     saveTag: "Save and apply",
     tasksCount: "tasks",
     oneTask: "1 task",
-    personsCount: "people"
+    personsCount: "people",
+    deleteTaskBtn: "Delete Task",
+    deleteTaskDesc: "Are you sure you want to delete this task? This action cannot be undone.",
+    checklistPlaceholder: "Write a task and press Enter...",
+    delete: "Delete"
   },
   es: {
     boardTitle: "Tablero de Trabajo",
@@ -92,7 +96,11 @@ const translations = {
     saveTag: "Guardar y aplicar",
     tasksCount: "tareas",
     oneTask: "1 tarea",
-    personsCount: "personas"
+    personsCount: "personas",
+    deleteTaskBtn: "Eliminar Tarea",
+    deleteTaskDesc: "¿Estás seguro de que quieres eliminar esta tarea? Esta acción no se puede deshacer.",
+    checklistPlaceholder: "Escribe una tarea y presiona Enter...",
+    delete: "Eliminar"
   },
   fr: {
     boardTitle: "Tableau de Travail",
@@ -126,7 +134,11 @@ const translations = {
     saveTag: "Enregistrer et appliquer",
     tasksCount: "tâches",
     oneTask: "1 tâche",
-    personsCount: "personnes"
+    personsCount: "personnes",
+    deleteTaskBtn: "Supprimer la tâche",
+    deleteTaskDesc: "Êtes-vous sûr de vouloir supprimer cette tâche ? Cette action est irréversible.",
+    checklistPlaceholder: "Écrivez une tâche et appuyez sur Entrée...",
+    delete: "Supprimer"
   }
 };
 
@@ -793,7 +805,7 @@ export default function Work() {
                   toast.success("Tarea eliminada");
                 }
                 setTaskToDelete(null);
-            }}>Eliminar</Button>
+            }}>{t("delete")}</Button>
           </div>
         </DialogContent>
       </Dialog>
@@ -979,7 +991,7 @@ export default function Work() {
                                  </Avatar>
                                ))}
                              </div>
-                             <span className="text-sm font-medium truncate max-w-[120px]">{assignees.length === 1 ? assignees[0].name : `${assignees.length} {t("personsCount")}`}</span>
+                             <span className="text-sm font-medium truncate max-w-[120px]">{assignees.length === 1 ? assignees[0].name : `${assignees.length} ${t("personsCount")}`}</span>
                           </div>
                         );
                       })()}
@@ -1127,7 +1139,7 @@ export default function Work() {
                        <Checkbox disabled className="mt-1 opacity-50" />
                        <Input 
                           autoFocus 
-                          placeholder="Escribe una tarea y presiona Enter..." 
+                          placeholder={t("checklistPlaceholder")} 
                           className="h-auto py-0 text-sm flex-1 bg-transparent border-none focus-visible:ring-0 px-0 shadow-none text-foreground" 
                           onKeyDown={(e) => {
                             if (e.key === 'Enter') {
