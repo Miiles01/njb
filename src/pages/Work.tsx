@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Lock, Plus, CheckSquare, User, Flag, Folder, Users, GripVertical, Image as ImageIcon } from "lucide-react";
+import { Lock, Plus, CheckSquare, User, Flag, Folder, Users, GripVertical, Image as ImageIcon, Link as LinkIcon, ExternalLink, X } from "lucide-react";
 import { toast } from "sonner";
 
 type Status = "Nuevas" | "Activas" | "Finalizadas";
@@ -20,6 +20,17 @@ interface ChecklistItem {
   completed: boolean;
 }
 
+interface TaskLink {
+  id: string;
+  url: string;
+  label: string;
+}
+
+interface TaskImage {
+  id: string;
+  url: string;
+}
+
 interface TeamMember {
   id: string;
   name: string;
@@ -29,12 +40,15 @@ interface TeamMember {
 interface Task {
   id: string;
   title: string;
+  subtitle?: string;
   description: string;
   assigneeId: string | null;
   priority: Priority;
   project: string;
   status: Status;
   checklists: ChecklistItem[];
+  links: TaskLink[];
+  images: TaskImage[];
   order: number;
 }
 
@@ -50,6 +64,7 @@ const initialTasks: Task[] = [
   {
     id: "1",
     title: "Diseño de Homepage",
+    subtitle: "Revisión UX/UI",
     description: "Crear wireframes para la nueva página de inicio considerando la experiencia de usuario.",
     assigneeId: "m1",
     priority: "Alta",
@@ -59,7 +74,9 @@ const initialTasks: Task[] = [
     checklists: [
       { id: "c1", text: "Wireframe mobile", completed: true },
       { id: "c2", text: "Wireframe desktop", completed: false }
-    ]
+    ],
+    links: [],
+    images: []
   },
   {
     id: "2",
@@ -70,21 +87,9 @@ const initialTasks: Task[] = [
     project: "Copywriting",
     status: "Nuevas",
     order: 0,
-    checklists: []
-  },
-  {
-    id: "3",
-    title: "Implementar Footer",
-    description: "Maquetar el footer usando React y Tailwind CSS.",
-    assigneeId: "m3",
-    priority: "Baja",
-    project: "Frontend",
-    status: "Finalizadas",
-    order: 0,
-    checklists: [
-      { id: "c3", text: "Links sociales", completed: true },
-      { id: "c4", text: "Formulario newsletter", completed: true }
-    ]
+    checklists: [],
+    links: [],
+    images: []
   }
 ];
 
@@ -105,7 +110,7 @@ export default function Work() {
 
   // Forms state
   const [newTask, setNewTask] = useState<Partial<Task>>({
-    title: "", description: "", assigneeId: null, priority: "Media", project: "", status: "Nuevas"
+    title: "", subtitle: "", description: "", assigneeId: null, priority: "Media", project: "", status: "Nuevas"
   });
   const [newUserName, setNewUserName] = useState("");
 
@@ -145,7 +150,6 @@ export default function Work() {
   const handleDragStart = (e: React.DragEvent, id: string) => {
     setDraggedTaskId(id);
     e.dataTransfer.effectAllowed = "move";
-    // Slight delay to prevent immediate drag-end visual glitch
     setTimeout(() => {
       const el = document.getElementById(`task-${id}`);
       if (el) el.style.opacity = '0.5';
@@ -169,7 +173,6 @@ export default function Work() {
 
   const handleDragOverColumn = (e: React.DragEvent, status: Status) => {
     e.preventDefault();
-    // Only set indicator to 0 if dragging over empty space in a column
     const columnTasks = getSortedTasksByStatus(status);
     if (columnTasks.length === 0) {
       setDropIndicator({ status, index: 0 });
@@ -188,34 +191,28 @@ export default function Work() {
     
     const taskToMove = { ...newTasks[draggedIndex], status };
     
-    // Remove from old position
     newTasks.splice(draggedIndex, 1);
     
-    // Get tasks in target column before insertion
     const targetColumnTasks = newTasks
       .filter(t => t.status === status)
       .sort((a, b) => a.order - b.order);
 
-    // Adjust target index if dropping in same column and moved down
     if (dropIndicator && tasks[draggedIndex].status === status && dropIndicator.index > targetColumnTasks.length) {
        targetIndex = targetColumnTasks.length;
     }
 
     targetColumnTasks.splice(targetIndex, 0, taskToMove);
 
-    // Reassign orders for the target column
     targetColumnTasks.forEach((t, i) => {
       t.order = i;
       const globalIndex = newTasks.findIndex(nt => nt.id === t.id);
       if(globalIndex !== -1) newTasks[globalIndex] = t;
     });
 
-    // Add back the moved task if it wasn't in newTasks (since we spliced it)
     if (!newTasks.find(t => t.id === taskToMove.id)) {
         newTasks.push(taskToMove);
     }
     
-    // Final sorting and ordering pass for safety
     columns.forEach(col => {
         const colTasks = newTasks.filter(t => t.status === col).sort((a, b) => a.order - b.order);
         colTasks.forEach((t, i) => {
@@ -238,19 +235,29 @@ export default function Work() {
     const task: Task = {
       id: Date.now().toString(),
       title: newTask.title || "",
+      subtitle: newTask.subtitle || "",
       description: newTask.description || "",
       assigneeId: newTask.assigneeId || null,
       priority: (newTask.priority as Priority) || "Media",
       project: newTask.project || "General",
       status: (newTask.status as Status) || "Nuevas",
       checklists: [],
+      links: [],
+      images: [],
       order: columnTasks.length
     };
 
     saveTasks([...tasks, task]);
     setIsDialogOpen(false);
-    setNewTask({ title: "", description: "", assigneeId: null, priority: "Media", project: "", status: "Nuevas" });
+    setNewTask({ title: "", subtitle: "", description: "", assigneeId: null, priority: "Media", project: "", status: "Nuevas" });
     toast.success("Tarea creada");
+  };
+
+  const handleUpdateSelectedTask = (updates: Partial<Task>) => {
+    if (!selectedTask) return;
+    const updatedTask = { ...selectedTask, ...updates };
+    setSelectedTask(updatedTask);
+    saveTasks(tasks.map(t => t.id === updatedTask.id ? updatedTask : t));
   };
 
   const toggleChecklist = (taskId: string, checklistId: string) => {
@@ -267,6 +274,16 @@ export default function Work() {
     if (selectedTask?.id === taskId) {
       setSelectedTask(updated.find(t => t.id === taskId) || null);
     }
+  };
+
+  const removeLink = (linkId: string) => {
+    if (!selectedTask) return;
+    handleUpdateSelectedTask({ links: selectedTask.links?.filter(l => l.id !== linkId) || [] });
+  };
+
+  const removeImage = (imgId: string) => {
+    if (!selectedTask) return;
+    handleUpdateSelectedTask({ images: selectedTask.images?.filter(i => i.id !== imgId) || [] });
   };
 
   // User Management
@@ -291,10 +308,10 @@ export default function Work() {
 
   const getPriorityColor = (priority: Priority) => {
     switch (priority) {
-      case "Alta": return "bg-red-500/10 text-red-500";
-      case "Media": return "bg-yellow-500/10 text-yellow-600";
-      case "Baja": return "bg-green-500/10 text-green-600";
-      default: return "bg-slate-500/10 text-slate-500";
+      case "Alta": return "bg-red-500/10 text-red-500 hover:bg-red-500/20";
+      case "Media": return "bg-yellow-500/10 text-yellow-600 hover:bg-yellow-500/20";
+      case "Baja": return "bg-green-500/10 text-green-600 hover:bg-green-500/20";
+      default: return "bg-slate-500/10 text-slate-500 hover:bg-slate-500/20";
     }
   };
 
@@ -385,7 +402,7 @@ export default function Work() {
                   Nueva Tarea
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] border-none shadow-xl">
+              <DialogContent className="sm:max-w-[425px] border-none shadow-xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle className="font-medium">Crear Nueva Tarea</DialogTitle>
                 </DialogHeader>
@@ -393,6 +410,10 @@ export default function Work() {
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Título</label>
                     <Input value={newTask.title} onChange={e => setNewTask({...newTask, title: e.target.value})} placeholder="Ej. Diseño de logo" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">Subtítulo (Opcional)</label>
+                    <Input value={newTask.subtitle} onChange={e => setNewTask({...newTask, subtitle: e.target.value})} placeholder="Ej. Fase 1" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Descripción</label>
@@ -433,7 +454,7 @@ export default function Work() {
         </div>
 
         {/* Kanban Board */}
-        <div className="flex lg:grid lg:grid-cols-3 gap-6 overflow-x-auto pb-4 snap-x">
+        <div className="flex flex-col lg:flex-row lg:grid lg:grid-cols-3 gap-6 overflow-x-auto pb-4 snap-x">
           {columns.map((column) => (
             <div 
               key={column}
@@ -488,6 +509,7 @@ export default function Work() {
                               </span>
                             </div>
                             <h4 className="font-medium leading-tight">{task.title}</h4>
+                            {task.subtitle && <p className="text-xs text-muted-foreground">{task.subtitle}</p>}
                           </div>
                         </div>
                         
@@ -497,12 +519,26 @@ export default function Work() {
                           </p>
                         )}
 
-                        {task.checklists && task.checklists.length > 0 && (
-                          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                            <CheckSquare className="w-3.5 h-3.5" />
-                            <span>
-                              {task.checklists.filter(c => c.completed).length}/{task.checklists.length}
-                            </span>
+                        {(task.checklists?.length > 0 || task.links?.length > 0 || task.images?.length > 0) && (
+                          <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                            {task.checklists?.length > 0 && (
+                                <div className="flex items-center gap-1">
+                                    <CheckSquare className="w-3.5 h-3.5" />
+                                    <span>{task.checklists.filter(c => c.completed).length}/{task.checklists.length}</span>
+                                </div>
+                            )}
+                            {task.links?.length > 0 && (
+                                <div className="flex items-center gap-1">
+                                    <LinkIcon className="w-3.5 h-3.5" />
+                                    <span>{task.links.length}</span>
+                                </div>
+                            )}
+                            {task.images?.length > 0 && (
+                                <div className="flex items-center gap-1">
+                                    <ImageIcon className="w-3.5 h-3.5" />
+                                    <span>{task.images.length}</span>
+                                </div>
+                            )}
                           </div>
                         )}
 
@@ -537,78 +573,178 @@ export default function Work() {
 
       {/* Task Details Sidebar */}
       <Sheet open={!!selectedTask} onOpenChange={(open) => !open && setSelectedTask(null)}>
-        <SheetContent className="sm:max-w-md overflow-y-auto">
+        <SheetContent className="sm:max-w-md w-[90vw] overflow-y-auto">
           {selectedTask && (
-            <div className="space-y-6 pt-6">
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className={`inline-flex items-center gap-1 text-[10px] tracking-wider font-medium py-0.5 px-2 rounded-full ${getPriorityColor(selectedTask.priority)}`}>
-                    <Flag className="w-3 h-3" />
-                    {selectedTask.priority}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[10px] tracking-wider font-medium bg-primary/5 text-primary py-0.5 px-2 rounded-full">
+            <div className="space-y-8 pt-6 pb-20">
+              
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Select value={selectedTask.priority} onValueChange={(val: Priority) => handleUpdateSelectedTask({ priority: val })}>
+                    <SelectTrigger className={`h-7 px-3 text-xs w-auto border-none shadow-none rounded-full ${getPriorityColor(selectedTask.priority)}`}>
+                      <Flag className="w-3 h-3 mr-1" />
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Alta">Alta</SelectItem>
+                      <SelectItem value="Media">Media</SelectItem>
+                      <SelectItem value="Baja">Baja</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <span className="inline-flex items-center gap-1 text-xs font-medium bg-primary/5 text-primary py-1 px-3 rounded-full">
                     <Folder className="w-3 h-3" />
                     {selectedTask.project}
                   </span>
                 </div>
-                <SheetTitle className="text-2xl leading-tight">{selectedTask.title}</SheetTitle>
+                
+                <div className="space-y-1">
+                  <SheetTitle className="text-2xl leading-tight">{selectedTask.title}</SheetTitle>
+                  {selectedTask.subtitle && <p className="text-sm font-medium text-muted-foreground">{selectedTask.subtitle}</p>}
+                </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium text-muted-foreground">Descripción</h4>
-                  <p className="text-sm leading-relaxed">
-                    {selectedTask.description || "No hay descripción proporcionada."}
-                  </p>
-                </div>
-
-                <div className="space-y-3 pt-4">
-                  <h4 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                    <CheckSquare className="w-4 h-4" />
-                    Checklist
-                  </h4>
-                  {selectedTask.checklists.length === 0 ? (
-                    <p className="text-sm text-muted-foreground italic">No hay tareas pendientes en checklist.</p>
-                  ) : (
-                    <div className="space-y-3 bg-muted/30 p-4 rounded-xl">
-                      {selectedTask.checklists.map(item => (
-                        <div key={item.id} className="flex items-start gap-3">
-                          <Checkbox 
-                            id={item.id} 
-                            checked={item.completed}
-                            onCheckedChange={() => toggleChecklist(selectedTask.id, item.id)}
-                            className="mt-0.5"
-                          />
-                          <label 
-                            htmlFor={item.id}
-                            className={`text-sm leading-tight cursor-pointer ${item.completed ? 'text-muted-foreground line-through' : ''}`}
-                          >
-                            {item.text}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="pt-4 flex items-center gap-3">
-                  <h4 className="text-sm font-medium text-muted-foreground w-20">Asignado:</h4>
-                  <div className="flex items-center gap-2">
+              {/* Assignment */}
+              <div className="flex items-center justify-between border-y py-4">
+                <span className="text-sm font-medium text-muted-foreground">Asignado a</span>
+                <Select value={selectedTask.assigneeId || "none"} onValueChange={(val) => handleUpdateSelectedTask({ assigneeId: val === "none" ? null : val })}>
+                  <SelectTrigger className="w-auto h-8 border-none shadow-none gap-2">
                     {getAssignee(selectedTask.assigneeId) ? (
-                      <>
-                        <Avatar className="w-8 h-8">
+                      <div className="flex items-center gap-2">
+                        <Avatar className="w-6 h-6">
                           <AvatarImage src={getAssignee(selectedTask.assigneeId)?.avatarUrl} />
-                          <AvatarFallback>{getAssignee(selectedTask.assigneeId)?.name.substring(0,2).toUpperCase()}</AvatarFallback>
+                          <AvatarFallback className="text-[10px]">{getAssignee(selectedTask.assigneeId)?.name.substring(0,2).toUpperCase()}</AvatarFallback>
                         </Avatar>
                         <span className="text-sm font-medium">{getAssignee(selectedTask.assigneeId)?.name}</span>
-                      </>
+                      </div>
                     ) : (
                       <span className="text-sm text-muted-foreground">Sin asignar</span>
                     )}
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Sin Asignar</SelectItem>
+                    {team.map(m => <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Description */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium flex items-center gap-2">Descripción</h4>
+                <p className="text-sm leading-relaxed bg-muted/30 p-4 rounded-xl whitespace-pre-wrap">
+                  {selectedTask.description || "No hay descripción proporcionada."}
+                </p>
+              </div>
+
+              {/* Checklist */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-sm font-medium flex items-center gap-2">
+                    <CheckSquare className="w-4 h-4" />
+                    Tareas pendientes
+                  </h4>
+                </div>
+                <div className="space-y-3 bg-muted/30 p-4 rounded-xl">
+                  {selectedTask.checklists?.map(item => (
+                    <div key={item.id} className="flex items-start gap-3">
+                      <Checkbox 
+                        id={`sheet-${item.id}`} 
+                        checked={item.completed}
+                        onCheckedChange={() => toggleChecklist(selectedTask.id, item.id)}
+                        className="mt-0.5"
+                      />
+                      <label 
+                        htmlFor={`sheet-${item.id}`}
+                        className={`text-sm leading-tight cursor-pointer flex-1 ${item.completed ? 'text-muted-foreground line-through' : ''}`}
+                      >
+                        {item.text}
+                      </label>
+                      <Button variant="ghost" size="icon" className="h-6 w-6 opacity-50 hover:opacity-100" onClick={() => handleUpdateSelectedTask({ checklists: selectedTask.checklists.filter(c => c.id !== item.id) })}>
+                        <X className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  ))}
+                  
+                  <div className="flex gap-2 items-center mt-2 pt-2 border-t border-border/50">
+                    <Input placeholder="Nueva tarea..." className="h-8 text-xs flex-1" id="new-checklist-text" onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        document.getElementById('add-checklist-btn')?.click();
+                      }
+                    }} />
+                    <Button id="add-checklist-btn" size="sm" className="h-8" onClick={() => {
+                      const input = document.getElementById('new-checklist-text') as HTMLInputElement;
+                      if(input.value.trim()) {
+                        handleUpdateSelectedTask({ checklists: [...(selectedTask.checklists || []), { id: Date.now().toString(), text: input.value, completed: false }] });
+                        input.value = '';
+                      }
+                    }}><Plus className="w-4 h-4" /></Button>
                   </div>
                 </div>
-
               </div>
+
+              {/* Links */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium flex items-center gap-2">
+                  <LinkIcon className="w-4 h-4" />
+                  Enlaces adjuntos
+                </h4>
+                <div className="space-y-2">
+                  {selectedTask.links?.map(link => (
+                    <div key={link.id} className="flex items-center justify-between bg-muted/30 p-3 rounded-lg border border-border/50">
+                      <a href={link.url} target="_blank" rel="noreferrer" className="text-sm text-primary hover:underline flex items-center gap-2 truncate max-w-[80%]">
+                        <ExternalLink className="w-3 h-3 flex-shrink-0" />
+                        <span className="truncate">{link.label || link.url}</span>
+                      </a>
+                      <Button variant="ghost" size="icon" className="h-6 w-6 opacity-50 hover:opacity-100" onClick={() => removeLink(link.id)}>
+                        <X className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  ))}
+                  <div className="flex gap-2 items-center mt-2">
+                    <Input placeholder="URL" className="h-8 text-xs flex-1" id="new-link-url" />
+                    <Input placeholder="Etiqueta" className="h-8 text-xs flex-[0.8]" id="new-link-label" />
+                    <Button size="sm" className="h-8" onClick={() => {
+                      const urlInput = document.getElementById('new-link-url') as HTMLInputElement;
+                      const labelInput = document.getElementById('new-link-label') as HTMLInputElement;
+                      if(urlInput.value.trim()) {
+                        handleUpdateSelectedTask({ links: [...(selectedTask.links || []), { id: Date.now().toString(), url: urlInput.value, label: labelInput.value }] });
+                        urlInput.value = '';
+                        labelInput.value = '';
+                      }
+                    }}><Plus className="w-4 h-4" /></Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Images */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-medium flex items-center gap-2">
+                  <ImageIcon className="w-4 h-4" />
+                  Imágenes
+                </h4>
+                <div className="grid grid-cols-2 gap-3">
+                  {selectedTask.images?.map(img => (
+                    <div key={img.id} className="relative group rounded-xl overflow-hidden border border-border/50 bg-muted aspect-video">
+                      <img src={img.url} alt="Adjunto" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <Button variant="destructive" size="icon" className="h-8 w-8" onClick={() => removeImage(img.id)}>
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-2 items-center mt-2">
+                  <Input placeholder="URL de la imagen" className="h-8 text-xs flex-1" id="new-img-url" />
+                  <Button size="sm" className="h-8" onClick={() => {
+                    const urlInput = document.getElementById('new-img-url') as HTMLInputElement;
+                    if(urlInput.value.trim()) {
+                      handleUpdateSelectedTask({ images: [...(selectedTask.images || []), { id: Date.now().toString(), url: urlInput.value }] });
+                      urlInput.value = '';
+                    }
+                  }}><Plus className="w-4 h-4" /></Button>
+                </div>
+              </div>
+
             </div>
           )}
         </SheetContent>
