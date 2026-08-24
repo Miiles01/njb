@@ -10,6 +10,7 @@ import Proyecto from "./pages/Proyecto.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import Admin from "./pages/Admin.tsx";
+import Work from "./pages/Work.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { SmoothScroll } from "./components/SmoothScroll";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -44,6 +45,7 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 />
+                <Route path="/work" element={<Work />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </SmoothScroll>
