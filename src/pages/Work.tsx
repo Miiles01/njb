@@ -62,7 +62,18 @@ const translations = {
     deleteTaskBtn: "Delete Task",
     deleteTaskDesc: "Are you sure you want to delete this task? This action cannot be undone.",
     checklistPlaceholder: "Write a task and press Enter...",
-    delete: "Delete"
+    delete: "Delete",
+    loginTitle: "Restricted Access",
+    loginDesc: "Enter the password to access the board.",
+    loginInput: "Password",
+    loginBtn: "Enter",
+    toastWrongPass: "Incorrect password",
+    toastUserAdded: "User added",
+    toastAvatarUpdated: "Avatar updated",
+    toastTaskDeleted: "Task deleted",
+    addBlock: "Add a block...",
+    newTagBtn: "New tag",
+    assignedTo: "Assigned to"
   },
   es: {
     boardTitle: "Tablero de Trabajo",
@@ -100,7 +111,18 @@ const translations = {
     deleteTaskBtn: "Eliminar Tarea",
     deleteTaskDesc: "¿Estás seguro de que quieres eliminar esta tarea? Esta acción no se puede deshacer.",
     checklistPlaceholder: "Escribe una tarea y presiona Enter...",
-    delete: "Eliminar"
+    delete: "Eliminar",
+    loginTitle: "Acceso Restringido",
+    loginDesc: "Ingresa la contraseña para acceder al panel de trabajo.",
+    loginInput: "Contraseña",
+    loginBtn: "Ingresar",
+    toastWrongPass: "Contraseña incorrecta",
+    toastUserAdded: "Usuario añadido",
+    toastAvatarUpdated: "Avatar actualizado",
+    toastTaskDeleted: "Tarea eliminada",
+    addBlock: "Añadir un bloque...",
+    newTagBtn: "Nueva etiqueta",
+    assignedTo: "Asignado a"
   },
   fr: {
     boardTitle: "Tableau de Travail",
@@ -138,7 +160,18 @@ const translations = {
     deleteTaskBtn: "Supprimer la tâche",
     deleteTaskDesc: "Êtes-vous sûr de vouloir supprimer cette tâche ? Cette action est irréversible.",
     checklistPlaceholder: "Écrivez une tâche et appuyez sur Entrée...",
-    delete: "Supprimer"
+    delete: "Supprimer",
+    loginTitle: "Accès Restreint",
+    loginDesc: "Entrez le mot de passe pour accéder au tableau.",
+    loginInput: "Mot de passe",
+    loginBtn: "Entrer",
+    toastWrongPass: "Mot de passe incorrect",
+    toastUserAdded: "Utilisateur ajouté",
+    toastAvatarUpdated: "Avatar mis à jour",
+    toastTaskDeleted: "Tâche supprimée",
+    addBlock: "Ajouter un bloc...",
+    newTagBtn: "Nouvelle étiquette",
+    assignedTo: "Assigné à"
   }
 };
 
@@ -377,7 +410,7 @@ export default function Work() {
       localStorage.setItem("njb_work_auth", "true");
       toast.success("Acceso concedido");
     } else {
-      toast.error("Contraseña incorrecta");
+      toast.error(t("toastWrongPass"));
     }
   };
 
@@ -521,12 +554,12 @@ export default function Work() {
     const newUser: TeamMember = { id: `m${Date.now()}`, name: newUserName, avatarUrl: "" };
     saveTeam([...team, newUser]);
     setNewUserName("");
-    toast.success("Usuario añadido");
+    toast.success(t("toastUserAdded"));
   };
 
   const handleUpdateAvatar = (userId: string, url: string) => {
     saveTeam(team.map(u => u.id === userId ? { ...u, avatarUrl: url } : u));
-    toast.success("Avatar actualizado");
+    toast.success(t("toastAvatarUpdated"));
   };
 
   const getSortedTasksByStatus = (status: Status) => {
@@ -554,13 +587,13 @@ export default function Work() {
             <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
               <Lock className="w-6 h-6 text-primary" />
             </div>
-            <CardTitle className="text-2xl font-normal">Acceso Restringido</CardTitle>
-            <p className="text-muted-foreground">Ingresa la contraseña para acceder al panel de trabajo.</p>
+            <CardTitle className="text-2xl font-normal">{t("loginTitle")}</CardTitle>
+            <p className="text-muted-foreground">{t("loginDesc")}</p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
-              <Input type="password" placeholder="Contraseña" value={passwordInput} onChange={e => setPasswordInput(e.target.value)} />
-              <Button type="submit" className="w-full">Ingresar</Button>
+              <Input type="password" placeholder={t("loginInput")} value={passwordInput} onChange={e => setPasswordInput(e.target.value)} />
+              <Button type="submit" className="w-full">{t("loginBtn")}</Button>
             </form>
           </CardContent>
         </Card>
@@ -644,7 +677,7 @@ export default function Work() {
             {/* New Task Button */}
             <Button className="gap-2" onClick={() => handleCreateTask()}>
               <Plus className="w-4 h-4" />
-              Nueva Tarea
+              {t("newTask")}
             </Button>
           </div>
         </div>
@@ -772,7 +805,7 @@ export default function Work() {
                   className="w-full mt-2 justify-start text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                   onClick={() => handleCreateTask(column)}
                 >
-                  <Plus className="w-4 h-4 mr-2" /> Añadir Tarea
+                  <Plus className="w-4 h-4 mr-2" /> {t("addTask").replace("+ ", "")}
                 </Button>
               </div>
             </div>
@@ -802,7 +835,7 @@ export default function Work() {
                   saveTasks(newTasks);
                   fetch('/api.php?action=delete_task', { method: 'POST', body: JSON.stringify({ id: taskToDelete }) }).catch(e=>console.error(e));
                   if (selectedTask?.id === taskToDelete) setSelectedTask(null);
-                  toast.success("Tarea eliminada");
+                  toast.success(t("toastTaskDeleted"));
                 }
                 setTaskToDelete(null);
             }}>{t("delete")}</Button>
@@ -910,7 +943,7 @@ export default function Work() {
                              <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setTagIsCreating(false)}>
                                <ArrowLeft className="w-3 h-3" />
                              </Button>
-                             <span className="text-xs font-medium">Nueva etiqueta</span>
+                             <span className="text-xs font-medium">{t("newTagBtn")}</span>
                            </div>
                            <Input 
                              value={tagSearch} 
@@ -974,7 +1007,7 @@ export default function Work() {
 
               {/* Assignment */}
               <div className="flex items-center justify-between py-2">
-                <span className="text-sm font-medium text-muted-foreground">Asignado a</span>
+                <span className="text-sm font-medium text-muted-foreground">{t("assignedTo")}</span>
                 <Popover>
                   <PopoverTrigger asChild>
                     <button className="flex items-center gap-2 hover:bg-muted/50 p-1.5 rounded-lg transition-colors border-none outline-none">
@@ -1130,7 +1163,7 @@ export default function Work() {
                          </DropdownMenuItem>
                        </DropdownMenuContent>
                      </DropdownMenu>
-                     <span className="text-sm text-muted-foreground opacity-0 group-hover/add:opacity-50 select-none transition-opacity">Añadir un bloque...</span>
+                     <span className="text-sm text-muted-foreground opacity-0 group-hover/add:opacity-50 select-none transition-opacity">{t("addBlock")}</span>
                    </div>
 
                    {/* Inline Adding Forms */}
