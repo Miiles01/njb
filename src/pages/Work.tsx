@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Lock, Plus, CheckSquare, User, Flag, Folder, Users, GripVertical, Image as ImageIcon, Link as LinkIcon, ExternalLink, X, Trash2 } from "lucide-react";
@@ -115,6 +116,7 @@ export default function Work() {
   const [newUserName, setNewUserName] = useState("");
   const [sidebarWidth, setSidebarWidth] = useState(500);
   const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
+  const [addingBlock, setAddingBlock] = useState<'checklist' | 'link' | 'image' | null>(null);
 
   useEffect(() => {
     const auth = localStorage.getItem("njb_work_auth");
@@ -752,7 +754,7 @@ export default function Work() {
               </div>
 
               {/* Description */}
-              <div className="space-y-3 pt-2">
+              <div className="space-y-4 pt-4">
                 <textarea 
                   value={selectedTask.description || ''}
                   onChange={(e) => {
@@ -765,119 +767,152 @@ export default function Work() {
                      e.target.style.height = e.target.scrollHeight + 'px';
                   }}
                   placeholder="Añadir descripción o notas..."
-                  className="w-full text-sm leading-relaxed bg-transparent border-none outline-none focus:ring-0 px-0 resize-none overflow-hidden placeholder:text-muted-foreground/40 min-h-[60px]"
+                  className="w-full text-base leading-relaxed bg-transparent border-none outline-none focus:ring-0 px-0 resize-none overflow-hidden placeholder:text-muted-foreground/40 min-h-[40px] text-foreground"
                 />
-              </div>
 
-              {/* Checklist */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-medium flex items-center gap-2">
-                    <CheckSquare className="w-4 h-4" />
-                    Tareas pendientes
-                  </h4>
-                </div>
-                <div className="space-y-3 bg-muted/30 p-4 rounded-xl">
+                {/* Blocks Stream */}
+                <div className="space-y-1">
+                  
+                  {/* Checklist Blocks */}
                   {selectedTask.checklists?.map(item => (
-                    <div key={item.id} className="flex items-start gap-3">
+                    <div key={item.id} className="flex items-start gap-3 group/block py-1">
                       <Checkbox 
                         id={`sheet-${item.id}`} 
                         checked={item.completed}
                         onCheckedChange={() => toggleChecklist(selectedTask.id, item.id)}
-                        className="mt-0.5"
+                        className="mt-1"
                       />
-                      <label 
-                        htmlFor={`sheet-${item.id}`}
-                        className={`text-sm leading-tight cursor-pointer flex-1 ${item.completed ? 'text-muted-foreground line-through' : ''}`}
-                      >
-                        {item.text}
-                      </label>
-                      <Button variant="ghost" size="icon" className="h-6 w-6 opacity-50 hover:opacity-100" onClick={() => handleUpdateSelectedTask({ checklists: selectedTask.checklists.filter(c => c.id !== item.id) })}>
-                        <X className="w-3 h-3" />
+                      <input 
+                        value={item.text}
+                        onChange={(e) => {
+                           handleUpdateSelectedTask({
+                              checklists: selectedTask.checklists.map(c => c.id === item.id ? { ...c, text: e.target.value } : c)
+                           });
+                        }}
+                        className={`text-sm leading-relaxed flex-1 bg-transparent border-none outline-none focus:ring-0 px-0 shadow-none ${item.completed ? 'text-muted-foreground line-through' : 'text-foreground'}`}
+                      />
+                      <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover/block:opacity-100 transition-opacity" onClick={() => handleUpdateSelectedTask({ checklists: selectedTask.checklists.filter(c => c.id !== item.id) })}>
+                        <X className="w-4 h-4 text-muted-foreground" />
                       </Button>
                     </div>
                   ))}
-                  
-                  <div className="flex gap-2 items-center mt-2 pt-2 border-t border-border/50">
-                    <Input placeholder="Nueva tarea..." className="h-8 text-xs flex-1" id="new-checklist-text" onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        document.getElementById('add-checklist-btn')?.click();
-                      }
-                    }} />
-                    <Button id="add-checklist-btn" size="sm" className="h-8" onClick={() => {
-                      const input = document.getElementById('new-checklist-text') as HTMLInputElement;
-                      if(input.value.trim()) {
-                        handleUpdateSelectedTask({ checklists: [...(selectedTask.checklists || []), { id: Date.now().toString(), text: input.value, completed: false }] });
-                        input.value = '';
-                      }
-                    }}><Plus className="w-4 h-4" /></Button>
-                  </div>
-                </div>
-              </div>
 
-              {/* Links */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-medium flex items-center gap-2">
-                  <LinkIcon className="w-4 h-4" />
-                  Enlaces adjuntos
-                </h4>
-                <div className="space-y-2">
-                  {selectedTask.links?.map(link => (
-                    <div key={link.id} className="flex items-center justify-between bg-muted/30 p-3 rounded-lg border border-border/50">
-                      <a href={link.url} target="_blank" rel="noreferrer" className="text-sm text-primary hover:underline flex items-center gap-2 truncate max-w-[80%]">
-                        <ExternalLink className="w-3 h-3 flex-shrink-0" />
-                        <span className="truncate">{link.label || link.url}</span>
-                      </a>
-                      <Button variant="ghost" size="icon" className="h-6 w-6 opacity-50 hover:opacity-100" onClick={() => removeLink(link.id)}>
-                        <X className="w-3 h-3" />
-                      </Button>
-                    </div>
-                  ))}
-                  <div className="flex gap-2 items-center mt-2">
-                    <Input placeholder="URL" className="h-8 text-xs flex-1" id="new-link-url" />
-                    <Input placeholder="Etiqueta" className="h-8 text-xs flex-[0.8]" id="new-link-label" />
-                    <Button size="sm" className="h-8" onClick={() => {
-                      const urlInput = document.getElementById('new-link-url') as HTMLInputElement;
-                      const labelInput = document.getElementById('new-link-label') as HTMLInputElement;
-                      if(urlInput.value.trim()) {
-                        handleUpdateSelectedTask({ links: [...(selectedTask.links || []), { id: Date.now().toString(), url: urlInput.value, label: labelInput.value }] });
-                        urlInput.value = '';
-                        labelInput.value = '';
-                      }
-                    }}><Plus className="w-4 h-4" /></Button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Images */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-medium flex items-center gap-2">
-                  <ImageIcon className="w-4 h-4" />
-                  Imágenes
-                </h4>
-                <div className="grid grid-cols-2 gap-3">
+                  {/* Image Blocks */}
                   {selectedTask.images?.map(img => (
-                    <div key={img.id} className="relative group rounded-xl overflow-hidden border border-border/50 bg-muted aspect-video">
-                      <img src={img.url} alt="Adjunto" className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <Button variant="destructive" size="icon" className="h-8 w-8" onClick={() => removeImage(img.id)}>
-                          <X className="w-4 h-4" />
+                    <div key={img.id} className="relative group/block rounded-xl overflow-hidden bg-muted my-4">
+                      <img src={img.url} alt="Adjunto" className="w-full h-auto object-cover max-h-[500px]" />
+                      <div className="absolute top-2 right-2 opacity-0 group-hover/block:opacity-100 transition-opacity">
+                        <Button variant="secondary" size="icon" className="h-8 w-8 shadow-md" onClick={() => removeImage(img.id)}>
+                          <Trash2 className="w-4 h-4 text-destructive" />
                         </Button>
                       </div>
                     </div>
                   ))}
+
+                  {/* Link Blocks */}
+                  {selectedTask.links?.map(link => (
+                    <div key={link.id} className="flex items-center justify-between group/block bg-muted/20 p-2 rounded-lg border border-border/30 hover:bg-muted/40 transition-colors my-2">
+                      <a href={link.url} target="_blank" rel="noreferrer" className="text-sm font-medium hover:underline flex items-center gap-3 truncate max-w-[90%]">
+                        <div className="w-8 h-8 rounded bg-background flex items-center justify-center flex-shrink-0 shadow-sm border border-border/50">
+                           <LinkIcon className="w-4 h-4 text-muted-foreground" />
+                        </div>
+                        <span className="truncate">{link.label || link.url}</span>
+                      </a>
+                      <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover/block:opacity-100 transition-opacity" onClick={() => removeLink(link.id)}>
+                        <X className="w-4 h-4 text-muted-foreground" />
+                      </Button>
+                    </div>
+                  ))}
+
                 </div>
-                <div className="flex gap-2 items-center mt-2">
-                  <Input placeholder="URL de la imagen" className="h-8 text-xs flex-1" id="new-img-url" />
-                  <Button size="sm" className="h-8" onClick={() => {
-                    const urlInput = document.getElementById('new-img-url') as HTMLInputElement;
-                    if(urlInput.value.trim()) {
-                      handleUpdateSelectedTask({ images: [...(selectedTask.images || []), { id: Date.now().toString(), url: urlInput.value }] });
-                      urlInput.value = '';
-                    }
-                  }}><Plus className="w-4 h-4" /></Button>
+
+                {/* The "+" Add Block Menu */}
+                <div className="pt-4 flex flex-col gap-2">
+                   <div className="flex items-center gap-2 group/add">
+                     <DropdownMenu>
+                       <DropdownMenuTrigger asChild>
+                         <Button variant="ghost" size="icon" className="h-6 w-6 rounded-sm text-muted-foreground opacity-40 hover:opacity-100 hover:bg-muted">
+                           <Plus className="h-4 w-4" />
+                         </Button>
+                       </DropdownMenuTrigger>
+                       <DropdownMenuContent align="start" className="w-48 shadow-xl border-border/50">
+                         <DropdownMenuItem onClick={() => setAddingBlock('checklist')} className="gap-2 cursor-pointer py-2">
+                           <CheckSquare className="w-4 h-4 text-muted-foreground" /> Tarea (To-do)
+                         </DropdownMenuItem>
+                         <DropdownMenuItem onClick={() => setAddingBlock('image')} className="gap-2 cursor-pointer py-2">
+                           <ImageIcon className="w-4 h-4 text-muted-foreground" /> Imagen
+                         </DropdownMenuItem>
+                         <DropdownMenuItem onClick={() => setAddingBlock('link')} className="gap-2 cursor-pointer py-2">
+                           <LinkIcon className="w-4 h-4 text-muted-foreground" /> Enlace Web
+                         </DropdownMenuItem>
+                       </DropdownMenuContent>
+                     </DropdownMenu>
+                     <span className="text-sm text-muted-foreground opacity-0 group-hover/add:opacity-50 select-none transition-opacity">Añadir un bloque...</span>
+                   </div>
+
+                   {/* Inline Adding Forms */}
+                   {addingBlock === 'checklist' && (
+                     <div className="flex items-start gap-3 mt-1 animate-in fade-in slide-in-from-top-1">
+                       <Checkbox disabled className="mt-1 opacity-50" />
+                       <Input 
+                          autoFocus 
+                          placeholder="Escribe una tarea y presiona Enter..." 
+                          className="h-auto py-0 text-sm flex-1 bg-transparent border-none focus-visible:ring-0 px-0 shadow-none text-foreground" 
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              const input = e.currentTarget;
+                              if(input.value.trim()) {
+                                handleUpdateSelectedTask({ checklists: [...(selectedTask.checklists || []), { id: Date.now().toString(), text: input.value, completed: false }] });
+                                input.value = '';
+                              } else {
+                                setAddingBlock(null);
+                              }
+                            }
+                            if (e.key === 'Escape') setAddingBlock(null);
+                          }}
+                          onBlur={(e) => {
+                             if (!e.target.value.trim()) setAddingBlock(null);
+                          }}
+                       />
+                     </div>
+                   )}
+                   {addingBlock === 'image' && (
+                     <div className="flex gap-2 items-center mt-2 p-2 bg-muted/30 rounded-lg border border-border/50 animate-in fade-in zoom-in-95">
+                       <Input autoFocus placeholder="Pega la URL de la imagen y presiona Enter..." className="h-8 text-sm flex-1 bg-transparent border-none focus-visible:ring-0 shadow-none" 
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              const input = e.currentTarget;
+                              if(input.value.trim()) {
+                                handleUpdateSelectedTask({ images: [...(selectedTask.images || []), { id: Date.now().toString(), url: input.value }] });
+                                setAddingBlock(null);
+                              }
+                            }
+                            if (e.key === 'Escape') setAddingBlock(null);
+                          }}
+                       />
+                       <Button size="sm" variant="ghost" className="h-8 w-8 p-0" onClick={() => setAddingBlock(null)}><X className="w-4 h-4" /></Button>
+                     </div>
+                   )}
+                   {addingBlock === 'link' && (
+                     <div className="flex gap-2 items-center mt-2 p-2 bg-muted/30 rounded-lg border border-border/50 animate-in fade-in zoom-in-95">
+                       <Input autoFocus placeholder="URL..." id="new-link-url" className="h-8 text-xs flex-1 border-none bg-transparent shadow-none" />
+                       <Input placeholder="Título (Opcional)" id="new-link-label" className="h-8 text-xs flex-1 border-none bg-transparent shadow-none" onKeyDown={(e) => {
+                           if (e.key === 'Enter') {
+                              const urlInput = document.getElementById('new-link-url');
+                              const labelInput = document.getElementById('new-link-label');
+                              if(urlInput.value.trim()) {
+                                handleUpdateSelectedTask({ links: [...(selectedTask.links || []), { id: Date.now().toString(), url: urlInput.value, label: labelInput.value }] });
+                                setAddingBlock(null);
+                              }
+                           }
+                           if (e.key === 'Escape') setAddingBlock(null);
+                       }}/>
+                       <Button size="sm" variant="ghost" className="h-8 w-8 p-0" onClick={() => setAddingBlock(null)}><X className="w-4 h-4" /></Button>
+                     </div>
+                   )}
                 </div>
               </div>
+
 
               <div className="pt-8 flex justify-end border-t border-border/50">
                 <Button variant="ghost" className="text-destructive hover:bg-destructive hover:text-destructive-foreground gap-2 transition-colors" onClick={() => setTaskToDelete(selectedTask.id)}>
