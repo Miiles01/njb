@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Lock, Plus, CheckSquare, User, Flag, Folder, Users, GripVertical, Image as ImageIcon, Link as LinkIcon, ExternalLink, X } from "lucide-react";
+import { Lock, Plus, CheckSquare, User, Flag, Folder, Users, GripVertical, Image as ImageIcon, Link as LinkIcon, ExternalLink, X, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 type Status = "Nuevas" | "Activas" | "Finalizadas";
@@ -114,6 +114,7 @@ export default function Work() {
   });
   const [newUserName, setNewUserName] = useState("");
   const [sidebarWidth, setSidebarWidth] = useState(500);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     const auth = localStorage.getItem("njb_work_auth");
@@ -563,8 +564,16 @@ export default function Work() {
                         onDragEnd={(e) => handleDragEnd(e, task.id)}
                         onDragOver={(e) => handleDragOverCard(e, column, index)}
                         onClick={() => setSelectedTask(task)}
-                        className={`bg-white dark:bg-card p-4 rounded-xl shadow-sm border border-border/50 cursor-grab active:cursor-grabbing hover:shadow-md transition-all group space-y-4`}
+                        className={`bg-white dark:bg-card p-4 rounded-xl shadow-sm border border-border/50 cursor-grab active:cursor-grabbing hover:shadow-md transition-all group space-y-4 relative overflow-hidden`}
                       >
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={(e) => { e.stopPropagation(); setTaskToDelete(task.id); }}
+                          className="absolute top-2 right-2 h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive hover:bg-destructive/10 z-20 bg-white/50 dark:bg-card/50 backdrop-blur-sm"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
                         <div className="flex justify-between items-start gap-2">
                           <div className="space-y-1">
                             <div className="flex flex-wrap gap-2 mb-2">
@@ -620,6 +629,35 @@ export default function Work() {
           ))}
         </div>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={!!taskToDelete} onOpenChange={(open) => !open && setTaskToDelete(null)}>
+        <DialogContent className="sm:max-w-[425px] border-none shadow-xl bg-white dark:bg-card">
+          <DialogHeader>
+            <DialogTitle className="font-medium text-destructive flex items-center gap-2">
+              <Trash2 className="w-5 h-5" />
+              Eliminar Tarea
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="text-sm text-muted-foreground">
+              ¿Estás seguro de que quieres eliminar esta tarea? Esta acción no se puede deshacer.
+            </p>
+          </div>
+          <div className="flex justify-end gap-3">
+            <Button variant="outline" onClick={() => setTaskToDelete(null)}>Cancelar</Button>
+            <Button variant="destructive" onClick={() => {
+                if (taskToDelete) {
+                  const newTasks = tasks.filter(t => t.id !== taskToDelete);
+                  saveTasks(newTasks);
+                  if (selectedTask?.id === taskToDelete) setSelectedTask(null);
+                  toast.success("Tarea eliminada");
+                }
+                setTaskToDelete(null);
+            }}>Eliminar</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Task Details Sidebar */}
       <Sheet modal={false} open={!!selectedTask} onOpenChange={(open) => !open && setSelectedTask(null)}>
@@ -839,6 +877,13 @@ export default function Work() {
                     }
                   }}><Plus className="w-4 h-4" /></Button>
                 </div>
+              </div>
+
+              <div className="pt-8 flex justify-end border-t border-border/50">
+                <Button variant="ghost" className="text-destructive hover:bg-destructive hover:text-destructive-foreground gap-2 transition-colors" onClick={() => setTaskToDelete(selectedTask.id)}>
+                   <Trash2 className="w-4 h-4" />
+                   Eliminar Tarea
+                </Button>
               </div>
 
             </div>
