@@ -120,15 +120,11 @@ export default function Work() {
   const [dropIndicator, setDropIndicator] = useState<{status: Status, index: number} | null>(null);
 
   // Modals state
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isUsersOpen, setIsUsersOpen] = useState(false);
+    const [isUsersOpen, setIsUsersOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   // Forms state
-  const [newTask, setNewTask] = useState<Partial<Task>>({
-    title: "", subtitle: "", description: "", assigneeIds: [], priority: "Media", project: "", status: "Nuevas"
-  });
-  const [newUserName, setNewUserName] = useState("");
+    const [newUserName, setNewUserName] = useState("");
   const [sidebarWidth, setSidebarWidth] = useState(500);
   const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
   const [addingBlock, setAddingBlock] = useState<'checklist' | 'link' | 'image' | null>(null);
@@ -498,62 +494,11 @@ export default function Work() {
               </SheetContent>
             </Sheet>
 
-            {/* New Task Modal */}
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogTrigger asChild>
-                <Button className="gap-2">
-                  <Plus className="w-4 h-4" />
-                  Nueva Tarea
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] border-none shadow-xl max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle className="font-medium">Crear Nueva Tarea</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4 pt-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Título</label>
-                    <Input value={newTask.title} onChange={e => setNewTask({...newTask, title: e.target.value})} placeholder="Ej. Diseño de logo" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Subtítulo (Opcional)</label>
-                    <Input value={newTask.subtitle} onChange={e => setNewTask({...newTask, subtitle: e.target.value})} placeholder="Ej. Fase 1" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Descripción</label>
-                    <Textarea value={newTask.description} onChange={e => setNewTask({...newTask, description: e.target.value})} placeholder="Detalles..." className="resize-none" rows={3} />
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Asignado a</label>
-                      <Select value={newTask.assigneeId || "none"} onValueChange={(val) => setNewTask({...newTask, assigneeId: val === "none" ? null : val})}>
-                        <SelectTrigger><SelectValue placeholder="Seleccionar" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="none">Sin Asignar</SelectItem>
-                          {team.map(m => <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>)}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Prioridad</label>
-                      <Select value={newTask.priority} onValueChange={(val) => setNewTask({...newTask, priority: val as Priority})}>
-                        <SelectTrigger><SelectValue placeholder="Seleccionar" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Alta">Alta</SelectItem>
-                          <SelectItem value="Media">Media</SelectItem>
-                          <SelectItem value="Baja">Baja</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Proyecto (Etiqueta)</label>
-                    <Input value={newTask.project} onChange={e => setNewTask({...newTask, project: e.target.value})} placeholder="Ej. Rediseño Web" />
-                  </div>
-                  <Button className="w-full mt-4" onClick={handleCreateTask}>Crear Tarea</Button>
-                </div>
-              </DialogContent>
-            </Dialog>
+            {/* New Task Button */}
+            <Button className="gap-2" onClick={() => handleCreateTask()}>
+              <Plus className="w-4 h-4" />
+              Nueva Tarea
+            </Button>
           </div>
         </div>
 
@@ -675,6 +620,13 @@ export default function Work() {
                     </div>
                   );
                 })}
+                <Button 
+                  variant="ghost" 
+                  className="w-full mt-2 justify-start text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                  onClick={() => handleCreateTask(column)}
+                >
+                  <Plus className="w-4 h-4 mr-2" /> Añadir Tarea
+                </Button>
               </div>
             </div>
           ))}
