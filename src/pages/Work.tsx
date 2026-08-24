@@ -24,6 +24,112 @@ const defaultProjects: ProjectTag[] = [
   { id: '4', name: 'Edición de video', icon: 'Video' },
   { id: '5', name: 'Investigación', icon: 'Search' }
 ];
+
+const translations = {
+  en: {
+    boardTitle: "Work Board",
+    boardDesc: "Manage NJB tasks and team",
+    teamBtn: "Team",
+    langBtn: "Language",
+    newTask: "New Task",
+    addTask: "+ Add Task",
+    unassigned: "Unassigned",
+    untitled: "Untitled",
+    addSubtitle: "Add subtitle...",
+    addDesc: "Add description or notes...",
+    teamManagement: "Team Management",
+    newMember: "New member...",
+    priority: "Priority",
+    Nuevas: "New",
+    Activas: "Active",
+    Finalizadas: "Done",
+    Alta: "High",
+    Media: "Medium",
+    Baja: "Low",
+    deleteMsg: "Are you sure you want to delete this task?",
+    cancel: "Cancel",
+    confirm: "Yes, delete",
+    members: "Team Members",
+    noTags: "No tags",
+    customTags: "Custom tags",
+    searchTag: "Search tag...",
+    create: "Create",
+    addIcon: "Icon",
+    saveTag: "Save and apply",
+    tasksCount: "tasks",
+    oneTask: "1 task",
+    personsCount: "people"
+  },
+  es: {
+    boardTitle: "Tablero de Trabajo",
+    boardDesc: "Gestiona las tareas y el equipo NJB",
+    teamBtn: "Equipo",
+    langBtn: "Idioma",
+    newTask: "Nueva Tarea",
+    addTask: "+ Añadir Tarea",
+    unassigned: "Sin asignar",
+    untitled: "Sin título",
+    addSubtitle: "Añadir subtítulo...",
+    addDesc: "Añadir descripción o notas...",
+    teamManagement: "Gestión de Equipo",
+    newMember: "Nuevo miembro...",
+    priority: "Prioridad",
+    Nuevas: "Nuevas",
+    Activas: "Activas",
+    Finalizadas: "Finalizadas",
+    Alta: "Alta",
+    Media: "Media",
+    Baja: "Baja",
+    deleteMsg: "¿Estás seguro que deseas eliminar esta tarea?",
+    cancel: "Cancelar",
+    confirm: "Sí, eliminar",
+    members: "Miembros del equipo",
+    noTags: "Sin etiqueta",
+    customTags: "Etiquetas personalizadas",
+    searchTag: "Buscar etiqueta...",
+    create: "Crear",
+    addIcon: "Icono",
+    saveTag: "Guardar y aplicar",
+    tasksCount: "tareas",
+    oneTask: "1 tarea",
+    personsCount: "personas"
+  },
+  fr: {
+    boardTitle: "Tableau de Travail",
+    boardDesc: "Gérer les tâches et l'équipe NJB",
+    teamBtn: "Équipe",
+    langBtn: "Langue",
+    newTask: "Nouvelle Tâche",
+    addTask: "+ Ajouter une Tâche",
+    unassigned: "Non assigné",
+    untitled: "Sans titre",
+    addSubtitle: "Ajouter un sous-titre...",
+    addDesc: "Ajouter une description ou des notes...",
+    teamManagement: "Gestion de l'Équipe",
+    newMember: "Nouveau membre...",
+    priority: "Priorité",
+    Nuevas: "Nouveau",
+    Activas: "Actif",
+    Finalizadas: "Terminé",
+    Alta: "Haute",
+    Media: "Moyenne",
+    Baja: "Basse",
+    deleteMsg: "Êtes-vous sûr de vouloir supprimer cette tâche ?",
+    cancel: "Annuler",
+    confirm: "Oui, supprimer",
+    members: "Membres de l'équipe",
+    noTags: "Sans étiquette",
+    customTags: "Étiquettes personnalisées",
+    searchTag: "Rechercher une étiquette...",
+    create: "Créer",
+    addIcon: "Icône",
+    saveTag: "Enregistrer et appliquer",
+    tasksCount: "tâches",
+    oneTask: "1 tâche",
+    personsCount: "personnes"
+  }
+};
+
 import { toast } from "sonner";
 
 type Status = "Nuevas" | "Activas" | "Finalizadas";
@@ -110,6 +216,10 @@ const initialTasks: Task[] = [
 ];
 
 export default function Work() {
+  const [lang, setLang] = useState<'en' | 'es' | 'fr'>(() => (localStorage.getItem('njb_lang') as 'en'|'es'|'fr') || 'en');
+  const t = (key: keyof typeof translations['en']): string => translations[lang][key] || translations['en'][key];
+  useEffect(() => { localStorage.setItem('njb_lang', lang); }, [lang]);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -453,27 +563,43 @@ export default function Work() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-medium tracking-tight">Tablero de Trabajo</h1>
-            <p className="text-muted-foreground mt-1">Gestiona las tareas y el equipo NJB</p>
+            <h1 className="text-3xl font-medium tracking-tight">{t("boardTitle")}</h1>
+            <p className="text-muted-foreground mt-1">{t("boardDesc")}</p>
           </div>
           
           <div className="flex flex-wrap items-center gap-3">
             {/* Users Sidebar */}
             <Sheet modal={false} open={isUsersOpen} onOpenChange={setIsUsersOpen}>
-              <SheetTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                  <Users className="w-4 h-4" />
-                  Equipo
-                </Button>
-              </SheetTrigger>
+              
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline" className="gap-2">
+      <Globe className="w-4 h-4" />
+      {lang.toUpperCase()}
+    </Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent align="end" className="w-32 bg-white dark:bg-card">
+    <DropdownMenuItem onClick={() => setLang('en')}>English</DropdownMenuItem>
+    <DropdownMenuItem onClick={() => setLang('es')}>Español</DropdownMenuItem>
+    <DropdownMenuItem onClick={() => setLang('fr')}>Français</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+
+<SheetTrigger asChild>
+  <Button variant="outline" className="gap-2">
+    <Users className="w-4 h-4" />
+    {t('teamBtn')}
+  </Button>
+</SheetTrigger>
+
               <SheetContent hideOverlay className="bg-white dark:bg-card border-l shadow-2xl p-0">
                 <div className="h-full overflow-y-auto overscroll-contain p-6 pb-20 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
                   <SheetHeader className="mb-6">
-                    <SheetTitle>Gestión de Equipo</SheetTitle>
+                    <SheetTitle>{t("teamManagement")}</SheetTitle>
                   </SheetHeader>
                   <div className="space-y-6">
                     <div className="flex gap-2">
-                      <Input placeholder="Nuevo miembro..." value={newUserName} onChange={e => setNewUserName(e.target.value)} />
+                      <Input placeholder={t("newMember")} value={newUserName} onChange={e => setNewUserName(e.target.value)} />
                       <Button onClick={handleAddUser} size="icon"><Plus className="w-4 h-4" /></Button>
                     </div>
                     <div className="space-y-4">
@@ -657,7 +783,7 @@ export default function Work() {
             </p>
           </div>
           <div className="flex justify-end gap-3">
-            <Button variant="outline" onClick={() => setTaskToDelete(null)}>Cancelar</Button>
+            <Button variant="outline" onClick={() => setTaskToDelete(null)}>{t("cancel")}</Button>
             <Button variant="destructive" onClick={() => {
                 if (taskToDelete) {
                   const newTasks = tasks.filter(t => t.id !== taskToDelete);
@@ -708,7 +834,7 @@ export default function Work() {
                   <Select value={selectedTask.priority} onValueChange={(val: Priority) => handleUpdateSelectedTask({ priority: val })}>
                     <SelectTrigger className={`h-7 px-3 text-xs w-auto border-none shadow-none rounded-full ${getPriorityColor(selectedTask.priority)}`}>
                       <Flag className="w-3 h-3 mr-1" />
-                      <SelectValue />
+                      <SelectValue placeholder={t(selectedTask?.priority as any)} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Alta">Alta</SelectItem>
@@ -732,7 +858,7 @@ export default function Work() {
                        {!tagIsCreating ? (
                          <div className="space-y-3">
                            <Input 
-                             placeholder="Buscar etiqueta..." 
+                             placeholder={t("searchTag")} 
                              value={tagSearch} 
                              onChange={e => setTagSearch(e.target.value)}
                              className="h-8 text-xs bg-muted/30 border-none shadow-none focus-visible:ring-0"
@@ -781,7 +907,7 @@ export default function Work() {
                              placeholder="Nombre..."
                            />
                            <div>
-                             <span className="text-[10px] uppercase text-muted-foreground font-semibold mb-2 block tracking-wider">Icono</span>
+                             <span className="text-[10px] uppercase text-muted-foreground font-semibold mb-2 block tracking-wider">{t("addIcon")}</span>
                              <div className="grid grid-cols-5 gap-1">
                                {Object.keys(ICON_MAP).map(iconName => {
                                   const IconComp = ICON_MAP[iconName];
@@ -822,13 +948,13 @@ export default function Work() {
                   <input 
                     value={selectedTask.title} 
                     onChange={(e) => handleUpdateSelectedTask({ title: e.target.value })} 
-                    placeholder="Sin título"
+                    placeholder={t("untitled")}
                     className="w-full text-3xl font-bold bg-transparent border-none outline-none focus:ring-0 px-0 placeholder:text-muted-foreground/30 transition-all text-foreground"
                   />
                   <input 
                     value={selectedTask.subtitle || ''} 
                     onChange={(e) => handleUpdateSelectedTask({ subtitle: e.target.value })} 
-                    placeholder="Añadir subtítulo..."
+                    placeholder={t("addSubtitle")}
                     className="w-full text-sm font-medium text-muted-foreground bg-transparent border-none outline-none focus:ring-0 px-0 placeholder:text-muted-foreground/30 transition-all"
                   />
                 </div>
@@ -842,7 +968,7 @@ export default function Work() {
                     <button className="flex items-center gap-2 hover:bg-muted/50 p-1.5 rounded-lg transition-colors border-none outline-none">
                       {(() => {
                         const assignees = (selectedTask.assigneeIds || (selectedTask.assigneeId ? [selectedTask.assigneeId] : [])).map(id => getAssignee(id)).filter(Boolean);
-                        if (assignees.length === 0) return <span className="text-sm text-muted-foreground">Sin asignar</span>;
+                        if (assignees.length === 0) return <span className="text-sm text-muted-foreground">{t("unassigned")}</span>;
                         return (
                           <div className="flex items-center">
                              <div className="flex -space-x-2 mr-2">
@@ -853,7 +979,7 @@ export default function Work() {
                                  </Avatar>
                                ))}
                              </div>
-                             <span className="text-sm font-medium truncate max-w-[120px]">{assignees.length === 1 ? assignees[0].name : `${assignees.length} personas`}</span>
+                             <span className="text-sm font-medium truncate max-w-[120px]">{assignees.length === 1 ? assignees[0].name : `${assignees.length} {t("personsCount")}`}</span>
                           </div>
                         );
                       })()}
@@ -861,7 +987,7 @@ export default function Work() {
                   </PopoverTrigger>
                   <PopoverContent className="w-56 p-2 shadow-xl border-border/50 rounded-xl bg-white dark:bg-card" align="end">
                     <div className="space-y-1">
-                      <span className="text-xs font-semibold text-muted-foreground px-2 mb-2 block uppercase tracking-wider">Miembros del equipo</span>
+                      <span className="text-xs font-semibold text-muted-foreground px-2 mb-2 block uppercase tracking-wider">{t("members")}</span>
                       {team.map(m => {
                          const assignees = selectedTask.assigneeIds || (selectedTask.assigneeId ? [selectedTask.assigneeId] : []);
                          const isAssigned = assignees.includes(m.id);
@@ -911,7 +1037,7 @@ export default function Work() {
                        el.style.height = el.scrollHeight + 'px';
                      }
                   }}
-                  placeholder="Añadir descripción o notas..."
+                  placeholder={t("addDesc")}
                   className="w-full text-base leading-relaxed bg-transparent border-none outline-none focus:ring-0 px-0 resize-none overflow-hidden placeholder:text-muted-foreground/40 min-h-[40px] text-foreground"
                 />
 
