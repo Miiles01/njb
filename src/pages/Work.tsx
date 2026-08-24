@@ -57,7 +57,7 @@ const PASSWORD = "NBJWORK565712";
 const defaultTeam: TeamMember[] = [
   { id: "m1", name: "Michael", avatarUrl: "" },
   { id: "m2", name: "Arturo", avatarUrl: "" },
-  { id: "m3", name: "Manuel", avatarUrl: "" },
+  { id: "m3", name: "Manuel", avatarUrl: "/avatars/manuel.jpg" },
 ];
 
 const initialTasks: Task[] = [
@@ -123,7 +123,14 @@ export default function Work() {
     setTasks(savedTasks ? JSON.parse(savedTasks) : initialTasks);
 
     const savedTeam = localStorage.getItem("njb_work_team");
-    setTeam(savedTeam ? JSON.parse(savedTeam) : defaultTeam);
+    if (savedTeam) {
+        const parsed = JSON.parse(savedTeam);
+        const updated = parsed.map((m: TeamMember) => m.name === 'Manuel' && !m.avatarUrl ? { ...m, avatarUrl: '/avatars/manuel.jpg' } : m);
+        setTeam(updated);
+        localStorage.setItem("njb_work_team", JSON.stringify(updated));
+    } else {
+        setTeam(defaultTeam);
+    }
   }, []);
 
   useEffect(() => {
