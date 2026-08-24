@@ -57,7 +57,8 @@ interface Task {
   title: string;
   subtitle?: string;
   description: string;
-  assigneeId: string | null;
+  assigneeId?: string | null;
+  assigneeIds?: string[];
   priority: Priority;
   project: string;
   status: Status;
@@ -81,7 +82,7 @@ const initialTasks: Task[] = [
     title: "Diseño de Homepage",
     subtitle: "Revisión UX/UI",
     description: "Crear wireframes para la nueva página de inicio considerando la experiencia de usuario.",
-    assigneeId: "m1",
+    assigneeIds: ["m1"],
     priority: "Alta",
     project: "NJB Redesign",
     status: "Activas",
@@ -97,7 +98,7 @@ const initialTasks: Task[] = [
     id: "2",
     title: "Revisión de Textos",
     description: "Corregir ortografía y gramática en la sección Nosotros.",
-    assigneeId: "m2",
+    assigneeIds: ["m2"],
     priority: "Media",
     project: "Copywriting",
     status: "Nuevas",
@@ -125,7 +126,7 @@ export default function Work() {
 
   // Forms state
   const [newTask, setNewTask] = useState<Partial<Task>>({
-    title: "", subtitle: "", description: "", assigneeId: null, priority: "Media", project: "", status: "Nuevas"
+    title: "", subtitle: "", description: "", assigneeIds: [], priority: "Media", project: "", status: "Nuevas"
   });
   const [newUserName, setNewUserName] = useState("");
   const [sidebarWidth, setSidebarWidth] = useState(500);
@@ -338,7 +339,7 @@ export default function Work() {
       title: newTask.title || "",
       subtitle: newTask.subtitle || "",
       description: newTask.description || "",
-      assigneeId: newTask.assigneeId || null,
+      assigneeIds: newTask.assigneeId ? [newTask.assigneeId] : [],
       priority: (newTask.priority as Priority) || "Media",
       project: newTask.project || "General",
       status: (newTask.status as Status) || "Nuevas",
@@ -638,17 +639,32 @@ export default function Work() {
 
                         <div className="flex items-center justify-between pt-2">
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            {assignee ? (
-                              <Avatar className="w-7 h-7">
-                                <AvatarImage src={assignee.avatarUrl} />
-                                <AvatarFallback className="text-[10px]">{assignee.name.substring(0, 2).toUpperCase()}</AvatarFallback>
-                              </Avatar>
-                            ) : (
-                              <div className="w-7 h-7 rounded-full bg-muted flex items-center justify-center">
-                                <User className="w-4 h-4" />
-                              </div>
-                            )}
-                            <span className="text-xs font-medium">{assignee ? assignee.name : "Sin Asignar"}</span>
+                            {(() => {
+                               const assignees = (task.assigneeIds || (task.assigneeId ? [task.assigneeId] : [])).map(id => getAssignee(id)).filter(Boolean);
+                               if (assignees.length === 0) {
+                                 return (
+                                   <div className="w-7 h-7 rounded-full bg-muted flex items-center justify-center">
+                                     <User className="w-4 h-4" />
+                                   </div>
+                                 );
+                               }
+                               return (
+                                 <div className="flex -space-x-2">
+                                   {assignees.map(a => (
+                                     <Avatar key={a!.id} className="w-7 h-7 border-2 border-white dark:border-card">
+                                       <AvatarImage src={a!.avatarUrl} />
+                                       <AvatarFallback className="text-[10px]">{a!.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                                     </Avatar>
+                                   ))}
+                                 </div>
+                               );
+                            })()}
+                            <span className="text-xs font-medium">
+                              {(() => {
+                                const assignees = (task.assigneeIds || (task.assigneeId ? [task.assigneeId] : [])).map(id => getAssignee(id)).filter(Boolean);
+                                return assignees.length > 0 ? assignees.map(a => a?.name).join(", ") : "Sin Asignar";
+                              })()}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -721,7 +737,7 @@ export default function Work() {
             }}
           />
 
-          <div className="absolute inset-0 overflow-y-auto p-8 pt-12 pb-24 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
+          <div className="absolute inset-0 overflow-y-auto p-6 sm:p-10 pt-14 sm:pt-20 pb-32 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
           {selectedTask && (
             <div className="space-y-8">
               
@@ -859,25 +875,59 @@ export default function Work() {
               {/* Assignment */}
               <div className="flex items-center justify-between py-2">
                 <span className="text-sm font-medium text-muted-foreground">Asignado a</span>
-                <Select value={selectedTask.assigneeId || "none"} onValueChange={(val) => handleUpdateSelectedTask({ assigneeId: val === "none" ? null : val })}>
-                  <SelectTrigger className="w-auto h-8 border-none shadow-none gap-2">
-                    {getAssignee(selectedTask.assigneeId) ? (
-                      <div className="flex items-center gap-2">
-                        <Avatar className="w-6 h-6">
-                          <AvatarImage src={getAssignee(selectedTask.assigneeId)?.avatarUrl} />
-                          <AvatarFallback className="text-[10px]">{getAssignee(selectedTask.assigneeId)?.name.substring(0,2).toUpperCase()}</AvatarFallback>
-                        </Avatar>
-                        <span className="text-sm font-medium">{getAssignee(selectedTask.assigneeId)?.name}</span>
-                      </div>
-                    ) : (
-                      <span className="text-sm text-muted-foreground">Sin asignar</span>
-                    )}
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="none">Sin Asignar</SelectItem>
-                    {team.map(m => <SelectItem key={m.id} value={m.id}>{m.name}</SelectItem>)}
-                  </SelectContent>
-                </Select>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button className="flex items-center gap-2 hover:bg-muted/50 p-1.5 rounded-lg transition-colors border-none outline-none">
+                      {(() => {
+                        const assignees = (selectedTask.assigneeIds || (selectedTask.assigneeId ? [selectedTask.assigneeId] : [])).map(id => getAssignee(id)).filter(Boolean);
+                        if (assignees.length === 0) return <span className="text-sm text-muted-foreground">Sin asignar</span>;
+                        return (
+                          <div className="flex items-center">
+                             <div className="flex -space-x-2 mr-2">
+                               {assignees.map(a => (
+                                 <Avatar key={a.id} className="w-6 h-6 border-2 border-white dark:border-card">
+                                   <AvatarImage src={a.avatarUrl} />
+                                   <AvatarFallback className="text-[10px]">{a.name.substring(0,2).toUpperCase()}</AvatarFallback>
+                                 </Avatar>
+                               ))}
+                             </div>
+                             <span className="text-sm font-medium truncate max-w-[120px]">{assignees.length === 1 ? assignees[0].name : `${assignees.length} personas`}</span>
+                          </div>
+                        );
+                      })()}
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-56 p-2 shadow-xl border-border/50 rounded-xl bg-white dark:bg-card" align="end">
+                    <div className="space-y-1">
+                      <span className="text-xs font-semibold text-muted-foreground px-2 mb-2 block uppercase tracking-wider">Miembros del equipo</span>
+                      {team.map(m => {
+                         const assignees = selectedTask.assigneeIds || (selectedTask.assigneeId ? [selectedTask.assigneeId] : []);
+                         const isAssigned = assignees.includes(m.id);
+                         return (
+                           <button 
+                             key={m.id}
+                             className="w-full flex items-center justify-between px-2 py-1.5 text-sm rounded-lg hover:bg-muted transition-colors text-left"
+                             onClick={() => {
+                                let newAssignees = [...assignees];
+                                if (isAssigned) newAssignees = newAssignees.filter(id => id !== m.id);
+                                else newAssignees.push(m.id);
+                                handleUpdateSelectedTask({ assigneeIds: newAssignees });
+                             }}
+                           >
+                             <div className="flex items-center gap-2">
+                               <Avatar className="w-6 h-6">
+                                 <AvatarImage src={m.avatarUrl} />
+                                 <AvatarFallback className="text-[10px]">{m.name.substring(0,2).toUpperCase()}</AvatarFallback>
+                               </Avatar>
+                               <span className="truncate">{m.name}</span>
+                             </div>
+                             {isAssigned && <CheckSquare className="w-4 h-4 text-primary" />}
+                           </button>
+                         )
+                      })}
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* Description */}
