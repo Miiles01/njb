@@ -125,6 +125,69 @@ export default function Work() {
     setTeam(savedTeam ? JSON.parse(savedTeam) : defaultTeam);
   }, []);
 
+  useEffect(() => {
+    if (!selectedTask) return;
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf("image") !== -1) {
+          const file = items[i].getAsFile();
+          if (!file) continue;
+          
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const MAX_WIDTH = 1200;
+              const MAX_HEIGHT = 1200;
+              let width = img.width;
+              let height = img.height;
+
+              if (width > height) {
+                if (width > MAX_WIDTH) {
+                  height *= MAX_WIDTH / width;
+                  width = MAX_WIDTH;
+                }
+              } else {
+                if (height > MAX_HEIGHT) {
+                  width *= MAX_HEIGHT / height;
+                  height = MAX_HEIGHT;
+                }
+              }
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx?.drawImage(img, 0, 0, width, height);
+              const base64 = canvas.toDataURL('image/jpeg', 0.8);
+              
+              setSelectedTask(prev => {
+                if (!prev) return prev;
+                const newImages = [...(prev.images || []), { id: Date.now().toString(), url: base64 }];
+                const updatedTask = { ...prev, images: newImages };
+                
+                setTasks(currentTasks => {
+                  const newTasks = currentTasks.map(t => t.id === updatedTask.id ? updatedTask : t);
+                  localStorage.setItem("njb_work_tasks", JSON.stringify(newTasks));
+                  return newTasks;
+                });
+                
+                return updatedTask;
+              });
+              toast.success("Imagen pegada exitosamente");
+            };
+            img.src = event.target?.result as string;
+          };
+          reader.readAsDataURL(file);
+          break;
+        }
+      }
+    };
+    window.addEventListener("paste", handlePaste);
+    return () => window.removeEventListener("paste", handlePaste);
+  }, [selectedTask]);
+
   const saveTasks = (newTasks: Task[]) => {
     setTasks(newTasks);
     localStorage.setItem("njb_work_tasks", JSON.stringify(newTasks));
@@ -519,28 +582,7 @@ export default function Work() {
                           </p>
                         )}
 
-                        {(task.checklists?.length > 0 || task.links?.length > 0 || task.images?.length > 0) && (
-                          <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                            {task.checklists?.length > 0 && (
-                                <div className="flex items-center gap-1">
-                                    <CheckSquare className="w-3.5 h-3.5" />
-                                    <span>{task.checklists.filter(c => c.completed).length}/{task.checklists.length}</span>
-                                </div>
-                            )}
-                            {task.links?.length > 0 && (
-                                <div className="flex items-center gap-1">
-                                    <LinkIcon className="w-3.5 h-3.5" />
-                                    <span>{task.links.length}</span>
-                                </div>
-                            )}
-                            {task.images?.length > 0 && (
-                                <div className="flex items-center gap-1">
-                                    <ImageIcon className="w-3.5 h-3.5" />
-                                    <span>{task.images.length}</span>
-                                </div>
-                            )}
-                          </div>
-                        )}
+
 
                         <div className="flex items-center justify-between pt-2">
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
