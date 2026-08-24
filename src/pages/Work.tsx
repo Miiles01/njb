@@ -458,7 +458,7 @@ export default function Work() {
                 </Button>
               </SheetTrigger>
               <SheetContent hideOverlay className="bg-white dark:bg-card border-l shadow-2xl p-0">
-                <div className="absolute inset-0 overflow-y-auto p-6 pb-20 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
+                <div className="h-full overflow-y-auto overscroll-contain p-6 pb-20 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
                   <SheetHeader className="mb-6">
                     <SheetTitle>Gestión de Equipo</SheetTitle>
                   </SheetHeader>
@@ -689,7 +689,7 @@ export default function Work() {
             }}
           />
 
-          <div className="absolute inset-0 overflow-y-auto p-6 sm:p-10 pt-14 sm:pt-20 pb-32 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
+          <div className="h-full overflow-y-auto overscroll-contain p-6 sm:p-10 pt-14 sm:pt-20 pb-32 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-muted-foreground/20 hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 [&::-webkit-scrollbar-thumb]:rounded-full">
           {selectedTask && (
             <div className="space-y-8">
               
@@ -894,6 +894,12 @@ export default function Work() {
                   onFocus={(e) => {
                      e.target.style.height = 'auto';
                      e.target.style.height = e.target.scrollHeight + 'px';
+                  }}
+                  ref={(el) => {
+                     if (el) {
+                       el.style.height = 'auto';
+                       el.style.height = el.scrollHeight + 'px';
+                     }
                   }}
                   placeholder="Añadir descripción o notas..."
                   className="w-full text-base leading-relaxed bg-transparent border-none outline-none focus:ring-0 px-0 resize-none overflow-hidden placeholder:text-muted-foreground/40 min-h-[40px] text-foreground"
