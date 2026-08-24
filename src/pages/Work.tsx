@@ -113,6 +113,7 @@ export default function Work() {
     title: "", subtitle: "", description: "", assigneeId: null, priority: "Media", project: "", status: "Nuevas"
   });
   const [newUserName, setNewUserName] = useState("");
+  const [sidebarWidth, setSidebarWidth] = useState(500);
 
   useEffect(() => {
     const auth = localStorage.getItem("njb_work_auth");
@@ -614,10 +615,35 @@ export default function Work() {
       </div>
 
       {/* Task Details Sidebar */}
-      <Sheet open={!!selectedTask} onOpenChange={(open) => !open && setSelectedTask(null)}>
-        <SheetContent className="sm:max-w-md w-[90vw] overflow-y-auto">
+      <Sheet modal={false} open={!!selectedTask} onOpenChange={(open) => !open && setSelectedTask(null)}>
+        <SheetContent 
+          hideOverlay 
+          className="p-0 bg-white dark:bg-card border-l shadow-2xl transition-none"
+          style={{ maxWidth: `${sidebarWidth}px`, width: '100%' }}
+        >
+          {/* Resize handle */}
+          <div 
+            className="absolute left-0 top-0 bottom-0 w-2 cursor-col-resize hover:bg-primary/50 active:bg-primary z-50 transition-colors"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              const startX = e.clientX;
+              const startWidth = sidebarWidth;
+              const onMouseMove = (moveEvent: MouseEvent) => {
+                  const newWidth = startWidth + (startX - moveEvent.clientX);
+                  setSidebarWidth(Math.max(320, Math.min(newWidth, window.innerWidth - 50)));
+              };
+              const onMouseUp = () => {
+                  document.removeEventListener("mousemove", onMouseMove);
+                  document.removeEventListener("mouseup", onMouseUp);
+              };
+              document.addEventListener("mousemove", onMouseMove);
+              document.addEventListener("mouseup", onMouseUp);
+            }}
+          />
+
+          <div className="h-full overflow-y-auto p-6 pt-12 pb-20">
           {selectedTask && (
-            <div className="space-y-8 pt-6 pb-20">
+            <div className="space-y-8">
               
               <div className="space-y-4">
                 <div className="flex flex-wrap items-center gap-2">
@@ -789,6 +815,7 @@ export default function Work() {
 
             </div>
           )}
+          </div>
         </SheetContent>
       </Sheet>
     </div>
