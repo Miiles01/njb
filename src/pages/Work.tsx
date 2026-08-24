@@ -175,6 +175,43 @@ const translations = {
   }
 };
 
+
+const translationCache = new Map<string, string>();
+const translateApi = async (text: string, targetLang: string) => {
+  if (!text || text.trim() === '') return text;
+  if (targetLang === 'es') return text;
+  const key = `${targetLang}:${text}`;
+  if (translationCache.has(key)) return translationCache.get(key);
+  try {
+      const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+      const data = await res.json();
+      const translated = data[0].map((arr: any) => arr[0]).join('');
+      translationCache.set(key, translated);
+      return translated;
+  } catch (e) { return text; }
+};
+
+const Txt = ({ children, lang }: { children: React.ReactNode, lang: string }) => {
+  const text = typeof children === 'string' ? children : '';
+  const [val, setVal] = useState(text);
+
+  useEffect(() => {
+    if (!text || lang === 'es') { 
+        setVal(text); 
+        return; 
+    }
+    let active = true;
+    setVal(text);
+    translateApi(text, lang).then(res => {
+      if (active && res) setVal(res);
+    });
+    return () => { active = false; };
+  }, [text, lang]);
+
+  if (typeof children !== 'string') return <>{children}</>;
+  return <>{val}</>;
+};
+
 import { toast } from "sonner";
 
 type Status = "Nuevas" | "Activas" | "Finalizadas";
@@ -223,7 +260,7 @@ const PASSWORD = "NBJWORK565712";
 
 const defaultTeam: TeamMember[] = [
   { id: "m1", name: "Michael", avatarUrl: "" },
-  { id: "m2", name: "Arturo", avatarUrl: "" },
+  { id: "m2", name: "Arturo", avatarUrl: "/avatars/arturo.png" },
   { id: "m3", name: "Manuel", avatarUrl: "/avatars/manuel.jpg" },
 ];
 
@@ -741,7 +778,7 @@ export default function Work() {
                                      const Icon = proj && ICON_MAP[proj.icon] ? ICON_MAP[proj.icon] : Folder;
                                      return <Icon className="w-2.5 h-2.5" />;
                                   })()}
-                                  {task.project}
+                                  <Txt lang={lang}>{task.project}</Txt>
                                 </span>
                               )}
                               <span className={`inline-flex items-center gap-1 text-[10px] tracking-wider font-medium py-0.5 px-2 rounded-full ${getPriorityColor(task.priority)}`}>
@@ -749,14 +786,14 @@ export default function Work() {
                                 {task.priority}
                               </span>
                             </div>
-                            <h4 className="font-medium leading-tight">{task.title}</h4>
-                            {task.subtitle && <p className="text-xs text-muted-foreground">{task.subtitle}</p>}
+                            <h4 className="font-medium leading-tight"><Txt lang={lang}>{task.title}</Txt></h4>
+                            {task.subtitle && <p className="text-xs text-muted-foreground"><Txt lang={lang}>{task.subtitle}</Txt></p>}
                           </div>
                         </div>
                         
                         {task.description && (
                           <p className="text-sm text-muted-foreground line-clamp-2">
-                            {task.description}
+                            <Txt lang={lang}>{task.description}</Txt>
                           </p>
                         )}
 
