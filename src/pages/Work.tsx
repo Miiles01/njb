@@ -10,7 +10,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Lock, Plus, CheckSquare, User, Flag, Folder, Users, GripVertical, Image as ImageIcon, Link as LinkIcon, ExternalLink, X, Trash2, Book, Globe, Smartphone, Video, Search, Hash, Megaphone, Palette, Code, PenTool, Layout, Type, ArrowLeft } from "lucide-react";
+import { Lock, Plus, CheckSquare, User, Flag, Folder, Users, GripVertical, Image as ImageIcon, Link as LinkIcon, ExternalLink, X, Upload, Trash2, Book, Globe, Smartphone, Video, Search, Hash, Megaphone, Palette, Code, PenTool, Layout, Type, ArrowLeft } from "lucide-react";
 
 const ICON_MAP: Record<string, any> = {
   Book, Globe, Smartphone, Video, Search, Folder, Hash, Megaphone, Palette, Code, PenTool, Layout, Type
