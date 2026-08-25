@@ -78,6 +78,19 @@ switch($action) {
         echo json_encode(["success" => true]);
         break;
 
+    
+    case 'debug_sync':
+        try {
+            $stmt = $pdo->prepare("INSERT INTO users (id, name, email, password, avatar_url) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name=VALUES(name)");
+            foreach($input['team'] as $u) {
+                $stmt->execute([$u['id'], $u['name'], $u['email'] ?? '', $u['password'] ?? '', $u['avatarUrl'] ?? '']);
+            }
+            echo json_encode(["success" => true, "inserted" => count($input['team'])]);
+        } catch(PDOException $e) {
+            echo json_encode(["error" => $e->getMessage()]);
+        }
+        break;
+
     case 'sync_team':
         $stmt = $pdo->prepare("INSERT INTO users (id, name, email, password, avatar_url) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name=VALUES(name), email=VALUES(email), password=VALUES(password), avatar_url=VALUES(avatar_url)");
         foreach($input['team'] as $u) {
