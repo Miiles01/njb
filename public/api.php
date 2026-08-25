@@ -91,6 +91,16 @@ switch($action) {
         }
         break;
 
+    
+    case 'fix_db':
+        try {
+            $pdo->exec("ALTER TABLE users MODIFY COLUMN id VARCHAR(50) NOT NULL");
+            echo json_encode(["success" => true, "msg" => "Table altered"]);
+        } catch (Exception $e) {
+            echo json_encode(["error" => $e->getMessage()]);
+        }
+        break;
+
     case 'sync_team':
         $stmt = $pdo->prepare("INSERT INTO users (id, name, email, password, avatar_url) VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE name=VALUES(name), email=VALUES(email), password=VALUES(password), avatar_url=VALUES(avatar_url)");
         foreach($input['team'] as $u) {
