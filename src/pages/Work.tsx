@@ -440,6 +440,7 @@ export default function Work() {
   const saveTeam = (newTeam: TeamMember[]) => {
     setTeam(newTeam);
     localStorage.setItem("njb_work_team", JSON.stringify(newTeam));
+    fetch('/api.php?action=sync_team', { method: 'POST', body: JSON.stringify({ team: newTeam }) }).catch(e => console.error(e));
   };
 
   const handleLogin = (e: React.FormEvent) => {
