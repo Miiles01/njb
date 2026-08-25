@@ -261,6 +261,8 @@ const PASSWORD = "NBJWORK565712";
 const defaultTeam: TeamMember[] = [
   { id: "m1", name: "Michael", avatarUrl: "" },
   { id: "m2", name: "Arturo", avatarUrl: "/avatars/arturo.png" },
+  { id: "m3", name: "Pepe", avatarUrl: "" },
+  { id: "m4", name: "Ale", avatarUrl: "" },
   { id: "m3", name: "Manuel", avatarUrl: "/avatars/manuel.jpg" },
 ];
 
